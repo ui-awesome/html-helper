@@ -265,6 +265,34 @@ $attributes = Attributes::render(
 );
 ```
 
+### Render Template
+
+The `Template::class` helper can be used to render a template.
+
+The method accepts two parameters:
+
+- `template:` (string): The template to render.
+- `tokenValues:` (array): The token values to replace in the template.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use PHPForge\Html\Helper\Template;
+
+$template = '{{prefix}}\n{{tag}}\n{{suffix}}';
+$tokenValues = [
+    '{{prefix}}' => 'prefix',
+    '{{tag}}' => '<div>content</div>',
+    '{{suffix}}' => 'suffix',
+];
+
+$content = Template::render($template, $tokenValues);
+```
+
+> `\n` is a new line character, and it is used to separate the tokens in the template.
+
 ### Validate value in list
 
 The `Validator::class` helper can be used to validate a value in a list.
