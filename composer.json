@@ -1,36 +1,41 @@
 {
-    "name": "yii-tools/template",
+    "name": "ui-awesome/html-helper",
     "type": "library",
-    "description": "template",
+    "description": "UI Awesome HTML Helpers Code Generator for PHP.",
     "keywords": [
-        "template"
+        "ui-awesome",
+        "html-helpers",
+        "code-generator",
+        "php"
     ],
     "license": "mit",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
-        "php": "^8.1"
+        "php": "^8.1",
+        "ext-mbstring": "*",
+        "ui-awesome/html-interop": "^0.1",
+        "voku/anti-xss": "^4.1"
     },
     "require-dev": {
         "maglnet/composer-require-checker": "^4.7",
+        "php-forge/support": "^0.1",
         "phpunit/phpunit": "^10.5",
         "roave/infection-static-analysis-plugin": "^1.34",
         "symplify/easy-coding-standard": "^12.1",
-        "vimeo/psalm": "^5.19"
+        "vimeo/psalm": "^5.20"
     },
     "autoload": {
         "psr-4": {
-            "Template\\": "src"
+            "UIAwesome\\Html\\Helper\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Template\\Tests\\": "tests"
+            "UIAwesome\\Html\\Helper\\Tests\\": "tests"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "1.0.x-dev"
+            "dev-main": "0.1-dev"
         }
     },
     "config": {
