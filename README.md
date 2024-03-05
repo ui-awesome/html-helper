@@ -279,7 +279,7 @@ The method accepts two parameters:
 
 declare(strict_types=1);
 
-use PHPForge\Html\Helper\Template;
+use UIAwesome\Html\Helper\Template;
 
 $template = '{{prefix}}\n{{tag}}\n{{suffix}}';
 $tokenValues = [
