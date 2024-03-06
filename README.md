@@ -87,6 +87,52 @@ private array $attributes = ['class' => 'btn'];
 $classes = CssClasses::add($this->attributes, ['btn-primary', 'btn-lg'], true);
 ```
 
+### Create a new `HTML` element
+
+To create a new `HTML` element, you can use the `HTMLBuilder::class` with the `createTag()` method.
+
+Allowed arguments are:
+
+- `tag` (string) - The tag name.
+- `content` (string) - The content of the tag.
+- `attributes` (array) - The attributes of the tag.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use UIAwesome\Html\Helper\HTMLBuilder;
+?>
+
+<?= HTMLBuilder::createTag('div', 'Hello, World!', ['class' => 'container']) ?>
+```
+
+### Create a new `HTML` block element
+
+To create a new `HTML` block element, you can use the `HTMLBuilder::class` with the `beginTag()` and `endTag()` methods.
+
+Allowed arguments for `beginTag()` method are:
+
+- `tag` (string) - The tag name.
+- `attributes` (array) - The attributes of the tag.
+
+Allowed arguments for `endTag()` method are:
+
+- `tag` (string) - The tag name.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use UIAwesome\Html\Helper\HTMLBuilder;
+
+<?= HTMLBuilder::beginTag('div', ['class' => 'container']) ?>
+    Hello, World!
+<?= HTMLBuilder::endTag('div') ?>
+```
+
 ### Convert regular expression to pattern
 
 The `Utils::class` helper can be used to normalize a regular expression.
