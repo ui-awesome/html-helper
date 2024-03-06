@@ -7,3 +7,4 @@
 - Initial release
 - Enh #2: Add helper `Template::class` (@terabytesoftw)
 - Bug #3: Fix `README.md` (@terabytesoftw)
+- Enh #4: Add helper `HTMLBuilder::class` (@terabytesoftw)
