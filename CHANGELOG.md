@@ -4,6 +4,6 @@
 
 ## 0.1.0 March 5, 2024
 
-- Bug #3: Fix `README.md` (@terabytesoftw)
-- Enh #2: Add helper `Template::class` (@terabytesoftw)
 - Initial release
+- Enh #2: Add helper `Template::class` (@terabytesoftw)
+- Bug #3: Fix `README.md` (@terabytesoftw)
