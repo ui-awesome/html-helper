@@ -1,5 +1,7 @@
 # Change Log
 
+## 0.1.2 Under development
+
 ## 0.1.1 March 9, 2024
 
 - Bug #5: Change branch alias to `1.0-dev` in `composer.json` (@terabytesoftw)
