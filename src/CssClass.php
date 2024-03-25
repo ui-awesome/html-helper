@@ -9,6 +9,7 @@ use function in_array;
 use function is_array;
 use function is_int;
 use function preg_split;
+use function sprintf;
 
 /**
  * This class provides static methods for managing CSS classes.
@@ -70,6 +71,32 @@ final class CssClass
             : preg_split('/\s+/', $classes, flags: PREG_SPLIT_NO_EMPTY);
 
         $attributes['class'] = implode(' ', $classArray);
+    }
+
+    /**
+     * This method, dynamically generates CSS classes based on the provided class parameter and a template string.
+     *
+     * The template string should contain a placeholder for the class value.
+     *
+     * @param string $class The class value.
+     * @param string $baseClass The template string. The placeholder for the class value should be represented by "%s".
+     * @param string[] $inList The list of classes to validate.
+     *
+     * @return string The generated CSS class.
+     */
+    public static function render(string $class, string $baseClass, array $inList): string
+    {
+        if (in_array($class, $inList, true) === false) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Invalid value: "%s". Available values: "%s".',
+                    $class,
+                    implode('", "', $inList)
+                )
+            );
+        }
+
+        return sprintf($baseClass, $class);
     }
 
     /**
