@@ -105,4 +105,30 @@ final class CssClassTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey('keyed-class', $merged);
         $this->assertEquals('new-class', $merged['keyed-class']);
     }
+
+    public function testRender(): void
+    {
+        $this->assertSame(
+            'p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-400',
+            CssClass::render(
+                'yellow',
+                'p-4 mb-4 text-sm text-%1$s-800 rounded-lg bg-%1$s-50 dark:bg-gray-800 dark:text-%1$s-400',
+                ['blue', 'gray', 'green', 'red', 'yellow'],
+            )
+        );
+    }
+
+    public function testRenderWithInvalidValue(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid value: "indigo". Available values: "blue", "gray", "green", "red", "yellow".'
+        );
+
+        CssClass::render(
+            'indigo',
+            'p-4 mb-4 text-sm text-%1$s-800 rounded-lg bg-%1$s-50 dark:bg-gray-800 dark:text-%1$s-400',
+            ['blue', 'gray', 'green', 'red', 'yellow'],
+        );
+    }
 }

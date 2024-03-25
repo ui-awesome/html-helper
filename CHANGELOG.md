@@ -1,6 +1,8 @@
 # Change Log
 
-## 0.1.2 Under development
+## 0.1.2 March 25, 2024
+
+- Bug #6: Add method `render()` in `CssClass::class` (@terabytesoftw)
 
 ## 0.1.1 March 9, 2024
 

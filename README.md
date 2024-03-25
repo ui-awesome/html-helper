@@ -311,6 +311,30 @@ $attributes = Attributes::render(
 );
 ```
 
+### Render HMTL class attribute
+
+The `CssClass::class` helper can be used to render the `class` attribute.
+
+The method accepts one parameter:
+
+- `class:` (string): The class to render.
+- `baseClass:` (string): The base class to use.
+- `inList:` (array): The list of classes to validate.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use UIAwesome\Html\Helper\CssClass;
+
+$class = CssClass::render(
+    'yellow',
+    'p-4 mb-4 text-sm text-%1$s-800 rounded-lg bg-%1$s-50 dark:bg-gray-800 dark:text-%1$s-400',
+    ['blue', 'gray', 'green', 'red', 'yellow'],
+);
+```
+
 ### Render Template
 
 The `Template::class` helper can be used to render a template.
