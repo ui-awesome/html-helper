@@ -1,6 +1,8 @@
 # Change Log
 
-## 0.1.3 Under development
+## 0.2.0 March 30, 2024
+
+- Enh #7: Move `HTMLBuilder::class` to `ui-awesome/html-core` package (@terabytesoftw)
 
 ## 0.1.2 March 25, 2024
 
