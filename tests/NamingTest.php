@@ -121,7 +121,9 @@ final class NamingTest extends TestCase
     public function testThrowExceptionForInvalidPropertyName(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Property name must contain word characters only.');
+        $this->expectExceptionMessage(
+            Message::CANNOT_PARSE_PROPERTY->getMessage('content body'),
+        );
 
         Naming::generateInputName('TestForm', 'content body');
     }

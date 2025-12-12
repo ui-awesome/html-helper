@@ -34,9 +34,9 @@ enum Message: string
     /**
      * Error when a property cannot be parsed.
      *
-     * Format: 'Property name must contain word characters only.'
+     * Format: "Property name '%s' must contain word characters only."
      */
-    case CANNOT_PARSE_PROPERTY = 'Property name must contain word characters only.';
+    case CANNOT_PARSE_PROPERTY = "Property name '%s' must contain word characters only.";
 
     /**
      * Error when the form model name is empty for tabular inputs.
