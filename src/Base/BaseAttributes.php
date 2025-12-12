@@ -397,7 +397,7 @@ abstract class BaseAttributes
             }
         }
 
-        return $result === '' ? '' : self::renderAttribute('style', rtrim($result));
+        return $result === '' ? '' : self::renderAttribute('style', rtrim($result), self::QUOTE_SINGLE);
     }
 
     /**

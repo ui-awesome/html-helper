@@ -130,7 +130,7 @@ final class AttributesProvider
                 ],
             ],
             'enum in style' => [
-                ' style="width: lg;"',
+                ' style=\'width: lg;\'',
                 [
                     'style' => ['width' => ButtonSize::LARGE],
                 ],
@@ -324,7 +324,7 @@ final class AttributesProvider
                 ['height' => 100],
             ],
             'mixed with arrays' => [
-                ' class="a b" id="x" data-a="1" data-b="2" style="width: 100px;" any=\'[1,2]\'',
+                ' class="a b" id="x" data-a="1" data-b="2" style=\'width: 100px;\' any=\'[1,2]\'',
                 [
                     'id' => 'x',
                     'class' => [
@@ -408,7 +408,7 @@ final class AttributesProvider
     {
         return [
             'style array with scalar values' => [
-                ' style="width: 100px; height: 200px;"',
+                ' style=\'width: 100px; height: 200px;\'',
                 [
                     'style' => [
                         'width' => '100px',
@@ -417,7 +417,7 @@ final class AttributesProvider
                 ],
             ],
             'style with array value' => [
-                ' style="complex-property: ["value1","value2"];"',
+                ' style=\'complex-property: ["value1","value2"];\'',
                 [
                     'style' => [
                         'complex-property' => [
@@ -428,13 +428,13 @@ final class AttributesProvider
                 ],
             ],
             'style with boolean value' => [
-                ' style="flag: true;"',
+                ' style=\'flag: true;\'',
                 [
                     'style' => ['flag' => true],
                 ],
             ],
             'style with float value' => [
-                ' style="opacity: 0.5; font-size: 1.5;"',
+                ' style=\'opacity: 0.5; font-size: 1.5;\'',
                 [
                     'style' => [
                         'opacity' => 0.5,
@@ -443,7 +443,7 @@ final class AttributesProvider
                 ],
             ],
             'style with nested array value' => [
-                ' style="config: {"nested":{"key":"value"}};"',
+                ' style=\'config: {"nested":{"key":"value"}};\'',
                 [
                     'style' => [
                         'config' => [
@@ -459,7 +459,7 @@ final class AttributesProvider
                 ],
             ],
             'style with special characters' => [
-                ' style="font-family: Times &amp; Serif;"',
+                ' style=\'font-family: Times &amp; Serif;\'',
                 [
                     'style' => ['font-family' => 'Times & Serif'],
                 ],
