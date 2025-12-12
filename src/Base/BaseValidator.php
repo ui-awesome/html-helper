@@ -71,13 +71,11 @@ abstract class BaseValidator
             return $value >= $min && ($max === null || $value <= $max);
         }
 
-        if ($value === '' || $value[0] === '-' || $value[0] === '+' || ctype_digit($value) === false) {
+        if ($value[0] === '-' || $value[0] === '+' || ctype_digit($value) === false) {
             return false;
         }
 
-        $intValue = (int) $value;
-
-        return $intValue >= $min && ($max === null || $intValue <= $max);
+        return $value >= $min && ($max === null || $value <= $max);
     }
 
     /**

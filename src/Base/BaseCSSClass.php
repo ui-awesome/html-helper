@@ -125,22 +125,22 @@ abstract class BaseCSSClass
 
         if ($override) {
             $attributes['class'] = implode(' ', $normalizedClasses);
+        } else {
+            $existingClasses = [];
+
+            if (
+                isset($attributes['class']) &&
+                (
+                    is_array($attributes['class']) ||
+                    is_string($attributes['class']) ||
+                    $attributes['class'] instanceof UnitEnum
+                )
+            ) {
+                $existingClasses = self::normalizeClasses($attributes['class']);
+            }
+
+            $attributes['class'] = implode(' ', array_unique([...$existingClasses, ...$normalizedClasses]));
         }
-
-        $existingClasses = [];
-
-        if (
-            isset($attributes['class']) &&
-            (
-                is_array($attributes['class']) ||
-                is_string($attributes['class']) ||
-                $attributes['class'] instanceof UnitEnum
-            )
-        ) {
-            $existingClasses = self::normalizeClasses($attributes['class']);
-        }
-
-        $attributes['class'] = implode(' ', array_unique([...$existingClasses, ...$normalizedClasses]));
     }
 
     /**
