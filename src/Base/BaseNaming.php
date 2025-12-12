@@ -70,7 +70,7 @@ abstract class BaseNaming
 
         if ($pattern === null || strlen($delimiter) !== 1) {
             throw new InvalidArgumentException(
-                Message::INCORRET_DELIMITER->getMessage(),
+                Message::INCORRECT_DELIMITER->getMessage(),
             );
         }
 
@@ -78,7 +78,7 @@ abstract class BaseNaming
 
         if ($endPosition === false) {
             throw new InvalidArgumentException(
-                Message::INCORRET_REGEXP->getMessage(),
+                Message::INCORRECT_REGEXP->getMessage(),
             );
         }
 

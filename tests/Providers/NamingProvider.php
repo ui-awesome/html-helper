@@ -225,32 +225,32 @@ final class NamingProvider
             'incorrect delimiter double slash' => [
                 '/.*/i',
                 '//',
-                Message::INCORRET_DELIMITER->getMessage(),
+                Message::INCORRECT_DELIMITER->getMessage(),
             ],
             'incorrect delimiter tilde conflict' => [
                 '/~~/i',
                 '~~',
-                Message::INCORRET_DELIMITER->getMessage(),
+                Message::INCORRECT_DELIMITER->getMessage(),
             ],
             'incorrect regexp bad delimiter' => [
                 '/.*/i',
                 '~',
-                Message::INCORRET_REGEXP->getMessage(),
+                Message::INCORRECT_REGEXP->getMessage(),
             ],
             'incorrect regexp dotstar' => [
                 '.*',
                 null,
-                Message::INCORRET_REGEXP->getMessage(),
+                Message::INCORRECT_REGEXP->getMessage(),
             ],
             'incorrect regexp group without delimiters' => [
                 '([a-z0-9-]+)',
                 null,
-                Message::INCORRET_REGEXP->getMessage(),
+                Message::INCORRECT_REGEXP->getMessage(),
             ],
             'incorrect regexp missing end delimiter' => [
                 '/.*',
                 null,
-                Message::INCORRET_REGEXP->getMessage(),
+                Message::INCORRECT_REGEXP->getMessage(),
             ],
             'length less than two empty' => [
                 '',

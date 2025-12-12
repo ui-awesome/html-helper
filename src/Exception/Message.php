@@ -50,14 +50,14 @@ enum Message: string
      *
      * Format: 'Incorrect delimiter.'
      */
-    case INCORRET_DELIMITER = 'Incorrect delimiter.';
+    case INCORRECT_DELIMITER = 'Incorrect delimiter.';
 
     /**
      * Error when a regular expression is incorrect.
      *
      * Format: 'Incorrect regular expression or malformed pattern.'
      */
-    case INCORRET_REGEXP = 'Incorrect regular expression or malformed pattern.';
+    case INCORRECT_REGEXP = 'Incorrect regular expression or malformed pattern.';
 
     /**
      * Error when the length of a regular expression is less than two.
