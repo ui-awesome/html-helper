@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yii\ui\tests\helpers;
+namespace UIAwesome\Html\Helper\Tests;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
@@ -26,7 +26,7 @@ use UIAwesome\Html\Helper\Tests\Providers\EnumProvider;
  * - Exception handling for invalid value types.
  * - Validation of values within a predefined list.
  *
- * {@see EnumProvider} for test case data providers.
+ * {@see EnumProvider} for data-driven test cases and edge conditions.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -58,7 +58,7 @@ final class EnumTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionOnInvalidValueType(): void
+    public function testThrowExceptionForInvalidValueType(): void
     {
         $value = new stdClass();
 

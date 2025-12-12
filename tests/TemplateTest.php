@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yii\ui\tests\helpers;
+namespace UIAwesome\Html\Helper\Tests;
 
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\Template;

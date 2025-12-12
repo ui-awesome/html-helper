@@ -85,7 +85,7 @@ abstract class BaseCSSClass
      *
      * @see https://www.w3.org/TR/CSS21/syndata.html#characters CSS 2.1 Characters and case specification.
      */
-    private const VALID_CSS_CLASS_PATTERN = '/^[^\s@!;<>"{}|\\^&*`]+$/u';
+    private const VALID_CSS_CLASS_PATTERN = '/^[^\s@!;<>"{}|^&*`]+$/u';
 
     /**
      * Adds one or more CSS classes to an attribute array with validation and merging logic.

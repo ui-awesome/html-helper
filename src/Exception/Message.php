@@ -32,6 +32,41 @@ use function sprintf;
 enum Message: string
 {
     /**
+     * Error when a property cannot be parsed.
+     *
+     * Format: 'Property name must contain word characters only.'
+     */
+    case CANNOT_PARSE_PROPERTY = 'Property name must contain word characters only.';
+
+    /**
+     * Error when the form model name is empty for tabular inputs.
+     *
+     * Format: 'Form model name cannot be empty for tabular inputs.'
+     */
+    case FORM_MODEL_NAME_CANNOT_BE_EMPTY = 'Form model name cannot be empty for tabular inputs.';
+
+    /**
+     * Error when a delimiter is incorrect.
+     *
+     * Format: 'Incorrect delimiter.'
+     */
+    case INCORRET_DELIMITER = 'Incorrect delimiter.';
+
+    /**
+     * Error when a regular expression is incorrect.
+     *
+     * Format: 'Incorrect regular expression or malformed pattern.'
+     */
+    case INCORRET_REGEXP = 'Incorrect regular expression or malformed pattern.';
+
+    /**
+     * Error when the length of a regular expression is less than two.
+     *
+     * Format: "Length of the regular expression cannot be less than '2'."
+     */
+    case LENGTH_LESS_THAN_TWO = "Length of the regular expression cannot be less than '2'.";
+
+    /**
      * Error when a value is not in the list of valid values.
      *
      * Format: "Value '%s' is not in the list of valid values for '%s': '%s'."

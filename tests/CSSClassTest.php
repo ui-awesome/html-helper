@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yii\ui\tests\helpers;
+namespace UIAwesome\Html\Helper\Tests;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
@@ -30,7 +30,7 @@ use UnitEnum;
  * - Proper assignment, overriding, and validation of class values.
  * - Rendering with base classes and allowed class lists.
  *
- * {@see CSSClassProvider} for test case data providers.
+ * {@see CSSClassProvider} for data-driven test cases and edge conditions.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

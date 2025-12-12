@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yii\ui\tests\helpers;
+namespace UIAwesome\Html\Helper\Tests;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
@@ -20,14 +20,14 @@ use UnitEnum;
  * Ensures correct type checking, value validation, and exception handling for scalar, enum, and array types in
  * attribute operations, supporting robust and predictable output for HTML components.
  *
- * Test coverage:
+ * Test coverage.
  * - Accurate validation of integer-like values and range constraints.
  * - Data provider-driven validation for edge cases and expected behaviors.
  * - Exception handling for invalid or out-of-range values.
  * - Immutability of the helper's API when validating values.
  * - Verification of allowed values for attributes and enums.
  *
- * {@see ValidatorProvider} for test case data providers.
+ * {@see ValidatorProvider} for data-driven test cases and edge conditions.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

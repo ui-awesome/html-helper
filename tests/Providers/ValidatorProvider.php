@@ -22,7 +22,7 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Priority, Status, Theme};
  * The provider organizes test cases with descriptive names for clear identification of failure cases during test
  * execution and debugging sessions.
  *
- * Key features:
+ * Key features.
  * - Ensures correct normalization and validation of integer-like and string values for HTML attributes.
  * - Named test data sets for precise failure identification.
  * - Validation of boundary checks, type strictness, and mixed enum/scalar list membership.

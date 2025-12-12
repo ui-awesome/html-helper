@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Tests\Helper;
+namespace UIAwesome\Html\Helper\Tests;
 
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
@@ -25,7 +25,7 @@ use UIAwesome\Html\Helper\Tests\Providers\AttributesProvider;
  * - Sanitization of malicious values to prevent XSS vulnerabilities.
  * - Style attribute formatting and rendering.
  *
- * {@see AttributesProvider} for test case data providers.
+ * {@see AttributesProvider} for data-driven test cases and edge conditions.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
