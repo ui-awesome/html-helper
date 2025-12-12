@@ -37,18 +37,17 @@ final class EncodeTest extends TestCase
         string $expected,
         bool $doubleEncode,
     ): void {
-        self::assertSame(
-            $expected,
-            Encode::content($value),
-            "Should encode ({$value}) as ({$expected}) (doubleEncode: 'true').",
-        );
+        $encodeContent = match ($doubleEncode) {
+            true => Encode::content($value),
+            default => Encode::content($value, $doubleEncode),
+        };
 
         $doubleEncodeValue = $doubleEncode ? 'true' : 'false';
 
         self::assertSame(
             $expected,
-            Encode::content($value, $doubleEncode),
-            "Should encode ({$value}) as ({$expected}) with doubleEncode='{$doubleEncodeValue}'.",
+            $encodeContent,
+            "Should encode content ({$value}) as ({$expected}) with doubleEncode='{$doubleEncodeValue}'.",
         );
     }
 
@@ -58,17 +57,16 @@ final class EncodeTest extends TestCase
         string $expected,
         bool $doubleEncode,
     ): void {
-        self::assertSame(
-            $expected,
-            Encode::value($value),
-            "Should encode value ({$value}) as ({$expected}) (doubleEncode: 'true').",
-        );
+        $encodeValue = match ($doubleEncode) {
+            true => Encode::value($value),
+            default => Encode::value($value, $doubleEncode),
+        };
 
         $doubleEncodeValue = $doubleEncode ? 'true' : 'false';
 
         self::assertSame(
             $expected,
-            Encode::value($value, $doubleEncode),
+            $encodeValue,
             "Should encode value ({$value}) as ({$expected}) with doubleEncode='{$doubleEncodeValue}'.",
         );
     }
