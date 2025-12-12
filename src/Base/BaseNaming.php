@@ -62,15 +62,21 @@ abstract class BaseNaming
             );
         }
 
-        $pattern = preg_replace('/\\\\x{?([0-9a-fA-F]+)}?/', '\u$1', $regexp);
-
         if ($delimiter === null) {
-            $delimiter = $pattern[0] ?? '';
+            $delimiter = $regexp[0] ?? '';
         }
 
-        if ($pattern === null || strlen($delimiter) !== 1) {
+        if (strlen($delimiter) !== 1) {
             throw new InvalidArgumentException(
                 Message::INCORRECT_DELIMITER->getMessage(),
+            );
+        }
+
+        $pattern = preg_replace('/\\\\x{?([0-9a-fA-F]+)}?/', '\u$1', $regexp);
+
+        if ($pattern === null) {
+            throw new InvalidArgumentException(
+                Message::INCORRECT_REGEXP->getMessage(),
             );
         }
 

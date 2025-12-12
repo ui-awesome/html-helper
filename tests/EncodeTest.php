@@ -39,7 +39,7 @@ final class EncodeTest extends TestCase
     ): void {
         $encodeContent = match ($doubleEncode) {
             true => Encode::content($value),
-            default => Encode::content($value, $doubleEncode),
+            false => Encode::content($value, $doubleEncode),
         };
 
         $doubleEncodeValue = $doubleEncode ? 'true' : 'false';
@@ -59,7 +59,7 @@ final class EncodeTest extends TestCase
     ): void {
         $encodeValue = match ($doubleEncode) {
             true => Encode::value($value),
-            default => Encode::value($value, $doubleEncode),
+            false => Encode::value($value, $doubleEncode),
         };
 
         $doubleEncodeValue = $doubleEncode ? 'true' : 'false';
