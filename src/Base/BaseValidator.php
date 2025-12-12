@@ -65,15 +65,19 @@ abstract class BaseValidator
      */
     public static function intLike(int|string $value, int|null $min = null, int|null $max = null): bool
     {
+        $min ??= 0;
+
         if (is_int($value)) {
-            return $value >= ($min ?? 0) && ($max === null || $value <= $max);
+            return $value >= $min && ($max === null || $value <= $max);
         }
 
-        if ($value[0] === '-' || $value[0] === '+' || ctype_digit($value) === false) {
+        if ($value === '' || $value[0] === '-' || $value[0] === '+' || ctype_digit($value) === false) {
             return false;
         }
 
-        return $value >= $min && ($max === null || $value <= $max);
+        $intValue = (int) $value;
+
+        return $intValue >= $min && ($max === null || $intValue <= $max);
     }
 
     /**
