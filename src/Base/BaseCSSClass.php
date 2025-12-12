@@ -29,8 +29,8 @@ use function sprintf;
  * - Attribute array manipulation for class merging and overrides.
  * - `BackedEnum` and `UnitEnum` support for type-safe class definitions.
  * - Base class formatting and normalization.
- * - Immutable, static API for safe reuse.
  * - Integration-ready for asset, tag, and view systems.
+ * - Stateless, static API for safe reuse.
  * - Strict CSS class name validation using regex.
  *
  * {@see InvalidArgumentException} for invalid value errors.
@@ -85,7 +85,7 @@ abstract class BaseCSSClass
      *
      * @see https://www.w3.org/TR/CSS21/syndata.html#characters CSS 2.1 Characters and case specification.
      */
-    private const VALID_CSS_CLASS_PATTERN = '/^[^\s@!;<>"{}|^&*`]+$/u';
+    private const VALID_CSS_CLASS_PATTERN = '/^[^\s@!;<>"{}|^&*`\\\\$]+$/u';
 
     /**
      * Adds one or more CSS classes to an attribute array with validation and merging logic.

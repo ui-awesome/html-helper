@@ -280,6 +280,18 @@ final class CSSClassProvider
                 ['class' => 'class-1 class-2 class-3 class-4 class-5 class-6 class-7 class-8 class-9 class-10'],
                 'Should handle adding many classes at once.',
             ],
+            'token containing backslash character' => [
+                [],
+                [['classes' => 'valid-class class\with\backslash another-valid']],
+                ['class' => 'valid-class another-valid'],
+                "Should drop tokens containing backslash '\\' character.",
+            ],
+            'token containing dollar sign character' => [
+                [],
+                [['classes' => 'valid-class class$with$dollar another-valid']],
+                ['class' => 'valid-class another-valid'],
+                "Should drop tokens containing dollar sign '$' character.",
+            ],
             'token containing invalid characters' => [
                 [],
                 [['classes' => 'bad<class> bad@class bad!class']],
