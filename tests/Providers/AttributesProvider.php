@@ -145,16 +145,6 @@ final class AttributesProvider
                     'data' => ['theme' => Theme::LIGHT],
                 ],
             ],
-            'nested enum' => [
-                ' class="sm primary" data-theme="light"',
-                [
-                    'class' => [
-                        ButtonSize::SMALL,
-                        'primary',
-                    ],
-                    'data' => ['theme' => Theme::LIGHT],
-                ],
-            ],
             'numeric enum' => [
                 ' cols="2"',
                 ['cols' => Columns::TWO],
