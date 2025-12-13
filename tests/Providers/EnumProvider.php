@@ -59,7 +59,7 @@ final class EnumProvider
             'array with null values' => [
                 [null, Status::ACTIVE, null],
                 [null, 'active', null],
-                'Should pass through null values unchanged.',
+                "Should pass through 'null' values unchanged.",
             ],
             'empty array' => [
                 [],

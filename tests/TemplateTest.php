@@ -33,6 +33,7 @@ final class TemplateTest extends TestCase
     {
         $template = "Header: {title}\r\nContent: {body}\r\nFooter: {footer}";
         $tokens = ['{title}' => 'Test', '{body}' => 'Content', '{footer}' => 'End'];
+
         $result = Template::render($template, $tokens);
 
         self::assertStringNotContainsString(

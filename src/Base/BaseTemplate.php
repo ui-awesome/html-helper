@@ -69,7 +69,7 @@ abstract class BaseTemplate
             }
         }
 
-        return implode(PHP_EOL, $results);
+        return implode("\n", $results);
     }
 
     /**
