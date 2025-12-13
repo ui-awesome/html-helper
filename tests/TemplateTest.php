@@ -29,6 +29,92 @@ final class TemplateTest extends TestCase
 {
     use TestSupport;
 
+    public function testRenderNormalizesAllLineEndingFormats(): void
+    {
+        // Test case 1: Windows CRLF (\r\n) should be normalized
+        $templateCRLF = "Line 1: {token1}\r\nLine 2: {token2}\r\nLine 3: {token3}";
+        $tokens = ['{token1}' => 'A', '{token2}' => 'B', '{token3}' => 'C'];
+        $expectedCRLF = 'Line 1: A' . PHP_EOL . 'Line 2: B' . PHP_EOL . 'Line 3: C';
+
+        self::equalsWithoutLE(
+            $expectedCRLF,
+            Template::render($templateCRLF, $tokens),
+            'CRLF line endings must be normalized correctly',
+        );
+
+        // Test case 2: Old Mac CR (\r) should be normalized
+        $templateCR = "Line 1: {token1}\rLine 2: {token2}\rLine 3: {token3}";
+        $expectedCR = 'Line 1: A' . PHP_EOL . 'Line 2: B' . PHP_EOL . 'Line 3: C';
+
+        self::equalsWithoutLE(
+            $expectedCR,
+            Template::render($templateCR, $tokens),
+            'CR line endings must be normalized correctly',
+        );
+
+        // Test case 3: Unix LF (\n) should work as-is
+        $templateLF = "Line 1: {token1}\nLine 2: {token2}\nLine 3: {token3}";
+        $expectedLF = 'Line 1: A' . PHP_EOL . 'Line 2: B' . PHP_EOL . 'Line 3: C';
+
+        self::equalsWithoutLE(
+            $expectedLF,
+            Template::render($templateLF, $tokens),
+            'LF line endings must be handled correctly',
+        );
+
+        // Test case 4: Mixed line endings should be normalized
+        $templateMixed = "Line 1: {token1}\r\nLine 2: {token2}\nLine 3: {token3}\rLine 4: {token4}";
+        $tokensMixed = ['{token1}' => 'A', '{token2}' => 'B', '{token3}' => 'C', '{token4}' => 'D'];
+        $expectedMixed = 'Line 1: A' . PHP_EOL . 'Line 2: B' . PHP_EOL . 'Line 3: C' . PHP_EOL . 'Line 4: D';
+
+        self::equalsWithoutLE(
+            $expectedMixed,
+            Template::render($templateMixed, $tokensMixed),
+            'Mixed line endings must be normalized consistently',
+        );
+
+        // Test case 5: Literal '\n' (backslash followed by n) should be converted to actual newline
+        $templateLiteral = 'Line 1: {token1}\nLine 2: {token2}';
+        $expectedLiteral = 'Line 1: A' . PHP_EOL . 'Line 2: B';
+
+        self::equalsWithoutLE(
+            $expectedLiteral,
+            Template::render($templateLiteral, $tokens),
+            'Literal backslash-n sequences must be converted to actual newlines',
+        );
+
+        // Test case 6: Empty lines after token substitution should be filtered
+        $templateEmpty = "Line 1: {token1}\n\nLine 2: {token2}\n\n\nLine 3: {token3}";
+        $expectedEmpty = 'Line 1: A' . PHP_EOL . 'Line 2: B' . PHP_EOL . 'Line 3: C';
+
+        self::equalsWithoutLE(
+            $expectedEmpty,
+            Template::render($templateEmpty, $tokens),
+            'Empty lines must be filtered from output',
+        );
+
+        // Test case 7: Lines that become empty after token substitution should be filtered
+        $templateEmptyAfterSubst = "Line 1: {token1}\n{empty}\nLine 2: {token2}";
+        $tokensEmptyAfterSubst = ['{token1}' => 'A', '{empty}' => '', '{token2}' => 'B'];
+        $expectedEmptyAfterSubst = 'Line 1: A' . PHP_EOL . 'Line 2: B';
+
+        self::equalsWithoutLE(
+            $expectedEmptyAfterSubst,
+            Template::render($templateEmptyAfterSubst, $tokensEmptyAfterSubst),
+            'Lines that become empty after substitution must be filtered',
+        );
+
+        // Test case 8: Combination of CRLF and literal '\n' should both be normalized
+        $templateCombined = "Line 1: {token1}\r\nLine 2: {token2}\nLine 3: {token3}";
+        $expectedCombined = 'Line 1: A' . PHP_EOL . 'Line 2: B' . PHP_EOL . 'Line 3: C';
+
+        self::equalsWithoutLE(
+            $expectedCombined,
+            Template::render($templateCombined, $tokens),
+            'Combination of CRLF and literal backslash-n must be handled correctly',
+        );
+    }
+
     public function testRenderPreventsStrayCRCharacters(): void
     {
         $template = "Header: {title}\r\nContent: {body}\r\nFooter: {footer}";
@@ -106,92 +192,6 @@ final class TemplateTest extends TestCase
             HTML,
             Template::render($template, $tokenValues),
             'Should render template with empty or missing tokens.',
-        );
-    }
-
-    public function testRenderNormalizesAllLineEndingFormats(): void
-    {
-        // Test case 1: Windows CRLF (\r\n) should be normalized
-        $templateCRLF = "Line 1: {token1}\r\nLine 2: {token2}\r\nLine 3: {token3}";
-        $tokens = ['{token1}' => 'A', '{token2}' => 'B', '{token3}' => 'C'];
-        $expectedCRLF = 'Line 1: A' . PHP_EOL . 'Line 2: B' . PHP_EOL . 'Line 3: C';
-
-        self::equalsWithoutLE(
-            $expectedCRLF,
-            Template::render($templateCRLF, $tokens),
-            'CRLF line endings must be normalized correctly'
-        );
-
-        // Test case 2: Old Mac CR (\r) should be normalized
-        $templateCR = "Line 1: {token1}\rLine 2: {token2}\rLine 3: {token3}";
-        $expectedCR = 'Line 1: A' . PHP_EOL . 'Line 2: B' . PHP_EOL . 'Line 3: C';
-
-        self::equalsWithoutLE(
-            $expectedCR,
-            Template::render($templateCR, $tokens),
-            'CR line endings must be normalized correctly'
-        );
-
-        // Test case 3: Unix LF (\n) should work as-is
-        $templateLF = "Line 1: {token1}\nLine 2: {token2}\nLine 3: {token3}";
-        $expectedLF = 'Line 1: A' . PHP_EOL . 'Line 2: B' . PHP_EOL . 'Line 3: C';
-
-        self::equalsWithoutLE(
-            $expectedLF,
-            Template::render($templateLF, $tokens),
-            'LF line endings must be handled correctly'
-        );
-
-        // Test case 4: Mixed line endings should be normalized
-        $templateMixed = "Line 1: {token1}\r\nLine 2: {token2}\nLine 3: {token3}\rLine 4: {token4}";
-        $tokensMixed = ['{token1}' => 'A', '{token2}' => 'B', '{token3}' => 'C', '{token4}' => 'D'];
-        $expectedMixed = 'Line 1: A' . PHP_EOL . 'Line 2: B' . PHP_EOL . 'Line 3: C' . PHP_EOL . 'Line 4: D';
-
-        self::equalsWithoutLE(
-            $expectedMixed,
-            Template::render($templateMixed, $tokensMixed),
-            'Mixed line endings must be normalized consistently'
-        );
-
-        // Test case 5: Literal '\n' (backslash followed by n) should be converted to actual newline
-        $templateLiteral = 'Line 1: {token1}\nLine 2: {token2}';
-        $expectedLiteral = 'Line 1: A' . PHP_EOL . 'Line 2: B';
-
-        self::equalsWithoutLE(
-            $expectedLiteral,
-            Template::render($templateLiteral, $tokens),
-            'Literal backslash-n sequences must be converted to actual newlines'
-        );
-
-        // Test case 6: Empty lines after token substitution should be filtered
-        $templateEmpty = "Line 1: {token1}\n\nLine 2: {token2}\n\n\nLine 3: {token3}";
-        $expectedEmpty = 'Line 1: A' . PHP_EOL . 'Line 2: B' . PHP_EOL . 'Line 3: C';
-
-        self::equalsWithoutLE(
-            $expectedEmpty,
-            Template::render($templateEmpty, $tokens),
-            'Empty lines must be filtered from output'
-        );
-
-        // Test case 7: Lines that become empty after token substitution should be filtered
-        $templateEmptyAfterSubst = "Line 1: {token1}\n{empty}\nLine 2: {token2}";
-        $tokensEmptyAfterSubst = ['{token1}' => 'A', '{empty}' => '', '{token2}' => 'B'];
-        $expectedEmptyAfterSubst = 'Line 1: A' . PHP_EOL . 'Line 2: B';
-
-        self::equalsWithoutLE(
-            $expectedEmptyAfterSubst,
-            Template::render($templateEmptyAfterSubst, $tokensEmptyAfterSubst),
-            'Lines that become empty after substitution must be filtered'
-        );
-
-        // Test case 8: Combination of CRLF and literal '\n' should both be normalized
-        $templateCombined = "Line 1: {token1}\r\nLine 2: {token2}\nLine 3: {token3}";
-        $expectedCombined = 'Line 1: A' . PHP_EOL . 'Line 2: B' . PHP_EOL . 'Line 3: C';
-
-        self::equalsWithoutLE(
-            $expectedCombined,
-            Template::render($templateCombined, $tokens),
-            'Combination of CRLF and literal backslash-n must be handled correctly'
         );
     }
 }
