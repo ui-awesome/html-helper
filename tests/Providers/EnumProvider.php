@@ -49,7 +49,7 @@ final class EnumProvider
             'array of backed enums' => [
                 [Status::ACTIVE, Status::INACTIVE],
                 ['active', 'inactive'],
-                'Should return an array of name values for backed enums.',
+                'Should return an array of backed enum values.',
             ],
             'array of unit enums' => [
                 [Theme::DARK, Theme::LIGHT],
@@ -93,12 +93,12 @@ final class EnumProvider
             'backed enum active' => [
                 Status::ACTIVE,
                 'active',
-                'Should return the name value for a backed enum.',
+                'Should return the backed enum value.',
             ],
             'backed enum inactive' => [
                 Status::INACTIVE,
                 'inactive',
-                'Should return the name value for a backed enum.',
+                'Should return the backed enum value.',
             ],
             'null' => [
                 null,

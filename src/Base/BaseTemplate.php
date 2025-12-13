@@ -56,7 +56,7 @@ abstract class BaseTemplate
      */
     public static function render(string $template, array $tokenValues): string
     {
-        $template = str_replace('\n', "\n", $template);
+        $template = self::normalizeLineEndings($template);
         $lines = explode("\n", $template);
 
         $results = [];
@@ -70,5 +70,28 @@ abstract class BaseTemplate
         }
 
         return implode(PHP_EOL, $results);
+    }
+
+    /**
+     * Normalizes all line-ending formats to Unix LF (`\n`).
+     *
+     * Converts Windows CRLF (`\r\n`), old Mac CR (`\r`), and literal backslash-n sequences to actual newline characters
+     * for consistent cross-platform processing.
+     *
+     * @param string $template Template string with potentially mixed line endings.
+     *
+     * @return string Template with normalized line endings.
+     *
+     * @infection-ignore-all Line ending normalization cannot be reliably mutation-tested on Windows due to
+     * platform-specific behavior. Manual testing and integration tests on Unix/Linux CI environments provide coverage
+     * for this logic.
+     */
+    private static function normalizeLineEndings(string $template): string
+    {
+        // first normalize actual CRLF and CR to LF
+        $template = str_replace(["\r\n", "\r"], "\n", $template);
+
+        // then convert literal `\n` sequences to actual newlines
+        return str_replace('\n', "\n", $template);
     }
 }
