@@ -39,6 +39,7 @@ enum Columns: int
      * Nine columns.
      */
     case NINE = 9;
+
     /**
      * One column.
      */

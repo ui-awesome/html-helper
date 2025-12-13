@@ -253,7 +253,7 @@ final class ValidatorProvider
      *
      * @return array Test data for list membership validation scenarios.
      *
-     * @phpstan-return array<array{string, mixed, list<mixed>, bool, string}>
+     * @phpstan-return array<string, array{string, mixed, list<mixed>, bool, string}>
      */
     public static function oneOf(): array
     {

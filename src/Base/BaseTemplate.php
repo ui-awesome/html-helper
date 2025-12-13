@@ -36,7 +36,7 @@ abstract class BaseTemplate
      * the rendered result as a string with lines joined by the system line ending.
      *
      * Note: Literal `\n` sequences (backslash followed by 'n') in the template will be converted to actual newline
-     * characters before processing. Empty lines after token substitution are filtered out.
+     * characters before processing. **Empty lines after token substitution are filtered out.**
      *
      * @param string $template Template string containing tokens to be replaced.
      * @param array $tokenValues Associative array of token replacements.

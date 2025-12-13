@@ -41,21 +41,21 @@ final class NamingProvider
     public static function arrayableName(): array
     {
         return [
-            [
-                '登录',
+            'indexed with multibyte' => [
+                '[0]登录[0]',
+                '[0]登录[0][]',
+            ],
+            'multibyte with brackets' => [
+                '登录[]',
                 '登录[]',
             ],
-            [
-                '登录[]',
-                '登录[]',
-            ],
-            [
+            'multibyte with indexed brackets' => [
                 '登录[0]',
                 '登录[0][]',
             ],
-            [
-                '[0]登录[0]',
-                '[0]登录[0][]',
+            'multibyte without brackets' => [
+                '登录',
+                '登录[]',
             ],
         ];
     }

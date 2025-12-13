@@ -83,7 +83,7 @@ abstract class BaseEncode
      * Usage example:
      * ```php
      * Encode::value('O\'Reilly & <script>');
-     * // O&#039;Reilly &amp; &lt;script&gt;
+     * // O&apos;Reilly &amp; &lt;script&gt;
      * ```
      */
     public static function value(

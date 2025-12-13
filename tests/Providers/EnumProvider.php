@@ -33,7 +33,8 @@ final class EnumProvider
      * Provides test cases for array normalization scenarios.
      *
      * Supplies test data for validating the normalization of arrays containing `BackedEnum` instances, `UnitEnum`
-     * instances, and mixed scalar values, ensuring correct conversion to scalar representation.
+     * instances, `null` values, and mixed scalar values, ensuring correct conversion to scalar representation for enums
+     * while preserving non-enum values.
      *
      * Each test case includes the input array, expected normalized output, and an assertion message for clear failure
      * identification.
@@ -54,6 +55,16 @@ final class EnumProvider
                 [Theme::DARK, Theme::LIGHT],
                 ['DARK', 'LIGHT'],
                 'Should return an array of name values for unit enums.',
+            ],
+            'array with null values' => [
+                [null, Status::ACTIVE, null],
+                [null, 'active', null],
+                'Should pass through null values unchanged.',
+            ],
+            'empty array' => [
+                [],
+                [],
+                'Should return an empty array for empty input.',
             ],
             'mixed array with enums and scalars' => [
                 ['foo', Status::ACTIVE, 42],
@@ -89,9 +100,24 @@ final class EnumProvider
                 'inactive',
                 'Should return the name value for a backed enum.',
             ],
+            'null' => [
+                null,
+                null,
+                "Should return 'null' unchanged.",
+            ],
+            'scalar float' => [
+                3.14,
+                3.14,
+                'Should return the original scalar value if not an enum.',
+            ],
             'scalar integer' => [
                 42,
                 42,
+                'Should return the original scalar value if not an enum.',
+            ],
+            'scalar string' => [
+                'foo',
+                'foo',
                 'Should return the original scalar value if not an enum.',
             ],
             'unit enum dark' => [

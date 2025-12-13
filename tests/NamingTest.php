@@ -98,7 +98,7 @@ final class NamingTest extends TestCase
     {
         $name = match ($arrayable) {
             true => Naming::generateInputName($formName, $attribute, true),
-            default => Naming::generateInputName($formName, $attribute),
+            false => Naming::generateInputName($formName, $attribute),
         };
 
         self::assertSame(

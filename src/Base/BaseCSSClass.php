@@ -344,10 +344,10 @@ abstract class BaseCSSClass
     {
         $splitClasses = preg_split('/\s+/', $classes, -1, PREG_SPLIT_NO_EMPTY);
 
-        $classes = $splitClasses === false ? [] : $splitClasses;
+        $classParts = $splitClasses === false ? [] : $splitClasses;
         $validated = [];
 
-        foreach ($classes as $class) {
+        foreach ($classParts as $class) {
             if (self::isValidClassName($class)) {
                 $validated[] = $class;
             }
