@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests\Providers;
+
 use UIAwesome\Html\Helper\Exception\Message;
 
 /**

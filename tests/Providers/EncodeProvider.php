@@ -140,13 +140,13 @@ final class EncodeProvider
                 true,
             ],
             'unicode null double' => [
-                "\\u{0000}",
-                "\\u{0000}",
+                '\\u{0000}',
+                '\\u{0000}',
                 true,
             ],
             'unicode null no double' => [
-                "\\u{0000}",
-                "\\u{0000}",
+                '\\u{0000}',
+                '\\u{0000}',
                 false,
             ],
         ];
