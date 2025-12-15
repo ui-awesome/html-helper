@@ -116,7 +116,7 @@ final class EncodeProvider
             ],
             'mixed quotes' => [
                 'It\'s a "test"',
-                'It\'s a &quot;test&quot;',
+                'It&apos;s a &quot;test&quot;',
                 true,
             ],
             'null byte double' => [
