@@ -16,7 +16,7 @@ use UIAwesome\Html\Helper\Tests\Providers\EncodeProvider;
  * for fragments and lightweight components.
  *
  * Ensures correct handling of entity encoding, prevention of double-encoding when requested, and support for mixed
- * scalar types including `null`, `int`, `float`, and `string`.
+ * scalar types including `null`, int, float, and string.
  *
  * Test coverage.
  * - Deterministic output for edge cases supplied by the data provider.

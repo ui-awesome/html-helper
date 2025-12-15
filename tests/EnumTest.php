@@ -24,7 +24,7 @@ use UIAwesome\Html\Helper\Tests\Providers\EnumProvider;
  * Test coverage.
  * - Exception behavior for invalid value types.
  * - Normalization of arrays containing enums and mixed types.
- * - Normalization of single values including enum, scalar, and null.
+ * - Normalization of single values including enum, scalar, and `null`.
  *
  * {@see EnumProvider} for data-driven test cases and edge conditions.
  *

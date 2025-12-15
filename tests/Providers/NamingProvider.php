@@ -3,24 +3,22 @@
 declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests\Providers;
-
 use UIAwesome\Html\Helper\Exception\Message;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\NamingTest} class.
  *
- * Supplies structured test data for name and regular expression utilities used when rendering form inputs and
- * validating naming conventions in HTML contexts. The provider focuses on arrayable name generation, input name
- * assembly with optional prefixes and array-notation handling, and regular expression pattern normalization and
- * validation.
+ * Supplies focused datasets used to validate name generation and regular expression helpers.
  *
- * The test data covers edge cases for multibyte characters, explicit numeric indices, empty prefixes, and delimiter
- * handling for regular expressions. Each dataset is named for clear identification during test execution and debugging.
+ * The provider covers arrayable name normalization, input name prefixing and suffixing behaviour, and regular
+ * expression pattern construction and validation. Cases include multibyte characters, bracketed indices, explicit
+ * prefixes, and invalid pattern scenarios to assert deterministic and predictable transformation outcomes.
  *
  * Key features.
- * - Ensures correct assembly of arrayable input names for forms, including multibyte and indexed keys.
- * - Provides canonical and invalid regular expression patterns with expected delimiters and error messages.
- * - Validates construction of input names with and without form prefixing and arrayable flag.
+ * - Construct input names with optional prefixes and arrayability semantics.
+ * - Normalize arrayable names by appending the array suffix when required.
+ * - Provide both valid and invalid regular expression patterns together with expected delimiters or error message
+ *   identifiers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -28,13 +26,10 @@ use UIAwesome\Html\Helper\Exception\Message;
 final class NamingProvider
 {
     /**
-     * Provides test cases for generation of arrayable input names.
+     * Provides datasets for normalizing arrayable names.
      *
-     * Supplies pairs of original input names and their expected arrayable forms. Covers multibyte keys, existing array
-     * notation, indexed names and nested bracketed prefixes to ensure correct canonical transformation when inputs are
-     * marked as arrayable.
-     *
-     * @return array Test cases mapping original name to arrayable name.
+     * Each dataset contains an original name and the expected arrayable result. These cases ensure multibyte and
+     * bracketed index names are handled deterministically by the name normalizer.
      *
      * @phpstan-return array<array{string, string}>
      */
@@ -61,13 +56,11 @@ final class NamingProvider
     }
 
     /**
-     * Provides test cases for assembly of input names with optional form prefix and arrayable flag.
+     * Provides datasets for constructing input `name` attributes.
      *
-     * Each test case returns a tuple: [formPrefix, name, arrayable, expected]. The data covers cases with empty prefix,
-     * multibyte names, explicit numeric indices, and both arrayable and non-arrayable modes. This ensures consistent
-     * name concatenation logic for form rendering utilities.
-     *
-     * @return array Test cases for input name assembly.
+     * Each dataset returns a tuple of: prefix, raw name, whether the target is arrayable, and the expected
+     * fully-qualified name. These cases cover empty prefixes, explicit indexed names, multibyte tokens and both
+     * arrayable and non-arrayable expectations.
      *
      * @phpstan-return array<string, array{string, string, bool, string}>
      */
@@ -162,15 +155,13 @@ final class NamingProvider
     }
 
     /**
-     * Provides canonical regular expression patterns and their expected delimited forms.
+     * Provides valid regular expression patterns together with their expected rendered pattern and the explicit
+     * delimiter where applicable.
      *
-     * Supplies tuples of [pattern, expectedDelimitedPattern, explicitDelimiter]. The provider includes empty patterns,
-     * patterns requiring explicit custom delimiters, and Unicode-aware conversions used by the library's regexp
-     * utilities.
+     * Each dataset contains: the input token, the fully-formed pattern, and the delimiter used (or `null` when the
+     * default delimiter is expected). These cases validate correct delimiter selection and unicode handling.
      *
-     * @return array Test cases for regular expression pattern normalization.
-     *
-     * @phpstan-return array<string, array{string, string, string|null}>
+     * @phpstan-return array<string, array{string, string|null, string|null}>
      */
     public static function regularExpressionPattern(): array
     {
@@ -201,21 +192,19 @@ final class NamingProvider
                 null,
             ],
             'unicode_emoji' => [
-                '\u1F596([a-z])',
-                '/\x{1F596}([a-z])/i',
+                '\\u1F596([a-z])',
+                '/\\x{1F596}([a-z])/i',
                 null,
             ],
         ];
     }
 
     /**
-     * Provides invalid regular expression patterns and the expected error messages.
+     * Provides invalid regular expression patterns and the expected error message identifier.
      *
-     * Each test case includes [inputPattern, delimiterCandidate, expectedErrorMessage]. These cases exercise delimiter
-     * detection, malformed patterns, missing end delimiters, and minimum-length constraints. The expected messages are
-     * produced by the library's {@see Message} enum and reflect precise validation failures.
-     *
-     * @return array Test cases for invalid regular expression patterns and corresponding error messages.
+     * Each dataset contains the invalid token, the delimiter (if relevant) and the expected error message produced by
+     * the validator. These cases ensure validation detects incorrect delimiters, malformed patterns and insufficient
+     * length.
      *
      * @phpstan-return array<string, array{string, string|null, string}>
      */

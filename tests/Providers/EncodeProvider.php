@@ -7,20 +7,15 @@ namespace UIAwesome\Html\Helper\Tests\Providers;
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\EncodeTest} class.
  *
- * Supplies comprehensive test data for validating HTML entity encoding, double encoding behavior, and Unicode/binary
- * sequence handling, ensuring standards-compliant output and security against XSS vulnerabilities.
+ * Supplies focused datasets used by encoding utilities for content and attribute/value contexts.
  *
- * The test data covers real-world scenarios for encoding HTML content and attribute values, supporting various input
- * types such as strings, integers, floats, and `null`. It ensures consistent behavior for double encoding and special
- * character handling across different encoding modes.
- *
- * The provider organizes test cases with descriptive names for clear identification of failure cases during test
- * execution and debugging sessions.
+ * The cases exercise entity escaping, double-encoding semantics, handling of control characters (including `null`
+ * bytes), and conversions of scalar types to string when appropriate.
  *
  * Key features.
- * - Covers HTML entity encoding, including special characters and Unicode sequences.
- * - Named test data sets for precise failure identification.
- * - Validation of double encoding behavior and handling of mixed input types.
+ * - Cover numeric and `null` value handling, as well as non-printable characters.
+ * - Ensure correct escaping of angle brackets, ampersands and quotes in both content and attribute contexts.
+ * - Validate double-encoding behavior for existing HTML entities.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -28,17 +23,13 @@ namespace UIAwesome\Html\Helper\Tests\Providers;
 final class EncodeProvider
 {
     /**
-     * Provides test cases for HTML encoding scenarios.
+     * Provides datasets for content encoding tests.
      *
-     * Supplies test data for validating HTML entity encoding, double encoding behavior, and Unicode/binary sequence
-     * handling.
+     * Each dataset returns the original content, the expected encoded string and a boolean flag indicating whether
+     * existing HTML entities should be double-encoded. These cases validate correct escaping in content rendering
+     * contexts and handling of special and control characters.
      *
-     * Each test case includes the input string, the expected encoded output, and a flag indicating whether double
-     * encoding is enabled.
-     *
-     * @return array Test data for encoding scenarios.
-     *
-     * @phpstan-return array<string, array{string, string, bool}>
+     * @phpstan-return array<string, array{0: string, 1: string, 2: bool}>
      */
     public static function content(): array
     {
@@ -69,30 +60,26 @@ final class EncodeProvider
                 true,
             ],
             'unicode null double' => [
-                '\u{0000}',
-                '\u{0000}',
+                '\\u{0000}',
+                '\\u{0000}',
                 true,
             ],
             'unicode null no double' => [
-                '\u{0000}',
-                '\u{0000}',
+                '\\u{0000}',
+                '\\u{0000}',
                 false,
             ],
         ];
     }
 
     /**
-     * Provides test cases for encode value scenarios.
+     * Provides datasets for value encoding and general value conversion.
      *
-     * Supplies test data for validating mixed type encoding (`int`, `float`, `null`, `string`), double encoding
-     * behavior, and Unicode/binary sequence handling.
+     * Each dataset returns the input value, the expected encoded output, and a boolean flag indicating whether existing
+     * entities should be double-encoded. The provider covers complex attribute-safe escaping, numeric and `null`
+     * conversions, and preservation of control characters where applicable.
      *
-     * Each test case includes the input value, the expected encoded output, and a flag indicating whether double
-     * encoding is enabled.
-     *
-     * @return array Test data for encode value scenarios.
-     *
-     * @phpstan-return array<string, array{mixed, mixed, bool}>
+     * @phpstan-return array<string, array{0: mixed, 1: mixed, 2: bool}>
      */
     public static function value(): array
     {
@@ -129,7 +116,7 @@ final class EncodeProvider
             ],
             'mixed quotes' => [
                 'It\'s a "test"',
-                'It&apos;s a &quot;test&quot;',
+                'It\'s a &quot;test&quot;',
                 true,
             ],
             'null byte double' => [
@@ -153,13 +140,13 @@ final class EncodeProvider
                 true,
             ],
             'unicode null double' => [
-                "\u{0000}",
-                "\u{0000}",
+                "\\u{0000}",
+                "\\u{0000}",
                 true,
             ],
             'unicode null no double' => [
-                "\u{0000}",
-                "\u{0000}",
+                "\\u{0000}",
+                "\\u{0000}",
                 false,
             ],
         ];

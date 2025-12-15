@@ -7,18 +7,16 @@ namespace UIAwesome\Html\Helper\Tests\Providers;
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\TemplateTest} class.
  *
- * Supplies focused test cases for template token substitution and line-ending normalization used by the template
- * rendering utilities. Ensures deterministic handling of mixed line endings (CR, LF, CRLF), literal escape-sequence
- * conversion (literal '\n' to actual newline), and filtering of empty lines produced before or after token
+ * Supplies focused datasets used by template helpers to normalize line endings and filter empty lines after token
  * substitution.
  *
- * Test vectors are intentionally minimal, targeted, and deterministic to detect regressions in normalization logic
- * across platforms and environments.
+ * The cases cover mixed newline sequences (CRLF `\r\n`), (LF `\n`), (CR `\r`), literal backslash-newline (`\n`)
+ * handling, and output normalization against `PHP_EOL`.
  *
  * Key features.
- * - Converts literal backslash-n sequences into actual newlines prior to filtering.
- * - Filters empty lines both originating from the template and those created by token substitution.
- * - Normalizes mixed line endings to the platform EOL for consistent output.
+ * - Provide datasets covering mixed platform line endings and literal newline escape sequences.
+ * - Return structured cases with expected normalized output and an assertion message.
+ * - Verify that empty lines are removed both before and after token substitution.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -26,13 +24,11 @@ namespace UIAwesome\Html\Helper\Tests\Providers;
 final class TemplateProvider
 {
     /**
-     * Provides test cases for line ending normalization and token substitution filtering.
+     * Provides datasets for line ending normalization.
      *
-     * Each dataset contains a template string, a map of tokens to replacement values, the expected normalized output,
-     * and a short assertion message explaining the intent. The cases exercise combinations of CR, LF, CRLF, literal
-     * backslash-n sequences, and removal of empty lines produced by substitution or present in the source.
-     *
-     * @return array Test cases mapping a descriptive name to an array with keys: template, tokens, expected, message.
+     * Each dataset returns: template, tokens, expected output, and an assertion message. The cases validate consistent
+     * normalization to `PHP_EOL`, correct conversion of literal `\n` sequences, and removal of empty lines (including
+     * lines that become empty after substitution).
      *
      * @phpstan-return array<
      *   string,

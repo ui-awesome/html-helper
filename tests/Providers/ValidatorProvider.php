@@ -11,21 +11,15 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Priority, Status, Theme};
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\ValidatorTest} class.
  *
- * Supplies comprehensive test data for validating integer-like value normalization, boundary checks, and list
- * membership for HTML attribute scenarios. Ensures standards-compliant conversion, type safety, and robust validation
- * logic for attribute assignment in HTML rendering contexts.
+ * Supplies focused datasets used by validation helpers for integer-like checks and allowed-value lists.
  *
- * The test data covers real-world scenarios for integer and string input validation, including boundary conditions,
- * negative and positive values, string representations, invalid formats, and enum comparisons. It supports both scalar
- * and enum values, maintaining consistent and type-safe representation across different rendering configurations.
- *
- * The provider organizes test cases with descriptive names for clear identification of failure cases during test
- * execution and debugging sessions.
+ * The cases cover numeric string handling, boundary conditions, enum comparisons, mixed-type lists, and failure message
+ * generation for invalid inputs.
  *
  * Key features.
- * - Ensures correct normalization and validation of integer-like and string values for HTML attributes.
- * - Named test data sets for precise failure identification.
- * - Validation of boundary checks, type strictness, and mixed enum/scalar list membership.
+ * - Provide comprehensive `oneOf` datasets including backed enums, unit enums and mixed-type lists.
+ * - Return tuples describing input, constraints, expected validity and expected message text.
+ * - Validate integer-like string and numeric inputs with `min`/`max` boundaries.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -33,16 +27,11 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Priority, Status, Theme};
 final class ValidatorProvider
 {
     /**
-     * Provides test cases for integer-like value validation scenarios.
+     * Provides datasets for integer-like validation.
      *
-     * Supplies comprehensive test data for validating integer and string input values, including boundary checks,
-     * negative and positive values, string representations, and invalid formats, ensuring correct normalization and
-     * validation for HTML attribute usage.
-     *
-     * Each test case includes the input value, minimum and maximum boundaries, expected boolean result, and an
-     * assertion message for clear failure identification.
-     *
-     * @return array Test data for integer-like value validation scenarios.
+     * Each dataset returns a tuple: value, minimum, maximum, expected validity, and an expected message. Cases include
+     * integers, numeric strings, leading zeroes, floats, scientific notation, whitespace and sign edge cases to ensure
+     * deterministic validation behaviour.
      *
      * @phpstan-return array<string, array{int|string, int|null, int|null, bool, string}>
      */
@@ -242,16 +231,11 @@ final class ValidatorProvider
     }
 
     /**
-     * Provides test cases for list membership validation scenarios.
+     * Provides datasets for `oneOf` validation checks.
      *
-     * Supplies test data for validating whether a value is present in a list of allowed values, supporting mixed types
-     * including enums and scalars. Ensures correct comparison logic, type strictness, and error messaging for HTML
-     * attribute assignment.
-     *
-     * Each test case includes the attribute name, input value, allowed list, expected boolean result, and an assertion
-     * message for clear identification.
-     *
-     * @return array Test data for list membership validation scenarios.
+     * Each dataset returns: attribute name, tested value, allowed list, a strict comparison flag, and the expected
+     * message. Datasets cover backed enums, unit enums, mixed enum lists, scalar comparisons, and message generation
+     * for failure scenarios.
      *
      * @phpstan-return array<string, array{string, mixed, list<mixed>, bool, string}>
      */

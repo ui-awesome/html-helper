@@ -9,20 +9,15 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Status, Theme};
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\EnumTest} class.
  *
- * Supplies comprehensive test data for validating enum normalization in tag rendering, ensuring standards-compliant
- * conversion, type safety, and value propagation according to the PHP specification.
+ * Supplies focused datasets used by enum normalization utilities.
  *
- * The test data covers real-world scenarios for normalizing `BackedEnum` instances and `UnitEnum` instances, supporting
- * both single enum values and arrays containing mixed types, to maintain consistent scalar representation across
- * different rendering configurations.
- *
- * The provider organizes test cases with descriptive names for clear identification of failure cases during test
- * execution and debugging sessions.
+ * The cases verify conversion of backed enums to their scalar values, conversion of unit enums to their name strings,
+ * preservation of `null` values, and passthrough behavior for non-enum scalars.
  *
  * Key features.
- * - Ensures correct normalization of `BackedEnum` instances and `UnitEnum` instances to their scalar representation.
- * - Named test data sets for precise failure identification.
- * - Validation of mixed arrays containing enums and scalar values.
+ * - Normalize backed enums to their scalar-backed values.
+ * - Preserve `null` and non-enum scalar values unchanged.
+ * - Return unit enum names for UnitEnum implementations.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -30,16 +25,11 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Status, Theme};
 final class EnumProvider
 {
     /**
-     * Provides test cases for array normalization scenarios.
+     * Provides datasets used to assert normalization of arrays containing enums and scalars.
      *
-     * Supplies test data for validating the normalization of arrays containing `BackedEnum` instances, `UnitEnum`
-     * instances, `null` values, and mixed scalar values, ensuring correct conversion to scalar representation for enums
-     * while preserving non-enum values.
-     *
-     * Each test case includes the input array, expected normalized output, and an assertion message for clear failure
-     * identification.
-     *
-     * @return array Test data for array normalization scenarios.
+     * Each dataset returns the input array, the expected normalized array and a short description of the
+     * expectation. These cases cover backed enums, unit enums, `null` passthrough, and mixed arrays of enums and
+     * scalar values.
      *
      * @phpstan-return array<string, array{mixed[], mixed[], string}>
      */
@@ -75,15 +65,10 @@ final class EnumProvider
     }
 
     /**
-     * Provides test cases for single value normalization scenarios.
+     * Provides datasets for normalizing individual values.
      *
-     * Supplies test data for validating the normalization of `BackedEnum` instances, `UnitEnum` instances, and scalar
-     * values, ensuring correct scalar conversion for enums and pass-through for non-enum values.
-     *
-     * Each test case includes the input value, expected normalized output, and an assertion message for clear failure
-     * identification.
-     *
-     * @return array Test data for value normalization scenarios.
+     * Each dataset returns the original value, the expected normalized value, and a description. Tests ensure backed
+     * enums yield their scalar value, unit enums yield their name, and non-enum scalars pass through unchanged.
      *
      * @phpstan-return array<string, array{mixed, mixed, string}>
      */

@@ -15,7 +15,7 @@ use UIAwesome\Html\Helper\Tests\Providers\AttributesProvider;
  * Validates attribute rendering, ordering, and sanitization to ensure safe and deterministic HTML attributes generation
  * for element fragments and components.
  *
- * Ensures correct handling of ordering rules, empty and null values, enum-backed attributes, and
+ * Ensures correct handling of ordering rules, empty and `null` values, enum-backed attributes, and
  * normalization/sanitization of malicious inputs to prevent XSS and attribute injection.
  *
  * Test coverage.

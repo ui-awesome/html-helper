@@ -9,22 +9,17 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{ButtonSize, Columns, Theme};
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\AttributesTest} class.
  *
- * Supplies comprehensive test data for validating the handling, propagation, and override of HTML attributes according
- * to the HTML specification, including assignment, ordering, empty and `null` value handling, enum integration, and
- * security against malicious input.
+ * Supplies focused datasets used by attribute rendering helpers to build safe and predictable HTML attribute
+ * strings.
  *
- * The test data covers real-world scenarios for appending, overriding, and removing attributes, supporting both
- * explicit `string` values and `null` for attribute removal, to ensure consistent output across different rendering
- * configurations.
- *
- * The provider organizes test cases with descriptive names for precise identification of failure cases during test
- * execution and debugging.
+ * The cases cover attribute ordering rules, handling of empty and `null` values, enum normalization across common
+ * attribute contexts, and sanitization/encoding of potentially malicious inputs.
  *
  * Key features.
- * - Ensures correct propagation, appending, and override of HTML attributes in element rendering.
- * - Named test data sets for accurate failure identification.
- * - Security-focused cases for XSS and invalid input handling.
- * - Validation of empty `string`, `null`, enum, and standard string values for attributes.
+ * - Cover enum values in `class`, `data`, and `style` contexts.
+ * - Exercise closures, scalars, and nested attribute groups used in tag attribute rendering.
+ * - Provide deterministic datasets for ordering and filtering attributes.
+ * - Validate safe handling of invalid names and malicious attribute values.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -32,13 +27,10 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{ButtonSize, Columns, Theme};
 final class AttributesProvider
 {
     /**
-     * Provides test cases for attribute ordering scenarios.
+     * Provides datasets for attribute ordering.
      *
-     * Supplies test data for validating the consistent ordering of HTML attributes when rendered.
-     *
-     * Each test case includes the input attributes and the expected rendered output.
-     *
-     * @return array Test data for attribute ordering scenarios.
+     * Each dataset returns the expected rendered attributes string and the input attributes array. These cases validate
+     * deterministic ordering across common attributes and ensure stable output for test assertions.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -59,14 +51,11 @@ final class AttributesProvider
     }
 
     /**
-     * Provides test cases for empty and `null` value handling.
+     * Provides datasets for empty and `null` attribute handling.
      *
-     * Supplies test data for validating how the attribute renderer handles empty strings, `null` values, empty arrays,
-     * and invalid attribute names.
-     *
-     * Each test case includes the input attributes and the expected rendered output.
-     *
-     * @return array Test data for empty/`null` scenarios.
+     * Each dataset returns the expected rendered attributes string and an input attributes array. The cases cover empty
+     * attribute names, empty string values, empty `class` arrays, invalid attribute names, and `null` values to ensure
+     * invalid or non-renderable entries are omitted consistently.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -100,14 +89,11 @@ final class AttributesProvider
     }
 
     /**
-     * Provides test cases for enum attribute scenarios.
+     * Provides datasets for enum-backed attribute rendering.
      *
-     * Supplies test data for validating HTML attribute rendering with PHP enum values, including integration in
-     * `class`, `data`, `style`, and numeric attributes.
-     *
-     * Each test case includes the input attributes and the expected rendered output.
-     *
-     * @return array Test data for enum attribute scenarios.
+     * Each dataset returns the expected rendered attributes string and an input attributes array. These cases validate
+     * normalization of enum values when used as scalars or within structured attributes such as `class`, `data`, and
+     * `style`.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -157,14 +143,11 @@ final class AttributesProvider
     }
 
     /**
-     * Provides test cases for malicious value handling and XSS prevention.
+     * Provides datasets for malicious or unsafe attribute inputs.
      *
-     * Supplies test data for validating security measures in HTML attribute rendering including XSS attack prevention,
-     * script injection blocking, and special character encoding.
-     *
-     * Each test case includes the input attributes and the expected rendered output.
-     *
-     * @return array Test data for security scenarios.
+     * Each dataset returns the expected rendered attributes string and an input attributes array. The cases include
+     * attribute values containing HTML/JS payloads, unsafe nested values in JSON-encoded data attributes, and invalid
+     * attribute keys to ensure inputs are encoded or dropped deterministically.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -198,14 +181,11 @@ final class AttributesProvider
     }
 
     /**
-     * Provides test cases for HTML attribute rendering scenarios.
+     * Provides datasets for rendering tag attributes.
      *
-     * Supplies comprehensive test data for validating HTML attribute expansion, boolean and enum handling, and edge
-     * case processing.
-     *
-     * Each test case includes the input attributes and the expected rendered output.
-     *
-     * @return array Test data for attribute rendering scenarios.
+     * Each dataset returns the expected rendered attributes string and an input attributes array. The cases cover
+     * boolean attributes (`true` and `false`), closures returning scalars and enums, numeric conversion, nested
+     * attribute groups (for example, `data` and `aria`), and JSON encoding for array values.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -383,14 +363,11 @@ final class AttributesProvider
     }
 
     /**
-     * Provides test cases for style attribute rendering scenarios.
+     * Provides datasets for `style` attribute rendering.
      *
-     * Supplies test data for validating style attribute handling with various value types including arrays, booleans,
-     * nested structures, `null` values, and special characters.
-     *
-     * Each test case includes the input attributes and the expected rendered output.
-     *
-     * @return array Test data for style attribute scenarios.
+     * Each dataset returns the expected rendered attributes string and an input attributes array. The cases cover
+     * scalar style values, list and nested arrays encoded into inline style values, boolean and numeric conversions,
+     * and omission of `null` style entries.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */

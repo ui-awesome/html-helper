@@ -15,23 +15,15 @@ use function str_repeat;
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\CSSClassTest} class.
  *
- * Supplies comprehensive test data for validating CSS class assignment, normalization, duplication handling, override
- * behavior, and support for PHP enums and mixed types, ensuring standards-compliant output and robust attribute
- * management in HTML rendering scenarios.
+ * Supplies focused datasets used by CSS class helpers to merge, normalize, and render `class` attribute values.
  *
- * The test data covers real-world scenarios for class attribute manipulation, including assignment, appending,
- * override, duplicate filtering, and edge cases such as empty values, Unicode, and invalid tokens. It supports both
- * string and `UnitEnum` values, maintaining consistent and type-safe representation across different rendering
- * configurations.
- *
- * The provider organizes test cases with descriptive names for clear identification of failure cases during test
- * execution and debugging sessions.
+ * The cases cover scalar and enum inputs, multi-operation add semantics, duplicate elimination, invalid token
+ * filtering, whitespace normalization, and override behaviour while preserving unrelated attributes.
  *
  * Key features.
- * - Ensures correct normalization and assignment of CSS class attributes for string and enum values.
- * - Named test data sets for precise failure identification.
- * - Support for mixed arrays, Unicode, and invalid token filtering.
- * - Validation of duplicate handling, override logic, and edge cases in class attribute processing.
+ * - Cover edge cases including invalid tokens, large inputs, and mixed whitespace separators.
+ * - Provide datasets for class value rendering with allowed lists and formatted base strings.
+ * - Return operation sequences describing incremental merges and override behaviour across arrays, strings, and enums.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -39,15 +31,11 @@ use function str_repeat;
 final class CSSClassProvider
 {
     /**
-     * Provides test cases for CSS class rendering scenarios.
+     * Provides datasets for class value rendering.
      *
-     * Supplies test data for validating the normalization and rendering of CSS class values, including string and
-     * `UnitEnum` inputs, ensuring correct conversion and output formatting for HTML attributes.
-     *
-     * Each test case includes the input value, expected normalized output, allowed whitelist, formatted output, and an
-     * assertion message for clear failure identification.
-     *
-     * @return array Test data for CSS class rendering scenarios.
+     * Each dataset returns: class value, base class format, allowed list, expected output, and an assertion
+     * message. The cases validate enum normalization, string matching against allowed values, and deterministic
+     * formatting of rendered class values.
      *
      * @phpstan-return array<
      *   string,
@@ -82,15 +70,11 @@ final class CSSClassProvider
     }
 
     /**
-     * Provides test cases for CSS class attribute scenarios.
+     * Provides datasets for class attribute merging.
      *
-     * Supplies test data for validating assignment, appending, and override of CSS class attributes, including empty
-     * `string`, `null`, and standard string values.
-     *
-     * Each test case includes the input value(s), the expected output, and an assertion message for clear
-     * identification.
-     *
-     * @return array Test data for `class` attribute scenarios.
+     * Each dataset returns: initial attributes, an ordered list of operations, expected attributes, and an assertion
+     * message. The cases validate merging semantics, token filtering, whitespace normalization, duplicate elimination,
+     * override behaviour, and preservation of unrelated attributes.
      *
      * @phpstan-return array<
      *   string,
