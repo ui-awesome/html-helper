@@ -12,16 +12,16 @@ use UIAwesome\Html\Helper\Tests\Providers\EncodeProvider;
 /**
  * Test suite for {@see Encode} helper functionality and behavior.
  *
- * Validates the encoding of content and values according to the HTML Living Standard specification.
+ * Validates encoding routines for content and value contexts to ensure deterministic and safe HTML escaping suitable
+ * for fragments and lightweight components.
  *
- * Ensures correct handling, immutability, and validation of encoding operations, supporting both scalar and mixed
- * types, as well as double encoding scenarios.
+ * Ensures correct handling of entity encoding, prevention of double-encoding when requested, and support for mixed
+ * scalar types including `null`, `int`, `float`, and `string`.
  *
  * Test coverage.
- * - Accurate encoding of content and values.
- * - Compatibility with scalar and mixed types.
- * - Data provider-driven validation for edge cases and expected behaviors.
- * - Proper handling of double encoding scenarios.
+ * - Deterministic output for edge cases supplied by the data provider.
+ * - Encoding of mixed typed values and `null` handling.
+ * - Encoding of plain text content with and without double-encoding.
  *
  * {@see EncodeProvider} for data-driven test cases and edge conditions.
  *

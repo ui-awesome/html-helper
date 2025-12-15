@@ -15,16 +15,16 @@ use UIAwesome\Html\Helper\Tests\Providers\EnumProvider;
 /**
  * Test suite for {@see Enum} helper functionality and behavior.
  *
- * Validates the normalization and validation of enum values and arrays according to the PHP language specification.
+ * Validates normalization routines for enum-backed values and arrays to ensure deterministic and framework-friendly
+ * values suitable for attribute and class rendering and other helper operations.
  *
- * Ensures correct handling, immutability, and validation of enum operations, supporting both scalar and array types,
- * as well as exception handling for invalid value types.
+ * Ensures correct handling of `UnitEnum` instances, scalar values, `null`, and nested arrays, and verifies that
+ * unsupported types raise appropriate exceptions with clear messages.
  *
  * Test coverage.
- * - Accurate normalization of arrays containing enums and scalars.
- * - Compatibility with PHP enums and scalar types.
- * - Exception handling for invalid value types.
- * - Validation of values within a predefined list.
+ * - Exception behavior for invalid value types.
+ * - Normalization of arrays containing enums and mixed types.
+ * - Normalization of single values including enum, scalar, and null.
  *
  * {@see EnumProvider} for data-driven test cases and edge conditions.
  *

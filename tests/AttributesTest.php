@@ -12,18 +12,17 @@ use UIAwesome\Html\Helper\Tests\Providers\AttributesProvider;
 /**
  * Test suite for {@see Attributes} helper functionality and behavior.
  *
- * Validates the rendering and manipulation of HTML attributes according to the HTML Living Standard specification.
+ * Validates attribute rendering, ordering, and sanitization to ensure safe and deterministic HTML attributes generation
+ * for element fragments and components.
  *
- * Ensures correct handling, ordering, encoding, and validation of HTML attributes in tag rendering, supporting array
- * values, boolean attributes, data/ARIA expansion, and XSS prevention for secure attribute output.
+ * Ensures correct handling of ordering rules, empty and null values, enum-backed attributes, and
+ * normalization/sanitization of malicious inputs to prevent XSS and attribute injection.
  *
  * Test coverage.
- * - Accurate rendering of HTML attributes with proper ordering.
- * - Correct handling of empty and null values.
- * - Data provider-driven validation for edge cases and expected behaviors.
- * - Enum attribute rendering and type conversion.
- * - Sanitization of malicious values to prevent XSS vulnerabilities.
- * - Style attribute formatting and rendering.
+ * - Handling of empty and `null` values.
+ * - Rendering order and deterministic attribute output.
+ * - Sanitization of malicious or unexpected values.
+ * - Support for enum-backed attribute values.
  *
  * {@see AttributesProvider} for data-driven test cases and edge conditions.
  *

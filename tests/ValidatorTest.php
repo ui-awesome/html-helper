@@ -14,18 +14,15 @@ use UnitEnum;
 /**
  * Test suite for {@see Validator} helper functionality and behavior.
  *
- * Validates the normalization and verification of values for HTML attribute rendering and tag manipulation according to
- * the HTML Living Standard specification.
+ * Validates common validation helpers such as integer-like detection and allowed-value checks used across form handling
+ * and attribute validation routines.
  *
- * Ensures correct type checking, value validation, and exception handling for scalar, enum, and array types in
- * attribute operations, supporting robust and predictable output for HTML components.
+ * Ensures correct handling of numeric strings, boundary checks, and explicit error reporting for disallowed values or
+ * invalid arguments.
  *
  * Test coverage.
- * - Accurate validation of integer-like values and range constraints.
- * - Data provider-driven validation for edge cases and expected behaviors.
- * - Exception handling for invalid or out-of-range values.
- * - Immutability of the helper's API when validating values.
- * - Verification of allowed values for attributes and enums.
+ * - Detection of integer-like values with optional min/max constraints.
+ * - Validation against allowed value lists and exception behavior.
  *
  * {@see ValidatorProvider} for data-driven test cases and edge conditions.
  *

@@ -16,19 +16,16 @@ use UnitEnum;
 /**
  * Test suite for {@see CSSClass} helper functionality and behavior.
  *
- * Validates the management and rendering of the global HTML `class` attribute according to the HTML Living Standard
- * specification.
+ * Validates merging, rendering, and validation of CSS class values to ensure deterministic and secure class attribute
+ * generation for HTML fragments and lightweight components.
  *
- * Ensures correct handling, immutability, and validation of CSS class attributes in tag rendering, supporting `string`,
- * `UnitEnum`, and `null` values for dynamic class assignment and manipulation.
+ * Ensures correct handling of multiple class input formats, override semantics, enum-backed values, and
+ * validation/error reporting for disallowed values.
  *
  * Test coverage.
- * - Accurate addition and rendering of CSS class attributes.
- * - Data provider-driven validation for edge cases and expected behaviors.
- * - Exception handling for invalid class values and enums.
- * - Immutability of the helper's API when setting or overriding class attributes.
- * - Proper assignment, overriding, and validation of class values.
- * - Rendering with base classes and allowed class lists.
+ * - Exception handling for invalid scalar and enum values.
+ * - Merging and add semantics for class attribute values, including override behavior.
+ * - Rendering of class values with allowed lists and base-class formatting.
  *
  * {@see CSSClassProvider} for data-driven test cases and edge conditions.
  *
