@@ -29,7 +29,7 @@ final class EncodeProvider
      * existing HTML entities should be double-encoded. These cases validate correct escaping in content rendering
      * contexts and handling of special and control characters.
      *
-     * @phpstan-return array<string, array{0: string, 1: string, 2: bool}>
+     * @phpstan-return array<string, array{string, string, bool}>
      */
     public static function content(): array
     {
@@ -79,7 +79,7 @@ final class EncodeProvider
      * entities should be double-encoded. The provider covers complex attribute-safe escaping, numeric and `null`
      * conversions, and preservation of control characters where applicable.
      *
-     * @phpstan-return array<string, array{0: mixed, 1: mixed, 2: bool}>
+     * @phpstan-return array<string, array{mixed, string, bool}>
      */
     public static function value(): array
     {

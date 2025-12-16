@@ -37,10 +37,7 @@ final class CSSClassProvider
      * message. The cases validate enum normalization, string matching against allowed values, and deterministic
      * formatting of rendered class values.
      *
-     * @phpstan-return array<
-     *   string,
-     *   array{0: string|UnitEnum, 1: string, 2: list<string|UnitEnum>, 3: string, 4: string},
-     * >
+     * @phpstan-return array<string, array{string|UnitEnum, string, list<string|UnitEnum>, string, string}>
      */
     public static function renderValues(): array
     {
@@ -78,12 +75,7 @@ final class CSSClassProvider
      *
      * @phpstan-return array<
      *   string,
-     *   array{
-     *     0: mixed[],
-     *     1: list<array{classes: mixed[]|string|UnitEnum|null, override?: bool}>,
-     *     2: mixed[],
-     *     3: string,
-     *   }
+     *   array{mixed[], list<array{classes: mixed[]|string|UnitEnum|null, override?: bool}>, mixed[], string},
      * >
      */
     public static function values(): array
