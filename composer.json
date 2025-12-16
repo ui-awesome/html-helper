@@ -1,11 +1,11 @@
 {
     "name": "ui-awesome/html-helper",
     "type": "library",
-    "description": "UI Awesome HTML Helpers Code Generator for PHP.",
+    "description": "UI Awesome HTML Helpers for PHP.",
     "keywords": [
         "ui-awesome",
-        "html-helpers",
-        "code-generator",
+        "html",
+        "helper",
         "php"
     ],
     "license": "BSD-3-Clause",
@@ -35,7 +35,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "1.0-dev"
+            "dev-main": "0.4.x-dev"
         }
     },
     "config": {
