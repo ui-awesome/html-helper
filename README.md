@@ -44,8 +44,7 @@ composer require ui-awesome/html-helper:^0.3
 
 #### Rendering HTML attributes
 
-`Attributes` helper sorts attributes by priority, handles boolean values, and automatically encodes JSON for complex
-data.
+Sorts attributes by priority, handles boolean values, and automatically encodes JSON for complex data.
 
 ```php
 <?php
@@ -83,7 +82,7 @@ use UIAwesome\Html\Helper\Attributes;
 
 #### Managing CSS classes
 
-`CSSClass` helper allows you to merge, add, or override CSS classes within an attributes array smartly.
+Allows you to merge, add, or override CSS classes within an attributes array smartly.
 
 ```php
 <?php
@@ -108,7 +107,7 @@ echo $attributes['class'];
 
 #### Encoding
 
-`Encode` helper ensures your content and attribute values are safe from XSS.
+Ensures your content and attribute values are safe from XSS.
 
 ```php
 <?php
@@ -130,7 +129,7 @@ echo Encode::value('Name "Quote"');
 
 #### Enum normalization
 
-`Enum` helper normalizes values against a predefined set, supporting both arrays and Enums.
+Normalizes values against a predefined set, supporting both arrays and Enums.
 
 ```php
 <?php
@@ -161,8 +160,7 @@ Enum::normalizeValue('foo');
 
 #### Form naming & IDs
 
-`Naming` helper generates standard PHP form names and valid HTML IDs, handling arrayable and nested properties
-effortlessly.
+Generates standard PHP form names and valid HTML IDs, handling arrayable and nested properties effortlessly.
 
 ```php
 <?php
@@ -188,7 +186,7 @@ echo Naming::convertToPattern('/^[a-z]+$/i');
 
 #### Template rendering
 
-`Template` helper performs clean token replacement with normalized line endings.
+Performs clean token replacement with normalized line endings.
 
 ```php
 <?php
@@ -205,7 +203,7 @@ echo Template::render("Hello, {name}!", ['{name}' => 'Yii3']);
 
 #### Validation
 
-`Validator` helper enforces strict types and approved values for your HTML logic.
+Enforces strict types and approved values for your HTML logic.
 
 ```php
 <?php
