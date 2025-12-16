@@ -5,20 +5,19 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper;
 
 /**
- * CSS class manipulation helper for attribute normalization and merging.
+ * CSS class utility for normalization, validation, and rendering.
  *
- * Provides a static API for processing, validating and rendering CSS class attributes, supporting string/array
- * conversion, safe class merging, and normalization for HTML output.
+ * Provides a concrete implementation for working with the HTML `class` attribute, supporting common inputs such as a
+ * string, an array, UnitEnum values, or `null` and producing predictable output suitable for HTML rendering.
  *
- * Designed for integration in HTML helpers, view renderers, tags, and components ensure consistent and secure handling
- * of CSS class attributes across all supported use cases.
+ * Designed for integration in HTML attribute handling, tag renderers, and view helpers, ensuring consistent and safe
+ * manipulation of CSS class lists across all supported use cases.
  *
  * Key features.
- * - Attribute manipulation and normalization for HTML output.
- * - CSS class name validation and sanitization.
- * - Safe merging and overriding of class lists.
- * - Stateless helpers suitable for reuse.
- * - String and array conversion utilities.
+ * - Merging behavior for existing `class` attributes with uniqueness preservation, with explicit override support.
+ * - Normalization of string, array, and UnitEnum inputs into a consistent class list.
+ * - Rendering helpers that validate against an explicit allow-list.
+ * - Validation of class names using a strict regular expression.
  *
  * {@see Base\BaseCSSClass} for the base implementation.
  *

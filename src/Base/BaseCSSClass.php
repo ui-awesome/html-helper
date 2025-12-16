@@ -17,23 +17,16 @@ use function preg_split;
 use function sprintf;
 
 /**
- * Base class for safe and flexible CSS class manipulation.
+ * Base class for CSS class normalization, validation, and rendering.
  *
- * Provides a fluent, immutable API for handling CSS class attributes, supporting `BackedEnum` integration, base class
- * formatting, class list merging, and robust validation for safe HTML output.
- *
- * Designed for use in HTML helpers, tags, and view renderers, this class ensures that CSS class attributes are
- * constructed, merged and validated according to modern standards and security best practices.
+ * Designed for use in HTML attribute handling, this class provides predictable and safe manipulation of the `class`
+ * attribute, supporting common inputs such as strings, arrays, and UnitEnum values.
  *
  * Key features.
- * - Attribute array manipulation for class merging and overrides.
- * - `BackedEnum` and `UnitEnum` support for type-safe class definitions.
- * - Base class formatting and normalization.
- * - Integration-ready for asset, tag, and view systems.
- * - Stateless, static API for safe reuse.
- * - Strict CSS class name validation using regex.
- *
- * {@see InvalidArgumentException} for invalid value errors.
+ * - Merging behavior for existing `class` attributes with uniqueness preservation.
+ * - Normalization of string, array, and UnitEnum inputs into a consistent class list.
+ * - Rendering helpers that validate against an explicit allow-list.
+ * - Validation of class names using a strict regular expression.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -47,39 +40,39 @@ abstract class BaseCSSClass
      * predictable HTML rendering while supporting advanced naming conventions.
      *
      * Permitted characters.
-     * - **Letters** (a-z, A-Z, Unicode letters): Standard CSS identifier characters and international support.
-     * - **Digits** (0-9): Numeric variants, responsive breakpoints, and utility scales.
-     * - **Colons** (:): Pseudo-class modifiers and state variants (for example, `hover:`, `focus:`, `lg:`).
-     * - **Dots** (.): Utility class notation and namespace separators.
-     * - **Hyphens** (-): Kebab-case naming convention and compound class names.
-     * - **Underscores** (_): Alternative word separators and BEM methodology support.
-     * - **Square brackets** ([]): Arbitrary value syntax for dynamic utilities (for example, `w-[200px]`,
+     * - Letters (`a-z`, `A-Z`, Unicode letters): Standard CSS identifier characters and international support.
+     * - Digits (`0-9`): Numeric variants, responsive breakpoints, and utility scales.
+     * - Colons (`:`): Pseudo-class modifiers and state variants (for example, `hover:`, `focus:`, `lg:`).
+     * - Dots (`.`): Utility class notation and namespace separators.
+     * - Hyphens (`-`): Kebab-case naming convention and compound class names.
+     * - Underscores (`_`): Alternative word separators and BEM methodology support.
+     * - Square brackets (`[]`): Arbitrary value syntax for dynamic utilities (for example, `w-[200px]`,
      *   `bg-[#1da1f2]`, `w-[calc(100%-2rem)]`).
-     * - **Additional characters**: Hash (#) for colors, percent (%) for relative values, parentheses (()) for CSS
-     *   functions like `calc()`, `min()`, `max()`, plus (+) and slash (/) for calculations and ratios, single quotes
-     *   (') for content values, equals (=) for attribute selectors, commas (,) for multiple values.
-     * - **Unicode characters**: Full Unicode support for internationalization (stars ★, arrows →, etc.).
+     * - Additional characters: hash (`#`) for colors, percent (`%`) for relative values, parentheses (`()`) for CSS
+     *   functions like `calc()`, `min()`, `max()`, plus (`+`) and slash (`/`) for calculations and ratios, single
+     *   quote (`'`) for content values, equals (`=`) for attribute selectors, and commas (`,`) for multiple values.
+     * - Unicode characters: Full Unicode support for internationalization (stars ★, arrows →, etc.).
      *
      * Excluded characters for security and safety.
      * - Whitespace characters (space, tab, newline) - would break CSS class parsing.
-     * - At symbol (@) - reserved for CSS at-rules.
-     * - Exclamation mark (!) - could conflict with important declarations.
-     * - Semicolon (;) - could break CSS syntax.
-     * - Angle brackets (<, >) - XSS prevention.
-     * - Quotes (", `) - potential injection vectors (single quote ' is allowed for content).
-     * - Curly braces ({}) - breaks CSS syntax.
-     * - Pipe (|) - reserved for attribute selectors.
-     * - Backslash (\) - escape character conflicts.
-     * - Caret (^) - reserved for attribute selectors.
-     * - Ampersand (&) - reserved for SCSS nesting.
-     * - Dollar sign ($) - reserved for attribute selectors.
-     * - Asterisk (*) - reserved for universal selector.
+     * - At symbol (`@`) - reserved for CSS at-rules.
+     * - Exclamation mark (`!`) - could conflict with important declarations.
+     * - Semicolon (`;`) - could break CSS syntax.
+     * - Angle brackets (`<`, `>`) - XSS prevention.
+     * - Quotes (`"`, `\``) - potential injection vectors (single quote (`'`) is allowed for content).
+     * - Curly braces (`{`, `}`) - breaks CSS syntax.
+     * - Pipe (`|`) - reserved for attribute selectors.
+     * - Backslash (`\\`) - escape character conflicts.
+     * - Caret (`^`) - reserved for attribute selectors.
+     * - Ampersand (`&`) - reserved for SCSS nesting.
+     * - Dollar sign (`$`) - reserved for attribute selectors.
+     * - Asterisk (`*`) - reserved for universal selector.
      *
      * This pattern supports modern CSS frameworks such as Tailwind CSS, Bootstrap 5+, and custom utility systems, while
      * maintaining compatibility with traditional CSS naming conventions and internationalization requirements.
      *
      * Note: Empty strings are rejected during validation. The pattern requires at least one character and does not
-     * validate CSS selector syntax rules. The pattern uses Unicode mode (u flag) for proper international character
+     * validate CSS selector syntax rules. The pattern uses Unicode mode (`u` flag) for proper international character
      * support. This pattern uses a negative character class approach to explicitly exclude dangerous characters while
      * supporting Unicode symbols needed for internationalization.
      *
@@ -93,7 +86,7 @@ abstract class BaseCSSClass
      * This method provides a flexible way to add CSS classes to an HTML attribute array, supporting a variety of input
      * types (arrays, enums, strings, or `null`) and ensuring that all class names are validated for CSS compliance.
      *
-     * If `$override` is `true`, any existing `class` attribute is replaced; otherwise, new classes are merged with
+     * If '$override' is `true`, any existing `class` attribute is replaced; otherwise, new classes are merged with
      * existing ones, preserving uniqueness and order.
      *
      * @param array $attributes Attribute array to modify. Passed by reference and updated in place.
@@ -157,7 +150,6 @@ abstract class BaseCSSClass
      *
      * @return string Formatted and validated CSS class name.
      *
-     * {@see InvalidArgumentException} for invalid argument errors.
      * {@see Enum::normalizeValue()} for enum normalization logic.
      *
      * @phpstan-param list<scalar|UnitEnum|null> $allowed
@@ -166,7 +158,7 @@ abstract class BaseCSSClass
      * ```php
      * // using enum
      * $class = CSSClass::render(ButtonType::PRIMARY, 'btn-%s', ButtonType::values());
-     * // return 'btn-primary'
+     * // returns 'btn-primary'
      *
      * // using string
      * $class = CSSClass::render('secondary', 'btn-%s', ['primary', 'secondary']);
@@ -186,9 +178,9 @@ abstract class BaseCSSClass
     }
 
     /**
-     * Extracts a string value from a `UnitEnum` or string item.
+     * Extracts a string value from a UnitEnum or string item.
      *
-     * @param mixed $item Item to extract string value from (`UnitEnum`, string, or other).
+     * @param mixed $item Item to extract string value from (UnitEnum, string, or other).
      *
      * @return string|null Extracted string value, or `null` if item is invalid or not a string type.
      */
@@ -214,13 +206,13 @@ abstract class BaseCSSClass
      * ensuring compliance with modern CSS frameworks and safe HTML rendering.
      *
      * The validation accepts the following characters.
-     * - Letters (a-z, A-Z)
-     * - Digits (0-9)
-     * - Colons (:) for pseudo-class modifiers like `hover:` or `lg:`
-     * - Dots (.) for utility notation
-     * - Hyphens (-) for kebab-case naming
-     * - Underscores (_) for word separation
-     * - Square brackets ([]) for arbitrary value syntax like `w-[200px]`
+     * - Letters (`a-z`, `A-Z`)
+     * - Digits (`0-9`)
+     * - Colons (`:`) for pseudo-class modifiers like `hover:` or `lg:`
+     * - Dots (`.`) for utility notation
+     * - Hyphens (`-`) for kebab-case naming
+     * - Underscores (`_`) for word separation
+     * - Square brackets (`[]`) for arbitrary value syntax like `w-[200px]`
      *
      * Empty strings and strings containing only whitespace are considered invalid.
      *
@@ -236,8 +228,8 @@ abstract class BaseCSSClass
     /**
      * Normalizes an array of CSS class items into a flat array of validated string class names.
      *
-     * Processes each array item that is either a `UnitEnum` or string, extracting their normalized string values and
-     * validating them inline for optimal performance. Non-string values (such as int values from `BackedEnum`), invalid
+     * Processes each array item that is either a UnitEnum or string, extracting their normalized string values and
+     * validating them inline for optimal performance. Non-string values (such as int values from BackedEnum), invalid
      * types and invalid CSS class names are excluded.
      *
      * This method performs single-pass normalization and validation for O(n) complexity.
@@ -271,7 +263,7 @@ abstract class BaseCSSClass
      * names suitable for HTML attribute usage. This method performs single-pass normalization and validation for
      * optimal performance.
      *
-     * Note: While `BackedEnum` can have int values, CSS class names are always strings. Any int values from enums are
+     * Note: While BackedEnum can have int values, CSS class names are always strings. Any int values from enums are
      * excluded during normalization.
      *
      * @param array|string|UnitEnum|null $classes Single or multiple CSS classes to normalize and validate.
@@ -299,13 +291,13 @@ abstract class BaseCSSClass
     }
 
     /**
-     * Normalizes a `UnitEnum` to an array containing its validated string value.
+     * Normalizes a UnitEnum to an array containing its validated string value.
      *
-     * Extracts the scalar value from a `BackedEnum` or the name from a pure `UnitEnum` instance, validates it and
-     * returns it in an array.
+     * Extracts the scalar value from a BackedEnum or the name from a pure UnitEnum instance, validates it and returns
+     * it in an array.
      *
-     * If the enum has an `int` value or the string value is invalid, returns an empty array since CSS class names
-     * must be valid strings.
+     * If the enum has an int value or the string value is invalid, returns an empty array since CSS class names must be
+     * valid strings.
      *
      * This method performs single-pass normalization and validation for optimal performance.
      *

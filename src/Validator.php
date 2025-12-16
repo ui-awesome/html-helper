@@ -5,19 +5,18 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper;
 
 /**
- * Validation utility helper for robust, type-safe validation of HTML attributes and values.
+ * Validation utility for common HTML helper values and configuration.
  *
- * Provides a concrete, ready-to-use implementation for validating and processing attribute values, supporting advanced
- * validation scenarios, strict type safety, and standardized error handling for invalid input.
+ * Provides a concrete implementation for validating values commonly used in HTML attribute rendering and helper
+ * configuration, including integer-like inputs and strict allow-list membership checks.
  *
- * Designed for integration in view renderers, tag systems, and component engines, ensuring consistent and secure
- * validation of attribute sets, values, and custom rules across all supported use cases.
+ * Designed for integration in tag renderers, view systems, and helper components requiring predictable validation
+ * behavior with explicit exceptions for invalid values.
  *
  * Key features.
- * - Centralized error handling and reporting for invalid input.
- * - Standardized output for predictable validation results.
- * - Stateless, reusable helpers for validation workflows.
- * - Type-safe validation for HTML attributes and values.
+ * - Allow-list validation with UnitEnum normalization for consistent, strict comparisons.
+ * - Integer-like validation for int and integer strings with optional range constraints.
+ * - Predictable behavior with explicit exceptions for invalid values.
  *
  * {@see Base\BaseValidator} for the base implementation.
  *

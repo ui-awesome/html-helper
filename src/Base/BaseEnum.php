@@ -22,7 +22,7 @@ use function is_scalar;
  * integration with serialization, comparison, and data transformation logic across the framework.
  *
  * It supports normalization of single enum instances or arrays of enums, returning their scalar value
- * (for `BackedEnum`) or name (for pure enums), and passes through non-enum values unchanged.
+ * (for BackedEnum) or name (for pure enums), and passes through non-enum values unchanged.
  *
  * This is essential for consistent handling of enums in configuration, storage, and API layers.
  *
@@ -30,11 +30,9 @@ use function is_scalar;
  * - Batch normalization of arrays of enums or mixed values with support for `null` handling.
  * - Pass-through behavior for non-enum values to support mixed-type arrays.
  * - Type-safe normalization of backed and pure enums to scalar values or names.
- * - Unified API for enum value extraction in serialization and comparison logic.
  * - Utility methods for simplifying enum handling in data processing and configuration workflows.
  *
  * {@see BackedEnum} for enums with scalar values.
- * {@see InvalidArgumentException} for invalid value errors.
  * {@see UnitEnum} for all enum types.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
@@ -88,8 +86,8 @@ abstract class BaseEnum
      *
      * @throws InvalidArgumentException if the value is not an enum, scalar, array, or `null`.
      *
-     * @return array|bool|float|int|string|null Scalar value for `BackedEnum`, name for pure enums, or the original
-     * value for non-enums.
+     * @return array|bool|float|int|string|null Scalar value for BackedEnum, name for pure enums, or the original value
+     * for non-enums.
      *
      * {@see normalizeArray()} for batch normalization.
      *

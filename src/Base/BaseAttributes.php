@@ -224,7 +224,7 @@ abstract class BaseAttributes
      * Processes the provided attribute name and value, rendering the output according to the value's type.
      * - Arrays are handled as complex attributes (for example, `class`, `style`, `data-*`, `aria-*`) and rendered using
      *   the appropriate formatting method.
-     * - `BackedEnum` are normalized to their backing value for safe HTML output.
+     * - BackedEnum are normalized to their backing value for safe HTML output.
      * - Boolean values are rendered as boolean attributes (for example, `checked`, `disabled`) with presence indicating
      *   `true`.
      * - Empty strings and `null` values result in no output.
@@ -264,7 +264,7 @@ abstract class BaseAttributes
      * @param string $name Attribute name to render.
      * @param bool $value Boolean value indicating whether to render the attribute.
      *
-     * @return string Rendered attribute string (with leading space) or an empty `string` if `false`.
+     * @return string Rendered attribute string (with leading space) or an empty string if `false`.
      */
     private static function renderBooleanAttributes(string $name, bool $value): string
     {
@@ -277,7 +277,7 @@ abstract class BaseAttributes
      * Joins class names provided as an array into a single space-separated string, encodes the result for safe HTML
      * output and returns a formatted `class` attribute suitable for direct inclusion in an HTML tag.
      *
-     * Supports `BackedEnum` values within the class array, ensuring all values are normalized and encoded to prevent
+     * Supports BackedEnum values within the class array, ensuring all values are normalized and encoded to prevent
      * XSS or malformed output.
      *
      * @param array $values Array of class names.
@@ -296,10 +296,10 @@ abstract class BaseAttributes
     }
 
     /**
-     * Renders `data-*` and `aria-* HTML attributes as a standards-compliant string.
+     * Renders `data-*` and `aria-*` HTML attributes as a standards-compliant string.
      *
      * Processes associative arrays of data or ARIA attributes, handling nested arrays by JSON encoding their values and
-     * encoding simple values for safe HTML output. Supports `BackedEnum` values for attribute content.
+     * encoding simple values for safe HTML output. Supports BackedEnum values for attribute content.
      *
      * This method is used to generate attribute strings for `data-*` and `aria-*` attributes, ensuring that complex
      * values are encoded and that attribute names are correctly prefixed. Nested arrays are encoded as JSON using the
@@ -373,7 +373,7 @@ abstract class BaseAttributes
      * as the value of a `style` attribute in HTML tags. Each property and value is concatenated in the format
      * `property: value;` and the result is trimmed and encoded for safe HTML output.
      *
-     * Supports `BackedEnum` values for CSS properties, ensuring all values are normalized and encoded to prevent XSS or
+     * Supports BackedEnum values for CSS properties, ensuring all values are normalized and encoded to prevent XSS or
      * malformed output. Returns an empty string if no style properties are present.
      *
      * @param array $values Associative array of CSS property-value pairs.
@@ -405,19 +405,19 @@ abstract class BaseAttributes
      *
      * Recursively prepares values for JSON encoding to ensure safe and standards-compliant HTML attribute output.
      *
-     * This method processes arrays, strings, `Closure` and `BackedEnum` values to guarantee that all data embedded in
+     * This method processes arrays, strings, Closure and BackedEnum values to guarantee that all data embedded in
      * HTML attributes is encoded and normalized.
      *
-     * Arrays are traversed recursively, strings are HTML-encoded, `BackedEnum` values are converted to their backing
-     * value, and `Closure` are executed and their result is used.
+     * Arrays are traversed recursively, strings are HTML-encoded, BackedEnum values are converted to their backing
+     * value, and Closure are executed and their result is used.
      *
      * This prevents XSS vulnerabilities and ensures that complex attribute values are represented safely in the
      * rendered HTML.
      *
-     * @param mixed $value Value to sanitize for JSON encoding. Accepts arrays, strings, enums, scalars or `Closure`.
+     * @param mixed $value Value to sanitize for JSON encoding. Accepts arrays, strings, enums, scalars or Closure.
      *
      * @return mixed Sanitized value, ready for safe HTML attribute embedding. Maybe a scalar, array, or the result of
-     * a `Closure`.
+     * a Closure.
      */
     private static function sanitizeJsonValue(mixed $value): mixed
     {

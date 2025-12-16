@@ -5,26 +5,22 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper;
 
 /**
- * HTML attribute helper for safe, flexible attribute rendering and manipulation.
+ * HTML attribute utility for standardized, safe attribute rendering.
  *
- * Provides a fluent, immutable API for processing and rendering HTML attributes, supporting array and boolean values,
- * data/ARIA attribute expansion and HTML-safe encoding for secure output.
+ * Provides a concrete implementation for rendering HTML attributes in a predictable, standards-compliant order,
+ * supporting common HTML5 use cases such as boolean attributes, `class` and `style` composition, and `data-*` /
+ * `aria-*` attribute expansion.
  *
- * Designed for integration in view renderers, tags and components, it ensures correct attribute ordering, escaping and
- * compatibility with all major HTML5 use cases.
+ * Designed for integration in tag renderers and view helpers, ensuring consistent encoding, validation, and output
+ * formatting of attribute strings across all supported use cases.
  *
  * Key features.
- * - Array and boolean attribute handling for dynamic attribute sets.
- * - Data/ARIA attribute expansion for accessibility and custom data.
- * - HTML-safe encoding to prevent XSS and markup errors.
- * - Immutable, tag-based configuration for safe reuse.
- * - Standardized attribute ordering for predictable output.
- * - Type-safe, documented methods for all major attribute scenarios.
+ * - Array handling for `class`, `style`, `data-*`, and `aria-*` attributes.
+ * - Attribute sorting by priority for readable, maintainable HTML.
+ * - JSON encoding for complex attribute values.
+ * - Support for boolean attributes (for example, `checked`, `disabled`).
+ * - Validation of attribute names using a strict regex pattern.
  *
- * The API is intended for use in advanced HTML generation workflows, including asset managers, tags and server-side
- * rendering engines, where attribute correctness and security are critical.
- *
- * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
  * {@see Base\BaseAttributes} for the base implementation.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
