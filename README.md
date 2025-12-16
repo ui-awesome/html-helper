@@ -69,7 +69,7 @@ use UIAwesome\Html\Helper\Attributes;
         // JSON encoded automatically
         'data' => [
             'id' => 42,
-            'options' => ['modal' => true],   
+            'options' => ['modal' => true],
         ],
         'style' => [
             'color' => '#fff',
@@ -130,7 +130,7 @@ echo Encode::value('Name "Quote"');
 
 #### Form naming & IDs
 
-`Naming` helper generates standard PHP form names and valid HTML IDs, handling arrayable and nested properties 
+`Naming` helper generates standard PHP form names and valid HTML IDs, handling arrayable and nested properties
 effortlessly.
 
 ```php
@@ -186,10 +186,10 @@ namespace App;
 use UIAwesome\Html\Helper\Validator;
 
 // validate integer-like string
-$isValid = Validator::intLike('123', 0, 1000); 
+$isValid = Validator::intLike('123', 0, 1000);
 
 // validate against allowed list (supports Enums)
-Validator::oneOf('sm', ['sm', 'md', 'lg'], 'size'); 
+Validator::oneOf('sm', ['sm', 'md', 'lg'], 'size');
 // passes
 ```
 
