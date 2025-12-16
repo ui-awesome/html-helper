@@ -15,17 +15,17 @@ use function in_array;
 use function is_int;
 
 /**
- * Base class for advanced, type-safe validation of values in HTML helper systems.
+ * Base class for validation utilities used by HTML helper components.
  *
- * Provides a unified, immutable API for validating values used in HTML attributes, tag rendering, and view logic,
- * ensuring standards-compliant, predictable, and secure output for modern web applications.
+ * Provides a unified API for validating common values used in HTML attribute rendering and helper configuration,
+ * supporting integer-like inputs and allow-list membership checks.
  *
  * Key features.
- * - Efficient validation of allowed values for attribute rendering and tag construction.
- * - Immutable, stateless design for safe reuse in helpers and components.
- * - Integer-like value validation with strict type and range checks.
- * - Integration-ready for tag, attribute, and view rendering systems.
- * - Type-safe, static validation methods for HTML values.
+ * - Allow-list validation with UnitEnum normalization for consistent, strict comparisons.
+ * - Integer-like validation for int and integer strings with optional range constraints.
+ * - Predictable behavior with explicit exceptions for invalid values.
+ *
+ * {@see Enum} for enum normalization during allow-list validation.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -35,18 +35,17 @@ abstract class BaseValidator
     /**
      * Validates whether a value is an integer or an integer-like string within a specified range.
      *
-     * Ensures that the provided value is either an {@see int} or a string representing an integer, and that it falls
-     * within the specified minimum and optional maximum bounds. Returns {@see true} if the value is valid, {@see false}
-     * otherwise.
+     * Ensures that the provided value is either an int or a string representing an integer, and that it falls within
+     * the specified minimum and optional maximum bounds. Returns `true` if the value is valid, `false` otherwise.
      *
      * This method is designed for use in HTML attribute validation, tag rendering, and view systems requiring strict
      * type and range checks for numeric values.
      *
      * @param int|string $value Value to validate as integer-like.
-     * @param int|null $min Minimum allowed value (inclusive). If {@see null}, minimum is zero.
-     * @param int|null $max Optional maximum allowed value (inclusive). If {@see null}, no upper bound is enforced.
+     * @param int|null $min Minimum allowed value (inclusive). If `null`, minimum is zero.
+     * @param int|null $max Optional maximum allowed value (inclusive). If `null`, no upper bound is enforced.
      *
-     * @return bool {@see true} if the value is integer-like and within bounds, {@see false} otherwise.
+     * @return bool `true` if the value is integer-like and within bounds, `false` otherwise.
      *
      * Usage example:
      * ```php
@@ -90,7 +89,7 @@ abstract class BaseValidator
      *
      * @throws InvalidArgumentException if the value is not in the allowed list.
      *
-     * @phpstan-param mixed[] $allowed
+     * @phpstan-param list<scalar|UnitEnum|null> $allowed
      *
      * Usage example:
      * ```php

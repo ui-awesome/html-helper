@@ -20,7 +20,6 @@ use function strtr;
  *
  * Key features.
  * - Efficient token substitution for template-based rendering.
- * - Immutable, stateless design for safe reuse.
  * - Integration-ready for tag, attribute, and view rendering systems.
  * - Type-safe, static rendering methods for template strings.
  *

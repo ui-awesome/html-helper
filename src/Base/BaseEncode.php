@@ -20,7 +20,6 @@ use function htmlspecialchars;
  * - Charset flexibility for internationalization and encoding safety.
  * - Double-encode control for idempotent output.
  * - HTML5-compliant output for modern browsers.
- * - Immutable, stateless design for safe reuse.
  * - Type-safe, static encoding methods for content and attributes.
  *
  * {@see htmlspecialchars()} for encoding implementation details.
