@@ -11,6 +11,10 @@ use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Naming;
 use UIAwesome\Html\Helper\Tests\Providers\NamingProvider;
 
+use function ini_get;
+use function ini_set;
+use function str_repeat;
+
 /**
  * Test suite for {@see Naming} helper functionality and behavior.
  *
@@ -162,5 +166,25 @@ final class NamingTest extends TestCase
         );
 
         Naming::generateInputName('TestForm', 'content body');
+    }
+
+    public function testThrowExceptionForRegExpExceedingBacktrackLimit(): void
+    {
+        $originalLimit = ini_get('pcre.backtrack_limit');
+
+        ini_set('pcre.backtrack_limit', '1');
+
+        try {
+            $regexp = '/' . str_repeat('\\x{41}', 1000) . '/';
+
+            $this->expectException(InvalidArgumentException::class);
+            $this->expectExceptionMessage(
+                Message::INCORRECT_REGEXP->getMessage(),
+            );
+
+            Naming::convertToPattern($regexp);
+        } finally {
+            ini_set('pcre.backtrack_limit', $originalLimit);
+        }
     }
 }
