@@ -11,6 +11,10 @@ use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Naming;
 use UIAwesome\Html\Helper\Tests\Providers\NamingProvider;
 
+use function ini_get;
+use function ini_set;
+use function str_repeat;
+
 /**
  * Test suite for {@see Naming} helper functionality and behavior.
  *
@@ -56,17 +60,8 @@ final class NamingTest extends TestCase
         Naming::convertToPattern($regexp, $delimiter);
     }
 
-    public function testGenerateArrayableNameProducesArrayableName(): void
-    {
-        self::assertSame(
-            'test.name[]',
-            Naming::generateArrayableName('test.name'),
-            'Should generate arrayable name as expected.',
-        );
-    }
-
     #[DataProviderExternal(NamingProvider::class, 'arrayableName')]
-    public function testGenerateArrayableNameProducesExpectedOutput(string $attribute, string $expected): void
+    public function testGenerateArrayableName(string $attribute, string $expected): void
     {
         self::assertSame(
             $expected,
@@ -93,8 +88,26 @@ final class NamingTest extends TestCase
         );
     }
 
+    public function testGenerateInputId(): void
+    {
+        self::assertSame(
+            'namingtest-string',
+            Naming::generateInputId('NamingTest', 'string'),
+            'Should generate input ID by combining form name and attribute with hyphen.',
+        );
+    }
+
+    public function testGenerateInputIdWithMultibyteCharacters(): void
+    {
+        self::assertSame(
+            'testform-mąka',
+            Naming::generateInputId('TestForm', 'mĄkA'),
+            'Should generate input ID with multibyte characters correctly normalized to lowercase.',
+        );
+    }
+
     #[DataProviderExternal(NamingProvider::class, 'inputName')]
-    public function testGenerateInputNameProducesExpectedName(string $formName, string $attribute, bool $arrayable, string $expected): void
+    public function testGenerateInputName(string $formName, string $attribute, bool $arrayable, string $expected): void
     {
         $name = match ($arrayable) {
             true => Naming::generateInputName($formName, $attribute, true),
@@ -105,6 +118,33 @@ final class NamingTest extends TestCase
             $expected,
             $name,
             'Should generate input name for given form and attribute according to arrayable flag.',
+        );
+    }
+
+    public function testGetShortNameClass(): void
+    {
+        self::assertSame(
+            'NamingTest::class',
+            Naming::getShortNameClass(self::class),
+            'Should return the short name of the class with suffix.',
+        );
+    }
+
+    public function testGetShortNameClassWithLowercase(): void
+    {
+        self::assertSame(
+            'namingtest',
+            Naming::getShortNameClass(self::class, false, true),
+            'Should return the short name of the class in lowercase without suffix.',
+        );
+    }
+
+    public function testGetShortNameClassWithoutSuffix(): void
+    {
+        self::assertSame(
+            'NamingTest',
+            Naming::getShortNameClass(self::class, false),
+            'Should return the short name of the class without suffix.',
         );
     }
 
@@ -126,5 +166,25 @@ final class NamingTest extends TestCase
         );
 
         Naming::generateInputName('TestForm', 'content body');
+    }
+
+    public function testThrowExceptionForRegExpExceedingBacktrackLimit(): void
+    {
+        $originalLimit = ini_get('pcre.backtrack_limit');
+
+        ini_set('pcre.backtrack_limit', '1');
+
+        try {
+            $regexp = '/' . str_repeat('\\x{41}', 1000) . '/';
+
+            $this->expectException(InvalidArgumentException::class);
+            $this->expectExceptionMessage(
+                Message::INCORRECT_REGEXP->getMessage(),
+            );
+
+            Naming::convertToPattern($regexp);
+        } finally {
+            ini_set('pcre.backtrack_limit', $originalLimit);
+        }
     }
 }
