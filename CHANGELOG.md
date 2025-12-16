@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 0.3.0 Under development
+## 0.3.0 December 16, 2025
 
 - Enh #8: Refactor codebase to improve performance (@terabytesoftw)
 - Bug #9: Enhance documentation and improve clarity across HTML helper classes (@terabytesoftw)
