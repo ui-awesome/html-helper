@@ -93,6 +93,15 @@ final class NamingTest extends TestCase
         );
     }
 
+    public function testGenerateInputIdWithMultibyteCharacters(): void
+    {
+        self::assertSame(
+            'testform-mąka',
+            Naming::generateInputId('TestForm', 'mĄkA'),
+            'Should generate input ID with multibyte characters correctly normalized to lowercase.',
+        );
+    }
+
     #[DataProviderExternal(NamingProvider::class, 'inputName')]
     public function testGenerateInputName(string $formName, string $attribute, bool $arrayable, string $expected): void
     {
