@@ -1,6 +1,8 @@
 # ChangeLog
 
-## 0.3.1 Under development
+## 0.4.0 Under development
+
+- Bug #13: Update `CHANGELOG.md` for version `0.4.0` and remove `ui-awesome/html-interop` dependencies in `composer.json` (@terabytesoftw)
 
 ## 0.3.0 December 16, 2025
 
