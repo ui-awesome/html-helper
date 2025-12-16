@@ -2,92 +2,66 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Tests\Helper;
+namespace UIAwesome\Html\Helper\Tests;
 
+use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
+use PHPUnit\Framework\TestCase;
+use UIAwesome\Html\Helper\Tests\Providers\ValidatorProvider;
 use UIAwesome\Html\Helper\Validator;
+use UnitEnum;
 
-final class ValidatorTest extends \PHPUnit\Framework\TestCase
+/**
+ * Test suite for {@see Validator} helper functionality and behavior.
+ *
+ * Validates common validation helpers such as integer-like detection and allowed-value checks used across form handling
+ * and attribute validation routines.
+ *
+ * Ensures correct handling of numeric strings, boundary checks, and explicit error reporting for disallowed values or
+ * invalid arguments.
+ *
+ * Test coverage.
+ * - Detection of integer-like values with optional min/max constraints.
+ * - Validation against allowed value lists and exception behavior.
+ *
+ * {@see ValidatorProvider} for data-driven test cases and edge conditions.
+ *
+ * @copyright Copyright (C) 2025 Terabytesoftw.
+ * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
+ */
+#[Group('helpers')]
+final class ValidatorTest extends TestCase
 {
-    public function testInList(): void
+    #[DataProviderExternal(ValidatorProvider::class, 'intLike')]
+    public function testIntegerLike(int|string $value, int|null $min, int|null $max, bool $expected, string $message): void
     {
-        $this->expectNotToPerformAssertions();
-
-        Validator::inList('a', '', 'a', 'b', 'c');
+        self::assertSame(
+            $expected,
+            Validator::intLike($value, $min, $max),
+            $message,
+        );
     }
 
-    public function testInListException(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The value is not in the list: "1".');
+    /**
+     * @throws InvalidArgumentException if one or more arguments are invalid, of incorrect type or format.
+     *
+     * @phpstan-param list<UnitEnum|scalar|null> $allowed
+     */
+    #[DataProviderExternal(ValidatorProvider::class, 'oneOf')]
+    public function testOneOfWithValidValues(
+        string $attribute,
+        UnitEnum|int|string $value,
+        array $allowed,
+        bool $exception,
+        string $exceptionMessage,
+    ): void {
+        if ($exception) {
+            $this->expectException(InvalidArgumentException::class);
+            $this->expectExceptionMessage($exceptionMessage);
+        } else {
+            $this->expectNotToPerformAssertions();
+        }
 
-        Validator::inList('1', 'The value is not in the list: "%s".', 'a', 'b', 'c');
-    }
-
-    public function testInListExceptionWithEmptyValue(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The value must not be empty. The valid values are: "a", "b", "c".');
-
-        Validator::inList('', '', 'a', 'b', 'c');
-    }
-
-    public function testIterable(): void
-    {
-        $this->expectNotToPerformAssertions();
-
-        Validator::isIterable([]);
-    }
-
-    public function testIsIterableException(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The value must be an iterable or null value. The value is: string.');
-
-        Validator::isIterable('value');
-    }
-
-    public function testIsNumeric(): void
-    {
-        $this->expectNotToPerformAssertions();
-
-        Validator::isNumeric(1);
-    }
-
-    public function testIsNumericException(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The value must be a numeric or null value. The value is: string.');
-
-        Validator::isNumeric('value');
-    }
-
-    public function testIsScalar(): void
-    {
-        $this->expectNotToPerformAssertions();
-
-        Validator::isScalar(1);
-    }
-
-    public function testIsScalarException(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The value must be a scalar or null value. The value is: array.');
-
-        Validator::isScalar([]);
-    }
-
-    public function testIsString(): void
-    {
-        $this->expectNotToPerformAssertions();
-
-        Validator::isString('value');
-    }
-
-    public function testIsStringException(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The value must be a string or null value. The value is: array.');
-
-        Validator::isString([]);
+        Validator::oneOf($value, $allowed, $attribute);
     }
 }

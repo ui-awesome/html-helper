@@ -1,0 +1,378 @@
+<?php
+
+declare(strict_types=1);
+
+namespace UIAwesome\Html\Helper\Tests\Providers;
+
+use UIAwesome\Html\Helper\Enum;
+use UIAwesome\Html\Helper\Exception\Message;
+use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Priority, Status, Theme};
+
+/**
+ * Data provider for {@see \UIAwesome\Html\Helper\Tests\ValidatorTest} class.
+ *
+ * Supplies focused datasets used by validation helpers for integer-like checks and allowed-value lists.
+ *
+ * The cases cover numeric string handling, boundary conditions, enum comparisons, mixed-type lists, and failure message
+ * generation for invalid inputs.
+ *
+ * Key features.
+ * - Provide comprehensive `oneOf` datasets including backed enums, unit enums and mixed-type lists.
+ * - Return tuples describing input, constraints, expected validity and expected message text.
+ * - Validate integer-like string and numeric inputs with `min`/`max` boundaries.
+ *
+ * @copyright Copyright (C) 2025 Terabytesoftw.
+ * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
+ */
+final class ValidatorProvider
+{
+    /**
+     * Provides datasets for integer-like validation.
+     *
+     * Each dataset returns a tuple: value, minimum, maximum, expected validity, and an expected message. Cases include
+     * integers, numeric strings, leading zeroes, floats, scientific notation, whitespace and sign edge cases to ensure
+     * deterministic validation behaviour.
+     *
+     * @phpstan-return array<string, array{int|string, int|null, int|null, bool, string}>
+     */
+    public static function intLike(): array
+    {
+        return [
+            'integer above max' => [
+                11,
+                0,
+                10,
+                false,
+                'Should be invalid value.',
+            ],
+            'integer below min' => [
+                -2,
+                -1,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'integer equal min' => [
+                0,
+                0,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'integer max boundary equal' => [
+                10,
+                0,
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'integer min equal null' => [
+                0,
+                null,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'integer negative min equal null' => [
+                -1,
+                null,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'integer valid above min' => [
+                5,
+                0,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'integer within range' => [
+                5,
+                1,
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'string above max' => [
+                '11',
+                0,
+                10,
+                false,
+                'Should be invalid value.',
+            ],
+            'string below min but below max' => [
+                '0',
+                5,
+                10,
+                false,
+                'Should be invalid value.',
+            ],
+            'string equal max' => [
+                '10',
+                0,
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'string equal min' => [
+                '5',
+                5,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'string equal with min and max' => [
+                '5',
+                5,
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'string float' => [
+                '3.5',
+                0,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string in range' => [
+                '5',
+                0,
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'string leading zero equal min' => [
+                '05',
+                5,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'string min equal null' => [
+                '5',
+                null,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'string negative min equal null' => [
+                '-1',
+                null,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string negative not allowed when min >= 0' => [
+                '-1',
+                0,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string non digit' => [
+                'abc',
+                0,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string numeric equals min' => [
+                '0',
+                0,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'string numeric valid' => [
+                '5',
+                0,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'string numeric with plus sign' => [
+                '+1',
+                0,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string numeric within range' => [
+                '3',
+                1,
+                5,
+                true,
+                'Should be valid value.',
+            ],
+            'string scientific notation' => [
+                '1e3',
+                0,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string with spaces' => [
+                ' 3 ',
+                0,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string zero min equal null' => [
+                '0',
+                null,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+        ];
+    }
+
+    /**
+     * Provides datasets for `oneOf` validation checks.
+     *
+     * Each dataset returns: attribute name, tested value, allowed list, a strict comparison flag, and the expected
+     * message. Datasets cover backed enums, unit enums, mixed enum lists, scalar comparisons, and message generation
+     * for failure scenarios.
+     *
+     * @phpstan-return array<string, array{string, mixed, list<mixed>, bool, string}>
+     */
+    public static function oneOf(): array
+    {
+        return [
+            'backed enum value in list' => [
+                'attribute',
+                Status::ACTIVE,
+                Status::cases(),
+                false,
+                '',
+            ],
+            'empty allowed list' => [
+                'attribute',
+                'a',
+                [],
+                true,
+                Message::VALUE_NOT_IN_LIST->getMessage('a', 'attribute', ''),
+            ],
+            'empty value-not-in-list' => [
+                'attribute',
+                '',
+                [
+                    'a',
+                    'b',
+                    'c',
+                ],
+                false,
+                '',
+            ],
+            'invalid enum comparison' => [
+                'attribute',
+                Status::ACTIVE,
+                Theme::cases(),
+                true,
+                Message::VALUE_NOT_IN_LIST->getMessage(
+                    Status::ACTIVE->value,
+                    'attribute',
+                    implode('\', \'', Enum::normalizeArray(Theme::cases())),
+                ),
+            ],
+            'mixed enum types backed enum value found' => [
+                'attribute',
+                'DARK',
+                [
+                    Status::ACTIVE,
+                    Theme::DARK,
+                    Priority::LOW,
+                ],
+                false,
+                '',
+            ],
+            'mixed enum types enum instance found' => [
+                'attribute',
+                Status::ACTIVE,
+                [
+                    Status::ACTIVE,
+                    Theme::DARK,
+                    Priority::LOW,
+                ],
+                false,
+                '',
+            ],
+            'mixed enum types int value found' => [
+                'attribute',
+                1,
+                [
+                    Status::ACTIVE,
+                    Theme::DARK,
+                    Priority::LOW,
+                ],
+                false,
+                '',
+            ],
+            'mixed enum types string not found type strictness' => [
+                'attribute',
+                '1',
+                [
+                    Status::ACTIVE,
+                    Theme::DARK,
+                    Priority::LOW,
+                ],
+                true,
+                Message::VALUE_NOT_IN_LIST->getMessage(
+                    '1',
+                    'attribute',
+                    implode('\', \'', Enum::normalizeArray([Status::ACTIVE, Theme::DARK, Priority::LOW])),
+                ),
+            ],
+            'string case sensitive enum value' => [
+                'attribute',
+                'ACTIVE',
+                [
+                    Status::ACTIVE,
+                    Status::INACTIVE,
+                ],
+                true,
+                Message::VALUE_NOT_IN_LIST->getMessage(
+                    'ACTIVE',
+                    'attribute',
+                    implode('\', \'', Enum::normalizeArray([Status::ACTIVE, Status::INACTIVE])),
+                ),
+            ],
+            'string value in list' => [
+                'attribute',
+                'a',
+                [
+                    'a',
+                    'b',
+                    'c',
+                ],
+                false,
+                '',
+            ],
+            'string value not in list' => [
+                'attribute',
+                '1',
+                [
+                    'a',
+                    'b',
+                    'c',
+                ],
+                true,
+                Message::VALUE_NOT_IN_LIST->getMessage(
+                    '1',
+                    'attribute',
+                    implode('\', \'', Enum::normalizeArray(['a', 'b', 'c'])),
+                ),
+            ],
+            'unit enum value in list' => [
+                'attribute',
+                Theme::DARK,
+                Theme::cases(),
+                false,
+                '',
+            ],
+        ];
+    }
+}

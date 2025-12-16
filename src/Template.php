@@ -4,32 +4,27 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper;
 
-use function count;
-use function explode;
-use function strtr;
-
 /**
- * This class provides static methods for render template.
+ * HTML template utility for advanced, type-safe template rendering and manipulation.
+ *
+ * Provides a concrete implementation for processing, validating, and rendering HTML templates, supporting dynamic
+ * content injection and flexible template composition.
+ *
+ * Designed for integration in view renderers, tag systems, and asset managers, ensuring consistent and secure
+ * handling of template fragments, placeholders, and variable substitution across all supported use cases.
+ *
+ * Key features.
+ * - Dynamic content injection and placeholder replacement for HTML templates.
+ * - Immutable, stateless helpers suitable for reuse in rendering engines.
+ * - Standardized output for predictable HTML generation.
+ * - Type-safe methods for template composition and fragment management.
+ *
+ * Note: This helper does NOT perform HTML encoding or XSS sanitization. Ensure all token values are properly encoded
+ * before passing them to {@see Base\BaseTemplate::render()}.
+ *
+ * {@see Base\BaseTemplate} for the base implementation.
+ *
+ * @copyright Copyright (C) 2025 Terabytesoftw.
+ * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class Template
-{
-    public static function render(string $template, array $tokenValues): string
-    {
-        $result = '';
-        $tokens = explode('\n', $template);
-
-        foreach ($tokens as $key => $token) {
-            $tokenValue = strtr($token, $tokenValues);
-
-            if ($tokenValue !== '') {
-                $result .= $tokenValue;
-            }
-
-            if ($result !== '' && $key < count($tokens) - 1) {
-                $result = strtr($tokens[$key + 1], $tokenValues) !== '' ? $result . PHP_EOL : $result;
-            }
-        }
-
-        return $result;
-    }
-}
+final class Template extends Base\BaseTemplate {}

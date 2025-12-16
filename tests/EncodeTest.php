@@ -2,35 +2,72 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Tests\Helper;
+namespace UIAwesome\Html\Helper\Tests;
 
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
+use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\Encode;
+use UIAwesome\Html\Helper\Tests\Providers\EncodeProvider;
 
-final class EncodeTest extends \PHPUnit\Framework\TestCase
+/**
+ * Test suite for {@see Encode} helper functionality and behavior.
+ *
+ * Validates encoding routines for content and value contexts to ensure deterministic and safe HTML escaping suitable
+ * for fragments and lightweight components.
+ *
+ * Ensures correct handling of entity encoding, prevention of double-encoding when requested, and support for mixed
+ * scalar types including `null`, int, float, and string.
+ *
+ * Test coverage.
+ * - Deterministic output for edge cases supplied by the data provider.
+ * - Encoding of mixed typed values and `null` handling.
+ * - Encoding of plain text content with and without double-encoding.
+ *
+ * {@see EncodeProvider} for data-driven test cases and edge conditions.
+ *
+ * @copyright Copyright (C) 2025 Terabytesoftw.
+ * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
+ */
+#[Group('helpers')]
+final class EncodeTest extends TestCase
 {
-    /**
-     * @dataProvider UIAwesome\Html\Helper\Tests\Provider\EncodeProvider::encode
-     *
-     * @param string $value Value to encode.
-     * @param string $expected Expected result.
-     * @param bool $doubleEncode Whether to encode HTML entities in `$value`.
-     */
-    public function testContent(string $value, string $expected, bool $doubleEncode): void
-    {
-        $this->assertSame($expected, Encode::content($value));
-        $this->assertSame($expected, Encode::content($value, $doubleEncode));
+    #[DataProviderExternal(EncodeProvider::class, 'content')]
+    public function testEncodeContentHandlesEntitiesAndDoubleEncoding(
+        string $value,
+        string $expected,
+        bool $doubleEncode,
+    ): void {
+        $encodeContent = match ($doubleEncode) {
+            true => Encode::content($value),
+            false => Encode::content($value, $doubleEncode),
+        };
+
+        $doubleEncodeValue = $doubleEncode ? 'true' : 'false';
+
+        self::assertSame(
+            $expected,
+            $encodeContent,
+            "Should encode content ({$value}) as ({$expected}) with doubleEncode='{$doubleEncodeValue}'.",
+        );
     }
 
-    /**
-     * @dataProvider UIAwesome\Html\Helper\Tests\Provider\EncodeProvider::encodeValue
-     *
-     * @param string $value Value to encode.
-     * @param string $expected Expected result.
-     * @param bool $doubleEncode Whether to encode HTML entities in `$value`.
-     */
-    public function testValue(string $value, string $expected, bool $doubleEncode): void
-    {
-        $this->assertSame($expected, Encode::value($value));
-        $this->assertSame($expected, Encode::value($value, $doubleEncode));
+    #[DataProviderExternal(EncodeProvider::class, 'value')]
+    public function testEncodeValueHandlesMixedTypesAndDoubleEncoding(
+        float|int|string|null $value,
+        string $expected,
+        bool $doubleEncode,
+    ): void {
+        $encodeValue = match ($doubleEncode) {
+            true => Encode::value($value),
+            false => Encode::value($value, $doubleEncode),
+        };
+
+        $doubleEncodeValue = $doubleEncode ? 'true' : 'false';
+
+        self::assertSame(
+            $expected,
+            $encodeValue,
+            "Should encode value ({$value}) as ({$expected}) with doubleEncode='{$doubleEncodeValue}'.",
+        );
     }
 }
