@@ -37,7 +37,7 @@
 ### Installation
 
 ```bash
-composer require yii2-extensions/psr-bridge:^0.3
+composer require ui-awesome/html-helper:^0.3
 ```
 
 ### Quick start
@@ -78,7 +78,7 @@ use UIAwesome\Html\Helper\Attributes;
     ]
 ) ?>
 // output:
-// class="btn btn-primary" id="submit-btn" disabled data-id="42" data-options='{"modal":true}' style="color: #fff; margin-top: 10px;"
+// class="btn btn-primary" id="submit-btn" disabled data-id="42" data-options='{"modal":true}' style='color: #fff; margin-top: 10px;'
 ```
 
 #### Managing CSS classes

@@ -8,9 +8,13 @@ c3.php
 composer.lock
 
 # gitHub copilot config (if present)
+.claude
 .copilot/
 .github/agents/**
 .github/copilot/**
+.github/instructions/**
+.github/copilot-instructions.md
+.github/prompts/**
 
 # mac ds_store (if present)
 .DS_Store
