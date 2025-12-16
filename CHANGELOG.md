@@ -5,6 +5,7 @@
 - Enh #8: Refactor codebase to improve performance (@terabytesoftw)
 - Bug #9: Enhance documentation and improve clarity across HTML helper classes (@terabytesoftw)
 - Bug #10: Improve pattern handling and enhance test coverage for `Naming` class (@terabytesoftw)
+- Bug #11: Add `Enum` helper for value normalization and support for arrays and `UnitEnum` instance (@terabytesoftw)
 
 ## 0.2.0 March 30, 2024
 
