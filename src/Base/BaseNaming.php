@@ -73,14 +73,7 @@ abstract class BaseNaming
         }
 
         $pattern = preg_replace('/\\\\x{?([0-9a-fA-F]+)}?/', '\u$1', $regexp);
-
-        if ($pattern === null) {
-            throw new InvalidArgumentException(
-                Message::INCORRECT_REGEXP->getMessage(),
-            );
-        }
-
-        $endPosition = strrpos($pattern, $delimiter, 1);
+        $endPosition = strrpos((string) $pattern, $delimiter, 1);
 
         if ($endPosition === false) {
             throw new InvalidArgumentException(
@@ -88,7 +81,7 @@ abstract class BaseNaming
             );
         }
 
-        return substr($pattern, 1, $endPosition - 1);
+        return substr((string) $pattern, 1, $endPosition - 1);
     }
 
     /**

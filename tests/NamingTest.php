@@ -56,17 +56,8 @@ final class NamingTest extends TestCase
         Naming::convertToPattern($regexp, $delimiter);
     }
 
-    public function testGenerateArrayableNameProducesArrayableName(): void
-    {
-        self::assertSame(
-            'test.name[]',
-            Naming::generateArrayableName('test.name'),
-            'Should generate arrayable name as expected.',
-        );
-    }
-
     #[DataProviderExternal(NamingProvider::class, 'arrayableName')]
-    public function testGenerateArrayableNameProducesExpectedOutput(string $attribute, string $expected): void
+    public function testGenerateArrayableName(string $attribute, string $expected): void
     {
         self::assertSame(
             $expected,
@@ -93,8 +84,17 @@ final class NamingTest extends TestCase
         );
     }
 
+    public function testGenerateInputId(): void
+    {
+        self::assertSame(
+            'namingtest-string',
+            Naming::generateInputId('NamingTest', 'string'),
+            'Should generate input ID by combining form name and attribute with hyphen.',
+        );
+    }
+
     #[DataProviderExternal(NamingProvider::class, 'inputName')]
-    public function testGenerateInputNameProducesExpectedName(string $formName, string $attribute, bool $arrayable, string $expected): void
+    public function testGenerateInputName(string $formName, string $attribute, bool $arrayable, string $expected): void
     {
         $name = match ($arrayable) {
             true => Naming::generateInputName($formName, $attribute, true),
@@ -105,6 +105,33 @@ final class NamingTest extends TestCase
             $expected,
             $name,
             'Should generate input name for given form and attribute according to arrayable flag.',
+        );
+    }
+
+    public function testGetShortNameClass(): void
+    {
+        self::assertSame(
+            'NamingTest::class',
+            Naming::getShortNameClass(self::class),
+            'Should return the short name of the class with suffix.',
+        );
+    }
+
+    public function testGetShortNameClassWithLowercase(): void
+    {
+        self::assertSame(
+            'namingtest',
+            Naming::getShortNameClass(self::class, false, true),
+            'Should return the short name of the class in lowercase without suffix.',
+        );
+    }
+
+    public function testGetShortNameClassWithoutSuffix(): void
+    {
+        self::assertSame(
+            'NamingTest',
+            Naming::getShortNameClass(self::class, false),
+            'Should return the short name of the class without suffix.',
         );
     }
 
