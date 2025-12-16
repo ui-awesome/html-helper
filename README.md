@@ -128,6 +128,37 @@ echo Encode::value('Name "Quote"');
 // output: Name &quot;Quote&quot;
 ```
 
+#### Enum normalization
+
+`Enum` helper normalizes values against a predefined set, supporting both arrays and Enums.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App;
+
+use App\Enums\Status;
+use UIAwesome\Html\Helper\Enum;
+
+// normalize array of Enums
+$result = Enum::normalizeArray([Status::ACTIVE, Status::INACTIVE]);
+// ['active', 'inactive']
+
+// normalize mixed array
+$result = Enum::normalizeArray(['foo', Status::ACTIVE, 42]);
+// ['foo', 'active', 42]
+
+// normalize value from Enum
+Enum::normalizeValue(Status::ACTIVE);
+// 'active'
+
+// normalize value from mixed
+Enum::normalizeValue('foo');
+// 'foo'
+```
+
 #### Form naming & IDs
 
 `Naming` helper generates standard PHP form names and valid HTML IDs, handling arrayable and nested properties
