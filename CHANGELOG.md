@@ -2,6 +2,8 @@
 
 ## 0.4.1 Under development
 
+- Bug #15: Update copyright year to `2024` in `LICENSE` file (@terabytesoftw)
+
 ## 0.4.0 December 17, 2025
 
 - Bug #13: Update `CHANGELOG.md` for version `0.4.0` and remove `ui-awesome/html-interop` dependencies in `composer.json` (@terabytesoftw)
