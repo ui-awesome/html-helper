@@ -3,6 +3,7 @@
 ## 0.4.1 Under development
 
 - Bug #15: Update copyright year to `2024` in `LICENSE` file (@terabytesoftw)
+- Bug #16: Update image alt text from `Yii Framework` to `UI Awesome` (@terabytesoftw)
 
 ## 0.4.0 December 17, 2025
 
