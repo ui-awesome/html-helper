@@ -60,7 +60,7 @@
                 </div>
                 <div class="alert-box">
                     <p class="alert-title"><strong>Stringable Support</strong></p>
-                    <p class="alert-content">Seamlessly use PHP 8 `Stringable` objects in attributes, classes, and content</p>
+                    <p class="alert-content">Seamlessly use PHP 8 Stringable objects in attributes, classes, and content</p>
                 </div>
                 <div class="alert-box">
                     <p class="alert-title"><strong>Validation</strong></p>
