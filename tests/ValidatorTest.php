@@ -36,7 +36,8 @@ final class ValidatorTest extends TestCase
     #[DataProviderExternal(ValidatorProvider::class, 'intLike')]
     public function testIntegerLike(
         int|string|Stringable $value,
-        int|null $min, int|null $max,
+        int|null $min,
+        int|null $max,
         bool $expected,
         string $message,
     ): void {

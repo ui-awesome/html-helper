@@ -270,8 +270,8 @@ final class CSSClassProvider
                         {
                             return 'error';
                         }
-                    }
-                    ]
+                    },
+                    ],
                 ],
                 ['class' => 'error'],
                 'Should handle stringable Enum values correctly.',

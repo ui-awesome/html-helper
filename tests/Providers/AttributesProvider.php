@@ -365,7 +365,7 @@ final class AttributesProvider
                     {
                         return 'an image';
                     }
-                }
+                },
                 ],
             ],
         ];
