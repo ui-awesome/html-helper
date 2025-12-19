@@ -46,24 +46,24 @@
             </style>
             <div class="container">
                 <div class="alert-box">
-                    <p class="alert-title"><strong>Attribute Management</strong></p>
-                    <p class="alert-content">Advanced attribute rendering — ordering, escaping, data/aria JSON and boolean attributes</p>
+                    <p class="alert-title"><strong>Framework Agnostic</strong></p>
+                    <p class="alert-content">Zero dependencies on specific frameworks.</p>
                 </div>
                 <div class="alert-box">
-                    <p class="alert-title"><strong>CSS Classes</strong></p>
-                    <p class="alert-content">Safe class management — regex validation, merging, BackedEnum and base-class support</p>
+                    <p class="alert-title"><strong>Enum Integration</strong></p>
+                    <p class="alert-content">First-class support for PHP 8.1 Enums in attributes and validations</p>
                 </div>
                 <div class="alert-box">
-                    <p class="alert-title"><strong>Encode</strong></p>
-                    <p class="alert-content">HTML encoding for content and attributes (ENT_HTML5, ENT_QUOTES; configurable double-encode)</p>
+                    <p class="alert-title"><strong>Performance Optimized</strong></p>
+                    <p class="alert-content">Lightweight stateless helper classes</p>
                 </div>
                 <div class="alert-box">
-                    <p class="alert-title"><strong>Templating</strong></p>
-                    <p class="alert-content">Token substitution with normalized line endings; removes empty lines</p>
+                    <p class="alert-title"><strong>Secure by Design</strong></p>
+                    <p class="alert-content">Automatic XSS protection via context-aware encoding.</p>
                 </div>
                 <div class="alert-box">
-                    <p class="alert-title"><strong>Utilities</strong></p>
-                    <p class="alert-content">Normalization helpers — ID/name generation, array handling and enum normalization</p>
+                    <p class="alert-title"><strong>Stringable Support</strong></p>
+                    <p class="alert-content">Seamlessly use PHP 8 `Stringable` objects in attributes, classes, and content</p>
                 </div>
                 <div class="alert-box">
                     <p class="alert-title"><strong>Validation</strong></p>

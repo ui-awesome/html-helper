@@ -42,6 +42,37 @@ composer require ui-awesome/html-helper:^0.3
 
 ### Quick start
 
+#### Universal Stringable Support (New!)
+
+Pass your domain objects directly to helpers like `Encode`, `Attributes`, or `CSSClass`. The library automatically
+handles `__toString()`.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App;
+
+use UIAwesome\Html\Helper\Encode;
+
+class User implements \Stringable
+{
+    public function __construct(private string $name) {}
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+}
+
+$user = new User('<John Doe>');
+
+// automatically casts and safely encodes
+echo Encode::content($user);
+// &lt;John Doe&gt;
+```
+
 #### Rendering HTML attributes
 
 Sorts attributes by priority, handles boolean values, and automatically encodes JSON for complex data.
@@ -76,7 +107,6 @@ use UIAwesome\Html\Helper\Attributes;
         ],
     ]
 ) ?>
-// output:
 // class="btn btn-primary" id="submit-btn" disabled data-id="42" data-options='{"modal":true}' style='color: #fff; margin-top: 10px;'
 ```
 
@@ -102,7 +132,7 @@ CSSClass::add($attributes, ['text-center', 'mt-5']);
 CSSClass::add($attributes, 'alert alert-danger', true);
 
 echo $attributes['class'];
-// output: alert alert-danger
+// alert alert-danger
 ```
 
 #### Encoding
@@ -120,11 +150,11 @@ use UIAwesome\Html\Helper\Encode;
 
 // safe Content
 echo Encode::content('<script>alert("xss")</script>');
-// output: &lt;script&gt;alert("xss")&lt;/script&gt;
+// &lt;script&gt;alert("xss")&lt;/script&gt;
 
 // safe Attribute Value
 echo Encode::value('Name "Quote"');
-// output: Name &quot;Quote&quot;
+// Name &quot;Quote&quot;
 ```
 
 #### Enum normalization
@@ -173,15 +203,15 @@ use UIAwesome\Html\Helper\Naming;
 
 // generate input name (Nested)
 echo Naming::generateInputName('User', 'profile[0][email]');
-// output: User[profile][0][email]
+// User[profile][0][email]
 
 // generate input ID (Sanitized)
 echo Naming::generateInputId('User', 'profile[0][email]');
-// output: user-profile-0-email
+// user-profile-0-email
 
 // convert regex to pattern
 echo Naming::convertToPattern('/^[a-z]+$/i');
-// output: ^[a-z]+$
+// ^[a-z]+$
 ```
 
 #### Template rendering
@@ -198,7 +228,7 @@ namespace App;
 use UIAwesome\Html\Helper\Template;
 
 echo Template::render("Hello, {name}!", ['{name}' => 'Yii3']);
-// output: Hello, Yii3!
+// Hello, Yii3!
 ```
 
 #### Validation
