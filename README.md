@@ -44,7 +44,7 @@ composer require ui-awesome/html-helper:^0.3
 
 #### Universal Stringable Support (New!)
 
-Pass your domain objects directly to helpers like `Encode`, `Attributes`, or `CSSClass`. The library automatically 
+Pass your domain objects directly to helpers like `Encode`, `Attributes`, or `CSSClass`. The library automatically
 handles `__toString()`.
 
 ```php
