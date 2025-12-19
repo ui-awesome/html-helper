@@ -7,6 +7,7 @@ namespace UIAwesome\Html\Helper\Tests;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
+use Stringable;
 use UIAwesome\Html\Helper\Tests\Providers\ValidatorProvider;
 use UIAwesome\Html\Helper\Validator;
 use UnitEnum;
@@ -33,8 +34,13 @@ use UnitEnum;
 final class ValidatorTest extends TestCase
 {
     #[DataProviderExternal(ValidatorProvider::class, 'intLike')]
-    public function testIntegerLike(int|string $value, int|null $min, int|null $max, bool $expected, string $message): void
-    {
+    public function testIntegerLike(
+        int|string|Stringable $value,
+        int|null $min,
+        int|null $max,
+        bool $expected,
+        string $message,
+    ): void {
         self::assertSame(
             $expected,
             Validator::intLike($value, $min, $max),
@@ -50,7 +56,7 @@ final class ValidatorTest extends TestCase
     #[DataProviderExternal(ValidatorProvider::class, 'oneOf')]
     public function testOneOfWithValidValues(
         string $attribute,
-        UnitEnum|int|string $value,
+        int|string|Stringable|UnitEnum $value,
         array $allowed,
         bool $exception,
         string $exceptionMessage,

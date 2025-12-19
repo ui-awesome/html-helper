@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests\Providers;
 
+use Stringable;
 use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Status, Theme};
 
 /**
@@ -11,12 +12,12 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Status, Theme};
  *
  * Supplies focused datasets used by enum normalization utilities.
  *
- * The cases verify conversion of backed enums to their scalar values, conversion of unit enums to their name strings,
- * preservation of `null` values, and passthrough behavior for non-enum scalars.
+ * The cases verify conversion of backed enums to their scalar, conversion of unit enums to their name strings,
+ * preservation of `null`, and passthrough behavior for non-enum scalars.
  *
  * Key features.
- * - Normalize backed enums to their scalar-backed values.
- * - Preserve `null` and non-enum scalar values unchanged.
+ * - Normalize backed enums to their scalar-backed.
+ * - Preserve `null` and non-enum scalar unchanged.
  * - Return unit enum names for UnitEnum implementations.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
@@ -28,8 +29,8 @@ final class EnumProvider
      * Provides datasets used to assert normalization of arrays containing enums and scalars.
      *
      * Each dataset returns the input array, the expected normalized array and a short description of the
-     * expectation. These cases cover backed enums, unit enums, `null` passthrough, and mixed arrays of enums and
-     * scalar values.
+     * expectation. These cases cover backed enums, unit enums, `null` passthrough, mixed arrays of enums, scalar and
+     * stringable objects.
      *
      * @phpstan-return array<string, array{mixed[], mixed[], string}>
      */
@@ -37,18 +38,38 @@ final class EnumProvider
     {
         return [
             'array of backed enums' => [
-                [Status::ACTIVE, Status::INACTIVE],
-                ['active', 'inactive'],
+                [
+                    Status::ACTIVE,
+                    Status::INACTIVE,
+                ],
+                [
+                    'active',
+                    'inactive',
+                ],
                 'Should return an array of backed enum values.',
             ],
             'array of unit enums' => [
-                [Theme::DARK, Theme::LIGHT],
-                ['DARK', 'LIGHT'],
+                [
+                    Theme::DARK,
+                    Theme::LIGHT,
+                ],
+                [
+                    'DARK',
+                    'LIGHT',
+                ],
                 'Should return an array of name values for unit enums.',
             ],
             'array with null values' => [
-                [null, Status::ACTIVE, null],
-                [null, 'active', null],
+                [
+                    null,
+                    Status::ACTIVE,
+                    null,
+                ],
+                [
+                    null,
+                    'active',
+                    null,
+                ],
                 "Should pass through 'null' values unchanged.",
             ],
             'empty array' => [
@@ -56,9 +77,24 @@ final class EnumProvider
                 [],
                 'Should return an empty array for empty input.',
             ],
-            'mixed array with enums and scalars' => [
-                ['foo', Status::ACTIVE, 42],
-                ['foo', 'active', 42],
+            'mixed array with enums, scalars and Stringable' => [
+                [
+                    'foo',
+                    Status::ACTIVE,
+                    42,
+                    new class implements Stringable {
+                        public function __toString(): string
+                        {
+                            return 'stringable';
+                        }
+                    },
+                ],
+                [
+                    'foo',
+                    'active',
+                    42,
+                    'stringable',
+                ],
                 'Should normalize enums and pass through scalars.',
             ],
         ];
@@ -68,7 +104,8 @@ final class EnumProvider
      * Provides datasets for normalizing individual values.
      *
      * Each dataset returns the original value, the expected normalized value, and a description. Tests ensure backed
-     * enums yield their scalar value, unit enums yield their name, and non-enum scalars pass through unchanged.
+     * enums yield their scalar value, unit enums yield their name, non-enum scalars pass through unchanged and
+     * stringable objects return their string representation.
      *
      * @phpstan-return array<string, array{mixed, mixed, string}>
      */
@@ -104,6 +141,16 @@ final class EnumProvider
                 'foo',
                 'foo',
                 'Should return the original scalar value if not an enum.',
+            ],
+            'stringable' => [
+                new class implements Stringable {
+                    public function __toString(): string
+                    {
+                        return 'stringable';
+                    }
+                },
+                'stringable',
+                'Should return the string representation for Stringable objects.',
             ],
             'unit enum dark' => [
                 Theme::DARK,

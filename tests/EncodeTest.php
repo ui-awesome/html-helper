@@ -6,6 +6,7 @@ namespace UIAwesome\Html\Helper\Tests;
 
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
+use Stringable;
 use UIAwesome\Html\Helper\Encode;
 use UIAwesome\Html\Helper\Tests\Providers\EncodeProvider;
 
@@ -33,7 +34,7 @@ final class EncodeTest extends TestCase
 {
     #[DataProviderExternal(EncodeProvider::class, 'content')]
     public function testEncodeContentHandlesEntitiesAndDoubleEncoding(
-        string $value,
+        string|Stringable $value,
         string $expected,
         bool $doubleEncode,
     ): void {
@@ -53,7 +54,7 @@ final class EncodeTest extends TestCase
 
     #[DataProviderExternal(EncodeProvider::class, 'value')]
     public function testEncodeValueHandlesMixedTypesAndDoubleEncoding(
-        float|int|string|null $value,
+        float|int|string|Stringable|null $value,
         string $expected,
         bool $doubleEncode,
     ): void {

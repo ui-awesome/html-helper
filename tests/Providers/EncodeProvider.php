@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests\Providers;
 
+use Stringable;
+
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\EncodeTest} class.
  *
@@ -13,7 +15,7 @@ namespace UIAwesome\Html\Helper\Tests\Providers;
  * bytes), and conversions of scalar types to string when appropriate.
  *
  * Key features.
- * - Cover numeric and `null` value handling, as well as non-printable characters.
+ * - Cover numeric and `null` handling, as well as non-printable characters.
  * - Ensure correct escaping of angle brackets, ampersands and quotes in both content and attribute contexts.
  * - Validate double-encoding behavior for existing HTML entities.
  *
@@ -29,7 +31,7 @@ final class EncodeProvider
      * existing HTML entities should be double-encoded. These cases validate correct escaping in content rendering
      * contexts and handling of special and control characters.
      *
-     * @phpstan-return array<string, array{string, string, bool}>
+     * @phpstan-return array<string, array{string|Stringable, string, bool}>
      */
     public static function content(): array
     {
@@ -57,6 +59,16 @@ final class EncodeProvider
             'quotes not encoded in content' => [
                 'He said "Hello" and she said \'Hi\'',
                 'He said "Hello" and she said \'Hi\'',
+                true,
+            ],
+            'stringable' => [
+                new class {
+                    public function __toString(): string
+                    {
+                        return '<Content & "Demo">';
+                    }
+                },
+                '&lt;Content &amp; "Demo"&gt;',
                 true,
             ],
             'unicode null double' => [
@@ -137,6 +149,16 @@ final class EncodeProvider
             'single quote encoding' => [
                 "O'Reilly",
                 'O&apos;Reilly',
+                true,
+            ],
+            'stringable' => [
+                new class {
+                    public function __toString(): string
+                    {
+                        return '<Test & "Demo">';
+                    }
+                },
+                '&lt;Test &amp; &quot;Demo&quot;&gt;',
                 true,
             ],
             'unicode null double' => [

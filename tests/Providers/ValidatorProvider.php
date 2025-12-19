@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests\Providers;
 
+use Stringable;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Priority, Status, Theme};
@@ -33,7 +34,7 @@ final class ValidatorProvider
      * integers, numeric strings, leading zeroes, floats, scientific notation, whitespace and sign edge cases to ensure
      * deterministic validation behaviour.
      *
-     * @phpstan-return array<string, array{int|string, int|null, int|null, bool, string}>
+     * @phpstan-return array<string, array{int|string|Stringable, int|null, int|null, bool, string}>
      */
     public static function intLike(): array
     {
@@ -227,6 +228,18 @@ final class ValidatorProvider
                 true,
                 'Should be valid value.',
             ],
+            'stringable' => [
+                new class {
+                    public function __toString(): string
+                    {
+                        return '5';
+                    }
+                },
+                0,
+                10,
+                true,
+                'Should be valid value.',
+            ],
         ];
     }
 
@@ -365,6 +378,22 @@ final class ValidatorProvider
                     'attribute',
                     implode('\', \'', Enum::normalizeArray(['a', 'b', 'c'])),
                 ),
+            ],
+            'stringable' => [
+                'attribute',
+                new class {
+                    public function __toString(): string
+                    {
+                        return 'b';
+                    }
+                },
+                [
+                    'a',
+                    'b',
+                    'c',
+                ],
+                false,
+                '',
             ],
             'unit enum value in list' => [
                 'attribute',

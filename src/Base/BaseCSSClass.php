@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper\Base;
 
 use InvalidArgumentException;
+use Stringable;
 use UIAwesome\Html\Helper\{Enum, Validator};
 use UnitEnum;
 
@@ -90,26 +91,41 @@ abstract class BaseCSSClass
      * existing ones, preserving uniqueness and order.
      *
      * @param array $attributes Attribute array to modify. Passed by reference and updated in place.
-     * @param array|string|UnitEnum|null $classes Classes to add.
+     * @param array|string|Stringable|UnitEnum|null $classes Classes to add.
      * @param bool $override Whether to override (`true`) or merge (`false`, default) with existing classes.
      *
      * @phpstan-param mixed[] $attributes
-     * @phpstan-param mixed[]|string|UnitEnum|null $classes
+     * @phpstan-param mixed[]|string|Stringable|UnitEnum|null $classes
      *
      * Usage example:
      * ```php
-     * // default
+     * // add class to empty attributes
      * $attrs = ['id' => 'main'];
      * CSSClass::add($attrs, ['btn', 'btn-primary']);
      * // $attrs = ['id' => 'main', 'class' => 'btn btn-primary']
      *
-     * // override existing classes
+     * // add class with override existing
      * CSSClass::add($attrs, 'alert alert-danger', true);
      * // $attrs = ['id' => 'main', 'class' => 'alert alert-danger']
+     *
+     * // add class with Stringable
+     * $attrs = ['id' => 'header'];
+     * CSSClass::add(
+     *     $attrs,
+     *     new class implements Stringable {
+     *         public function __toString(): string
+     *         {
+     *             return 'header-class';
+     *         }
+     *     }
+     * );
      * ```
      */
-    public static function add(array &$attributes, array|string|UnitEnum|null $classes, bool $override = false): void
-    {
+    public static function add(
+        array &$attributes,
+        array|string|Stringable|UnitEnum|null $classes,
+        bool $override = false,
+    ): void {
         $normalizedClasses = self::normalizeClasses($classes);
 
         if ($normalizedClasses === []) {
@@ -266,20 +282,20 @@ abstract class BaseCSSClass
      * Note: While BackedEnum can have int values, CSS class names are always strings. Any int values from enums are
      * excluded during normalization.
      *
-     * @param array|string|UnitEnum|null $classes Single or multiple CSS classes to normalize and validate.
+     * @param array|string|Stringable|UnitEnum|null $classes Single or multiple CSS classes to normalize and validate.
      *
      * @return array Normalized and validated array of CSS class names, ready for use in HTML attributes.
      *
-     * @phpstan-param mixed[]|string|UnitEnum|null $classes
+     * @phpstan-param mixed[]|string|Stringable|UnitEnum|null $classes
      * @phpstan-return list<string>
      */
-    private static function normalizeClasses(array|string|UnitEnum|null $classes): array
+    private static function normalizeClasses(array|string|Stringable|UnitEnum|null $classes): array
     {
         if ($classes === null || $classes === '') {
             return [];
         }
 
-        if (is_string($classes)) {
+        if (is_string($classes) || $classes instanceof Stringable) {
             return self::splitStringClasses($classes);
         }
 
@@ -326,15 +342,15 @@ abstract class BaseCSSClass
      *
      * This method performs single-pass splitting and validation for O(n) complexity.
      *
-     * @param string $classes Space-separated CSS class string.
+     * @param string|Stringable $classes Space-separated CSS class string.
      *
      * @return array Array of validated CSS class names.
      *
      * @phpstan-return list<string>
      */
-    private static function splitStringClasses(string $classes): array
+    private static function splitStringClasses(string|Stringable $classes): array
     {
-        $splitClasses = preg_split('/\s+/', $classes, -1, PREG_SPLIT_NO_EMPTY);
+        $splitClasses = preg_split('/\s+/', (string) $classes, -1, PREG_SPLIT_NO_EMPTY);
 
         $classParts = $splitClasses === false ? [] : $splitClasses;
         $validated = [];
