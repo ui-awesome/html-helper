@@ -1,5 +1,7 @@
 # ChangeLog
 
+## 0.5.1 Under development
+
 ## 0.5.0 December 19, 2025
 
 - Bug #15: Update copyright year to `2024` in `LICENSE` file (@terabytesoftw)
