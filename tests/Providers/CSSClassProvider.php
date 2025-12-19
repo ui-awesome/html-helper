@@ -274,7 +274,7 @@ final class CSSClassProvider
                     ],
                 ],
                 ['class' => 'error'],
-                'Should handle stringable Enum values correctly.',
+                'Should handle stringable value correctly.',
             ],
             'token containing backslash character' => [
                 [],
