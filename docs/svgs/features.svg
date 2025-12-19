@@ -64,7 +64,7 @@
                 </div>
                 <div class="alert-box">
                     <p class="alert-title"><strong>Validation</strong></p>
-                    <p class="alert-content">Strict validations — int-like checks, allowed-value checks and explicit errors</p>
+                    <p class="alert-content">Strict validations int-like checks, allowed-value checks and explicit errors</p>
                 </div>
             </div>
         </div>
