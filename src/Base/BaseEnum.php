@@ -6,6 +6,7 @@ namespace UIAwesome\Html\Helper\Base;
 
 use BackedEnum;
 use InvalidArgumentException;
+use Stringable;
 use UIAwesome\Html\Helper\Exception\Message;
 use UnitEnum;
 
@@ -106,6 +107,10 @@ abstract class BaseEnum
     {
         if ($value instanceof UnitEnum) {
             return $value instanceof BackedEnum ? $value->value : $value->name;
+        }
+
+        if ($value instanceof Stringable) {
+            return (string) $value;
         }
 
         if (is_array($value) === false && is_scalar($value) === false && $value !== null) {

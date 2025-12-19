@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests\Providers;
 
+use Stringable;
 use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{AlertType, ButtonSize, Priority};
 use UnitEnum;
 
@@ -15,14 +16,14 @@ use function str_repeat;
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\CSSClassTest} class.
  *
- * Supplies focused datasets used by CSS class helpers to merge, normalize, and render `class` attribute values.
+ * Supplies focused datasets used by CSS class helpers to merge, normalize, and render `class` attribute.
  *
  * The cases cover scalar and enum inputs, multi-operation add semantics, duplicate elimination, invalid token
  * filtering, whitespace normalization, and override behaviour while preserving unrelated attributes.
  *
  * Key features.
  * - Cover edge cases including invalid tokens, large inputs, and mixed whitespace separators.
- * - Provide datasets for class value rendering with allowed lists and formatted base strings.
+ * - Provide datasets for class rendering with allowed lists and formatted base strings.
  * - Return operation sequences describing incremental merges and override behaviour across arrays, strings, and enums.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
@@ -31,11 +32,11 @@ use function str_repeat;
 final class CSSClassProvider
 {
     /**
-     * Provides datasets for class value rendering.
+     * Provides datasets for class rendering.
      *
-     * Each dataset returns: class value, base class format, allowed list, expected output, and an assertion
-     * message. The cases validate enum normalization, string matching against allowed values, and deterministic
-     * formatting of rendered class values.
+     * Each dataset returns: class, base class format, allowed list, expected output, and an assertion
+     * message. The cases validate enum normalization, string matching against allowed, and deterministic formatting of
+     * rendered class.
      *
      * @phpstan-return array<string, array{string|UnitEnum, string, list<string|UnitEnum>, string, string}>
      */
@@ -75,7 +76,12 @@ final class CSSClassProvider
      *
      * @phpstan-return array<
      *   string,
-     *   array{mixed[], list<array{classes: mixed[]|string|UnitEnum|null, override?: bool}>, mixed[], string},
+     *   array{
+     *     mixed[],
+     *     list<array{classes: mixed[]|string|Stringable|UnitEnum|null, override?: bool}>,
+     *     mixed[],
+     *     string,
+     *   },
      * >
      */
     public static function values(): array
@@ -255,6 +261,20 @@ final class CSSClassProvider
                 ],
                 ['class' => 'class-1 class-2 class-3 class-4 class-5 class-6 class-7 class-8 class-9 class-10'],
                 'Should handle adding many classes at once.',
+            ],
+            'stringable' => [
+                [],
+                [
+                    ['classes' => new class implements Stringable {
+                        public function __toString(): string
+                        {
+                            return 'error';
+                        }
+                    }
+                    ]
+                ],
+                ['class' => 'error'],
+                'Should handle stringable Enum values correctly.',
             ],
             'token containing backslash character' => [
                 [],

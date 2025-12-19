@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper\Base;
 
 use InvalidArgumentException;
+use Stringable;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UnitEnum;
@@ -41,7 +42,7 @@ abstract class BaseValidator
      * This method is designed for use in HTML attribute validation, tag rendering, and view systems requiring strict
      * type and range checks for numeric values.
      *
-     * @param int|string $value Value to validate as integer-like.
+     * @param int|string|Stringable $value Value to validate as integer-like.
      * @param int|null $min Minimum allowed value (inclusive). If `null`, minimum is zero.
      * @param int|null $max Optional maximum allowed value (inclusive). If `null`, no upper bound is enforced.
      *
@@ -60,14 +61,27 @@ abstract class BaseValidator
      * // valid cases
      * Validator::intLike('42', 0, 100);
      * // `true`
+     * Validator::intLike(
+     *    new class implements Stringable {
+     *        public function __toString(): string
+     *        {
+     *            return '42';
+     *        }
+     *    }
+     * );
+     * // `true`
      * ```
      */
-    public static function intLike(int|string $value, int|null $min = null, int|null $max = null): bool
+    public static function intLike(int|string|Stringable $value, int|null $min = null, int|null $max = null): bool
     {
         $min ??= 0;
 
         if (is_int($value)) {
             return $value >= $min && ($max === null || $value <= $max);
+        }
+
+        if ($value instanceof Stringable) {
+            $value = (string) $value;
         }
 
         if ($value[0] === '-' || $value[0] === '+' || ctype_digit($value) === false) {
@@ -83,7 +97,7 @@ abstract class BaseValidator
      * Normalizes the provided value and allowed list, and checks strict membership. If the value is empty or `null`,
      * validation passes.
      *
-     * @param int|string|UnitEnum $value Value to validate.
+     * @param int|string|Stringable|UnitEnum $value Value to validate.
      * @param array $allowed List of allowed values for validation.
      * @param string $argumentName Argument name for error reporting (default: 'value').
      *
@@ -100,10 +114,21 @@ abstract class BaseValidator
      *
      * // valid case
      * Validator::oneOf(Status::ACTIVE, [Status::ACTIVE, Status::INACTIVE], 'status');
+     *
+     * Validator::oneOf(
+     *     new class implements Stringable {
+     *         public function __toString(): string
+     *         {
+     *             return 'admin';
+     *         }
+     *     },
+     *     ['admin', 'editor', 'viewer'],
+     *     'role',
+     * );
      * ```
      */
     public static function oneOf(
-        int|string|UnitEnum $value,
+        int|string|Stringable|UnitEnum $value,
         array $allowed,
         string $argumentName = 'value',
     ): void {

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Base;
 
+use Stringable;
+
 use function htmlspecialchars;
 
 /**
@@ -40,7 +42,7 @@ abstract class BaseEncode
      * It supports configurable character encoding and double-encoding control for idempotent and internationalized
      * output.
      *
-     * @param string $content Content to be encoded for safe HTML output.
+     * @param string|Stringable $content Content to be encoded for safe HTML output.
      * @param bool $doubleEncode Whether to encode existing entities (default: `true`).
      * @param string $charset Character encoding to use (default: `UTF-8`).
      *
@@ -55,9 +57,9 @@ abstract class BaseEncode
      * // &lt;script&gt;alert("XSS")&lt;/script&gt;
      * ```
      */
-    public static function content(string $content, bool $doubleEncode = true, string $charset = 'UTF-8'): string
+    public static function content(string|Stringable $content, bool $doubleEncode = true, string $charset = 'UTF-8'): string
     {
-        return htmlspecialchars($content, ENT_HTML5 | ENT_SUBSTITUTE, $charset, $doubleEncode);
+        return htmlspecialchars((string) $content, ENT_HTML5 | ENT_SUBSTITUTE, $charset, $doubleEncode);
     }
 
     /**
@@ -70,7 +72,7 @@ abstract class BaseEncode
      * It supports configurable character encoding and double-encoding control for idempotent and internationalized
      * output, following the HTML5 specification for attribute value encoding.
      *
-     * @param float|int|string|null $value Attribute value to be encoded for safe HTML output.
+     * @param float|int|string|Stringable|null $value Attribute value to be encoded for safe HTML output.
      * @param bool $doubleEncode Whether to encode existing entities (default: `true`).
      * @param string $charset Character encoding to use (default: `UTF-8`).
      *
@@ -86,7 +88,7 @@ abstract class BaseEncode
      * ```
      */
     public static function value(
-        float|int|string|null $value,
+        float|int|string|Stringable|null $value,
         bool $doubleEncode = true,
         string $charset = 'UTF-8',
     ): string {

@@ -12,14 +12,14 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{ButtonSize, Columns, Theme};
  * Supplies focused datasets used by attribute rendering helpers to build safe and predictable HTML attribute
  * strings.
  *
- * The cases cover attribute ordering rules, handling of empty and `null` values, enum normalization across common
- * attribute contexts, and sanitization/encoding of potentially malicious inputs.
+ * The cases cover attribute ordering rules, handling of empty and `null`, enum normalization across common attribute
+ * contexts, and sanitization/encoding of potentially malicious inputs.
  *
  * Key features.
- * - Cover enum values in `class`, `data`, and `style` contexts.
+ * - Cover enum in `class`, `data`, and `style` contexts.
  * - Exercise closures, scalars, and nested attribute groups used in tag attribute rendering.
  * - Provide deterministic datasets for ordering and filtering attributes.
- * - Validate safe handling of invalid names and malicious attribute values.
+ * - Validate safe handling of invalid names and malicious attribute value.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -54,8 +54,8 @@ final class AttributesProvider
      * Provides datasets for empty and `null` attribute handling.
      *
      * Each dataset returns the expected rendered attributes string and an input attributes array. The cases cover empty
-     * attribute names, empty string values, empty `class` arrays, invalid attribute names, and `null` values to ensure
-     * invalid or non-renderable entries are omitted consistently.
+     * attribute names, empty string, empty `class` arrays, invalid attribute names, and `null` to ensure invalid or
+     * non-renderable entries are omitted consistently.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -92,8 +92,7 @@ final class AttributesProvider
      * Provides datasets for enum-backed attribute rendering.
      *
      * Each dataset returns the expected rendered attributes string and an input attributes array. These cases validate
-     * normalization of enum values when used as scalars or within structured attributes such as `class`, `data`, and
-     * `style`.
+     * normalization of enum when used as scalars or within structured attributes such as `class`, `data`, and `style`.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -146,8 +145,8 @@ final class AttributesProvider
      * Provides datasets for malicious or unsafe attribute inputs.
      *
      * Each dataset returns the expected rendered attributes string and an input attributes array. The cases include
-     * attribute values containing HTML/JS payloads, unsafe nested values in JSON-encoded data attributes, and invalid
-     * attribute keys to ensure inputs are encoded or dropped deterministically.
+     * attribute containing HTML/JS payloads, unsafe nested in JSON-encoded data attributes, and invalid attribute keys
+     * to ensure inputs are encoded or dropped deterministically.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -185,7 +184,7 @@ final class AttributesProvider
      *
      * Each dataset returns the expected rendered attributes string and an input attributes array. The cases cover
      * boolean attributes (`true` and `false`), closures returning scalars and enums, numeric conversion, nested
-     * attribute groups (for example, `data` and `aria`), and JSON encoding for array values.
+     * attribute groups (for example, `data` and `aria`), and JSON encoding for array.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -359,6 +358,16 @@ final class AttributesProvider
                     ],
                 ],
             ],
+            'stringable attribute' => [
+                ' alt="an image"',
+                ['alt' => new class {
+                    public function __toString(): string
+                    {
+                        return 'an image';
+                    }
+                }
+                ],
+            ],
         ];
     }
 
@@ -366,8 +375,8 @@ final class AttributesProvider
      * Provides datasets for `style` attribute rendering.
      *
      * Each dataset returns the expected rendered attributes string and an input attributes array. The cases cover
-     * scalar style values, list and nested arrays encoded into inline style values, boolean and numeric conversions,
-     * and omission of `null` style entries.
+     * scalar style, stringable, list and nested arrays encoded into inline style, boolean and numeric conversions, and
+     * omission of `null` style entries.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -429,6 +438,19 @@ final class AttributesProvider
                 ' style=\'font-family: Times &amp; Serif;\'',
                 [
                     'style' => ['font-family' => 'Times & Serif'],
+                ],
+            ],
+            'style with stringable value' => [
+                ' style=\'content: stringable value;\'',
+                [
+                    'style' => [
+                        'content' => new class {
+                            public function __toString(): string
+                            {
+                                return 'stringable value';
+                            }
+                        },
+                    ],
                 ],
             ],
         ];
