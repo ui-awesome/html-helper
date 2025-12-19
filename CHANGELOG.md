@@ -6,6 +6,7 @@
 - Bug #16: Update image alt text from `Yii Framework` to `UI Awesome` (@terabytesoftw)
 - Bug #17: Enhance support for `Stringable` interface types across `BaseCssClass`, `BaseEncode`, `BaseEnum`, `BaseValidator` classes and update related tests (@terabytesoftw)
 - Bug #18: Update feature descriptions in SVG files to reflect new capabilities including `Stringable` support and performance optimizations (@terabytesoftw)
+- Bug #19: Remove trailing periods from alert content in SVG feature descriptions (@terabytesoftw)
 
 ## 0.4.0 December 17, 2025
 
