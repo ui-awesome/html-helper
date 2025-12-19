@@ -44,7 +44,7 @@
             <div class="container">
                 <div class="alert-box">
                     <p class="alert-title"><strong>Framework Agnostic</strong></p>
-                    <p class="alert-content">Zero dependencies on specific frameworks.</p>
+                    <p class="alert-content">Zero dependencies on specific frameworks</p>
                 </div>
                 <div class="alert-box">
                     <p class="alert-title"><strong>Enum Integration</strong></p>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="alert-box">
                     <p class="alert-title"><strong>Secure by Design</strong></p>
-                    <p class="alert-content">Automatic XSS protection via context-aware encoding.</p>
+                    <p class="alert-content">Automatic XSS protection via context-aware encoding</p>
                 </div>
                 <div class="alert-box">
                     <p class="alert-title"><strong>Stringable Support</strong></p>
