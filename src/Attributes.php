@@ -8,16 +8,17 @@ namespace UIAwesome\Html\Helper;
  * HTML attribute utility for standardized, safe attribute rendering.
  *
  * Provides a concrete implementation for rendering HTML attributes in a predictable, standards-compliant order,
- * supporting common HTML5 use cases such as boolean attributes, `class` and `style` composition, and `data-*` /
- * `aria-*` attribute expansion.
+ * supporting common HTML5 use cases such as boolean attributes, `class`, `style` composition, `data-*`, `aria-*`, and
+ * `on*` attribute expansion.
  *
  * Designed for integration in tag renderers and view helpers, ensuring consistent encoding, validation, and output
  * formatting of attribute strings across all supported use cases.
  *
  * Key features.
- * - Array handling for `class`, `style`, `data-*`, and `aria-*` attributes.
+ * - Array handling for `class`, `style`, `data-*`, `aria-*`, and `on*` attributes.
  * - Attribute sorting by priority for readable, maintainable HTML.
  * - JSON encoding for complex attribute values.
+ * - Normalization of attribute keys with specific prefixes.
  * - Support for boolean attributes (for example, `checked`, `disabled`).
  * - Validation of attribute names using a strict regex pattern.
  *

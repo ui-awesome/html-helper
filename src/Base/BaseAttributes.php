@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper\Base;
 
 use Closure;
+use InvalidArgumentException;
 use UIAwesome\Html\Helper\{Encode, Enum};
+use UIAwesome\Html\Helper\Exception\Message;
 
 use function array_map;
 use function gettype;
@@ -17,21 +19,24 @@ use function is_string;
 use function json_encode;
 use function preg_match;
 use function rtrim;
+use function str_starts_with;
 use function strtolower;
 use function uksort;
 
 /**
  * Base class for advanced HTML attribute rendering and encoding.
  *
- * Designed for use in tag rendering, this class ensures that all attributes are output in a predictable,
- * standards-compliant order, with correct escaping and type handling for modern HTML5 use cases.
+ * Designed for use in tag rendering and normalization of HTML attributes key-value pairs, this class ensures that all
+ * attributes are output in a predictable, standards-compliant order, with correct escaping and type handling for modern
+ * HTML5 use cases.
  *
  * Key features.
- * - Array handling for `class`, `style`, `data-*`, and `aria-*` attributes.
+ * - Array handling for `class`, `style`, `data-*`, `aria-*`, and `on*` attributes.
  * - Attribute sorting by priority for readable, maintainable HTML.
  * - BackedEnum normalization for attribute values.
  * - Extensible for custom attribute types and rendering strategies.
  * - JSON encoding for complex attribute values.
+ * - Normalization of attribute keys with specific prefixes.
  * - Secure HTML and value encoding to prevent XSS.
  * - Support for boolean attributes (for example, `checked`, `disabled`).
  * - Validation of attribute names using a strict regex pattern.
@@ -116,6 +121,54 @@ abstract class BaseAttributes
      * - Start with a letter or underscore.
      */
     private const VALID_ATTRIBUTE_NAME_PATTERN = '/^[a-zA-Z_][a-zA-Z0-9_-]*$/';
+
+    /**
+     * Normalizes an attribute key ensuring it has a specific prefix.
+     *
+     * Validates the provided key, normalizes it (handling UnitEnum and Stringable), and ensures the specified prefix is
+     * present. If the key already starts with the prefix, it is returned as-is; otherwise, the prefix is prepended.
+     *
+     * This method is particularly useful for standardizing attributes like `aria-*`, `data-*`, or event handlers
+     * (for example, `onclick`).
+     *
+     * @param mixed $key Key to normalize. Accepts strings, Stringable objects, or UnitEnum cases.
+     * @param string $prefix Prefix to ensure (for example, 'aria-', 'data-', 'on').
+     *
+     * @throws InvalidArgumentException if the key is empty, not a string, or cannot be normalized to a string.
+     *
+     * @return string Normalized key with the prefix ensured.
+     *
+     * Usage example:
+     * ```php
+     * // standard string normalization
+     * Attributes::normalizeKey('label', 'aria-');
+     * // 'aria-label'
+     *
+     * // handling existing prefix
+     * Attributes::normalizeKey('data-id', 'data-');
+     * // 'data-id'
+     *
+     * // using UnitEnum
+     * Attributes::normalizeKey(MyEnum::CLICK, 'on');
+     * // 'onclick'
+     * ```
+     */
+    public static function normalizeKey(mixed $key, string $prefix): string
+    {
+        $normalizedKey = Enum::normalizeValue($key);
+
+        if ($normalizedKey === '' || is_string($normalizedKey) === false) {
+            throw new InvalidArgumentException(
+                Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
+            );
+        }
+
+        if (str_starts_with($normalizedKey, $prefix) === false) {
+            return "{$prefix}{$normalizedKey}";
+        }
+
+        return $normalizedKey;
+    }
 
     /**
      * Renders an array of HTML attributes into a standards-compliant string.

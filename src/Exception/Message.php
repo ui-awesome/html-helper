@@ -60,6 +60,13 @@ enum Message: string
     case INCORRECT_REGEXP = 'Incorrect regular expression or malformed pattern.';
 
     /**
+     * Error when a key is not a non-empty string.
+     *
+     * Format: "Key must be a non-empty string."
+     */
+    case KEY_MUST_BE_NON_EMPTY_STRING = 'Key must be a non-empty string.';
+
+    /**
      * Error when the length of a regular expression is less than two.
      *
      * Format: "Length of the regular expression cannot be less than '2'."
