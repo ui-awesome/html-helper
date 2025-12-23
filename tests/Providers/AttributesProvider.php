@@ -146,8 +146,8 @@ final class AttributesProvider
     /**
      * Provides datasets for invalid attribute keys.
      *
-     * Each dataset returns an invalid attribute key and a corresponding value. These cases cover empty strings and
-     * enum keys to ensure such invalid inputs are identified for omission.
+     * Each dataset returns an invalid attribute key and a corresponding prefix. These cases cover empty strings and
+     * enum keys to ensure such invalid inputs are identified for validation.
      *
      * @phpstan-return array<string, array{string|UnitEnum, string}>
      */
@@ -168,8 +168,8 @@ final class AttributesProvider
     /**
      * Provides datasets for attribute keys with prefixes.
      *
-     * Each dataset returns the expected normalized attribute key string, the prefix, and the input attribute key. These
-     * cases validate correct handling of prefixed attribute keys such as `aria-*`, `data-*`, and `on-*` ensuring enums
+     * Each dataset returns the input attribute key, the prefix, and the expected normalized attribute key string. These
+     * cases validate correct handling of prefixed attribute keys such as `aria-*`, `data-*`, and `on-*`, ensuring enums
      * and strings are normalized appropriately.
      *
      * @phpstan-return array<string, array{string|Stringable|UnitEnum, string, string}>

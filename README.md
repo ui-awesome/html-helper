@@ -42,6 +42,33 @@ composer require ui-awesome/html-helper:^0.5
 
 ### Quick start
 
+#### Attribute key normalization
+
+Ensures attribute keys have the correct prefix (like `aria-`, `data-`, or `on`), supporting strings, Enums, and
+Stringables.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App;
+
+use UIAwesome\Html\Helper\Attributes;
+
+// normalize string key (adds prefix if missing)
+echo Attributes::normalizeKey('label', 'aria-');
+// aria-label
+
+// normalize Enum key
+echo Attributes::normalizeKey(Data::ACTION, 'data-');
+// data-action
+
+// normalize event (flexible prefixing)
+echo Attributes::normalizeKey('click', 'on');
+// onclick
+```
+
 #### Universal Stringable support
 
 Pass your domain objects directly to helpers like `Encode`, `Attributes`, or `CSSClass`. The library automatically
