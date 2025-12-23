@@ -149,18 +149,18 @@ final class AttributesProvider
      * Each dataset returns an invalid attribute key and a corresponding value. These cases cover empty strings and
      * enum keys to ensure such invalid inputs are identified for omission.
      *
-     * @phpstan-return array<string, array{string|Priority, string}>
+     * @phpstan-return array<string, array{string|UnitEnum, string}>
      */
     public static function invalidKey(): array
     {
         return [
             'empty string' => [
                 '',
-                'value',
+                'aria-',
             ],
-            'enum key' => [
+            'enum' => [
                 Priority::HIGH,
-                'value',
+                'data-',
             ],
         ];
     }
