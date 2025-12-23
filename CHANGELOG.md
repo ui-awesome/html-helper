@@ -2,6 +2,8 @@
 
 ## 0.5.1 Under development
 
+- Enh #20: Add `normalizeKey()` method in `BaseAttributes` helper for normalization attribute keys with prefixes, enhance error handling and add related tests (@terabytesoftw)
+
 ## 0.5.0 December 19, 2025
 
 - Bug #15: Update copyright year to `2024` in `LICENSE` file (@terabytesoftw)

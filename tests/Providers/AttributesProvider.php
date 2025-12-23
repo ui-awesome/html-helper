@@ -4,20 +4,22 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests\Providers;
 
-use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{ButtonSize, Columns, Theme};
+use Stringable;
+use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{ButtonSize, Columns, Key, Priority, Theme};
+use UnitEnum;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\AttributesTest} class.
  *
- * Supplies focused datasets used by attribute rendering helpers to build safe and predictable HTML attribute
- * strings.
+ * Supplies focused datasets used by attribute rendering helpers to build safe and predictable HTML attribute strings.
  *
  * The cases cover attribute ordering rules, handling of empty and `null`, enum normalization across common attribute
- * contexts, and sanitization/encoding of potentially malicious inputs.
+ * contexts, sanitization/encoding of potentially malicious inputs, and normalization of prefixed attribute keys.
  *
  * Key features.
  * - Cover enum in `class`, `data`, and `style` contexts.
  * - Exercise closures, scalars, and nested attribute groups used in tag attribute rendering.
+ * - Normalize and validate prefixed attribute keys (`aria-*`, `data-*`, `on-*`).
  * - Provide deterministic datasets for ordering and filtering attributes.
  * - Validate safe handling of invalid names and malicious attribute value.
  *
@@ -137,6 +139,118 @@ final class AttributesProvider
             'single enum' => [
                 ' type="sm"',
                 ['type' => ButtonSize::SMALL],
+            ],
+        ];
+    }
+
+    /**
+     * Provides datasets for invalid attribute keys.
+     *
+     * Each dataset returns an invalid attribute key and a corresponding prefix. These cases cover empty strings and
+     * enum keys to ensure such invalid inputs are identified for validation.
+     *
+     * @phpstan-return array<string, array{string|UnitEnum, string}>
+     */
+    public static function invalidKey(): array
+    {
+        return [
+            'empty string' => [
+                '',
+                'aria-',
+            ],
+            'enum' => [
+                Priority::HIGH,
+                'data-',
+            ],
+        ];
+    }
+
+    /**
+     * Provides datasets for attribute keys with prefixes.
+     *
+     * Each dataset returns the input attribute key, the prefix, and the expected normalized attribute key string. These
+     * cases validate correct handling of prefixed attribute keys such as `aria-*`, `data-*`, and `on-*`, ensuring enums
+     * and strings are normalized appropriately.
+     *
+     * @phpstan-return array<string, array{string|Stringable|UnitEnum, string, string}>
+     */
+    public static function key(): array
+    {
+        return [
+            'enum with prefix aria' => [
+                Key::ARIA_LABEL,
+                'aria-',
+                'aria-label',
+            ],
+            'enum with prefix data' => [
+                Key::DATA_TOGGLE,
+                'data-',
+                'data-toggle',
+            ],
+            'enum with prefix event' => [
+                Key::ON_CLICK,
+                'on',
+                'onclick',
+            ],
+            'string key with prefix aria' => [
+                'aria-label',
+                'aria-',
+                'aria-label',
+            ],
+            'string key with prefix data' => [
+                'data-toggle',
+                'data-',
+                'data-toggle',
+            ],
+            'string key with prefix event' => [
+                'onclick',
+                'on',
+                'onclick',
+            ],
+            'stringable with prefix aria' => [
+                new class {
+                    public function __toString(): string
+                    {
+                        return 'aria-label';
+                    }
+                },
+                'aria-',
+                'aria-label',
+            ],
+            'stringable with prefix data' => [
+                new class {
+                    public function __toString(): string
+                    {
+                        return 'data-toggle';
+                    }
+                },
+                'data-',
+                'data-toggle',
+            ],
+            'stringable with prefix event' => [
+                new class {
+                    public function __toString(): string
+                    {
+                        return 'onclick';
+                    }
+                },
+                'on',
+                'onclick',
+            ],
+            'without prefix aria' => [
+                'label',
+                'aria-',
+                'aria-label',
+            ],
+            'without prefix data' => [
+                'toggle',
+                'data-',
+                'data-toggle',
+            ],
+            'without prefix event' => [
+                'click',
+                'on',
+                'onclick',
             ],
         ];
     }

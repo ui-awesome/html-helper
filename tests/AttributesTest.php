@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\Attributes;
+use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Providers\AttributesProvider;
 
 /**
@@ -32,6 +34,16 @@ use UIAwesome\Html\Helper\Tests\Providers\AttributesProvider;
 #[Group('helpers')]
 final class AttributesTest extends TestCase
 {
+    #[DataProviderExternal(AttributesProvider::class, 'key')]
+    public function testNormalizeKeyAttribute(mixed $key, string $prefix, string $expected): void
+    {
+        self::assertSame(
+            $expected,
+            Attributes::normalizeKey($key, $prefix),
+            'Should normalize key attribute correctly.',
+        );
+    }
+
     /**
      * @phpstan-param mixed[] $attributes
      */
@@ -108,5 +120,16 @@ final class AttributesTest extends TestCase
             Attributes::render($attributes),
             'Should render attributes as expected for each data set.',
         );
+    }
+
+    #[DataProviderExternal(AttributesProvider::class, 'invalidKey')]
+    public function testThrowInvalidArgumentExceptionWhenAttributeKeyIsInvalid(mixed $key, string $prefix): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
+        );
+
+        Attributes::normalizeKey($key, $prefix);
     }
 }

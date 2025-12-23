@@ -19,6 +19,7 @@ enum Priority: int
      * High-priority value.
      */
     case HIGH = 2;
+
     /**
      * Low-priority value.
      */
