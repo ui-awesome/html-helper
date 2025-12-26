@@ -2,6 +2,8 @@
 
 ## 0.5.2 Under development
 
+- Bug #21: Update group annotation from 'helpers' to 'helper' across multiple test files (@terabytesoftw)
+
 ## 0.5.1 December 23, 2025
 
 - Enh #20: Add `normalizeKey()` method in `BaseAttributes` helper for normalization attribute keys with prefixes, enhance error handling and add related tests (@terabytesoftw)

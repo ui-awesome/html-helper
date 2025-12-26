@@ -32,6 +32,8 @@ final class EnumProvider
      * expectation. These cases cover backed enums, unit enums, `null` passthrough, mixed arrays of enums, scalar and
      * stringable objects.
      *
+     * @return array Test data for array normalization.
+     *
      * @phpstan-return array<string, array{mixed[], mixed[], string}>
      */
     public static function normalizeArray(): array
@@ -106,6 +108,8 @@ final class EnumProvider
      * Each dataset returns the original value, the expected normalized value, and a description. Tests ensure backed
      * enums yield their scalar value, unit enums yield their name, non-enum scalars pass through unchanged and
      * stringable objects return their string representation.
+     *
+     * @return array Test data for value normalization.
      *
      * @phpstan-return array<string, array{mixed, mixed, string}>
      */

@@ -34,6 +34,8 @@ final class ValidatorProvider
      * integers, numeric strings, leading zeroes, floats, scientific notation, whitespace and sign edge cases to ensure
      * deterministic validation behaviour.
      *
+     * @return array Test data for int-like validation.
+     *
      * @phpstan-return array<string, array{int|string|Stringable, int|null, int|null, bool, string}>
      */
     public static function intLike(): array
@@ -249,6 +251,8 @@ final class ValidatorProvider
      * Each dataset returns: attribute name, tested value, allowed list, a strict comparison flag, and the expected
      * message. Datasets cover backed enums, unit enums, mixed enum lists, scalar comparisons, and message generation
      * for failure scenarios.
+     *
+     * @return array Test data for oneOf validation.
      *
      * @phpstan-return array<string, array{string, mixed, list<mixed>, bool, string}>
      */
