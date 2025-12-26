@@ -1,5 +1,7 @@
 # ChangeLog
 
+## 0.5.3 Under development
+
 ## 0.5.2 December 26, 2025
 
 - Bug #21: Update group annotation from 'helpers' to 'helper' across multiple test files (@terabytesoftw)
