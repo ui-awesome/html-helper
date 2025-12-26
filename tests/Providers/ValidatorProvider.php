@@ -249,8 +249,8 @@ final class ValidatorProvider
      * Provides datasets for `oneOf` validation checks.
      *
      * Each dataset returns: attribute name, tested value, allowed list, a strict comparison flag, and the expected
-     * message. Datasets cover backed enums, unit enums, mixed enum lists, scalar comparisons, and message generation
-     * for failure scenarios.
+     * message. Datasets cover backed enums, unit enums, mixed enum lists, `null`, scalar comparisons, and message
+     * generation for failure scenarios.
      *
      * @return array Test data for oneOf validation.
      *
@@ -342,6 +342,17 @@ final class ValidatorProvider
                     'attribute',
                     implode('\', \'', Enum::normalizeArray([Status::ACTIVE, Theme::DARK, Priority::LOW])),
                 ),
+            ],
+            'null value' => [
+                'attribute',
+                null,
+                [
+                    'a',
+                    'b',
+                    'c',
+                ],
+                false,
+                '',
             ],
             'string case sensitive enum value' => [
                 'attribute',
