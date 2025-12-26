@@ -3,6 +3,7 @@
 ## 0.5.2 Under development
 
 - Bug #21: Update group annotation from 'helpers' to 'helper' across multiple test files (@terabytesoftw)
+- Dep #22: Update `infection/infection` version constraint to `^0.32` in `composer.json` (@terabytesoftw)
 
 ## 0.5.1 December 23, 2025
 
