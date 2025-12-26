@@ -34,6 +34,8 @@ final class AttributesProvider
      * Each dataset returns the expected rendered attributes string and the input attributes array. These cases validate
      * deterministic ordering across common attributes and ensure stable output for test assertions.
      *
+     * @return array Test data for attribute ordering.
+     *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
     public static function attributeOrdering(): array
@@ -58,6 +60,8 @@ final class AttributesProvider
      * Each dataset returns the expected rendered attributes string and an input attributes array. The cases cover empty
      * attribute names, empty string, empty `class` arrays, invalid attribute names, and `null` to ensure invalid or
      * non-renderable entries are omitted consistently.
+     *
+     * @return array Test data for empty and null attribute handling.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -95,6 +99,8 @@ final class AttributesProvider
      *
      * Each dataset returns the expected rendered attributes string and an input attributes array. These cases validate
      * normalization of enum when used as scalars or within structured attributes such as `class`, `data`, and `style`.
+     *
+     * @return array Test data for enum-backed attribute rendering.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -149,6 +155,8 @@ final class AttributesProvider
      * Each dataset returns an invalid attribute key and a corresponding prefix. These cases cover empty strings and
      * enum keys to ensure such invalid inputs are identified for validation.
      *
+     * @return array Test data for invalid attribute keys.
+     *
      * @phpstan-return array<string, array{string|UnitEnum, string}>
      */
     public static function invalidKey(): array
@@ -171,6 +179,8 @@ final class AttributesProvider
      * Each dataset returns the input attribute key, the prefix, and the expected normalized attribute key string. These
      * cases validate correct handling of prefixed attribute keys such as `aria-*`, `data-*`, and `on-*`, ensuring enums
      * and strings are normalized appropriately.
+     *
+     * @return array Test data for attribute keys with prefixes.
      *
      * @phpstan-return array<string, array{string|Stringable|UnitEnum, string, string}>
      */
@@ -262,6 +272,8 @@ final class AttributesProvider
      * attribute containing HTML/JS payloads, unsafe nested in JSON-encoded data attributes, and invalid attribute keys
      * to ensure inputs are encoded or dropped deterministically.
      *
+     * @return array Test data for malicious attribute handling.
+     *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
     public static function maliciousValues(): array
@@ -299,6 +311,8 @@ final class AttributesProvider
      * Each dataset returns the expected rendered attributes string and an input attributes array. The cases cover
      * boolean attributes (`true` and `false`), closures returning scalars and enums, numeric conversion, nested
      * attribute groups (for example, `data` and `aria`), and JSON encoding for array.
+     *
+     * @return array Test data for tag attribute rendering.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */
@@ -491,6 +505,8 @@ final class AttributesProvider
      * Each dataset returns the expected rendered attributes string and an input attributes array. The cases cover
      * scalar style, stringable, list and nested arrays encoded into inline style, boolean and numeric conversions, and
      * omission of `null` style entries.
+     *
+     * @return array Test data for style attribute rendering.
      *
      * @phpstan-return array<string, array{string, mixed[]}>
      */

@@ -30,6 +30,8 @@ final class TemplateProvider
      * normalization to `PHP_EOL`, correct conversion of literal `\n` sequences, and removal of empty lines (including
      * lines that become empty after substitution).
      *
+     * @return array Test data for line ending normalization.
+     *
      * @phpstan-return array<
      *   string,
      *   array{template: string, tokens: array<string, string>, expected: string, message: string},

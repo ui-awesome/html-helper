@@ -29,7 +29,7 @@ use UIAwesome\Html\Helper\Tests\Providers\EncodeProvider;
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('helpers')]
+#[Group('helper')]
 final class EncodeTest extends TestCase
 {
     #[DataProviderExternal(EncodeProvider::class, 'content')]

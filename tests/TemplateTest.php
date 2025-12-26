@@ -30,7 +30,7 @@ use UIAwesome\Html\Helper\Tests\Support\TestSupport;
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('helpers')]
+#[Group('helper')]
 final class TemplateTest extends TestCase
 {
     use TestSupport;

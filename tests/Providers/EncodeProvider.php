@@ -31,6 +31,8 @@ final class EncodeProvider
      * existing HTML entities should be double-encoded. These cases validate correct escaping in content rendering
      * contexts and handling of special and control characters.
      *
+     * @return array Test data for content encoding.
+     *
      * @phpstan-return array<string, array{string|Stringable, string, bool}>
      */
     public static function content(): array
@@ -90,6 +92,8 @@ final class EncodeProvider
      * Each dataset returns the input value, the expected encoded output, and a boolean flag indicating whether existing
      * entities should be double-encoded. The provider covers complex attribute-safe escaping, numeric and `null`
      * conversions, and preservation of control characters where applicable.
+     *
+     * @return array Test data for value encoding.
      *
      * @phpstan-return array<string, array{mixed, string, bool}>
      */

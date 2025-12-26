@@ -31,7 +31,7 @@ use UIAwesome\Html\Helper\Tests\Providers\AttributesProvider;
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('helpers')]
+#[Group('helper')]
 final class AttributesTest extends TestCase
 {
     #[DataProviderExternal(AttributesProvider::class, 'key')]
