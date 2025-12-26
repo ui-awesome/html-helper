@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 0.5.3 Under development
+## 0.5.3 December 26, 2025
 
 - Bug #24: Update argument types in `oneOf` method and related tests to support `UnitEnum` in `argumentName` parameter (@terabytesoftw)
 
