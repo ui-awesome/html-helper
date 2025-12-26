@@ -260,12 +260,23 @@ final class ValidatorProvider
     public static function oneOf(): array
     {
         return [
-            'backed enum in argument name' => [
+            'backed enum argument name' => [
                 Status::ACTIVE,
                 Status::INACTIVE,
                 Status::cases(),
                 false,
                 '',
+            ],
+            'backed enum argument name not in list' => [
+                Status::ACTIVE,
+                'invalid_value',
+                Status::cases(),
+                true,
+                Message::VALUE_NOT_IN_LIST->getMessage(
+                    'invalid_value',
+                    Status::ACTIVE->value,
+                    implode('\', \'', Enum::normalizeArray(Status::cases())),
+                ),
             ],
             'backed enum value in list' => [
                 'attribute',
@@ -279,7 +290,11 @@ final class ValidatorProvider
                 'a',
                 [],
                 true,
-                Message::VALUE_NOT_IN_LIST->getMessage('a', 'attribute', ''),
+                Message::VALUE_NOT_IN_LIST->getMessage(
+                    'a',
+                    'attribute',
+                    '',
+                ),
             ],
             'empty value-not-in-list' => [
                 'attribute',
