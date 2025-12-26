@@ -99,7 +99,7 @@ abstract class BaseValidator
      *
      * @param int|string|Stringable|UnitEnum|null $value Value to validate.
      * @param array $allowed List of allowed values for validation.
-     * @param string $argumentName Argument name for error reporting (default: 'value').
+     * @param string|UnitEnum $argumentName Argument name for error reporting (default: 'value').
      *
      * @throws InvalidArgumentException if the value is not in the allowed list.
      *
@@ -130,11 +130,12 @@ abstract class BaseValidator
     public static function oneOf(
         int|string|Stringable|UnitEnum|null $value,
         array $allowed,
-        string $argumentName = 'value',
+        string|UnitEnum $argumentName = 'value',
     ): void {
         $normalizedAllowedValues = Enum::normalizeArray($allowed);
         /** @phpstan-var int|string|null $normalizedValue */
         $normalizedValue = Enum::normalizeValue($value);
+        $normalizedArgumentName = Enum::normalizeValue($argumentName);
 
         if ($normalizedValue === '' || $normalizedValue === null) {
             return;
@@ -147,7 +148,7 @@ abstract class BaseValidator
         throw new InvalidArgumentException(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 $normalizedValue,
-                $argumentName,
+                $normalizedArgumentName,
                 implode("', '", $normalizedAllowedValues),
             ),
         );

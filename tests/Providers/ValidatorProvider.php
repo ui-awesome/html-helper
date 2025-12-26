@@ -8,6 +8,7 @@ use Stringable;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Priority, Status, Theme};
+use UnitEnum;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\ValidatorTest} class.
@@ -254,11 +255,29 @@ final class ValidatorProvider
      *
      * @return array Test data for oneOf validation.
      *
-     * @phpstan-return array<string, array{string, mixed, list<mixed>, bool, string}>
+     * @phpstan-return array<string, array{string|UnitEnum, mixed, list<mixed>, bool, string}>
      */
     public static function oneOf(): array
     {
         return [
+            'backed enum argument name' => [
+                Status::ACTIVE,
+                Status::INACTIVE,
+                Status::cases(),
+                false,
+                '',
+            ],
+            'backed enum argument name not in list' => [
+                Status::ACTIVE,
+                'invalid_value',
+                Status::cases(),
+                true,
+                Message::VALUE_NOT_IN_LIST->getMessage(
+                    'invalid_value',
+                    Status::ACTIVE->value,
+                    implode('\', \'', Enum::normalizeArray(Status::cases())),
+                ),
+            ],
             'backed enum value in list' => [
                 'attribute',
                 Status::ACTIVE,
@@ -271,7 +290,11 @@ final class ValidatorProvider
                 'a',
                 [],
                 true,
-                Message::VALUE_NOT_IN_LIST->getMessage('a', 'attribute', ''),
+                Message::VALUE_NOT_IN_LIST->getMessage(
+                    'a',
+                    'attribute',
+                    '',
+                ),
             ],
             'empty value-not-in-list' => [
                 'attribute',

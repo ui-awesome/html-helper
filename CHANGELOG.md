@@ -2,6 +2,8 @@
 
 ## 0.5.3 Under development
 
+- Bug #24: Update argument types in `oneOf` method and related tests to support `UnitEnum` in `argumentName` parameter (@terabytesoftw)
+
 ## 0.5.2 December 26, 2025
 
 - Bug #21: Update group annotation from 'helpers' to 'helper' across multiple test files (@terabytesoftw)
