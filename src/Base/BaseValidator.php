@@ -97,7 +97,7 @@ abstract class BaseValidator
      * Normalizes the provided value and allowed list, and checks strict membership. If the value is empty or `null`,
      * validation passes.
      *
-     * @param int|string|Stringable|UnitEnum $value Value to validate.
+     * @param int|string|Stringable|UnitEnum|null $value Value to validate.
      * @param array $allowed List of allowed values for validation.
      * @param string $argumentName Argument name for error reporting (default: 'value').
      *
@@ -110,7 +110,7 @@ abstract class BaseValidator
      * // invalid case
      * Validator::oneOf('blue', ['red', 'green', 'yellow'], 'color');
      * // throws InvalidArgumentException.
-     *    "Value 'blue' for argument 'color' is not in the allowed list: 'red', 'green', 'yellow'."
+     * // "Value 'blue' for argument 'color' is not in the allowed list: 'red', 'green', 'yellow'."
      *
      * // valid case
      * Validator::oneOf(Status::ACTIVE, [Status::ACTIVE, Status::INACTIVE], 'status');
@@ -128,7 +128,7 @@ abstract class BaseValidator
      * ```
      */
     public static function oneOf(
-        int|string|Stringable|UnitEnum $value,
+        int|string|Stringable|UnitEnum|null $value,
         array $allowed,
         string $argumentName = 'value',
     ): void {

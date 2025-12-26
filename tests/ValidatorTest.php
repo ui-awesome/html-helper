@@ -56,7 +56,7 @@ final class ValidatorTest extends TestCase
     #[DataProviderExternal(ValidatorProvider::class, 'oneOf')]
     public function testOneOfWithValidValues(
         string $attribute,
-        int|string|Stringable|UnitEnum $value,
+        int|string|Stringable|UnitEnum|null $value,
         array $allowed,
         bool $exception,
         string $exceptionMessage,
