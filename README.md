@@ -102,7 +102,7 @@ echo Encode::content($user);
 
 #### Rendering HTML attributes
 
-Sorts attributes by priority, handles boolean values, and automatically encodes JSON for complex data.
+Use `Attributes::render()` to generate a safe, escaped HTML attribute string from an array. It automatically handles `class` arrays, `style` arrays, and `data-*` expansions.
 
 ```php
 <?php
@@ -135,6 +135,36 @@ use UIAwesome\Html\Helper\Attributes;
     ]
 ) ?>
 // class="btn btn-primary" id="submit-btn" disabled data-id="42" data-options='{"modal":true}' style='color: #fff; margin-top: 10px;'
+```
+
+#### Advanced: DOM & SVG Integration
+
+When working with `DOMDocument`, `SimpleXMLElement`, or other XML/SVG builders, you should not use pre-escaped strings to avoid "double escaping" (for example, `&amp;lt;`).
+
+Use `Attributes::normalizeAttributes()` with `encode: false` to get a flat array of raw values ready for insertion.
+
+```php
+use UIAwesome\Html\Helper\Attributes;
+
+$attributes = [
+    'class' => ['icon', ButtonType::PRIMARY],
+    'data-config' => ['key' => '<val>'],
+    'title' => '<Safe Title>',
+];
+
+// Get raw values (encode: false)
+$rawAttributes = Attributes::normalizeAttributes($attributes, encode: false);
+// [
+//    'class' => 'icon btn-primary',
+//    'data-config' => '{"key":"<val>"}'
+//    'title' => '<Safe Title>',
+// ]
+
+// Perfect for DOMDocument
+foreach ($rawAttributes as $name => $value) {
+    // DOMDocument handles the escaping automatically here
+    $domElement->setAttribute($name, $value);
+}
 ```
 
 #### Managing CSS classes

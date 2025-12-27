@@ -306,6 +306,147 @@ final class AttributesProvider
     }
 
     /**
+     * Provides datasets for attribute normalization.
+     *
+     * Each dataset returns the input attributes array, the expected normalized attributes array, and an optional encode
+     * flag (true/false) when relevant.
+     *
+     * @return array Test data for attribute normalization.
+     *
+     * @phpstan-return array<string, array{mixed[], mixed[], 2?: bool}>
+     */
+    public static function normalizeAttributes(): array
+    {
+        return [
+            'boolean false (removed)' => [
+                ['disabled' => false],
+                [],
+            ],
+            'boolean true (preserved as bool)' => [
+                ['checked' => true],
+                ['checked' => true],
+            ],
+            'class array flattened' => [
+                [
+                    'class' => [
+                        'btn',
+                        'btn-primary',
+                    ],
+                ],
+                ['class' => 'btn btn-primary'],
+            ],
+            'data attribute with unsupported types (boolean)' => [
+                [
+                    'data' => [
+                        'active' => true,
+                    ],
+                ],
+                [
+                    'data-active' => '',
+                ],
+                true,
+            ],
+            'data expansion' => [
+                [
+                    'data' => [
+                        'id' => 1,
+                        'user' => 'admin',
+                    ],
+                ],
+                [
+                    'data-id' => '1',
+                    'data-user' => 'admin',
+                ],
+            ],
+            'encode false (Raw for SVG/DOM)' => [
+                ['title' => '<script>'],
+                ['title' => '<script>'],
+                false,
+            ],
+            'encode true (HTML entities)' => [
+                ['title' => '<script>'],
+                ['title' => '&lt;script&gt;'],
+                true,
+            ],
+            'enum' => [
+                ['value' => ButtonSize::LARGE],
+                ['value' => 'lg'],
+            ],
+            'enum inside class array' => [
+                [
+                    'class' => [
+                        'btn',
+                        ButtonSize::LARGE,
+                    ],
+                ],
+                ['class' => 'btn lg'],
+            ],
+            'enum inside data array' => [
+                ['data' => ['size' => ButtonSize::LARGE]],
+                ['data-size' => 'lg'],
+            ],
+            'generic array attribute with encode false' => [
+                ['my-attr' => ['<tag>']],
+                ['my-attr' => '["<tag>"]'],
+                false,
+            ],
+            'json flags in generic array with encode true' => [
+                ['data' => ['tags' => ['<tag>']]],
+                ['data-tags' => '["\u0026lt;tag\u0026gt;"]'],
+                true,
+            ],
+            'json flags in style array with encode true' => [
+                ['style' => ['--custom' => ['<val>']]],
+                ['style' => '--custom: ["\u0026lt;val\u0026gt;"];'],
+                true,
+            ],
+            'nested json with encode false' => [
+                [
+                    'data' => [
+                        'config' => [
+                            'key' => '<val>',
+                        ],
+                    ],
+                ],
+                ['data-config' => '{"key":"<val>"}'],
+                false,
+            ],
+            'simple string' => [
+                ['id' => 'my-id'],
+                ['id' => 'my-id'],
+            ],
+            'stringable encoding with encode true' => [
+                [
+                    'data' => [
+                        'val' => new class implements Stringable {
+                            public function __toString(): string
+                            {
+                                return '<x>';
+                            }
+                        },
+                    ],
+                ],
+                ['data-val' => '&lt;x&gt;'],
+                true,
+            ],
+            'style array flattened' => [
+                [
+                    'style' => [
+                        'color' => 'red',
+                        'background' => 'blue',
+                    ],
+                ],
+                ['style' => 'color: red; background: blue;'],
+            ],
+            'style property name encoding with encode true' => [
+                ['style' => ['<prop>' => 'val']],
+                ['style' => '&lt;prop&gt;: val;'],
+                true,
+            ],
+        ];
+    }
+
+    /**
      * Provides datasets for rendering tag attributes.
      *
      * Each dataset returns the expected rendered attributes string and an input attributes array. The cases cover
