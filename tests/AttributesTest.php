@@ -143,7 +143,7 @@ final class AttributesTest extends TestCase
     }
 
     #[DataProviderExternal(AttributesProvider::class, 'invalidKey')]
-    public function testThrowInvalidArgumentExceptionWhenAttributeKeyIsInvalid(mixed $key, string $prefix): void
+    public function testThrowInvalidArgumentExceptionForAttributeKeyIsInvalid(mixed $key, string $prefix): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(

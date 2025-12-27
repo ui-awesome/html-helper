@@ -83,7 +83,7 @@ final class CSSClassTest extends TestCase
         );
     }
 
-    public function testThrowExceptionForInvalidClassValue(): void
+    public function testThrowInvalidArgumentExceptionForInvalidClassValue(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -101,7 +101,7 @@ final class CSSClassTest extends TestCase
         );
     }
 
-    public function testThrowExceptionForInvalidEnum(): void
+    public function testThrowInvalidArgumentExceptionForInvalidEnum(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
