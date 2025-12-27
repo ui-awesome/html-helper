@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests\Providers;
 
-use stdClass;
 use Stringable;
 use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{ButtonSize, Columns, Key, Priority, Theme};
 use UnitEnum;
