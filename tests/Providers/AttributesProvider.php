@@ -368,6 +368,23 @@ final class AttributesProvider
                 ['title' => '&lt;script&gt;'],
                 true,
             ],
+            'enum' => [
+                ['value' => ButtonSize::LARGE],
+                ['value' => 'lg'],
+            ],
+            'enum inside class array' => [
+                [
+                    'class' => [
+                        'btn',
+                        ButtonSize::LARGE,
+                    ],
+                ],
+                ['class' => 'btn lg'],
+            ],
+            'enum inside data array' => [
+                ['data' => ['size' => ButtonSize::LARGE]],
+                ['data-size' => 'lg'],
+            ],
             'generic array attribute with encode false' => [
                 ['my-attr' => ['<tag>']],
                 ['my-attr' => '["<tag>"]'],
