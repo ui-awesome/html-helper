@@ -1,8 +1,9 @@
 # ChangeLog
 
-## 0.6.0 December 27, 2025
+## 0.6.0 Under development
 
 - Enh #25: Add `normalizeAttributes()` method in `BaseAttributes` helper for normalization of attribute keys and values with support for encoding and JSON serialization, along with comprehensive tests (@terabytesoftw)
+- Bug #26: Rename exception test methods to clarify expected exceptions (@terabytesoftw)
 
 ## 0.5.3 December 26, 2025
 

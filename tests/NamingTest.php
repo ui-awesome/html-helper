@@ -148,7 +148,7 @@ final class NamingTest extends TestCase
         );
     }
 
-    public function testThrowExceptionForEmptyFormModelWithTabularInput(): void
+    public function testThrowInvalidArgumentExceptionForEmptyFormModelWithTabularInput(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -158,7 +158,7 @@ final class NamingTest extends TestCase
         Naming::generateInputName('', '[0]dates[0]');
     }
 
-    public function testThrowExceptionForInvalidPropertyName(): void
+    public function testThrowInvalidArgumentExceptionForInvalidPropertyName(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -168,7 +168,7 @@ final class NamingTest extends TestCase
         Naming::generateInputName('TestForm', 'content body');
     }
 
-    public function testThrowExceptionForRegExpExceedingBacktrackLimit(): void
+    public function testThrowInvalidArgumentExceptionForRegExpExceedingBacktrackLimit(): void
     {
         $originalLimit = ini_get('pcre.backtrack_limit');
 

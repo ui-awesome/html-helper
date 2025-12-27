@@ -58,7 +58,7 @@ final class EnumTest extends TestCase
         );
     }
 
-    public function testThrowExceptionForInvalidValueType(): void
+    public function testThrowInvalidArgumentExceptionForInvalidValueType(): void
     {
         $value = new stdClass();
 
