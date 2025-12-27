@@ -387,7 +387,7 @@ abstract class BaseAttributes
 
                 $result[$key] = match (gettype($v)) {
                     'array' => json_encode($v, $flags),
-                    'double', 'integer', 'string' => (string)$v,
+                    'double', 'integer', 'string' => (string) $v,
                     default => '',
                 };
             }

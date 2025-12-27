@@ -2,7 +2,7 @@
 
 ## 0.6.0 December 27, 2025
 
-- Enh #25: Add `normalizeAttribute()` method in `BaseAttributes` helper for normalization of attribute keys and values with support for encoding and JSON serialization, along with comprehensive tests (@terabytesoftw)
+- Enh #25: Add `normalizeAttributes()` method in `BaseAttributes` helper for normalization of attribute keys and values with support for encoding and JSON serialization, along with comprehensive tests (@terabytesoftw)
 
 ## 0.5.3 December 26, 2025
 

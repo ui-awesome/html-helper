@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests\Providers;
 
+use stdClass;
 use Stringable;
 use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{ButtonSize, Columns, Key, Priority, Theme};
 use UnitEnum;
@@ -334,6 +335,17 @@ final class AttributesProvider
                     ],
                 ],
                 ['class' => 'btn btn-primary'],
+            ],
+            'data attribute with unsupported types (boolean)' => [
+                [
+                    'data' => [
+                        'active' => true,
+                    ],
+                ],
+                [
+                    'data-active' => '',
+                ],
+                true,
             ],
             'data expansion' => [
                 [
