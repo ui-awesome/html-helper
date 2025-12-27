@@ -30,7 +30,16 @@ use function uksort;
  * attributes are output in a predictable, standards-compliant order, with correct escaping and type handling for modern
  * HTML5 use cases.
  *
+ * It acts as a central engine for both generating HTML strings and preparing attributes for DOM manipulation (like SVG),
+ * offering flexible control over encoding.
+ *
  * Key features.
+ * - **Double-Encoding Prevention:** Optional control over HTML entity encoding to prevent issues when using
+ *   DOMDocument.
+ * - **Dual Mode:** Supports both HTML string rendering (securely encoded) and raw data normalization (unencoded for
+ *   DOM/SVG).
+ * - **Smart Boolean Handling:** Distinguishes between boolean attributes (returning `true`) and string values during
+ *   normalization.
  * - Array handling for `class`, `style`, `data-*`, `aria-*`, and `on*` attributes.
  * - Attribute sorting by priority for readable, maintainable HTML.
  * - BackedEnum normalization for attribute values.
@@ -38,7 +47,6 @@ use function uksort;
  * - JSON encoding for complex attribute values.
  * - Normalization of attribute keys with specific prefixes.
  * - Secure HTML and value encoding to prevent XSS.
- * - Support for boolean attributes (for example, `checked`, `disabled`).
  * - Validation of attribute names using a strict regex pattern.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
@@ -56,6 +64,15 @@ abstract class BaseAttributes
      */
     private const JSON_FLAGS = JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS |
         JSON_THROW_ON_ERROR;
+
+    /**
+     * JSON encoding options for raw attribute values (no HTML encoding).
+     *
+     * Includes.
+     * - Error handling.
+     * - Unicode handling.
+     */
+    private const JSON_FLAGS_RAW = JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR;
 
     /**
      * Maps HTML attributes to their rendering order priority.
@@ -121,6 +138,69 @@ abstract class BaseAttributes
      * - Start with a letter or underscore.
      */
     private const VALID_ATTRIBUTE_NAME_PATTERN = '/^[a-zA-Z_][a-zA-Z0-9_-]*$/';
+
+    /**
+     * Normalizes an array of HTML attributes into a flat associative array with processed values.
+     *
+     * Processes the provided associative array of attribute names and values, applying normalization logic similar to
+     * {@see render()}, but returns a flat array instead of an HTML string.
+     *
+     * @param array $attributes Associative array of attribute names and values.
+     * @param bool $encode Whether to HTML-encode string values. Set to `false` when using with DOMDocument to avoid
+     * double escaping (entities like `&` becoming `&amp;amp;`). Default: `true`.
+     *
+     * @return array Flat associative array with normalized attribute values. Boolean attributes may return `true`
+     * (bool) to verify their existence without rendering a string value.
+     *
+     * @phpstan-param mixed[] $attributes
+     * @phpstan-return array<string, string|bool>
+     *
+     * Usage example:
+     * ```php
+     * Attributes::normalizeAttributes(
+     *     [
+     *         'type' => 'text',
+     *         'name' => 'username',
+     *         'required' => true,
+     *         'class' => ['form-control', 'input-lg'],
+     *         'style' => ['color' => 'red', 'font-size' => '14px'],
+     *         'data' => ['id' => 42, 'role' => 'user'],
+     *         'data-info' => ['nested' => ['key' => 'value']],
+     *     ],
+     * );
+     * // [
+     * //     'class' => 'form-control input-lg',
+     * //     'name' => 'username',
+     * //     'type' => 'text',
+     * //     'required' => 'required',
+     * //     'style' => 'color: red; font-size: 14px;',
+     * //     'data-id' => '42',
+     * //     'data-role' => 'user',
+     * //     'data-info' => '{"nested":{"key":"value"}}',
+     * // ]
+     * ```
+     */
+    public static function normalizeAttributes(array $attributes, bool $encode = true): array
+    {
+        $normalized = [];
+        $sorted = self::sortAttributes($attributes);
+
+        foreach ($sorted as $name => $values) {
+            if (is_string($name) && $values !== '' && $values !== null && self::isValidAttributeName($name)) {
+                $processed = self::normalizeAttributeValue($name, $values, $encode);
+
+                if (is_array($processed)) {
+                    foreach ($processed as $key => $value) {
+                        $normalized[$key] = $value;
+                    }
+                } elseif ($processed !== '') {
+                    $normalized[$name] = $processed;
+                }
+            }
+        }
+
+        return $normalized;
+    }
 
     /**
      * Normalizes an attribute key ensuring it has a specific prefix.
@@ -225,163 +305,89 @@ abstract class BaseAttributes
     }
 
     /**
-     * Renders array-based HTML attributes into a standards-compliant string format.
+     * Normalizes a single attribute value into its processed form.
      *
-     * Converts array values for specific attribute types into their appropriate HTML string representations.
-     * - Converts style attribute arrays into CSS declaration strings for the `style` attribute.
-     * - Encodes other array attributes as JSON strings for safe embedding in HTML.
-     * - Expands `data-*`, `aria-*` and similar attributes with proper prefixes and encoding, supporting nested arrays
-     *   via JSON encoding.
-     * - Merges class attribute arrays into a space-separated string for the `class` attribute.
+     * Applies transformation logic based on the attribute name and value type.
+     * - Returns `true` (bool) for boolean attributes to distinguish them from string values.
+     * - Returns a string for standard attributes.
+     * - Returns an array for attributes that expand into multiple keys (like `data-*`).
      *
-     * @param string $name Attribute name to render.
-     * @param array $values Array of attribute values to process and render.
+     * @param string $name Attribute name.
+     * @param mixed $values Attribute value to normalize.
+     * @param bool $encode Whether to HTML-encode string values.
      *
-     * @return string Rendered HTML attribute string suitable for direct inclusion in a tag.
+     * @return array|bool|string Normalized attribute value(s).
      *
-     * @phpstan-param array<array-key, mixed> $values
+     * @phpstan-return array<string, string>|bool|string
      */
-    private static function renderArrayAttributes(string $name, array $values): string
+    private static function normalizeAttributeValue(string $name, mixed $values, bool $encode): array|string|bool
     {
-        return match ($name) {
-            'class' => self::renderClassAttributes($values),
-            'aria', 'data', 'data-ng', 'ng' => self::renderDataAttributes($name, $values),
-            'style' => self::renderStyleAttributes($values),
-            default => self::renderAttribute($name, json_encode($values, self::JSON_FLAGS), self::QUOTE_SINGLE),
-        };
-    }
-
-    /**
-     * Generates the string representation of a single HTML attribute for tag rendering.
-     *
-     * Handles both boolean attributes (rendered without a value, for example, `disabled`) and regular attributes with
-     * values, supporting both single and double quote styles for value encapsulation.
-     *
-     * @param string $name Attribute name to render.
-     * @param int|string $encodedValue Encoded attribute value (empty string for boolean attributes).
-     * @param string $quote Quote character to use for value (default: {@see QUOTE_DOUBLE}).
-     *
-     * @return string Rendered HTML attribute string, ready for direct tag inclusion.
-     */
-    private static function renderAttribute(
-        string $name,
-        int|string $encodedValue = '',
-        string $quote = self::QUOTE_DOUBLE,
-    ): string {
-        return $encodedValue === '' ? " {$name}" : " {$name}={$quote}{$encodedValue}{$quote}";
-    }
-
-    /**
-     * Generates a standards-compliant HTML attribute string based on a value type.
-     *
-     * Processes the provided attribute name and value, rendering the output according to the value's type.
-     * - Arrays are handled as complex attributes (for example, `class`, `style`, `data-*`, `aria-*`) and rendered using
-     *   the appropriate formatting method.
-     * - BackedEnum are normalized to their backing value for safe HTML output.
-     * - Boolean values are rendered as boolean attributes (for example, `checked`, `disabled`) with presence indicating
-     *   `true`.
-     * - Empty strings and `null` values result in no output.
-     * - Other types are encoded and rendered as regular HTML attributes.
-     *
-     * @param string $name Attribute name to render.
-     * @param mixed $values Attribute value(s) to process and render. Accepts arrays, enums, booleans, or scalars.
-     *
-     * @return string Rendered HTML attribute string, ready for direct tag inclusion.
-     */
-    private static function renderAttributes(string $name, mixed $values): string
-    {
-        $values = self::sanitizeJsonValue($values);
+        $values = self::sanitizeJsonValue($values, $encode);
 
         if ($values === '' || $values === null) {
             return '';
         }
 
         if (is_bool($values)) {
-            return self::renderBooleanAttributes($name, $values);
+            return $values ? true : '';
         }
 
-        return match (gettype($values)) {
-            'array' => self::renderArrayAttributes($name, $values),
-            'string' => self::renderAttribute($name, $values),
-            default => self::renderAttribute($name, json_encode($values, self::JSON_FLAGS)),
-        };
+        $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
+
+        if (is_array($values)) {
+            return match ($name) {
+                'class' => self::normalizeClassValue($values),
+                'aria', 'data', 'data-ng', 'ng' => self::normalizeDataValue($name, $values, $encode),
+                'style' => self::normalizeStyleValue($values, $encode),
+                default => json_encode($values, $flags),
+            };
+        }
+
+        return is_string($values) ? $values : json_encode($values, $flags);
     }
 
     /**
-     * Renders a boolean HTML attribute for tag output.
-     *
-     * Generates the string representation of a boolean attribute (such as `checked`, `disabled`, or `required`) for use
-     * in HTML tags, following the HTML5 convention where the presence of the attribute indicates `true` and its absence
-     * indicates `false`.
-     *
-     * @param string $name Attribute name to render.
-     * @param bool $value Boolean value indicating whether to render the attribute.
-     *
-     * @return string Rendered attribute string (with leading space) or an empty string if `false`.
-     */
-    private static function renderBooleanAttributes(string $name, bool $value): string
-    {
-        return $value ? " {$name}" : '';
-    }
-
-    /**
-     * Generates the string representation of the `class` HTML attribute for tag output.
-     *
-     * Joins class names provided as an array into a single space-separated string, encodes the result for safe HTML
-     * output and returns a formatted `class` attribute suitable for direct inclusion in an HTML tag.
-     *
-     * Supports BackedEnum values within the class array, ensuring all values are normalized and encoded to prevent
-     * XSS or malformed output.
+     * Normalizes class attribute values into a space-separated string.
      *
      * @param array $values Array of class names.
      *
-     * @return string Rendered class attribute string, or an empty string if no classes are present.
+     * @return string Space-separated class names, or empty string if no classes.
      *
-     * @phpstan-param array<array-key, mixed> $values
+     * @phpstan-param mixed[] $values
      */
-    private static function renderClassAttributes(array $values): string
+    private static function normalizeClassValue(array $values): string
     {
-        if ($values === []) {
-            return '';
-        }
-
-        return self::renderAttribute('class', implode(' ', $values));
+        return $values === [] ? '' : implode(' ', $values);
     }
 
     /**
-     * Renders `data-*` and `aria-*` HTML attributes as a standards-compliant string.
+     * Normalizes `data-*`, `aria-*` and similar prefixed attributes into an expanded associative array.
      *
-     * Processes associative arrays of data or ARIA attributes, handling nested arrays by JSON encoding their values and
-     * encoding simple values for safe HTML output. Supports BackedEnum values for attribute content.
+     * @param string $name Attribute prefix (for example, `data`, `aria`).
+     * @param array $values Associative array of attribute names and values.
+     * @param bool $encode Whether to HTML-encode string values.
      *
-     * This method is used to generate attribute strings for `data-*` and `aria-*` attributes, ensuring that complex
-     * values are encoded and that attribute names are correctly prefixed. Nested arrays are encoded as JSON using the
-     * configured encoding flags, while scalar values are encoded for HTML safety. The output is suitable for direct
-     * inclusion in HTML tags.
+     * @return array Associative array of expanded attribute key-value pairs.
      *
-     * @param string $name Attribute prefix (for example, `data` or `aria`).
-     * @param array $values Associative array of attribute names and values to render.
-     *
-     * @return string Rendered data/ARIA attributes string, ready for HTML tag inclusion.
-     *
-     * @phpstan-param array<array-key, mixed> $values
+     * @phpstan-param mixed[] $values
+     * @phpstan-return array<string, string>
      */
-    private static function renderDataAttributes(string $name, array $values): string
+    private static function normalizeDataValue(string $name, array $values, bool $encode): array
     {
-        $result = '';
+        $result = [];
+        $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
 
         foreach ($values as $n => $v) {
+            if ($v === null) {
+                continue;
+            }
+
             if (is_string($n) && self::isValidAttributeName($n)) {
-                $result .= match (gettype($v)) {
-                    'array' => self::renderAttribute(
-                        "{$name}-{$n}",
-                        json_encode($v, self::JSON_FLAGS),
-                        self::QUOTE_SINGLE,
-                    ),
-                    'double', 'integer', 'string' => self::renderAttribute(
-                        "{$name}-{$n}",
-                        Encode::value($v),
-                    ),
+                $key = "{$name}-{$n}";
+
+                $result[$key] = match (gettype($v)) {
+                    'array' => json_encode($v, $flags),
+                    'double', 'integer', 'string' => (string)$v,
                     default => '',
                 };
             }
@@ -391,12 +397,75 @@ abstract class BaseAttributes
     }
 
     /**
+     * Normalizes style attribute values into a CSS declaration string.
+     *
+     * @param array $values Associative array of CSS property-value pairs.
+     * @param bool $encode Whether to HTML-encode string values.
+     *
+     * @return string CSS declaration string, or empty string if no styles.
+     *
+     * @phpstan-param mixed[] $values
+     */
+    private static function normalizeStyleValue(array $values, bool $encode): string
+    {
+        $result = '';
+        $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
+
+        foreach ($values as $n => $v) {
+            if ($v !== null) {
+                $prop = $encode ? Encode::value($n) : $n;
+                $val = '';
+
+                if (is_string($v) || is_numeric($v)) {
+                    $val = $v;
+                } else {
+                    $val = json_encode($v, $flags);
+                }
+
+                if ($val !== '') {
+                    $result .= "{$prop}: {$val}; ";
+                }
+            }
+        }
+
+        return rtrim($result);
+    }
+
+    /**
+     * Generates the string representation of a single HTML attribute.
+     *
+     * Intelligently handles boolean attributes (rendering only the name) and quotes (switching to single quotes for
+     * JSON or style values).
+     *
+     * @param string $name Attribute name.
+     * @param bool|string $value Attribute value. If `true`, renders as a boolean attribute (e.g., `checked`).
+     *
+     * @return string Rendered HTML attribute string.
+     */
+    private static function renderAttribute(string $name, bool|string $value): string
+    {
+        if ($value === true) {
+            return " {$name}";
+        }
+
+        $quote = self::QUOTE_DOUBLE;
+
+        if (
+            $name === 'style' ||
+            is_string($value) &&
+            (str_starts_with($value, '{') || str_starts_with($value, '['))
+        ) {
+            $quote = self::QUOTE_SINGLE;
+        }
+
+        return " {$name}={$quote}{$value}{$quote}";
+    }
+
+    /**
      * Renders a complete HTML attributes string from an associative array.
      *
-     * Iterates over the provided attributes, sorts them according to the {@see ORDER_MAP} priority and applies the
-     * correct rendering strategy for each attribute type (scalar, array, boolean, or enum).
-     *
-     * Only valid attribute names are included in the output.
+     * Uses {@see normalizeAttributes()} internally to process values ensuring consistency between HTML string rendering
+     * and DOM manipulation.
      *
      * @param array $attributes Associative array of attribute names and values.
      *
@@ -407,89 +476,46 @@ abstract class BaseAttributes
     private static function renderInternal(array $attributes): string
     {
         $html = '';
+        $normalized = self::normalizeAttributes($attributes, true);
 
-        $sorted = self::sortAttributes($attributes);
-
-        foreach ($sorted as $name => $values) {
-            if (is_string($name) && $values !== '' && $values !== null && self::isValidAttributeName($name)) {
-                $html .= self::renderAttributes($name, $values);
-            }
+        foreach ($normalized as $name => $value) {
+            $html .= self::renderAttribute($name, $value);
         }
 
         return $html;
     }
 
     /**
-     * Generates the string representation of the `style` HTML attribute for tag output.
+     * Sanitizes a value for safe JSON encoding or HTML output.
      *
-     * Converts an associative array of CSS property-value pairs into a single CSS declaration string, suitable for use
-     * as the value of a `style` attribute in HTML tags. Each property and value is concatenated in the format
-     * `property: value;` and the result is trimmed and encoded for safe HTML output.
+     * Recursively prepares values. If `$encode` is `true`, string values are HTML-encoded to prevent XSS. If `$encode`
+     * is `false`, values are returned raw (useful for DOM manipulation where the engine handles escaping).
      *
-     * Supports BackedEnum values for CSS properties, ensuring all values are normalized and encoded to prevent XSS or
-     * malformed output. Returns an empty string if no style properties are present.
+     * @param mixed $value Value to sanitize.
+     * @param bool $encode Whether to HTML-encode string values.
      *
-     * @param array $values Associative array of CSS property-value pairs.
-     *
-     * @return string Rendered style attribute string, or an empty string if no styles are present.
-     *
-     * @phpstan-param array<array-key, mixed> $values
+     * @return mixed Sanitized value.
      */
-    private static function renderStyleAttributes(array $values): string
-    {
-        $result = '';
-
-        foreach ($values as $n => $v) {
-            if ($v !== null) {
-                $prop = Encode::value((string) $n);
-                $stringValue = is_string($v) || is_numeric($v) ? $v : json_encode($v, self::JSON_FLAGS);
-
-                if ($stringValue !== '') {
-                    $result .= "{$prop}: {$stringValue}; ";
-                }
-            }
-        }
-
-        return $result === '' ? '' : self::renderAttribute('style', rtrim($result), self::QUOTE_SINGLE);
-    }
-
-    /**
-     * Sanitizes a value for safe JSON encoding in HTML attributes.
-     *
-     * Recursively prepares values for JSON encoding to ensure safe and standards-compliant HTML attribute output.
-     *
-     * This method processes arrays, strings, Closure and BackedEnum values to guarantee that all data embedded in
-     * HTML attributes is encoded and normalized.
-     *
-     * Arrays are traversed recursively, strings are HTML-encoded, BackedEnum values are converted to their backing
-     * value, and Closure are executed and their result is used.
-     *
-     * This prevents XSS vulnerabilities and ensures that complex attribute values are represented safely in the
-     * rendered HTML.
-     *
-     * @param mixed $value Value to sanitize for JSON encoding. Accepts arrays, strings, enums, scalars or Closure.
-     *
-     * @return mixed Sanitized value, ready for safe HTML attribute embedding. Maybe a scalar, array, or the result of
-     * a Closure.
-     */
-    private static function sanitizeJsonValue(mixed $value): mixed
+    private static function sanitizeJsonValue(mixed $value, bool $encode): mixed
     {
         if (is_array($value)) {
-            return array_map(static fn(mixed $v): mixed => self::sanitizeJsonValue($v), $value);
+            return array_map(static fn(mixed $v): mixed => self::sanitizeJsonValue($v, $encode), $value);
         }
 
         if (is_string($value)) {
-            return Encode::value($value);
+            return $encode ? Encode::value($value) : $value;
         }
 
         if ($value instanceof Closure) {
-            return self::sanitizeJsonValue($value());
+            return self::sanitizeJsonValue($value(), $encode);
         }
 
         $normalized = Enum::normalizeValue($value);
 
         if (is_string($normalized)) {
-            return Encode::value(strtolower($normalized));
+            $lower = strtolower($normalized);
+
+            return $encode ? Encode::value($lower) : $lower;
         }
 
         return $normalized;

@@ -14,14 +14,15 @@ use UIAwesome\Html\Helper\Tests\Providers\AttributesProvider;
 /**
  * Test suite for {@see Attributes} helper functionality and behavior.
  *
- * Validates attribute rendering, ordering, and sanitization to ensure safe and deterministic HTML attributes generation
- * for element fragments and components.
+ * Validates attribute rendering, ordering, normalization, and sanitization to ensure safe and deterministic HTML
+ * attributes generation for element fragments and components.
  *
  * Ensures correct handling of ordering rules, empty and `null` values, enum-backed attributes, and
  * normalization/sanitization of malicious inputs to prevent XSS and attribute injection.
  *
  * Test coverage.
  * - Handling of empty and `null` values.
+ * - Proper normalization of attribute keys and values.
  * - Rendering order and deterministic attribute output.
  * - Sanitization of malicious or unexpected values.
  * - Support for enum-backed attribute values.
@@ -34,6 +35,25 @@ use UIAwesome\Html\Helper\Tests\Providers\AttributesProvider;
 #[Group('helper')]
 final class AttributesTest extends TestCase
 {
+    /**
+     * @phpstan-param mixed[] $attributes
+     * @phpstan-param mixed[] $expected
+     */
+    #[DataProviderExternal(AttributesProvider::class, 'normalizeAttributes')]
+    public function testNormalizeAttributes(array $attributes, array $expected, bool $encode = true): void
+    {
+        $normalizeAttribute = match ($encode) {
+            true => Attributes::normalizeAttributes($attributes),
+            false => Attributes::normalizeAttributes($attributes, false),
+        };
+
+        self::assertSame(
+            $expected,
+            $normalizeAttribute,
+            'Should normalize attributes returning the expected array structure.',
+        );
+    }
+
     #[DataProviderExternal(AttributesProvider::class, 'key')]
     public function testNormalizeKeyAttribute(mixed $key, string $prefix, string $expected): void
     {
