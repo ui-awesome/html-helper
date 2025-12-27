@@ -147,21 +147,23 @@ Use `Attributes::normalizeAttributes()` with `encode: false` to get a flat array
 use UIAwesome\Html\Helper\Attributes;
 
 $attributes = [
+    'class' => ['icon', ButtonType::PRIMARY],
+    'data-config' => ['key' => '<val>'],
     'title' => '<Safe Title>',
-    'data-config' => ['key' => '<val>']
 ];
 
 // Get raw values (encode: false)
 $rawAttributes = Attributes::normalizeAttributes($attributes, encode: false);
 // [
-//    'title' => '<Safe Title>',
+//    'class' => 'icon btn-primary',
 //    'data-config' => '{"key":"<val>"}'
+//    'title' => '<Safe Title>',
 // ]
 
 // Perfect for DOMDocument
 foreach ($rawAttributes as $name => $value) {
     // DOMDocument handles the escaping automatically here
-    $domElement->setAttribute($name, (string)$value);
+    $domElement->setAttribute($name, $value);
 }
 ```
 
