@@ -75,13 +75,14 @@ final class ValidatorTest extends TestCase
     #[DataProviderExternal(ValidatorProvider::class, 'positiveLike')]
     public function testPositiveLike(
         int|float|string|Stringable $value,
+        float|null $min,
         float|null $max,
         bool $expected,
         string $message,
     ): void {
         self::assertSame(
             $expected,
-            Validator::positiveLike($value, $max),
+            Validator::positiveLike($value, $min, $max),
             $message,
         );
     }

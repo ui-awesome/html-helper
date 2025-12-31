@@ -446,19 +446,27 @@ final class ValidatorProvider
     /**
      * Provides datasets for positive-like validation.
      *
-     * Each dataset returns a tuple: value, maximum, expected validity, and an expected message. Cases include positive
-     * integers, positive floats, positive numeric strings, zero and negative values, non-numeric strings, and boundary
-     * conditions with maximum constraints.
+     * Each dataset returns a tuple: value, minimum, maximum, expected validity, and an expected message. Cases include
+     * positive integers, positive floats, positive numeric strings, zero and negative values, non-numeric strings, and
+     * boundary conditions with maximum constraints.
      *
      * @return array Test data for positive-like validation.
      *
-     * @phpstan-return array<string, array{int|float|string|Stringable, float|null, bool, string}>
+     * @phpstan-return array<string, array{int|float|string|Stringable, float|null, float|null, bool, string}>
      */
     public static function positiveLike(): array
     {
         return [
+            'float equal min' => [
+                10.0,
+                9.0,
+                null,
+                true,
+                'Should be valid value.',
+            ],
             'float equal max' => [
                 10.0,
+                null,
                 10,
                 true,
                 'Should be valid value.',
@@ -466,11 +474,20 @@ final class ValidatorProvider
             'float negative invalid' => [
                 -1.5,
                 null,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'float positive above min' => [
+                15.5,
+                16.0,
+                null,
                 false,
                 'Should be invalid value.',
             ],
             'float positive above max' => [
                 15.5,
+                null,
                 10,
                 false,
                 'Should be invalid value.',
@@ -478,11 +495,20 @@ final class ValidatorProvider
             'float positive valid' => [
                 1.5,
                 null,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'float positive within min' => [
+                5.5,
+                5.0,
+                null,
                 true,
                 'Should be valid value.',
             ],
             'float positive within max' => [
                 2.5,
+                null,
                 10,
                 true,
                 'Should be valid value.',
@@ -490,11 +516,20 @@ final class ValidatorProvider
             'float zero invalid' => [
                 0.0,
                 null,
+                null,
                 false,
                 'Should be invalid value.',
             ],
+            'integer equal min' => [
+                11,
+                10,
+                null,
+                true,
+                'Should be valid value.',
+            ],
             'integer equal max' => [
                 10,
+                null,
                 10,
                 true,
                 'Should be valid value.',
@@ -502,11 +537,20 @@ final class ValidatorProvider
             'integer negative invalid' => [
                 -1,
                 null,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'integer positive above min' => [
+                15,
+                16,
+                null,
                 false,
                 'Should be invalid value.',
             ],
             'integer positive above max' => [
                 15,
+                null,
                 10,
                 false,
                 'Should be invalid value.',
@@ -514,11 +558,20 @@ final class ValidatorProvider
             'integer positive valid' => [
                 1,
                 null,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'integer positive within min' => [
+                6,
+                5,
+                null,
                 true,
                 'Should be valid value.',
             ],
             'integer positive within max' => [
                 5,
+                null,
                 10,
                 true,
                 'Should be valid value.',
@@ -526,17 +579,34 @@ final class ValidatorProvider
             'integer zero invalid' => [
                 0,
                 null,
+                null,
                 false,
                 'Should be invalid value.',
             ],
+            'string decimal equal min' => [
+                '11.0',
+                10.0,
+                null,
+                true,
+                'Should be valid value.',
+            ],
             'string decimal equal max' => [
                 '10.0',
+                null,
                 10,
                 true,
                 'Should be valid value.',
             ],
+            'string decimal positive above min' => [
+                '15.5',
+                16.0,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
             'string decimal positive above max' => [
                 '15.5',
+                null,
                 10,
                 false,
                 'Should be invalid value.',
@@ -544,23 +614,48 @@ final class ValidatorProvider
             'string decimal positive valid' => [
                 '1.5',
                 null,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'string decimal positive within min' => [
+                '5.5',
+                5.0,
+                null,
                 true,
                 'Should be valid value.',
             ],
             'string decimal positive within max' => [
                 '2.5',
+                null,
                 10,
+                true,
+                'Should be valid value.',
+            ],
+            'string equal min' => [
+                '11',
+                10,
+                null,
                 true,
                 'Should be valid value.',
             ],
             'string equal max' => [
                 '10',
+                null,
                 10,
                 true,
                 'Should be valid value.',
             ],
+            'string positive above min' => [
+                '15',
+                16,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
             'string integer positive above max' => [
                 '15',
+                null,
                 10,
                 false,
                 'Should be invalid value.',
@@ -568,11 +663,20 @@ final class ValidatorProvider
             'string integer positive valid' => [
                 '1',
                 null,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'string integer positive within min' => [
+                '6',
+                5,
+                null,
                 true,
                 'Should be valid value.',
             ],
             'string integer positive within max' => [
                 '5',
+                null,
                 10,
                 true,
                 'Should be valid value.',
@@ -580,11 +684,13 @@ final class ValidatorProvider
             'string negative float invalid' => [
                 '-1.5',
                 null,
+                null,
                 false,
                 'Should be invalid value.',
             ],
             'string negative invalid' => [
                 '-1',
+                null,
                 null,
                 false,
                 'Should be invalid value.',
@@ -592,11 +698,13 @@ final class ValidatorProvider
             'string non numeric invalid' => [
                 'abc',
                 null,
+                null,
                 false,
                 'Should be invalid value.',
             ],
             'string scientific notation invalid' => [
                 '1e3',
+                null,
                 null,
                 false,
                 'Should be invalid value.',
@@ -604,11 +712,13 @@ final class ValidatorProvider
             'string with leading space invalid' => [
                 ' 1.5',
                 null,
+                null,
                 false,
                 'Should be invalid value.',
             ],
             'string with plus sign float invalid' => [
                 '+1.5',
+                null,
                 null,
                 false,
                 'Should be invalid value.',
@@ -616,11 +726,13 @@ final class ValidatorProvider
             'string with plus sign invalid' => [
                 '+1',
                 null,
+                null,
                 false,
                 'Should be invalid value.',
             ],
             'string with trailing space invalid' => [
                 '1.5 ',
+                null,
                 null,
                 false,
                 'Should be invalid value.',
@@ -628,11 +740,13 @@ final class ValidatorProvider
             'string zero float invalid' => [
                 '0.0',
                 null,
+                null,
                 false,
                 'Should be invalid value.',
             ],
             'string zero invalid' => [
                 '0',
+                null,
                 null,
                 false,
                 'Should be invalid value.',
@@ -640,11 +754,13 @@ final class ValidatorProvider
             'string zero negative float invalid' => [
                 '-0.0',
                 null,
+                null,
                 false,
                 'Should be invalid value.',
             ],
             'string zero negative invalid' => [
                 '-0',
+                null,
                 null,
                 false,
                 'Should be invalid value.',
@@ -657,6 +773,7 @@ final class ValidatorProvider
                     }
                 },
                 null,
+                null,
                 false,
                 'Should be invalid value.',
             ],
@@ -668,6 +785,19 @@ final class ValidatorProvider
                     }
                 },
                 null,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'stringable positive within min' => [
+                new class {
+                    public function __toString(): string
+                    {
+                        return '5.5';
+                    }
+                },
+                5.0,
+                null,
                 true,
                 'Should be valid value.',
             ],
@@ -678,6 +808,7 @@ final class ValidatorProvider
                         return '5.5';
                     }
                 },
+                null,
                 10,
                 true,
                 'Should be valid value.',
@@ -689,6 +820,7 @@ final class ValidatorProvider
                         return '0';
                     }
                 },
+                null,
                 null,
                 false,
                 'Should be invalid value.',
