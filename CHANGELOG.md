@@ -6,6 +6,7 @@
 
 - Enh #25: Add `normalizeAttributes()` method in `BaseAttributes` helper for normalization of attribute keys and values with support for encoding and JSON serialization, along with comprehensive tests (@terabytesoftw)
 - Bug #26: Rename exception test methods to clarify expected exceptions (@terabytesoftw)
+- Enh #27: Add `positiveLike()` method in `BaseValidator` for validating positive-like numbers with optional maximum constraint, along with related tests (@terabytesoftw)
 
 ## 0.5.3 December 26, 2025
 

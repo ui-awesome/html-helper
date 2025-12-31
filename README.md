@@ -307,6 +307,10 @@ $isValid = Validator::intLike('123', 0, 1000);
 // validate against allowed list (supports Enums)
 Validator::oneOf('sm', ['sm', 'md', 'lg'], 'size');
 // passes
+
+// validate positive-like number
+$isPositive = Validator::positiveLike('42.5', 100);
+// true
 ```
 
 ## Documentation

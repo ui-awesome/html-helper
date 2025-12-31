@@ -23,6 +23,7 @@ use UnitEnum;
  *
  * Test coverage.
  * - Detection of integer-like values with optional min/max constraints.
+ * - Detection of positive-like number values greater than zero with optional max constraint.
  * - Validation against allowed value lists and exception behavior.
  *
  * {@see ValidatorProvider} for data-driven test cases and edge conditions.
@@ -69,5 +70,19 @@ final class ValidatorTest extends TestCase
         }
 
         Validator::oneOf($value, $allowed, $attribute);
+    }
+
+    #[DataProviderExternal(ValidatorProvider::class, 'positiveLike')]
+    public function testPositiveLike(
+        int|float|string|Stringable $value,
+        float|null $max,
+        bool $expected,
+        string $message,
+    ): void {
+        self::assertSame(
+            $expected,
+            Validator::positiveLike($value, $max),
+            $message,
+        );
     }
 }
