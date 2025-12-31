@@ -16,6 +16,7 @@ use function in_array;
 use function is_float;
 use function is_int;
 use function is_numeric;
+use function max;
 use function stripos;
 
 /**
@@ -171,6 +172,8 @@ abstract class BaseValidator
      * incorrect, such as `width`, `height`, `spacing`, and other dimensional attributes.
      *
      * @param float|int|string|Stringable $value Value to validate as positive.
+     * @param float|null $min Minimum allowed value (exclusive). Defaults to `0.00`. If provided and less than `0.00`,
+     * it is set to `0.00`. The value must be strictly greater than this bound.
      * @param float|null $max Optional maximum allowed value (inclusive). If `null`, no upper bound is enforced.
      *
      * @return bool `true` if the value is positive and within bounds, `false` otherwise.
@@ -205,10 +208,15 @@ abstract class BaseValidator
      * // `true`
      * ```
      */
-    public static function positiveLike(float|int|string|Stringable $value, float|null $max = null): bool
-    {
+    public static function positiveLike(
+        float|int|string|Stringable $value,
+        float|null $min = null,
+        float|null $max = null,
+    ): bool {
+        $min = max($min ?? 0.00, 0.00);
+
         if (is_int($value) || is_float($value)) {
-            return $value > 0.0 && ($max === null || $value <= $max);
+            return ($value > $min) && ($max === null || $value <= $max);
         }
 
         if ($value instanceof Stringable) {
@@ -227,6 +235,6 @@ abstract class BaseValidator
             return false;
         }
 
-        return $value > 0.0 && ($max === null || $value <= $max);
+        return $value > $min && ($max === null || $value <= $max);
     }
 }
