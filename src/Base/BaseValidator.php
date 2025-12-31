@@ -172,8 +172,8 @@ abstract class BaseValidator
      * incorrect, such as `width`, `height`, `spacing`, and other dimensional attributes.
      *
      * @param float|int|string|Stringable $value Value to validate as positive.
-     * @param float|null $min Minimum allowed value. Defaults to `0.00`. If provided and less than `0.00`, it is set to
-     * `0.00`.
+     * @param float|null $min Minimum allowed value (exclusive). Defaults to `0.00`. If provided and less than `0.00`,
+     * it is set to `0.00`. The value must be strictly greater than this bound.
      * @param float|null $max Optional maximum allowed value (inclusive). If `null`, no upper bound is enforced.
      *
      * @return bool `true` if the value is positive and within bounds, `false` otherwise.
