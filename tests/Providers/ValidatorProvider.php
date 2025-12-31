@@ -442,4 +442,257 @@ final class ValidatorProvider
             ],
         ];
     }
+
+    /**
+     * Provides datasets for positive-like validation.
+     *
+     * Each dataset returns a tuple: value, maximum, expected validity, and an expected message. Cases include positive
+     * integers, positive floats, positive numeric strings, zero and negative values, non-numeric strings, and boundary
+     * conditions with maximum constraints.
+     *
+     * @return array Test data for positive-like validation.
+     *
+     * @phpstan-return array<string, array{int|float|string|Stringable, float|null, bool, string}>
+     */
+    public static function positiveLike(): array
+    {
+        return [
+            'float equal max' => [
+                10.0,
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'float negative invalid' => [
+                -1.5,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'float positive above max' => [
+                15.5,
+                10,
+                false,
+                'Should be invalid value.',
+            ],
+            'float positive valid' => [
+                1.5,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'float positive within max' => [
+                2.5,
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'float zero invalid' => [
+                0.0,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'integer equal max' => [
+                10,
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'integer negative invalid' => [
+                -1,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'integer positive above max' => [
+                15,
+                10,
+                false,
+                'Should be invalid value.',
+            ],
+            'integer positive valid' => [
+                1,
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'integer positive within max' => [
+                5,
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'integer zero invalid' => [
+                0,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string decimal equal max' => [
+                '10.0',
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'string decimal positive above max' => [
+                '15.5',
+                10,
+                false,
+                'Should be invalid value.',
+            ],
+            'string decimal positive valid' => [
+                '1.5',
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'string decimal positive within max' => [
+                '2.5',
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'string equal max' => [
+                '10',
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'string integer positive above max' => [
+                '15',
+                10,
+                false,
+                'Should be invalid value.',
+            ],
+            'string integer positive valid' => [
+                '1',
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'string integer positive within max' => [
+                '5',
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'string negative float invalid' => [
+                '-1.5',
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string negative invalid' => [
+                '-1',
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string non numeric invalid' => [
+                'abc',
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string scientific notation invalid' => [
+                '1e3',
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string with leading space invalid' => [
+                ' 1.5',
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string with plus sign float invalid' => [
+                '+1.5',
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string with plus sign invalid' => [
+                '+1',
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string with trailing space invalid' => [
+                '1.5 ',
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string zero float invalid' => [
+                '0.0',
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string zero invalid' => [
+                '0',
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string zero negative float invalid' => [
+                '-0.0',
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'string zero negative invalid' => [
+                '-0',
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'stringable negative invalid' => [
+                new class {
+                    public function __toString(): string
+                    {
+                        return '-1.5';
+                    }
+                },
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+            'stringable positive valid' => [
+                new class {
+                    public function __toString(): string
+                    {
+                        return '3.5';
+                    }
+                },
+                null,
+                true,
+                'Should be valid value.',
+            ],
+            'stringable positive within max' => [
+                new class {
+                    public function __toString(): string
+                    {
+                        return '5.5';
+                    }
+                },
+                10,
+                true,
+                'Should be valid value.',
+            ],
+            'stringable zero invalid' => [
+                new class {
+                    public function __toString(): string
+                    {
+                        return '0';
+                    }
+                },
+                null,
+                false,
+                'Should be invalid value.',
+            ],
+        ];
+    }
 }

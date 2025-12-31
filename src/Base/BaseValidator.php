@@ -13,7 +13,10 @@ use UnitEnum;
 use function ctype_digit;
 use function implode;
 use function in_array;
+use function is_float;
 use function is_int;
+use function is_numeric;
+use function stripos;
 
 /**
  * Base class for validation utilities used by HTML helper components.
@@ -24,6 +27,7 @@ use function is_int;
  * Key features.
  * - Allow-list validation with UnitEnum normalization for consistent, strict comparisons.
  * - Integer-like validation for int and integer strings with optional range constraints.
+ * - Positive-like number validation for int, float, and numeric strings with optional max constraint.
  * - Predictable behavior with explicit exceptions for invalid values.
  *
  * {@see Enum} for enum normalization during allow-list validation.
@@ -53,14 +57,17 @@ abstract class BaseValidator
      * // invalid cases
      * Validator::intLike(150, 0, 100);
      * // `false`
+     *
      * Validator::intLike('-5', 0);
      * // `false`
+     *
      * Validator::intLike('abc', 0, 100);
      * // `false`
      *
      * // valid cases
      * Validator::intLike('42', 0, 100);
      * // `true`
+     *
      * Validator::intLike(
      *    new class implements Stringable {
      *        public function __toString(): string
@@ -152,5 +159,74 @@ abstract class BaseValidator
                 implode("', '", $normalizedAllowedValues),
             ),
         );
+    }
+
+    /**
+     * Validates whether a value is a positive number greater than zero.
+     *
+     * Ensures that the provided value is an int, float, or a string/Stringable representing a positive number greater
+     * than zero, and that it falls within the specified maximum bound if provided.
+     *
+     * This method is designed for use in HTML attribute validation where zero or negative values are semantically
+     * incorrect, such as `width`, `height`, `spacing`, and other dimensional attributes.
+     *
+     * @param int|float|string|Stringable $value Value to validate as positive.
+     * @param float|null $max Optional maximum allowed value (inclusive). If `null`, no upper bound is enforced.
+     *
+     * @return bool `true` if the value is positive and within bounds, `false` otherwise.
+     *
+     * Usage example:
+     * ```php
+     * // invalid cases
+     * Validator::positiveLike(0);
+     * // `false`
+     *
+     * Validator::positiveLike(-1);
+     * // `false`
+     *
+     * Validator::positiveLike('abc');
+     * // `false`
+     *
+     * // valid cases
+     * Validator::positiveLike(1);
+     * // `true`
+     *
+     * Validator::positiveLike('2.5');
+     * // `true`
+     *
+     * Validator::positiveLike(
+     *    new class implements Stringable {
+     *        public function __toString(): string
+     *        {
+     *            return '3.5';
+     *        }
+     *    }
+     * );
+     * // `true`
+     * ```
+     */
+    public static function positiveLike(int|float|string|Stringable $value, float|null $max = null): bool
+    {
+        if (is_int($value) || is_float($value)) {
+            return $value > 0.0 && ($max === null || $value <= $max);
+        }
+
+        if ($value instanceof Stringable) {
+            $value = (string) $value;
+        }
+
+        if (is_numeric($value) === false) {
+            return false;
+        }
+
+        if ($value[0] === '-' || $value[0] === '+' || $value[0] === ' ' || $value[-1] === ' ') {
+            return false;
+        }
+
+        if (stripos($value, 'e') !== false) {
+            return false;
+        }
+
+        return $value > 0.0 && ($max === null || $value <= $max);
     }
 }

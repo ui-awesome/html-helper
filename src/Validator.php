@@ -16,6 +16,7 @@ namespace UIAwesome\Html\Helper;
  * Key features.
  * - Allow-list validation with UnitEnum normalization for consistent, strict comparisons.
  * - Integer-like validation for int and integer strings with optional range constraints.
+ * - Positive-like number validation for int, float, and numeric strings with optional max constraint.
  * - Predictable behavior with explicit exceptions for invalid values.
  *
  * {@see Base\BaseValidator} for the base implementation.
