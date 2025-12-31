@@ -205,7 +205,7 @@ abstract class BaseValidator
      * // `true`
      * ```
      */
-    public static function positiveLike(int|float|string|Stringable $value, float|null $max = null): bool
+    public static function positiveLike(float|int|string|Stringable $value, float|null $max = null): bool
     {
         if (is_int($value) || is_float($value)) {
             return $value > 0.0 && ($max === null || $value <= $max);
