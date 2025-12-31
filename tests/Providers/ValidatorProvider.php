@@ -459,10 +459,10 @@ final class ValidatorProvider
         return [
             'float equal min' => [
                 10.0,
-                9.0,
+                10.0,
                 null,
-                true,
-                'Should be valid value.',
+                false,
+                'Should be invalid value.',
             ],
             'float equal max' => [
                 10.0,
@@ -522,10 +522,10 @@ final class ValidatorProvider
             ],
             'integer equal min' => [
                 11,
-                10,
+                11,
                 null,
-                true,
-                'Should be valid value.',
+                false,
+                'Should be invalid value.',
             ],
             'integer equal max' => [
                 10,
@@ -585,10 +585,10 @@ final class ValidatorProvider
             ],
             'string decimal equal min' => [
                 '11.0',
-                10.0,
+                11.0,
                 null,
-                true,
-                'Should be valid value.',
+                false,
+                'Should be invalid value.',
             ],
             'string decimal equal max' => [
                 '10.0',
@@ -633,11 +633,11 @@ final class ValidatorProvider
                 'Should be valid value.',
             ],
             'string equal min' => [
-                '11',
+                '10',
                 10,
                 null,
-                true,
-                'Should be valid value.',
+                false,
+                'Should be invalid value.',
             ],
             'string equal max' => [
                 '10',
