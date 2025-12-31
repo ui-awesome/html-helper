@@ -170,7 +170,7 @@ abstract class BaseValidator
      * This method is designed for use in HTML attribute validation where zero or negative values are semantically
      * incorrect, such as `width`, `height`, `spacing`, and other dimensional attributes.
      *
-     * @param int|float|string|Stringable $value Value to validate as positive.
+     * @param float|int|string|Stringable $value Value to validate as positive.
      * @param float|null $max Optional maximum allowed value (inclusive). If `null`, no upper bound is enforced.
      *
      * @return bool `true` if the value is positive and within bounds, `false` otherwise.
