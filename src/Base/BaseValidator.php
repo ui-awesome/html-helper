@@ -205,7 +205,7 @@ abstract class BaseValidator
      * Validator::positiveLike(0.5, 0.0, 1.0);
      * // `true`
      *
-     * maximum boundary, inclusive
+     * // maximum boundary, inclusive
      * Validator::positiveLike('1.0', 0.0, 1.0);
      * // `true`
      *
