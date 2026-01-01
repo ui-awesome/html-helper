@@ -1,5 +1,7 @@
 # ChangeLog
 
+## 0.6.3 Under development
+
 ## 0.6.2 January 1, 2026
 
 - Enh #29: Update `positiveLike()` method to validate within a specified range and adjust related tests (@terabytesoftw)
