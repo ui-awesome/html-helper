@@ -163,47 +163,66 @@ abstract class BaseValidator
     }
 
     /**
-     * Validates whether a value is a positive number greater than zero.
+     * Validates whether a value is a positive numeric value within a specified range.
      *
-     * Ensures that the provided value is an int, float, or a string/Stringable representing a positive number greater
-     * than zero, and that it falls within the specified maximum bound if provided.
+     * Ensures that the provided value is an int, float, or a string/Stringable representing a non-negative numeric
+     * value, and that it falls within the specified minimum and maximum bounds (both inclusive).
      *
-     * This method is designed for use in HTML attribute validation where zero or negative values are semantically
-     * incorrect, such as `width`, `height`, `spacing`, and other dimensional attributes.
+     * This method is designed for use in HTML attribute validation where numeric ranges must be non-negative, such as
+     * `stroke-miterlimit` (0.0-1.0), `opacity` (0.0-1.0), `width`, `height`, and other dimensional or fractional
+     *  attributes.
      *
-     * @param float|int|string|Stringable $value Value to validate as positive.
-     * @param float|null $min Minimum allowed value (exclusive). Defaults to `0.00`. If provided and less than `0.00`,
-     * it is set to `0.00`. The value must be strictly greater than this bound.
+     * @param float|int|string|Stringable $value Value to validate as positive numeric.
+     * @param float|null $min Minimum allowed value (inclusive). Defaults to `0.0`. If provided and less than `0.0`, it
+     * is forced to `0.0`. The value must be greater than or equal to this bound.
      * @param float|null $max Optional maximum allowed value (inclusive). If `null`, no upper bound is enforced.
      *
-     * @return bool `true` if the value is positive and within bounds, `false` otherwise.
+     * @return bool `true` if the value is non-negative numeric and within bounds, `false` otherwise.
      *
      * Usage example:
      * ```php
-     * // invalid cases
-     * Validator::positiveLike(0);
-     * // `false`
-     *
+     * // negative values not allowed
      * Validator::positiveLike(-1);
      * // `false`
      *
+     * // not numeric
      * Validator::positiveLike('abc');
      * // `false`
      *
-     * // valid cases
-     * Validator::positiveLike(1);
+     * // above maximum of 1.0
+     * Validator::positiveLike(1.5, 0.0, 1.0);
+     * // `false`
+     *
+     * // min is forced to 0.0, value is negative
+     * Validator::positiveLike(-0.5, -10.0, 1.0);
+     * // `false`
+     *
+     * // zero is valid, inclusive minimum
+     * Validator::positiveLike(0);
      * // `true`
      *
+     * // within '0.0-1.0' range, like stroke-miterlimit
+     * Validator::positiveLike(0.5, 0.0, 1.0);
+     * // `true`
+     *
+     * maximum boundary, inclusive
+     * Validator::positiveLike('1.0', 0.0, 1.0);
+     * // `true`
+     *
+     * // no maximum constraint
      * Validator::positiveLike('2.5');
      * // `true`
      *
+     * // within '0.0-1.0' range using Stringable
      * Validator::positiveLike(
      *    new class implements Stringable {
      *        public function __toString(): string
      *        {
-     *            return '3.5';
+     *            return '0.75';
      *        }
-     *    }
+     *    },
+     *    0.0,
+     *    1.0
      * );
      * // `true`
      * ```
@@ -213,10 +232,10 @@ abstract class BaseValidator
         float|null $min = null,
         float|null $max = null,
     ): bool {
-        $min = max($min ?? 0.00, 0.00);
+        $min = max($min ?? 0.0, 0.0);
 
         if (is_int($value) || is_float($value)) {
-            return ($value > $min) && ($max === null || $value <= $max);
+            return ($value >= $min) && ($max === null || $value <= $max);
         }
 
         if ($value instanceof Stringable) {
@@ -235,6 +254,6 @@ abstract class BaseValidator
             return false;
         }
 
-        return $value > $min && ($max === null || $value <= $max);
+        return $value >= $min && ($max === null || $value <= $max);
     }
 }

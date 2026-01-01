@@ -2,6 +2,8 @@
 
 ## 0.6.2 Under development
 
+- Enh #29: Update `positiveLike()` method to validate within a specified range and adjust related tests (@terabytesoftw)
+
 ## 0.6.1 December 31, 2025
 
 - Enh #27: Add `positiveLike()` method in `BaseValidator` for validating positive-like numbers with optional maximum constraint, along with related tests (@terabytesoftw)
