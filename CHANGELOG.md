@@ -1,5 +1,7 @@
 # ChangeLog
 
+## 0.6.4 Under development
+
 ## 0.6.3 January 3, 2026
 
 - Bug #30: Remove unnecessary `strtolower()` usage and update test cases for consistent casing (@terabytesoftw)
