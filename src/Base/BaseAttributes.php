@@ -20,7 +20,6 @@ use function json_encode;
 use function preg_match;
 use function rtrim;
 use function str_starts_with;
-use function strtolower;
 use function uksort;
 
 /**
@@ -502,10 +501,6 @@ abstract class BaseAttributes
             return array_map(static fn(mixed $v): mixed => self::sanitizeJsonValue($v, $encode), $value);
         }
 
-        if (is_string($value)) {
-            return $encode ? Encode::value($value) : $value;
-        }
-
         if ($value instanceof Closure) {
             return self::sanitizeJsonValue($value(), $encode);
         }
@@ -513,9 +508,7 @@ abstract class BaseAttributes
         $normalized = Enum::normalizeValue($value);
 
         if (is_string($normalized)) {
-            $lower = strtolower($normalized);
-
-            return $encode ? Encode::value($lower) : $lower;
+            return $encode ? Encode::value($normalized) : $normalized;
         }
 
         return $normalized;
