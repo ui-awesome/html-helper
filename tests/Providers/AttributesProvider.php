@@ -117,7 +117,7 @@ final class AttributesProvider
                 ],
             ],
             'enum in data attribute' => [
-                ' data-theme="dark"',
+                ' data-theme="DARK"',
                 [
                     'data' => ['theme' => Theme::DARK],
                 ],
@@ -129,7 +129,7 @@ final class AttributesProvider
                 ],
             ],
             'mixed values' => [
-                ' class="sm primary" data-theme="light"',
+                ' class="sm primary" data-theme="LIGHT"',
                 [
                     'class' => [
                         ButtonSize::SMALL,
