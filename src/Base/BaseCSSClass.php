@@ -52,7 +52,7 @@ abstract class BaseCSSClass
      * - Additional characters: hash (`#`) for colors, percent (`%`) for relative values, parentheses (`()`) for CSS
      *   functions like `calc()`, `min()`, `max()`, plus (`+`) and slash (`/`) for calculations and ratios, single
      *   quote (`'`) for content values, equals (`=`) for attribute selectors, and commas (`,`) for multiple values.
-     * - Unicode characters: Unicode characters are allowed by the pattern (for example, stars `*`, arrows `->`, etc.).
+     * - Unicode characters: Unicode symbols are allowed by the pattern (for example, `★`, `→`, `漢字`).
      *
      * Excluded characters for security and safety.
      * - Whitespace characters (space, tab, newline) - would break CSS class parsing.
