@@ -17,7 +17,7 @@ use function sprintf;
  * Each case represents a specific type of error, with a message template that can be populated with dynamic values
  * using the {@see Message::getMessage()} method.
  *
- * This centralized approach improves the consistency of error messages and simplifies potential internationalization.
+ * This centralized approach improves the consistency of error messages.
  *
  * Key features.
  * - Centralization of an error text for easier maintenance.

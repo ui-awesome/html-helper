@@ -52,14 +52,14 @@ abstract class BaseCSSClass
      * - Additional characters: hash (`#`) for colors, percent (`%`) for relative values, parentheses (`()`) for CSS
      *   functions like `calc()`, `min()`, `max()`, plus (`+`) and slash (`/`) for calculations and ratios, single
      *   quote (`'`) for content values, equals (`=`) for attribute selectors, and commas (`,`) for multiple values.
-     * - Unicode characters: Full Unicode support for internationalization (stars ★, arrows →, etc.).
+     * - Unicode characters: Unicode characters are allowed by the pattern (for example, stars `*`, arrows `->`, etc.).
      *
      * Excluded characters for security and safety.
      * - Whitespace characters (space, tab, newline) - would break CSS class parsing.
      * - At symbol (`@`) - reserved for CSS at-rules.
      * - Exclamation mark (`!`) - could conflict with important declarations.
      * - Semicolon (`;`) - could break CSS syntax.
-     * - Angle brackets (`<`, `>`) - XSS prevention.
+     * - Angle brackets (`<`, `>`) - excluded to avoid breaking HTML and to reduce injection vectors.
      * - Quotes (`"`, `\``) - potential injection vectors (single quote (`'`) is allowed for content).
      * - Curly braces (`{`, `}`) - breaks CSS syntax.
      * - Pipe (`|`) - reserved for attribute selectors.
@@ -69,13 +69,12 @@ abstract class BaseCSSClass
      * - Dollar sign (`$`) - reserved for attribute selectors.
      * - Asterisk (`*`) - reserved for universal selector.
      *
-     * This pattern supports modern CSS frameworks such as Tailwind CSS, Bootstrap 5+, and custom utility systems, while
-     * maintaining compatibility with traditional CSS naming conventions and internationalization requirements.
+     * This pattern allows many characters used by modern CSS naming conventions and utility-style classes.
      *
      * Note: Empty strings are rejected during validation. The pattern requires at least one character and does not
      * validate CSS selector syntax rules. The pattern uses Unicode mode (`u` flag) for proper international character
      * support. This pattern uses a negative character class approach to explicitly exclude dangerous characters while
-     * supporting Unicode symbols needed for internationalization.
+     * supporting Unicode symbols that may appear in class names.
      *
      * @see https://www.w3.org/TR/CSS21/syndata.html#characters CSS 2.1 Characters and case specification.
      */

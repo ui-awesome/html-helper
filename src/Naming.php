@@ -5,19 +5,26 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper;
 
 /**
- * HTML form naming utility for generating consistent input names and identifiers.
+ * HTML form naming utility for generating input names and identifiers.
  *
- * Provides a concrete implementation for producing predictable, standards-compliant HTML form input `name` and `id`
- * values, parsing complex property notation (including tabular and nested inputs), and converting regular expression
- * literals to pattern substrings suitable for client-side validation.
- *
- * Designed for integration in form builders, tag renderers and view helpers, ensuring consistent naming and identifier
- * generation across all supported use cases.
+ * Provides a concrete implementation that exposes form naming and identifier helper methods.
  *
  * Key features.
- * - Conversion of regular expression literals to pattern substrings suitable for the `pattern` attribute.
- * - Generation of arrayable input names and unique identifiers compatible with HTML form conventions.
- * - Parsing of property expressions into name, prefix and suffix components for tabular and nested inputs.
+ * - Converts a regexp literal to a `pattern` substring via {@see Base\BaseNaming::convertToPattern()}.
+ * - Extracts short class names via {@see Base\BaseNaming::getShortNameClass()}.
+ * - Generates arrayable names via {@see Base\BaseNaming::generateArrayableName()}.
+ * - Generates ids via {@see Base\BaseNaming::generateId()}.
+ * - Generates input ids via {@see Base\BaseNaming::generateInputId()}.
+ * - Generates input names via {@see Base\BaseNaming::generateInputName()}.
+ *
+ * Usage example:
+ * ```php
+ * $name = Naming::generateInputName('User', 'email');
+ * // "User[email]"
+ *
+ * $id = Naming::generateInputId('User', 'email');
+ * // "user-email"
+ * ```
  *
  * {@see Base\BaseNaming} for the base implementation.
  *

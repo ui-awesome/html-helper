@@ -11,18 +11,17 @@ use function htmlspecialchars;
 /**
  * Base class for HTML encoding utilities for safe content and attribute value generation.
  *
- * Provides a unified API for encoding HTML content and attribute values, ensuring that special characters are properly
- * escaped to prevent XSS vulnerabilities and ensure valid HTML output.
+ * Provides a unified API for encoding HTML content and attribute values by escaping special characters.
  *
  * This class is designed for integration in HTML helpers, tag builders, and view renderers, supporting charset
- * configuration, double-encoding control, and HTML5-compliant output. It enables correct encoding for tag content,
+ * configuration, double-encoding control, and output using `ENT_HTML5` flags. It enables encoding for tag content,
  * quoted attribute values, and other scenarios where HTML entity escaping is required.
  *
  * Key features.
- * - Charset flexibility for internationalization and encoding safety.
+ * - Charset configuration for encoding output.
  * - Double-encode control for idempotent output.
- * - HTML5-compliant output for modern browsers.
- * - Type-safe, static encoding methods for content and attributes.
+ * - Output encoding using `ENT_HTML5`.
+ * - Static encoding methods for content and attributes.
  *
  * {@see htmlspecialchars()} for encoding implementation details.
  *

@@ -7,17 +7,21 @@ namespace UIAwesome\Html\Helper;
 /**
  * Validation utility for common HTML helper values and configuration.
  *
- * Provides a concrete implementation for validating values commonly used in HTML attribute rendering and helper
- * configuration, including integer-like inputs and strict allow-list membership checks.
- *
- * Designed for integration in tag renderers, view systems, and helper components requiring predictable validation
- * behavior with explicit exceptions for invalid values.
+ * Provides a concrete implementation that exposes validation helpers.
  *
  * Key features.
- * - Allow-list validation with UnitEnum normalization for consistent, strict comparisons.
- * - Integer-like validation for int and integer strings with optional range constraints.
- * - Positive-like number validation for int, float, and numeric strings with optional max constraint.
- * - Predictable behavior with explicit exceptions for invalid values.
+ * - Validates allow-list membership via {@see Base\BaseValidator::oneOf()}.
+ * - Validates integer-like values via {@see Base\BaseValidator::intLike()}.
+ * - Validates non-negative numeric values via {@see Base\BaseValidator::positiveLike()}.
+ *
+ * Usage example:
+ * ```php
+ * if (Validator::intLike('42', 0, 100) === false) {
+ *     throw new InvalidArgumentException('Invalid page size.');
+ * }
+ *
+ * Validator::oneOf('red', ['red', 'green', 'blue'], 'color');
+ * ```
  *
  * {@see Base\BaseValidator} for the base implementation.
  *

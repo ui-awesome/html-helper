@@ -3,6 +3,7 @@
 ## 0.6.4 Under development
 
 - Bug #31: Update configuration files and improve code structure for better maintainability and update related classes (@terabytesoftw)
+- Bug #32: Enhance documentation and improve clarity across multiple classes and methods (@terabytesoftw)
 
 ## 0.6.3 January 3, 2026
 

@@ -26,26 +26,24 @@ use function uksort;
  * Base class for advanced HTML attribute rendering and encoding.
  *
  * Designed for use in tag rendering and normalization of HTML attributes key-value pairs, this class ensures that all
- * attributes are output in a predictable, standards-compliant order, with correct escaping and type handling for modern
- * HTML5 use cases.
+ * attributes are output in a predictable order, with correct escaping and type handling for common
+ * HTML use cases.
  *
  * It acts as a central engine for both generating HTML strings and preparing attributes for DOM manipulation (like SVG),
  * offering flexible control over encoding.
  *
  * Key features.
- * - **Double-Encoding Prevention:** Optional control over HTML entity encoding to prevent issues when using
- *   DOMDocument.
- * - **Dual Mode:** Supports both HTML string rendering (securely encoded) and raw data normalization (unencoded for
- *   DOM/SVG).
- * - **Smart Boolean Handling:** Distinguishes between boolean attributes (returning `true`) and string values during
- *   normalization.
  * - Array handling for `class`, `style`, `data-*`, `aria-*`, and `on*` attributes.
  * - Attribute sorting by priority for readable, maintainable HTML.
  * - BackedEnum normalization for attribute values.
+ * - Boolean handling: Distinguishes between boolean attributes (returning `true`) and string values during
+ *   normalization.
+ * - Double-encoding prevention: Optional control over HTML entity encoding to reduce issues when using DOMDocument.
+ * - Dual mode: Supports both HTML string rendering (encoded) and raw data normalization (unencoded for DOM/SVG).
+ * - Encodes HTML attribute values for output.
  * - Extensible for custom attribute types and rendering strategies.
  * - JSON encoding for complex attribute values.
  * - Normalization of attribute keys with specific prefixes.
- * - Secure HTML and value encoding to prevent XSS.
  * - Validation of attribute names using a strict regex pattern.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
@@ -250,7 +248,7 @@ abstract class BaseAttributes
     }
 
     /**
-     * Renders an array of HTML attributes into a standards-compliant string.
+     * Renders an array of HTML attributes into a string.
      *
      * Processes the provided associative array of attribute names and values, generating an escaped and consistently
      * ordered HTML attributes string for use in tag rendering.
@@ -291,8 +289,7 @@ abstract class BaseAttributes
      * {@see VALID_ATTRIBUTE_NAME_PATTERN} regular expression, which enforces starting with a letter or underscore and
      * allows only alphanumeric characters, hyphens, and underscores.
      *
-     * This validation is essential for generating standards-compliant HTML and preventing injection of invalid or
-     * unsafe attribute names during tag rendering.
+     * This validation is used to reject invalid attribute names during tag rendering.
      *
      * @param string $name Attribute name to validate.
      *
@@ -487,7 +484,7 @@ abstract class BaseAttributes
     /**
      * Sanitizes a value for safe JSON encoding or HTML output.
      *
-     * Recursively prepares values. If `$encode` is `true`, string values are HTML-encoded to prevent XSS. If `$encode`
+     * Recursively prepares values. If `$encode` is `true`, string values are HTML-encoded. If `$encode`
      * is `false`, values are returned raw (useful for DOM manipulation where the engine handles escaping).
      *
      * @param mixed $value Value to sanitize.
