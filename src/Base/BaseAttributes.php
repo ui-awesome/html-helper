@@ -61,8 +61,8 @@ abstract class BaseAttributes
      * - HTML entity encoding.
      * - Unicode handling.
      */
-    private const JSON_FLAGS = JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS |
-        JSON_THROW_ON_ERROR;
+    private const JSON_FLAGS = JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS
+        | JSON_THROW_ON_ERROR;
 
     /**
      * JSON encoding options for raw attribute values (no HTML encoding).
@@ -450,9 +450,9 @@ abstract class BaseAttributes
         $quote = self::QUOTE_DOUBLE;
 
         if (
-            $name === 'style' ||
-            is_string($value) &&
-            (str_starts_with($value, '{') || str_starts_with($value, '['))
+            $name === 'style'
+            || is_string($value)
+            && (str_starts_with($value, '{') || str_starts_with($value, '['))
         ) {
             $quote = self::QUOTE_SINGLE;
         }

@@ -138,11 +138,11 @@ abstract class BaseCSSClass
             $existingClasses = [];
 
             if (
-                isset($attributes['class']) &&
-                (
-                    is_array($attributes['class']) ||
-                    is_string($attributes['class']) ||
-                    $attributes['class'] instanceof UnitEnum
+                isset($attributes['class'])
+                && (
+                    is_array($attributes['class'])
+                    || is_string($attributes['class'])
+                    || $attributes['class'] instanceof UnitEnum
                 )
             ) {
                 $existingClasses = self::normalizeClasses($attributes['class']);
