@@ -23,9 +23,12 @@ namespace UIAwesome\Html\Helper;
  *     'data' => ['role' => 'user', 'id' => 42],
  * ];
  *
+ * // for programmatic access (example, DOM manipulation)
  * $normalized = Attributes::normalizeAttributes($attributes);
+ *
+ * // for HTML string output
  * $html = Attributes::render($normalized);
- * // e.g. class="form-control is-valid" id="login" required data='{"role":"user","id":42}'
+ * // class="form-control is-valid" id="login" required data='{"role":"user","id":42}'
  * ```
  *
  * {@see Base\BaseAttributes} for the base implementation.
