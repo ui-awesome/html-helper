@@ -15,13 +15,13 @@ use function strtr;
  * Provides a unified API for rendering template strings with dynamic token replacement, supporting safe and predictable
  * output for HTML tag generation, attribute rendering, and view systems.
  *
- * This class is designed for use in HTML helpers, tag builders, and view renderers, enabling flexible and secure
+ * This class is designed for use in HTML helpers, tag builders, and view renderers, enabling flexible and predictable
  * template string processing for modern web applications.
  *
  * Key features.
  * - Efficient token substitution for template-based rendering.
  * - Integration-ready for tag, attribute, and view rendering systems.
- * - Type-safe, static rendering methods for template strings.
+ * - Static rendering methods for template strings.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -35,7 +35,7 @@ abstract class BaseTemplate
      * the rendered result as a string with lines joined by the system line ending.
      *
      * Note: Literal `\n` sequences (backslash followed by 'n') in the template will be converted to actual newline
-     * characters before processing. **Empty lines after token substitution are filtered out.**
+     * characters before processing. Empty lines after token substitution are filtered out.
      *
      * @param string $template Template string containing tokens to be replaced.
      * @param array $tokenValues Associative array of token replacements.

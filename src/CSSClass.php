@@ -7,17 +7,19 @@ namespace UIAwesome\Html\Helper;
 /**
  * CSS class utility for normalization, validation, and rendering.
  *
- * Provides a concrete implementation for working with the HTML `class` attribute, supporting common inputs such as a
- * string, an array, UnitEnum values, or `null` and producing predictable output suitable for HTML rendering.
- *
- * Designed for integration in HTML attribute handling, tag renderers, and view helpers, ensuring consistent and safe
- * manipulation of CSS class lists across all supported use cases.
+ * Provides a concrete implementation that exposes the CSS class API for attribute arrays.
  *
  * Key features.
- * - Merging behavior for existing `class` attributes with uniqueness preservation, with explicit override support.
- * - Normalization of string, array, and UnitEnum inputs into a consistent class list.
- * - Rendering helpers that validate against an explicit allow-list.
- * - Validation of class names using a strict regular expression.
+ * - Adds classes to an attribute array via {@see Base\BaseCSSClass::add()}.
+ * - Renders a class string with allow-list validation via {@see Base\BaseCSSClass::render()}.
+ *
+ * Usage example:
+ * ```php
+ * $attributes = ['id' => 'main'];
+ *
+ * CSSClass::add($attributes, ['btn', 'btn-primary']);
+ * // $attributes['class'] is now "btn btn-primary"
+ * ```
  *
  * {@see Base\BaseCSSClass} for the base implementation.
  *

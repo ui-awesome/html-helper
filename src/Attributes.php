@@ -5,22 +5,31 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper;
 
 /**
- * HTML attribute utility for standardized, safe attribute rendering.
+ * HTML attribute utility for predictable attribute rendering.
  *
- * Provides a concrete implementation for rendering HTML attributes in a predictable, standards-compliant order,
- * supporting common HTML5 use cases such as boolean attributes, `class`, `style` composition, `data-*`, `aria-*`, and
- * `on*` attribute expansion.
- *
- * Designed for integration in tag renderers and view helpers, ensuring consistent encoding, validation, and output
- * formatting of attribute strings across all supported use cases.
+ * Provides a concrete implementation that exposes the attribute rendering and normalization API.
  *
  * Key features.
- * - Array handling for `class`, `style`, `data-*`, `aria-*`, and `on*` attributes.
- * - Attribute sorting by priority for readable, maintainable HTML.
- * - JSON encoding for complex attribute values.
- * - Normalization of attribute keys with specific prefixes.
- * - Support for boolean attributes (for example, `checked`, `disabled`).
- * - Validation of attribute names using a strict regex pattern.
+ * - Normalizes an attribute array via {@see Base\BaseAttributes::normalizeAttributes()}.
+ * - Normalizes prefixed keys via {@see Base\BaseAttributes::normalizeKey()}.
+ * - Renders an attribute array via {@see Base\BaseAttributes::render()}.
+ *
+ * Usage example:
+ * ```php
+ * $attributes = [
+ *     'id' => 'login',
+ *     'class' => ['form-control', 'is-valid'],
+ *     'required' => true,
+ *     'data' => ['role' => 'user', 'id' => 42],
+ * ];
+ *
+ * // for programmatic access (example, DOM manipulation)
+ * $normalized = Attributes::normalizeAttributes($attributes);
+ *
+ * // for HTML string output
+ * $html = Attributes::render($normalized);
+ * // class="form-control is-valid" id="login" required data='{"role":"user","id":42}'
+ * ```
  *
  * {@see Base\BaseAttributes} for the base implementation.
  *

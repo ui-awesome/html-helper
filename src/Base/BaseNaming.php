@@ -23,8 +23,8 @@ use function uniqid;
  * Base class for form naming, identifier generation, and regular-expression utilities.
  *
  * Provides a concise set of stateless helper methods used by form builders, tag renderers and view helpers to produce
- * predictable, standards-compliant HTML input names and identifiers, to parse complex property notation (including
- * tabular inputs), and to convert regular expression literals to usable pattern strings.
+ * predictable HTML input names and identifiers, to parse complex property notation (including tabular inputs), and to
+ * convert regular expression literals to usable pattern strings.
  *
  * Key features.
  * - Conversion of regular expression literals to pattern substrings suitable for client-side `pattern` attribute and
@@ -42,8 +42,8 @@ abstract class BaseNaming
     /**
      * Converts a regular expression literal to its pattern substring.
      *
-     * Extracts the pattern portion from a regular expression literal, converting any `\\x{...}` hex escapes to Unicode
-     * `\u` notation. The optional delimiter may be inferred from the literal when not provided.
+     * Extracts the pattern portion from a regular expression literal, converting `\\x{...}` hex escapes to `\u`
+     * notation. The optional delimiter may be inferred from the literal when not provided.
      *
      * @param string $regexp Regular expression literal to convert (including delimiters and flags).
      * @param string|null $delimiter Optional delimiter character. If `null`, the delimiter is inferred from the
@@ -53,6 +53,12 @@ abstract class BaseNaming
      * short to contain a pattern, or if the regular expression is malformed.
      *
      * @return string Pattern substring extracted from the regular expression literal.
+     *
+     * Usage example:
+     * ```php
+     * $pattern = Naming::convertToPattern('/^[a-z]+$/i');
+     * // '^[a-z]+$'
+     * ```
      */
     public static function convertToPattern(string $regexp, string|null $delimiter = null): string
     {
@@ -100,6 +106,12 @@ abstract class BaseNaming
      * @param string $name Base property name.
      *
      * @return string Arrayable property name.
+     *
+     * Usage example:
+     * ```php
+     * Naming::generateArrayableName('tags');
+     * // 'tags[]'
+     * ```
      */
     public static function generateArrayableName(string $name): string
     {
@@ -114,6 +126,12 @@ abstract class BaseNaming
      * @param string $prefix Prefix to prepend to the generated identifier.
      *
      * @return string Unique identifier string.
+     *
+     * Usage example:
+     * ```php
+     * $id = Naming::generateId('field-');
+     * // 'field-...'
+     * ```
      */
     public static function generateId(string $prefix = 'id-'): string
     {
@@ -131,6 +149,12 @@ abstract class BaseNaming
      * @param string $charset Character set used by `mb_strtolower` (default: `UTF-8`).
      *
      * @return string Generated id string safe for use in HTML attributes.
+     *
+     * Usage example:
+     * ```php
+     * Naming::generateInputId('User', 'email');
+     * // 'user-email'
+     * ```
      */
     public static function generateInputId(
         string $formModel = '',
@@ -155,6 +179,12 @@ abstract class BaseNaming
      * @throws InvalidArgumentException if a tabular input is requested and the form model name is empty.
      *
      * @return string Generated input name suitable for use in HTML form `name` attributes.
+     *
+     * Usage example:
+     * ```php
+     * Naming::generateInputName('User', 'email');
+     * // 'User[email]'
+     * ```
      */
     public static function generateInputName(string $formModel, string $property, bool $arrayable = false): string
     {
@@ -188,6 +218,12 @@ abstract class BaseNaming
      * @param bool $lowercase Whether to lowercase the class name before extracting the short name.
      *
      * @return string Short class name or `ShortName::class` when `$suffix` is `true`.
+     *
+     * Usage example:
+     * ```php
+     * Naming::getShortNameClass('App\\Model\\User');
+     * // 'User::class'
+     * ```
      */
     public static function getShortNameClass(string $class, bool $suffix = true, bool $lowercase = false): string
     {

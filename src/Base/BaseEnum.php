@@ -18,9 +18,7 @@ use function is_scalar;
 /**
  * Base class for advanced enum normalization and value extraction utilities.
  *
- * Provides a unified API for normalizing enum values and arrays, supporting both backed and pure enums in a type-safe
- * and predictable manner. This class abstracts the complexity of extracting scalar values from enums, enabling seamless
- * integration with serialization, comparison, and data transformation logic across the framework.
+ * Provides a unified API for normalizing enum values and arrays, supporting both backed and pure enums.
  *
  * It supports normalization of single enum instances or arrays of enums, returning their scalar value
  * (for BackedEnum) or name (for pure enums), and passes through non-enum values unchanged.
@@ -29,9 +27,9 @@ use function is_scalar;
  *
  * Key features.
  * - Batch normalization of arrays of enums or mixed values with support for `null` handling.
+ * - Normalization of backed and pure enums to scalar values or names.
  * - Pass-through behavior for non-enum values to support mixed-type arrays.
- * - Type-safe normalization of backed and pure enums to scalar values or names.
- * - Utility methods for simplifying enum handling in data processing and configuration workflows.
+ * - Utility methods for simplifying enum handling in data processing.
  *
  * {@see BackedEnum} for enums with scalar values.
  * {@see UnitEnum} for all enum types.
