@@ -2,6 +2,8 @@
 
 ## 0.6.4 Under development
 
+- Bug #31: Update configuration files and improve code structure for better maintainability and update related classes (@terabytesoftw)
+
 ## 0.6.3 January 3, 2026
 
 - Bug #30: Remove unnecessary `strtolower()` usage and update test cases for consistent casing (@terabytesoftw)
