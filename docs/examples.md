@@ -242,7 +242,7 @@ $id = Naming::generateId('toast-');
 // toast-...
 ```
 
-### Convert a regexp literal for the HTML `pattern` attribute
+### Convert a regular expression literal for the HTML `pattern` attribute
 
 ```php
 <?php
