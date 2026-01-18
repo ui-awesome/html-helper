@@ -21,10 +21,10 @@ use UnitEnum;
  * allowed.
  *
  * Test coverage.
- * - Detection of integer-like values with optional `min`/`max` constraints.
- * - Detection of offset values for ratio values and percentage strings.
- * - Validation against allowed value lists and exception behavior.
- * - Validation of non-negative numeric values with optional `min`/`max` constraints.
+ * - {@see Validator::intLike()} validation with optional `min`/`max` constraints.
+ * - {@see Validator::offsetLike()} validation for ratio values and percentage strings.
+ * - {@see Validator::oneOf()} validation for allow-list membership and exception behavior.
+ * - {@see Validator::positiveLike()} validation with optional `min`/`max` constraints.
  *
  * {@see ValidatorProvider} for data-driven test cases and edge conditions.
  *

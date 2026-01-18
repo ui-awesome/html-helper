@@ -197,6 +197,13 @@ final class ValidatorProvider
                 true,
                 'Should be valid value.',
             ],
+            'string only plus sign' => [
+                '+',
+                0,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
             'string scientific notation' => [
                 '1e3',
                 0,

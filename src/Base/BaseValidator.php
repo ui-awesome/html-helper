@@ -100,7 +100,7 @@ abstract class BaseValidator
             $value = substr($value, 1);
         }
 
-        if ($value[0] === '-' || ctype_digit($value) === false) {
+        if ($value === '' ||$value[0] === '-' || ctype_digit($value) === false) {
             return false;
         }
 
