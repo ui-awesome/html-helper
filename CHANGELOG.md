@@ -1,5 +1,7 @@
 # ChangeLog
 
+## 0.6.5 Under development
+
 ## 0.6.4 January 18, 2025
 
 - Bug #31: Update configuration files and improve code structure for better maintainability and update related classes (@terabytesoftw)
