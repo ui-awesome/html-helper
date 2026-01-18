@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Naming;
-use UIAwesome\Html\Helper\Tests\Providers\NamingProvider;
+use UIAwesome\Html\Helper\Tests\Support\Provider\NamingProvider;
 
 use function ini_get;
 use function ini_set;

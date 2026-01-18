@@ -7,7 +7,7 @@ namespace UIAwesome\Html\Helper\Tests;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\Template;
-use UIAwesome\Html\Helper\Tests\Providers\TemplateProvider;
+use UIAwesome\Html\Helper\Tests\Support\Provider\TemplateProvider;
 use UIAwesome\Html\Helper\Tests\Support\TestSupport;
 
 /**

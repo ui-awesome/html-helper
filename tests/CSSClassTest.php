@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\CSSClass;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Helper\Tests\Providers\CSSClassProvider;
+use UIAwesome\Html\Helper\Tests\Support\Provider\CSSClassProvider;
 use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\AlertType;
 use UnitEnum;
 

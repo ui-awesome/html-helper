@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Helper\Tests\Providers\EnumProvider;
+use UIAwesome\Html\Helper\Tests\Support\Provider\EnumProvider;
 
 /**
  * Unit tests for {@see Enum} enum normalization behavior.
