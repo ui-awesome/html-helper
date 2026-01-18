@@ -33,6 +33,6 @@ enum Columns: int
     case THREE = 3;
 
     case TWELVE = 12;
-    
+
     case TWO = 2;
 }

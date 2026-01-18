@@ -13,6 +13,6 @@ namespace UIAwesome\Html\Helper\Tests\Support\Stub\Enum;
 enum Theme
 {
     case DARK;
-    
+
     case LIGHT;
 }

@@ -13,6 +13,6 @@ namespace UIAwesome\Html\Helper\Tests\Support\Stub\Enum;
 enum Status: string
 {
     case ACTIVE = 'active';
-    
+
     case INACTIVE = 'inactive';
 }

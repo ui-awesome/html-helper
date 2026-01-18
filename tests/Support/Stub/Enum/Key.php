@@ -15,6 +15,6 @@ enum Key: string
     case ARIA_LABEL = 'aria-label';
 
     case DATA_TOGGLE = 'data-toggle';
-    
+
     case ON_CLICK = 'onclick';
 }

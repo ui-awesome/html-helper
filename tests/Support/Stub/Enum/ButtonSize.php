@@ -15,6 +15,6 @@ enum ButtonSize: string
     case LARGE = 'lg';
 
     case MEDIUM = 'md';
-    
+
     case SMALL = 'sm';
 }
