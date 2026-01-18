@@ -275,10 +275,25 @@ final class ValidatorProvider
                 true,
                 'Should be valid offset value.',
             ],
+            'string decimal above max invalid' => [
+                '1.1',
+                false,
+                'Should be invalid offset value.',
+            ],
+            'string decimal within range' => [
+                '0.5',
+                true,
+                'Should be valid offset value.',
+            ],
             'string with percentage above max invalid' => [
                 '101%',
                 false,
                 'Should be invalid offset value.',
+            ],
+            'string with percentage lower bound valid' => [
+                '0%',
+                true,
+                'Should be valid offset value.',
             ],
             'string with percentage negative invalid' => [
                 '-1%',
