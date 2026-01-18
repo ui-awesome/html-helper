@@ -311,12 +311,17 @@ Validator::oneOf('sm', ['sm', 'md', 'lg'], 'size');
 // validate positive-like number
 $isPositive = Validator::positiveLike('42.5', 0, 100);
 // true
+
+// validate SVG offset-like values (ratio: 0..1, percent: 0%..100%)
+$isOffsetValid = Validator::offsetLike('50%');
+// true
 ```
 
 ## Documentation
 
 For detailed configuration options and advanced usage.
 
+- 💡 [Usage Examples](docs/examples.md)
 - 🧪 [Testing Guide](docs/testing.md)
 
 ## Package information
