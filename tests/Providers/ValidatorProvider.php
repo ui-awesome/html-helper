@@ -13,10 +13,7 @@ use UnitEnum;
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\ValidatorTest} test cases.
  *
- * Supplies datasets for the {@see \UIAwesome\Html\Helper\Validator} validation helpers.
- *
- * The cases cover numeric string handling, boundary conditions, enum normalization, mixed-type lists, and failure
- * message generation for invalid inputs.
+ * Provides representative input/output pairs for validator helper methods.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -119,6 +116,13 @@ final class ValidatorProvider
                 10,
                 true,
                 'Should be valid value.',
+            ],
+            'string empty invalid' => [
+                '',
+                0,
+                null,
+                false,
+                'Should be invalid value.',
             ],
             'string float' => [
                 '3.5',

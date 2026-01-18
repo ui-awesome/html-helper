@@ -88,6 +88,10 @@ abstract class BaseValidator
     {
         $min ??= 0;
 
+        if ($value === '') {
+            return false;
+        }
+
         if (is_int($value)) {
             return $value >= $min && ($max === null || $value <= $max);
         }
