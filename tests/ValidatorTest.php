@@ -15,16 +15,16 @@ use UnitEnum;
 /**
  * Unit tests for {@see Validator} helper functionality and behavior.
  *
- * Validates common validation helpers such as integer-like detection and allowed-value checks used across form handling
- * and attribute validation routines.
+ * Validates the {@see Validator} helpers using data providers for representative values and boundary conditions.
  *
- * Ensures correct handling of numeric strings, boundary checks, and explicit error reporting for disallowed values or
- * invalid arguments.
+ * Ensures correct handling of numeric strings, bounds checks, and explicit error reporting for values that are not
+ * allowed.
  *
  * Test coverage.
- * - Detection of integer-like values with optional min/max constraints.
- * - Detection of positive-like number values greater than zero with optional max constraint.
+ * - Detection of integer-like values with optional `min`/`max` constraints.
+ * - Detection of offset values for ratio values and percentage strings.
  * - Validation against allowed value lists and exception behavior.
+ * - Validation of non-negative numeric values with optional `min`/`max` constraints.
  *
  * {@see ValidatorProvider} for data-driven test cases and edge conditions.
  *
@@ -45,6 +45,19 @@ final class ValidatorTest extends TestCase
         self::assertSame(
             $expected,
             Validator::intLike($value, $min, $max),
+            $message,
+        );
+    }
+
+    #[DataProviderExternal(ValidatorProvider::class, 'offsetLike')]
+    public function testOffsetLike(
+        int|float|string|Stringable $value,
+        bool $expected,
+        string $message,
+    ): void {
+        self::assertSame(
+            $expected,
+            Validator::offsetLike($value),
             $message,
         );
     }

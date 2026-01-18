@@ -13,6 +13,7 @@ namespace UIAwesome\Html\Helper;
  * - Validates allow-list membership via {@see Base\BaseValidator::oneOf()}.
  * - Validates integer-like values via {@see Base\BaseValidator::intLike()}.
  * - Validates non-negative numeric values via {@see Base\BaseValidator::positiveLike()}.
+ * - Validates offset values via {@see Base\BaseValidator::offsetLike()}.
  *
  * Usage example:
  * ```php
