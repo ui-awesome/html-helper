@@ -13,20 +13,21 @@ use UIAwesome\Html\Helper\Validator;
 use UnitEnum;
 
 /**
- * Unit tests for {@see Validator} helper functionality and behavior.
+ * Unit tests for {@see Validator} helper validation behavior.
  *
- * Validates the {@see Validator} helpers using data providers for representative values and boundary conditions.
- *
- * Ensures correct handling of numeric strings, bounds checks, and explicit error reporting for values that are not
- * allowed.
+ * Verifies boolean validation results and exception messages for representative scalar, `Stringable`, and enum-backed
+ * inputs across the {@see Validator} helper methods.
  *
  * Test coverage.
- * - {@see Validator::intLike()} validation with optional `min`/`max` constraints.
- * - {@see Validator::offsetLike()} validation for ratio values and percentage strings.
- * - {@see Validator::oneOf()} validation for allow-list membership and exception behavior.
- * - {@see Validator::positiveLike()} validation with optional `min`/`max` constraints.
+ * - Accepts int-like values as `int`, numeric `string`, and `Stringable` with optional `min`/`max` constraints.
+ * - Accepts positive-like values as `int`, `float`, numeric `string`, and `Stringable` with optional `min`/`max`
+ *   constraints.
+ * - Validates offset-like values for ratios and percentage strings within the expected bounds.
+ * - Validates one-of allow-list membership for scalar and enum values, throwing {@see InvalidArgumentException} with
+ *   the expected message when configured.
  *
- * {@see ValidatorProvider} for data-driven test cases and edge conditions.
+ * {@see Validator} for implementation details.
+ * {@see ValidatorProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
