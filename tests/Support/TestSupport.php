@@ -15,8 +15,7 @@ use function str_replace;
  * Supplies standardized methods for comparing string values in test cases, ensuring consistent handling of line endings
  * and whitespace normalization across different platforms and environments.
  *
- * Designed for use in PHPUnit-based test suites to facilitate robust validation of HTML output, attribute rendering,
- * and component behavior.
+ * Designed for use in PHPUnit-based test suites to validate string output and line ending normalization.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

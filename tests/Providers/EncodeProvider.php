@@ -7,7 +7,7 @@ namespace UIAwesome\Html\Helper\Tests\Providers;
 use Stringable;
 
 /**
- * Data provider for {@see \UIAwesome\Html\Helper\Tests\EncodeTest} class.
+ * Data provider for {@see \UIAwesome\Html\Helper\Tests\EncodeTest} test cases.
  *
  * Supplies focused datasets used by encoding utilities for content and attribute/value contexts.
  *
@@ -25,14 +25,6 @@ use Stringable;
 final class EncodeProvider
 {
     /**
-     * Provides datasets for content encoding tests.
-     *
-     * Each dataset returns the original content, the expected encoded string and a boolean flag indicating whether
-     * existing HTML entities should be double-encoded. These cases validate correct escaping in content rendering
-     * contexts and handling of special and control characters.
-     *
-     * @return array Test data for content encoding.
-     *
      * @phpstan-return array<string, array{string|Stringable, string, bool}>
      */
     public static function content(): array
@@ -87,14 +79,6 @@ final class EncodeProvider
     }
 
     /**
-     * Provides datasets for value encoding and general value conversion.
-     *
-     * Each dataset returns the input value, the expected encoded output, and a boolean flag indicating whether existing
-     * entities should be double-encoded. The provider covers complex attribute-safe escaping, numeric and `null`
-     * conversions, and preservation of control characters where applicable.
-     *
-     * @return array Test data for value encoding.
-     *
      * @phpstan-return array<string, array{mixed, string, bool}>
      */
     public static function value(): array

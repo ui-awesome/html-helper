@@ -7,7 +7,7 @@ namespace UIAwesome\Html\Helper\Tests\Providers;
 use UIAwesome\Html\Helper\Exception\Message;
 
 /**
- * Data provider for {@see \UIAwesome\Html\Helper\Tests\NamingTest} class.
+ * Data provider for {@see \UIAwesome\Html\Helper\Tests\NamingTest} test cases.
  *
  * Supplies focused datasets used to validate name generation and regular expression helpers.
  *
@@ -27,13 +27,6 @@ use UIAwesome\Html\Helper\Exception\Message;
 final class NamingProvider
 {
     /**
-     * Provides datasets for normalizing arrayable names.
-     *
-     * Each dataset contains an original name and the expected arrayable result. These cases ensure multibyte and
-     * bracketed index names are handled deterministically by the name normalizer.
-     *
-     * @return array Test data for arrayable name normalization.
-     *
      * @phpstan-return array<array{string, string}>
      */
     public static function arrayableName(): array
@@ -59,14 +52,6 @@ final class NamingProvider
     }
 
     /**
-     * Provides datasets for constructing input `name` attributes.
-     *
-     * Each dataset returns a tuple of: prefix, raw name, whether the target is arrayable, and the expected
-     * fully-qualified name. These cases cover empty prefixes, explicit indexed names, multibyte tokens and both
-     * arrayable and non-arrayable expectations.
-     *
-     * @return array Test data for input name construction.
-     *
      * @phpstan-return array<string, array{string, string, bool, string}>
      */
     public static function inputName(): array
@@ -160,14 +145,6 @@ final class NamingProvider
     }
 
     /**
-     * Provides valid regular expression patterns together with their expected rendered pattern and the explicit
-     * delimiter where applicable.
-     *
-     * Each dataset contains: the input token, the fully-formed pattern, and the delimiter used (or `null` when the
-     * default delimiter is expected). These cases validate correct delimiter selection and unicode handling.
-     *
-     * @return array Test data for regular expression patterns.
-     *
      * @phpstan-return array<string, array{string, string|null, string|null}>
      */
     public static function regularExpressionPattern(): array
@@ -207,14 +184,6 @@ final class NamingProvider
     }
 
     /**
-     * Provides invalid regular expression patterns and the expected error message identifier.
-     *
-     * Each dataset contains the invalid token, the delimiter (if relevant) and the expected error message produced by
-     * the validator. These cases ensure validation detects incorrect delimiters, malformed patterns and insufficient
-     * length.
-     *
-     * @return array Test data for invalid regular expression patterns.
-     *
      * @phpstan-return array<string, array{string, string|null, string}>
      */
     public static function regularExpressionPatternInvalid(): array

@@ -14,7 +14,7 @@ use function range;
 use function str_repeat;
 
 /**
- * Data provider for {@see \UIAwesome\Html\Helper\Tests\CSSClassTest} class.
+ * Data provider for {@see \UIAwesome\Html\Helper\Tests\CSSClassTest} test cases.
  *
  * Supplies focused datasets used by CSS class helpers to merge, normalize, and render `class` attribute.
  *
@@ -32,14 +32,6 @@ use function str_repeat;
 final class CSSClassProvider
 {
     /**
-     * Provides datasets for class rendering.
-     *
-     * Each dataset returns: class, base class format, allowed list, expected output, and an assertion message. The
-     * cases validate enum normalization, string matching against allowed, and deterministic formatting of rendered
-     * class.
-     *
-     * @return array Test data for class rendering.
-     *
      * @phpstan-return array<string, array{string|UnitEnum, string, list<string|UnitEnum>, string, string}>
      */
     public static function renderValues(): array
@@ -70,14 +62,6 @@ final class CSSClassProvider
     }
 
     /**
-     * Provides datasets for class attribute merging.
-     *
-     * Each dataset returns: initial attributes, an ordered list of operations, expected attributes, and an assertion
-     * message. The cases validate merging semantics, token filtering, whitespace normalization, duplicate elimination,
-     * override behaviour, and preservation of unrelated attributes.
-     *
-     * @return array Test data for class attribute merging.
-     *
      * @phpstan-return array<
      *   string,
      *   array{

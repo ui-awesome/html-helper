@@ -16,10 +16,10 @@ use function ini_set;
 use function str_repeat;
 
 /**
- * Test suite for {@see Naming} helper functionality and behavior.
+ * Unit tests for {@see Naming} helper functionality and behavior.
  *
  * Validates generation and normalization of form input names, element IDs, and pattern conversions used for HTML
- * attribute and form handling according to common web standards and framework conventions.
+ * attribute and form handling.
  *
  * Ensures correct handling of arrayable names, tabular input patterns, ID generation with prefixes, and strict
  * validation of property and form names to prevent malformed attributes in rendered markup.

@@ -13,7 +13,7 @@ use UIAwesome\Html\Helper\Validator;
 use UnitEnum;
 
 /**
- * Test suite for {@see Validator} helper functionality and behavior.
+ * Unit tests for {@see Validator} helper functionality and behavior.
  *
  * Validates common validation helpers such as integer-like detection and allowed-value checks used across form handling
  * and attribute validation routines.

@@ -11,10 +11,10 @@ use UIAwesome\Html\Helper\Encode;
 use UIAwesome\Html\Helper\Tests\Providers\EncodeProvider;
 
 /**
- * Test suite for {@see Encode} helper functionality and behavior.
+ * Unit tests for {@see Encode} helper functionality and behavior.
  *
- * Validates encoding routines for content and value contexts to ensure deterministic and safe HTML escaping suitable
- * for fragments and lightweight components.
+ * Validates encoding routines for content and value contexts to ensure deterministic HTML escaping suitable for
+ * fragments and lightweight components.
  *
  * Ensures correct handling of entity encoding, prevention of double-encoding when requested, and support for mixed
  * scalar types including `null`, int, float, and string.

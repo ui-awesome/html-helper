@@ -11,7 +11,7 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Priority, Status, Theme};
 use UnitEnum;
 
 /**
- * Data provider for {@see \UIAwesome\Html\Helper\Tests\ValidatorTest} class.
+ * Data provider for {@see \UIAwesome\Html\Helper\Tests\ValidatorTest} test cases.
  *
  * Supplies focused datasets used by validation helpers for integer-like checks and allowed-value lists.
  *
@@ -29,14 +29,6 @@ use UnitEnum;
 final class ValidatorProvider
 {
     /**
-     * Provides datasets for integer-like validation.
-     *
-     * Each dataset returns a tuple: value, minimum, maximum, expected validity, and an expected message. Cases include
-     * integers, numeric strings, leading zeroes, floats, scientific notation, whitespace and sign edge cases to ensure
-     * deterministic validation behaviour.
-     *
-     * @return array Test data for int-like validation.
-     *
      * @phpstan-return array<string, array{int|string|Stringable, int|null, int|null, bool, string}>
      */
     public static function intLike(): array
@@ -247,14 +239,6 @@ final class ValidatorProvider
     }
 
     /**
-     * Provides datasets for `oneOf` validation checks.
-     *
-     * Each dataset returns: attribute name, tested value, allowed list, a strict comparison flag, and the expected
-     * message. Datasets cover backed enums, unit enums, mixed enum lists, `null`, scalar comparisons, and message
-     * generation for failure scenarios.
-     *
-     * @return array Test data for oneOf validation.
-     *
      * @phpstan-return array<string, array{string|UnitEnum, mixed, list<mixed>, bool, string}>
      */
     public static function oneOf(): array
@@ -444,15 +428,6 @@ final class ValidatorProvider
     }
 
     /**
-     * Provides datasets for positive-like validation.
-     *
-     * Each dataset returns a tuple: value, minimum, maximum, expected validity, and an expected message. Cases include
-     * integers, floats, numeric strings, zero values, negative values (always invalid), boundary conditions, HTML5
-     * attribute ranges (for example, '0.0-1.0' for stroke-miterlimit), non-numeric strings, and scientific notation
-     * edge cases.
-     *
-     * @return array Test data for positive-like validation.
-     *
      * @phpstan-return array<string, array{int|float|string|Stringable, float|null, float|null, bool, string}>
      */
     public static function positiveLike(): array

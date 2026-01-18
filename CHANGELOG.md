@@ -4,6 +4,7 @@
 
 - Bug #31: Update configuration files and improve code structure for better maintainability and update related classes (@terabytesoftw)
 - Bug #32: Enhance documentation and improve clarity across multiple classes and methods (@terabytesoftw)
+- Bug #33: Enhance documentation tests and improve clarity across multiple test files (@terabytesoftw)
 
 ## 0.6.3 January 3, 2026
 
