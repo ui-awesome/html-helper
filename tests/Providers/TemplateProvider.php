@@ -7,16 +7,8 @@ namespace UIAwesome\Html\Helper\Tests\Providers;
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\TemplateTest} test cases.
  *
- * Supplies focused datasets used by template helpers to normalize line endings and filter empty lines after token
- * substitution.
- *
- * The cases cover mixed newline sequences (CRLF `\r\n`), (LF `\n`), (CR `\r`), literal backslash-newline (`\n`)
- * handling, and output normalization against `PHP_EOL`.
- *
- * Key features.
- * - Provide datasets covering mixed platform line endings and literal newline escape sequences.
- * - Return structured cases with expected normalized output and an assertion message.
- * - Verify that empty lines are removed both before and after token substitution.
+ * Provides representative input/output pairs for template helper methods that normalize line endings and filter empty
+ * lines.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

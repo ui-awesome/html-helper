@@ -9,15 +9,7 @@ use Stringable;
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\EncodeTest} test cases.
  *
- * Supplies focused datasets used by encoding utilities for content and attribute/value contexts.
- *
- * The cases exercise entity escaping, double-encoding semantics, handling of control characters (including `null`
- * bytes), and conversions of scalar types to string when appropriate.
- *
- * Key features.
- * - Cover numeric and `null` handling, as well as non-printable characters.
- * - Ensure correct escaping of angle brackets, ampersands and quotes in both content and attribute contexts.
- * - Validate double-encoding behavior for existing HTML entities.
+ * Provides representative input/output pairs for encoding utility methods in content and attribute/value contexts.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

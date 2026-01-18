@@ -12,22 +12,19 @@ use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Providers\AttributesProvider;
 
 /**
- * Unit tests for {@see Attributes} helper functionality and behavior.
+ * Unit tests for {@see Attributes} attribute rendering behavior.
  *
- * Validates attribute rendering, ordering, normalization, and sanitization to ensure deterministic HTML attribute
- * generation for element fragments and components.
- *
- * Ensures correct handling of ordering rules, empty and `null` values, enum-backed attributes, and
- * normalization/sanitization of malicious inputs to prevent XSS and attribute injection.
+ * Verifies observable behavior for {@see Attributes} based on this test file only (test methods, providers, and
+ * assertions). Statements must be grounded in datasets, assertions, and explicit exception expectations present here.
  *
  * Test coverage.
- * - Handling of empty and `null` values.
- * - Proper normalization of attribute keys and values.
- * - Rendering order and deterministic attribute output.
- * - Sanitization of malicious or unexpected values.
- * - Support for enum-backed attribute values.
+ * - Attribute key normalization and validation.
+ * - Attribute rendering order and deterministic output.
+ * - Attribute rendering with enums and `null`.
+ * - Sanitization of malicious attribute values.
  *
- * {@see AttributesProvider} for data-driven test cases and edge conditions.
+ * {@see Attributes} for implementation details.
+ * {@see AttributesProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

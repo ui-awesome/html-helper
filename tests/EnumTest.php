@@ -13,20 +13,18 @@ use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Providers\EnumProvider;
 
 /**
- * Unit tests for {@see Enum} helper functionality and behavior.
+ * Unit tests for {@see Enum} enum normalization behavior.
  *
- * Validates normalization routines for enum-backed values and arrays to ensure deterministic values suitable for
- * attribute and class rendering and other helper operations.
- *
- * Ensures correct handling of `UnitEnum` instances, scalar values, `null`, and nested arrays, and verifies that
- * unsupported types raise appropriate exceptions with clear messages.
+ * Verifies observable behavior for {@see Enum} based on this test file only (test methods, providers, and
+ * assertions). Statements must be grounded in datasets, assertions, and explicit exception expectations present here.
  *
  * Test coverage.
- * - Exception behavior for invalid value types.
- * - Normalization of arrays containing enums and mixed types.
- * - Normalization of single values including enum, scalar, and `null`.
+ * - Exception behavior for unsupported value types.
+ * - Normalization of arrays containing enums and mixed values.
+ * - Normalization of single values, including enums and `null`.
  *
- * {@see EnumProvider} for data-driven test cases and edge conditions.
+ * {@see Enum} for implementation details.
+ * {@see EnumProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
