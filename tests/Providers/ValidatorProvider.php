@@ -13,15 +13,7 @@ use UnitEnum;
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\ValidatorTest} test cases.
  *
- * Supplies focused datasets used by validation helpers for integer-like checks and allowed-value lists.
- *
- * The cases cover numeric string handling, boundary conditions, enum comparisons, mixed-type lists, and failure message
- * generation for invalid inputs.
- *
- * Key features.
- * - Provide comprehensive `oneOf` datasets including backed enums, unit enums and mixed-type lists.
- * - Return tuples describing input, constraints, expected validity and expected message text.
- * - Validate integer-like string and numeric inputs with `min`/`max` boundaries.
+ * Provides representative input/output pairs for validator helper methods.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -125,6 +117,13 @@ final class ValidatorProvider
                 true,
                 'Should be valid value.',
             ],
+            'string empty invalid' => [
+                '',
+                0,
+                null,
+                false,
+                'Should be invalid value.',
+            ],
             'string float' => [
                 '3.5',
                 0,
@@ -192,8 +191,8 @@ final class ValidatorProvider
                 '+1',
                 0,
                 null,
-                false,
-                'Should be invalid value.',
+                true,
+                'Should be valid value.',
             ],
             'string numeric within range' => [
                 '3',
@@ -201,6 +200,13 @@ final class ValidatorProvider
                 5,
                 true,
                 'Should be valid value.',
+            ],
+            'string only plus sign' => [
+                '+',
+                0,
+                null,
+                false,
+                'Should be invalid value.',
             ],
             'string scientific notation' => [
                 '1e3',
@@ -234,6 +240,80 @@ final class ValidatorProvider
                 10,
                 true,
                 'Should be valid value.',
+            ],
+        ];
+    }
+
+    /**
+     * @phpstan-return array<string, array{int|float|string|Stringable, bool, string}>
+     */
+    public static function offsetLike(): array
+    {
+        return [
+            'float above max invalid' => [
+                1.1,
+                false,
+                'Should be invalid offset value.',
+            ],
+            'float middle valid' => [
+                0.5,
+                true,
+                'Should be valid offset value.',
+            ],
+            'float negative invalid' => [
+                -0.1,
+                false,
+                'Should be invalid offset value.',
+            ],
+            'integer lower bound valid' => [
+                0,
+                true,
+                'Should be valid offset value.',
+            ],
+            'integer upper bound valid' => [
+                1,
+                true,
+                'Should be valid offset value.',
+            ],
+            'string decimal above max invalid' => [
+                '1.1',
+                false,
+                'Should be invalid offset value.',
+            ],
+            'string decimal within range' => [
+                '0.5',
+                true,
+                'Should be valid offset value.',
+            ],
+            'string with percentage above max invalid' => [
+                '101%',
+                false,
+                'Should be invalid offset value.',
+            ],
+            'string with percentage lower bound valid' => [
+                '0%',
+                true,
+                'Should be valid offset value.',
+            ],
+            'string with percentage negative invalid' => [
+                '-1%',
+                false,
+                'Should be invalid offset value.',
+            ],
+            'string with percentage plus sign valid' => [
+                '+10%',
+                true,
+                'Should be valid offset value.',
+            ],
+            'string with percentage upper bound valid' => [
+                '100%',
+                true,
+                'Should be valid offset value.',
+            ],
+            'string with percentage' => [
+                '5%',
+                true,
+                'Should be valid offset value.',
             ],
         ];
     }
@@ -738,15 +818,15 @@ final class ValidatorProvider
                 '+1.5',
                 null,
                 null,
-                false,
-                'Should be invalid value.',
+                true,
+                'Should be valid value.',
             ],
             'string with plus sign invalid' => [
                 '+1',
                 null,
                 null,
-                false,
-                'Should be invalid value.',
+                true,
+                'Should be valid value.',
             ],
             'string with trailing space invalid' => [
                 '1.5 ',

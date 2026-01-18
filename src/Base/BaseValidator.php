@@ -16,8 +16,11 @@ use function in_array;
 use function is_float;
 use function is_int;
 use function is_numeric;
+use function is_string;
 use function max;
+use function str_ends_with;
 use function stripos;
+use function substr;
 
 /**
  * Base class for validation utilities used by HTML helper components.
@@ -28,6 +31,7 @@ use function stripos;
  * Key features.
  * - Allow-list validation with UnitEnum normalization for consistent, strict comparisons.
  * - Integer-like validation for int and integer strings with optional range constraints.
+ * - Offset-like validation for percentage strings and ratio values.
  * - Positive-like number validation for int, float, and numeric strings with optional max constraint.
  * - Predictable behavior with explicit exceptions for invalid values.
  *
@@ -84,6 +88,10 @@ abstract class BaseValidator
     {
         $min ??= 0;
 
+        if ($value === '') {
+            return false;
+        }
+
         if (is_int($value)) {
             return $value >= $min && ($max === null || $value <= $max);
         }
@@ -92,11 +100,53 @@ abstract class BaseValidator
             $value = (string) $value;
         }
 
-        if ($value[0] === '-' || $value[0] === '+' || ctype_digit($value) === false) {
+        if ($value[0] === '+') {
+            $value = substr($value, 1);
+        }
+
+        if ($value === '' || $value[0] === '-' || ctype_digit($value) === false) {
             return false;
         }
 
         return $value >= $min && ($max === null || $value <= $max);
+    }
+
+    /**
+     * Validates whether a value represents an offset value.
+     *
+     * If the value is a string that ends with `%`, the numeric part is validated as a non-negative number not greater
+     * than `100`. Otherwise, the value is validated as a non-negative number not greater than `1`.
+     *
+     * @param float|int|string|Stringable $value Value to validate.
+     *
+     * @return bool `true` if the value matches the accepted format and bounds, `false` otherwise.
+     *
+     * Usage example:
+     * ```php
+     * // ratio values (0-1)
+     * Validator::offsetLike(0.5);
+     * // `true`
+     *
+     * Validator::offsetLike('1.2');
+     * // `false`
+     *
+     * // percent values (0%-100%)
+     * Validator::offsetLike('50%');
+     * // `true`
+     *
+     * Validator::offsetLike('150%');
+     * // `false`
+     * ```
+     */
+    public static function offsetLike(float|int|string|Stringable $value): bool
+    {
+        if (is_string($value) && str_ends_with($value, '%')) {
+            $percentValue = substr($value, 0, -1);
+
+            return self::positiveLike($percentValue, max: 100);
+        }
+
+        return self::positiveLike($value, max: 1);
     }
 
     /**
@@ -246,7 +296,7 @@ abstract class BaseValidator
             return false;
         }
 
-        if ($value[0] === '-' || $value[0] === '+' || $value[0] === ' ' || $value[-1] === ' ') {
+        if ($value[0] === '-' || $value[0] === ' ' || $value[-1] === ' ') {
             return false;
         }
 
