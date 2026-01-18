@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Helper\Tests\Providers;
+namespace UIAwesome\Html\Helper\Tests\Support\Provider;
 
 use Stringable;
 use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{AlertType, ButtonSize, Priority};

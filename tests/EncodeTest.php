@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use Stringable;
 use UIAwesome\Html\Helper\Encode;
-use UIAwesome\Html\Helper\Tests\Providers\EncodeProvider;
+use UIAwesome\Html\Helper\Tests\Support\Provider\EncodeProvider;
 
 /**
  * Unit tests for {@see Encode} encoding behavior.

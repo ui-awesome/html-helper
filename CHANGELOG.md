@@ -2,6 +2,8 @@
 
 ## 0.6.5 Under development
 
+- Bug #36: Move directory `tests\Providers` to `tests\Support\Provider` for better organization (@terabytesoftw) 
+
 ## 0.6.4 January 18, 2025
 
 - Bug #31: Update configuration files and improve code structure for better maintainability and update related classes (@terabytesoftw)

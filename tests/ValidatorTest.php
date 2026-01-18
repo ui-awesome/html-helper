@@ -8,7 +8,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use Stringable;
-use UIAwesome\Html\Helper\Tests\Providers\ValidatorProvider;
+use UIAwesome\Html\Helper\Tests\Support\Provider\ValidatorProvider;
 use UIAwesome\Html\Helper\Validator;
 use UnitEnum;
 

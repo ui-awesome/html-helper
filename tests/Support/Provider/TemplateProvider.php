@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Helper\Tests\Providers;
+namespace UIAwesome\Html\Helper\Tests\Support\Provider;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\TemplateTest} test cases.

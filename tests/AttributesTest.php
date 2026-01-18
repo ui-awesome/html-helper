@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\Attributes;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Helper\Tests\Providers\AttributesProvider;
+use UIAwesome\Html\Helper\Tests\Support\Provider\AttributesProvider;
 
 /**
  * Unit tests for {@see Attributes} attribute rendering behavior.
