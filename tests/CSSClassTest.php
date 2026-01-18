@@ -14,10 +14,10 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\AlertType;
 use UnitEnum;
 
 /**
- * Test suite for {@see CSSClass} helper functionality and behavior.
+ * Unit tests for {@see CSSClass} helper functionality and behavior.
  *
- * Validates merging, rendering, and validation of CSS class values to ensure deterministic and secure class attribute
- * generation for HTML fragments and lightweight components.
+ * Validates merging, rendering, and validation of CSS class values to ensure deterministic class attribute generation for
+ * HTML fragments and lightweight components.
  *
  * Ensures correct handling of multiple class input formats, override semantics, enum-backed values, and
  * validation/error reporting for disallowed values.

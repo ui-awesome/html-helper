@@ -13,10 +13,10 @@ use function strtolower;
  * Utility class for generating structured test data for enum-based HTML attribute scenarios.
  *
  * Provides a standardized API for producing test cases involving PHP enums and HTML attributes, supporting
- * normalization and comparison of enum values for robust validation in PHPUnit test suites.
+ * normalization and comparison of enum values in PHPUnit test suites.
  *
- * Designed to facilitate consistent and type-safe generation of test data for attribute rendering, value extraction,
- * and output verification in HTML contexts.
+ * Designed to generate deterministic test data for attribute rendering, value extraction, and output verification in
+ * HTML contexts.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -26,8 +26,7 @@ final class EnumDataGenerator
     /**
      * Generates a set of test cases for validating enum-based HTML attribute rendering and value extraction.
      *
-     * Normalizes enum values and produces expected output for both HTML attribute and enum instance scenarios,
-     * supporting platform-independent and type-safe test validation.
+     * Normalizes enum values and produces expected output for both HTML attribute and enum instance scenarios.
      *
      * @phpstan-param class-string<UnitEnum> $enumClass Enum class name implementing UnitEnum.
      * @param string $enumClass Enum class name implementing UnitEnum.

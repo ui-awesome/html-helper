@@ -12,10 +12,10 @@ use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Providers\AttributesProvider;
 
 /**
- * Test suite for {@see Attributes} helper functionality and behavior.
+ * Unit tests for {@see Attributes} helper functionality and behavior.
  *
- * Validates attribute rendering, ordering, normalization, and sanitization to ensure safe and deterministic HTML
- * attributes generation for element fragments and components.
+ * Validates attribute rendering, ordering, normalization, and sanitization to ensure deterministic HTML attribute
+ * generation for element fragments and components.
  *
  * Ensures correct handling of ordering rules, empty and `null` values, enum-backed attributes, and
  * normalization/sanitization of malicious inputs to prevent XSS and attribute injection.

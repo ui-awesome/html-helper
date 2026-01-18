@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper\Tests\Providers;
 
 /**
- * Data provider for {@see \UIAwesome\Html\Helper\Tests\TemplateTest} class.
+ * Data provider for {@see \UIAwesome\Html\Helper\Tests\TemplateTest} test cases.
  *
  * Supplies focused datasets used by template helpers to normalize line endings and filter empty lines after token
  * substitution.
@@ -24,14 +24,6 @@ namespace UIAwesome\Html\Helper\Tests\Providers;
 final class TemplateProvider
 {
     /**
-     * Provides datasets for line ending normalization.
-     *
-     * Each dataset returns: template, tokens, expected output, and an assertion message. The cases validate consistent
-     * normalization to `PHP_EOL`, correct conversion of literal `\n` sequences, and removal of empty lines (including
-     * lines that become empty after substitution).
-     *
-     * @return array Test data for line ending normalization.
-     *
      * @phpstan-return array<
      *   string,
      *   array{template: string, tokens: array<string, string>, expected: string, message: string},

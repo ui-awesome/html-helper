@@ -13,10 +13,10 @@ use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Providers\EnumProvider;
 
 /**
- * Test suite for {@see Enum} helper functionality and behavior.
+ * Unit tests for {@see Enum} helper functionality and behavior.
  *
- * Validates normalization routines for enum-backed values and arrays to ensure deterministic and framework-friendly
- * values suitable for attribute and class rendering and other helper operations.
+ * Validates normalization routines for enum-backed values and arrays to ensure deterministic values suitable for
+ * attribute and class rendering and other helper operations.
  *
  * Ensures correct handling of `UnitEnum` instances, scalar values, `null`, and nested arrays, and verifies that
  * unsupported types raise appropriate exceptions with clear messages.
