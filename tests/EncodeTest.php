@@ -11,20 +11,17 @@ use UIAwesome\Html\Helper\Encode;
 use UIAwesome\Html\Helper\Tests\Providers\EncodeProvider;
 
 /**
- * Unit tests for {@see Encode} helper functionality and behavior.
+ * Unit tests for {@see Encode} encoding behavior.
  *
- * Validates encoding routines for content and value contexts to ensure deterministic HTML escaping suitable for
- * fragments and lightweight components.
- *
- * Ensures correct handling of entity encoding, prevention of double-encoding when requested, and support for mixed
- * scalar types including `null`, int, float, and string.
+ * Verifies observable behavior for {@see Encode} based on this test file only (test methods, providers, and
+ * assertions). Statements must be grounded in datasets, assertions, and explicit exception expectations present here.
  *
  * Test coverage.
- * - Deterministic output for edge cases supplied by the data provider.
- * - Encoding of mixed typed values and `null` handling.
- * - Encoding of plain text content with and without double-encoding.
+ * - Content encoding with and without double-encoding.
+ * - Value encoding for mixed scalar types, including `null`.
  *
- * {@see EncodeProvider} for data-driven test cases and edge conditions.
+ * {@see Encode} for implementation details.
+ * {@see EncodeProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

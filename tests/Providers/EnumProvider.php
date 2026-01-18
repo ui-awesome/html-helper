@@ -10,15 +10,7 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Status, Theme};
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\EnumTest} test cases.
  *
- * Supplies focused datasets used by enum normalization utilities.
- *
- * The cases verify conversion of backed enums to their scalar, conversion of unit enums to their name strings,
- * preservation of `null`, and passthrough behavior for non-enum scalars.
- *
- * Key features.
- * - Normalize backed enums to their scalar-backed.
- * - Preserve `null` and non-enum scalar unchanged.
- * - Return unit enum names for UnitEnum implementations.
+ * Provides representative input/output pairs for enum normalization utility methods.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

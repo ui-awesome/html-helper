@@ -9,17 +9,7 @@ use UIAwesome\Html\Helper\Exception\Message;
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\NamingTest} test cases.
  *
- * Supplies focused datasets used to validate name generation and regular expression helpers.
- *
- * The provider covers arrayable name normalization, input name prefixing and suffixing behaviour, and regular
- * expression pattern construction and validation. Cases include multibyte characters, bracketed indices, explicit
- * prefixes, and invalid pattern scenarios to assert deterministic and predictable transformation outcomes.
- *
- * Key features.
- * - Construct input names with optional prefixes and arrayability semantics.
- * - Normalize arrayable names by appending the array suffix when required.
- * - Provide both valid and invalid regular expression patterns together with expected delimiters or error message
- *   identifiers.
+ * Provides representative input/output pairs for name generation and regular expression helper methods.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

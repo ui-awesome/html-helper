@@ -11,21 +11,19 @@ use UIAwesome\Html\Helper\Tests\Providers\TemplateProvider;
 use UIAwesome\Html\Helper\Tests\Support\TestSupport;
 
 /**
- * Unit tests for {@see Template} helper functionality and behavior.
+ * Unit tests for {@see Template} template rendering behavior.
  *
- * Validates template rendering, token replacement, and normalization of line endings to ensure deterministic output for
- * HTML fragments and lightweight components.
- *
- * Ensures correct handling of multiple line ending formats, removal of stray carriage return characters, and
- * predictable rendering when tokens are provided, empty, or missing.
+ * Verifies observable behavior for {@see Template} based on this test file only (test methods, providers, and
+ * assertions). Statements must be grounded in datasets, assertions, and explicit exception expectations present here.
  *
  * Test coverage.
- * - Correct rendering with actual newline characters and with empty or absent tokens.
- * - Elimination of stray CR characters from rendered output.
- * - Normalization of CRLF, CR, and LF into the platform line ending.
- * - Token replacement behavior with provided, empty, or missing tokens.
+ * - Line ending normalization for CRLF, CR, and LF inputs.
+ * - Rendering with actual newlines and token replacement.
+ * - Rendering with empty or missing tokens.
  *
- * {@see TemplateProvider} for data-driven test cases and edge conditions.
+ * {@see Template} for implementation details.
+ * {@see TemplateProvider} for test case data providers.
+ * {@see TestSupport} for assertion utilities.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

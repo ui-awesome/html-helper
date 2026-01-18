@@ -11,17 +11,7 @@ use UnitEnum;
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\AttributesTest} test cases.
  *
- * Supplies focused datasets used by attribute rendering helpers to build predictable HTML attribute strings.
- *
- * The cases cover attribute ordering rules, handling of empty and `null`, enum normalization across common attribute
- * contexts, sanitization/encoding of potentially malicious inputs, and normalization of prefixed attribute keys.
- *
- * Key features.
- * - Cover enum in `class`, `data`, and `style` contexts.
- * - Exercise closures, scalars, and nested attribute groups used in tag attribute rendering.
- * - Normalize and validate prefixed attribute keys (`aria-*`, `data-*`, `on-*`).
- * - Provide deterministic datasets for ordering and filtering attributes.
- * - Validate handling of invalid names and malicious attribute values.
+ * Provides representative input/output pairs for attribute rendering helper methods that build HTML attribute strings.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

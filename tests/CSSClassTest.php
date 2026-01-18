@@ -14,20 +14,18 @@ use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\AlertType;
 use UnitEnum;
 
 /**
- * Unit tests for {@see CSSClass} helper functionality and behavior.
+ * Unit tests for {@see CSSClass} CSS class rendering behavior.
  *
- * Validates merging, rendering, and validation of CSS class values to ensure deterministic class attribute generation for
- * HTML fragments and lightweight components.
- *
- * Ensures correct handling of multiple class input formats, override semantics, enum-backed values, and
- * validation/error reporting for disallowed values.
+ * Verifies observable behavior for {@see CSSClass} based on this test file only (test methods, providers, and
+ * assertions). Statements must be grounded in datasets, assertions, and explicit exception expectations present here.
  *
  * Test coverage.
- * - Exception handling for invalid scalar and enum values.
- * - Merging and add semantics for class attribute values, including override behavior.
- * - Rendering of class values with allowed lists and base-class formatting.
+ * - Adding class values with optional override semantics.
+ * - Exception handling for disallowed scalar and enum values.
+ * - Rendering class values with base formatting and allow-lists.
  *
- * {@see CSSClassProvider} for data-driven test cases and edge conditions.
+ * {@see CSSClass} for implementation details.
+ * {@see CSSClassProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

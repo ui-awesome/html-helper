@@ -16,21 +16,20 @@ use function ini_set;
 use function str_repeat;
 
 /**
- * Unit tests for {@see Naming} helper functionality and behavior.
+ * Unit tests for {@see Naming} naming helper behavior.
  *
- * Validates generation and normalization of form input names, element IDs, and pattern conversions used for HTML
- * attribute and form handling.
- *
- * Ensures correct handling of arrayable names, tabular input patterns, ID generation with prefixes, and strict
- * validation of property and form names to prevent malformed attributes in rendered markup.
+ * Verifies observable behavior for {@see Naming} based on this test file only (test methods, providers, and
+ * assertions). Statements must be grounded in datasets, assertions, and explicit exception expectations present here.
  *
  * Test coverage.
- * - Conversion of regular expressions into usable patterns with optional delimiters.
- * - Deterministic ID generation and prefix handling.
- * - Generation of arrayable input names and tabular input validation.
- * - Validation and exception handling for invalid form/model and property names.
+ * - Conversion of regular expressions to patterns, including invalid inputs.
+ * - Generation of arrayable input names.
+ * - Generation of element IDs and input IDs, including prefixes and multibyte characters.
+ * - Short class name extraction with optional suffix removal.
+ * - Validation errors for invalid form/model names and properties.
  *
- * {@see NamingProvider} for data-driven test cases and edge conditions.
+ * {@see Naming} for implementation details.
+ * {@see NamingProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

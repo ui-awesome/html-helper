@@ -16,15 +16,7 @@ use function str_repeat;
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\CSSClassTest} test cases.
  *
- * Supplies focused datasets used by CSS class helpers to merge, normalize, and render `class` attribute.
- *
- * The cases cover scalar and enum inputs, multi-operation add semantics, duplicate elimination, invalid token
- * filtering, whitespace normalization, and override behaviour while preserving unrelated attributes.
- *
- * Key features.
- * - Cover edge cases including invalid tokens, large inputs, and mixed whitespace separators.
- * - Provide datasets for class rendering with allowed lists and formatted base strings.
- * - Return operation sequences describing incremental merges and override behaviour across arrays, strings, and enums.
+ * Provides representative input/output pairs for CSS class helper methods that render the `class` attribute.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
