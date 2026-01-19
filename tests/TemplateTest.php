@@ -41,7 +41,9 @@ final class TemplateTest extends TestCase
         string $message,
     ): void {
         self::assertEquals(
-            $expected,
+            LineEndingNormalizer::normalize(
+                $expected,
+            ),
             LineEndingNormalizer::normalize(
                 Template::render($template, $tokens),
             ),
@@ -65,7 +67,9 @@ final class TemplateTest extends TestCase
         $expected = 'Header: Test' . PHP_EOL . 'Content: Content' . PHP_EOL . 'Footer: End';
 
         self::assertEquals(
+            LineEndingNormalizer::normalize(
             $expected,
+            ),
             LineEndingNormalizer::normalize(
                 $result,
             ),
