@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests;
 
+use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\Template;
 use UIAwesome\Html\Helper\Tests\Support\Provider\TemplateProvider;
-use UIAwesome\Html\Helper\Tests\Support\TestSupport;
 
 /**
  * Unit tests for {@see Template} template rendering behavior.
@@ -23,7 +23,6 @@ use UIAwesome\Html\Helper\Tests\Support\TestSupport;
  *
  * {@see Template} for implementation details.
  * {@see TemplateProvider} for test case data providers.
- * {@see TestSupport} for assertion utilities.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -31,8 +30,6 @@ use UIAwesome\Html\Helper\Tests\Support\TestSupport;
 #[Group('helper')]
 final class TemplateTest extends TestCase
 {
-    use TestSupport;
-
     /**
      * @phpstan-param array<string, string> $tokens
      */
@@ -43,7 +40,7 @@ final class TemplateTest extends TestCase
         string $expected,
         string $message,
     ): void {
-        self::equalsWithoutLE(
+        self::assertEquals(
             $expected,
             Template::render($template, $tokens),
             $message,
@@ -65,7 +62,7 @@ final class TemplateTest extends TestCase
 
         $expected = 'Header: Test' . PHP_EOL . 'Content: Content' . PHP_EOL . 'Footer: End';
 
-        self::equalsWithoutLE(
+        self::assertEquals(
             $expected,
             $result,
             'CRLF templates must produce clean output',
@@ -81,12 +78,14 @@ final class TemplateTest extends TestCase
             '{{suffix}}' => '',
         ];
 
-        self::equalsWithoutLE(
+        self::assertEquals(
             <<<HTML
             prefix
             <div>content</div>
             HTML,
-            Template::render($template, $tokenValues),
+            LineEndingNormalizer::normalize(
+                Template::render($template, $tokenValues),
+            ),
             'Should render template with actual newline characters.',
         );
     }
@@ -100,12 +99,14 @@ final class TemplateTest extends TestCase
             '{{suffix}}' => '',
         ];
 
-        self::equalsWithoutLE(
+        self::assertEquals(
             <<<HTML
             prefix
             <div>content</div>
             HTML,
-            Template::render($template, $tokenValues),
+            LineEndingNormalizer::normalize(
+                Template::render($template, $tokenValues),
+            ),
             'Should render template with all tokens provided.',
         );
     }
@@ -120,12 +121,14 @@ final class TemplateTest extends TestCase
             '{{suffix}}' => 'suffix',
         ];
 
-        self::equalsWithoutLE(
+        self::assertEquals(
             <<<HTML
             <div>content</div>
             suffix
             HTML,
-            Template::render($template, $tokenValues),
+            LineEndingNormalizer::normalize(
+                Template::render($template, $tokenValues),
+            ),
             'Should render template with empty or missing tokens.',
         );
     }
