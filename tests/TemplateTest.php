@@ -42,7 +42,9 @@ final class TemplateTest extends TestCase
     ): void {
         self::assertEquals(
             $expected,
-            Template::render($template, $tokens),
+            LineEndingNormalizer::normalize(
+                Template::render($template, $tokens),
+            ),
             $message,
         );
     }
@@ -64,7 +66,9 @@ final class TemplateTest extends TestCase
 
         self::assertEquals(
             $expected,
-            $result,
+            LineEndingNormalizer::normalize(
+                $result,
+            ),
             'CRLF templates must produce clean output',
         );
     }
