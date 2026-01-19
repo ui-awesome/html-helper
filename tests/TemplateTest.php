@@ -68,7 +68,7 @@ final class TemplateTest extends TestCase
 
         self::assertEquals(
             LineEndingNormalizer::normalize(
-            $expected,
+                $expected,
             ),
             LineEndingNormalizer::normalize(
                 $result,
