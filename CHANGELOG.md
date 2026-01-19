@@ -13,6 +13,7 @@
 - Bug #33: Enhance documentation tests and improve clarity across multiple test files (@terabytesoftw)
 - Enh #34: Add `offsetLike()` method in `BaseValidator` class for validating offset-like numbers with optional minimum and maximum constraints, along with related tests (@terabytesoftw)
 - Bug #35: Update documentation in test files and providers for clarity and consistency (@terabytesoftw)
+- Enh #36: Add development guide for workflows and maintenance tasks (@terabytesoftw)
 
 ## 0.6.3 January 3, 2026
 
