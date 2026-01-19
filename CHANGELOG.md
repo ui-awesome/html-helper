@@ -4,6 +4,7 @@
 
 - Bug #36: Move directory `tests\Providers` to `tests\Support\Provider` for better organization (@terabytesoftw)
 - Enh #37: Add usage examples for HTML helper methods, including attribute normalization and SVG offset validation (@terabytesoftw)
+- Bug #38: Update testing documentation for clarity and organization (@terabytesoftw)
 
 ## 0.6.4 January 18, 2026
 
