@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 0.6.5 Under development
+## 0.6.5 January 20, 2026
 
 - Bug #36: Move directory `tests\Providers` to `tests\Support\Provider` for better organization (@terabytesoftw)
 - Enh #37: Add usage examples for HTML helper methods, including attribute normalization and SVG offset validation (@terabytesoftw)
