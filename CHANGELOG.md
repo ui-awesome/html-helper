@@ -5,7 +5,9 @@
 - Bug #36: Move directory `tests\Providers` to `tests\Support\Provider` for better organization (@terabytesoftw)
 - Enh #37: Add usage examples for HTML helper methods, including attribute normalization and SVG offset validation (@terabytesoftw)
 - Bug #38: Update testing documentation for clarity and organization (@terabytesoftw)
-- Enh #39: Add `php-forge/support` as a development dependency and update related test classes (@terabytesoftw)
+- Enh #39: Add development guide for workflows and maintenance tasks (@terabytesoftw)
+- Enh #40: Add `php-forge/support` as a development dependency and update related test classes (@terabytesoftw)
+- Bug #41: Enhance documentation for `Message` enum to clarify error message templates and formatting usage (@terabytesoftw)
 
 ## 0.6.4 January 18, 2026
 
@@ -14,7 +16,6 @@
 - Bug #33: Enhance documentation tests and improve clarity across multiple test files (@terabytesoftw)
 - Enh #34: Add `offsetLike()` method in `BaseValidator` class for validating offset-like numbers with optional minimum and maximum constraints, along with related tests (@terabytesoftw)
 - Bug #35: Update documentation in test files and providers for clarity and consistency (@terabytesoftw)
-- Enh #36: Add development guide for workflows and maintenance tasks (@terabytesoftw)
 
 ## 0.6.3 January 3, 2026
 
