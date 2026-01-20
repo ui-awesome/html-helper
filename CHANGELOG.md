@@ -1,5 +1,7 @@
 # ChangeLog
 
+## 0.6.6 Under development
+
 ## 0.6.5 January 20, 2026
 
 - Bug #36: Move directory `tests\Providers` to `tests\Support\Provider` for better organization (@terabytesoftw)
