@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper;
 
+use UIAwesome\Html\Helper\Base\BaseNaming;
+
 /**
  * HTML form naming utility for generating input names and identifiers.
  *
@@ -26,9 +28,9 @@ namespace UIAwesome\Html\Helper;
  * // "user-email"
  * ```
  *
- * {@see Base\BaseNaming} for the base implementation.
+ * {@see BaseNaming} for the base implementation.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class Naming extends Base\BaseNaming {}
+final class Naming extends BaseNaming {}

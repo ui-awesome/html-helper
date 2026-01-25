@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper;
 
+use UIAwesome\Html\Helper\Base\BaseTemplate;
+
 /**
  * HTML template utility for template rendering and token substitution.
  *
@@ -26,9 +28,9 @@ namespace UIAwesome\Html\Helper;
  * $html = Template::render($template, $tokens);
  * ```
  *
- * {@see Base\BaseTemplate} for the base implementation.
+ * {@see BaseTemplate} for the base implementation.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class Template extends Base\BaseTemplate {}
+final class Template extends BaseTemplate {}

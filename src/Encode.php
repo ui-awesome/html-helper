@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper;
 
+use UIAwesome\Html\Helper\Base\BaseEncode;
+
 /**
  * HTML encoding helper for content and attribute output.
  *
@@ -26,9 +28,9 @@ namespace UIAwesome\Html\Helper;
  * // "O&apos;Reilly &amp; &lt;tag&gt;"
  * ```
  *
- * {@see Base\BaseEncode} for the base implementation.
+ * {@see BaseEncode} for the base implementation.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class Encode extends Base\BaseEncode {}
+final class Encode extends BaseEncode {}

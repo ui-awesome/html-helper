@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper;
 
+use UIAwesome\Html\Helper\Base\BaseCSSClass;
+
 /**
  * CSS class utility for normalization, validation, and rendering.
  *
@@ -21,9 +23,9 @@ namespace UIAwesome\Html\Helper;
  * // $attributes['class'] is now "btn btn-primary"
  * ```
  *
- * {@see Base\BaseCSSClass} for the base implementation.
+ * {@see BaseCSSClass} for the base implementation.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class CSSClass extends Base\BaseCSSClass {}
+final class CSSClass extends BaseCSSClass {}

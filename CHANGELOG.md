@@ -2,6 +2,8 @@
 
 ## 0.6.6 Under development
 
+- Enh #42: Add `php-forge/coding-standard` to development dependencies for code quality checks (@terabytesoftw)
+
 ## 0.6.5 January 20, 2026
 
 - Bug #36: Move directory `tests\Providers` to `tests\Support\Provider` for better organization (@terabytesoftw)

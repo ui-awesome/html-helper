@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper;
 
+use UIAwesome\Html\Helper\Base\BaseAttributes;
+
 /**
  * HTML attribute utility for predictable attribute rendering.
  *
@@ -31,9 +33,9 @@ namespace UIAwesome\Html\Helper;
  * // class="form-control is-valid" id="login" required data='{"role":"user","id":42}'
  * ```
  *
- * {@see Base\BaseAttributes} for the base implementation.
+ * {@see BaseAttributes} for the base implementation.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class Attributes extends Base\BaseAttributes {}
+final class Attributes extends BaseAttributes {}
