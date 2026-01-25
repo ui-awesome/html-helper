@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper;
 
+use UIAwesome\Html\Helper\Base\BaseValidator;
+
 /**
  * Validation utility for common HTML helper values and configuration.
  *
@@ -24,9 +26,9 @@ namespace UIAwesome\Html\Helper;
  * Validator::oneOf('red', ['red', 'green', 'blue'], 'color');
  * ```
  *
- * {@see Base\BaseValidator} for the base implementation.
+ * {@see BaseValidator} for the base implementation.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class Validator extends Base\BaseValidator {}
+final class Validator extends BaseValidator {}

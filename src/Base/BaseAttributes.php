@@ -537,7 +537,7 @@ abstract class BaseAttributes
             static fn(
                 string $a,
                 string $b,
-            ) => (self::ORDER_MAP[$a] ?? PHP_INT_MAX) <=> (self::ORDER_MAP[$b] ?? PHP_INT_MAX),
+            ): int => (self::ORDER_MAP[$a] ?? PHP_INT_MAX) <=> (self::ORDER_MAP[$b] ?? PHP_INT_MAX),
         );
 
         return $attributes;

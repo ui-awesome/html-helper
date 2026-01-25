@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper;
 
+use UIAwesome\Html\Helper\Base\BaseEnum;
+
 /**
  * Enum utility helper for enum normalization and value extraction.
  *
@@ -27,9 +29,9 @@ namespace UIAwesome\Html\Helper;
  * // 'active'
  * ```
  *
- * {@see Base\BaseEnum} for the base implementation.
+ * {@see BaseEnum} for the base implementation.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class Enum extends Base\BaseEnum {}
+final class Enum extends BaseEnum {}
