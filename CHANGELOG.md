@@ -2,6 +2,8 @@
 
 ## 0.6.7 Under development
 
+- Bug #43: Update examples in `testing.md` for running Composer script with arguments and update `.styleci.yml` accordingly (@terabytesoftw)
+
 ## 0.6.6 January 24, 2026
 
 - Enh #42: Add `php-forge/coding-standard` to development dependencies for code quality checks (@terabytesoftw)
@@ -47,7 +49,7 @@
 
 ## 0.5.2 December 26, 2025
 
-- Bug #21: Update group annotation from 'helpers' to 'helper' across multiple test files (@terabytesoftw)
+- Enh #21: Update group annotation from 'helpers' to 'helper' across multiple test files (@terabytesoftw)
 - Dep #22: Update `infection/infection` version constraint to `^0.32` in `composer.json` (@terabytesoftw)
 - Bug #23: Allow `null` values in `oneOf` method and update related tests (@terabytesoftw)
 
@@ -65,16 +67,16 @@
 
 ## 0.4.0 December 17, 2025
 
-- Bug #13: Update `CHANGELOG.md` for version `0.4.0` and remove `ui-awesome/html-interop` dependencies in `composer.json` (@terabytesoftw)
-- Bug #14: Add missing `phpstan/phpstan` dependency in `composer.json` (@terabytesoftw)
+- Dep #13: Update `CHANGELOG.md` for version `0.4.0` and remove `ui-awesome/html-interop` dependencies in `composer.json` (@terabytesoftw)
+- Dep #14: Add missing `phpstan/phpstan` dependency in `composer.json` (@terabytesoftw)
 
 ## 0.3.0 December 16, 2025
 
 - Enh #8: Refactor codebase to improve performance (@terabytesoftw)
 - Bug #9: Enhance documentation and improve clarity across HTML helper classes (@terabytesoftw)
 - Bug #10: Improve pattern handling and enhance test coverage for `Naming` class (@terabytesoftw)
-- Bug #11: Add `Enum` helper for value normalization and support for arrays and `UnitEnum` instance (@terabytesoftw)
-- Bug #12: Simplify descriptions for HTML helper features in `README.md` (@terabytesoftw)
+- Enh #11: Add `Enum` helper for value normalization and support for arrays and `UnitEnum` instance (@terabytesoftw)
+- Enh #12: Simplify descriptions for HTML helper features in `README.md` (@terabytesoftw)
 
 ## 0.2.0 March 30, 2024
 
