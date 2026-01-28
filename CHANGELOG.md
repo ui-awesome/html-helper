@@ -1,5 +1,7 @@
 # ChangeLog
 
+## 0.6.8 Under development
+
 ## 0.6.7 January 28, 2026
 
 - Bug #43: Update examples in `testing.md` for running Composer script with arguments and update `.styleci.yml` accordingly (@terabytesoftw)
