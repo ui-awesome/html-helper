@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 0.6.7 Under development
+## 0.6.7 January 28, 2026
 
 - Bug #43: Update examples in `testing.md` for running Composer script with arguments and update `.styleci.yml` accordingly (@terabytesoftw)
 - Bug #44: Remove redundant ignore rule in `actionlint.yml` configuration and update Rector command in `composer.json` to remove unnecessary 'src' argument (@terabytesoftw)
