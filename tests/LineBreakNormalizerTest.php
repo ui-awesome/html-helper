@@ -16,7 +16,7 @@ use UIAwesome\Html\Helper\Tests\Support\Provider\LineBreakNormalizerProvider;
  * - Collapses consecutive line break sequences to a single `\n`.
  * - Preserves single line breaks and plain text content.
  * - Returns `''` for `null` and empty input.
- * 
+ *
  * {@see LineBreakNormalizerProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
