@@ -288,6 +288,23 @@ echo Template::render("Hello, {name}!", ['{name}' => 'Yii3']);
 // Hello, Yii3!
 ```
 
+#### Line break normalization
+
+Collapses multiple line breaks into a single `\n`, useful for cleaning up user input or generated text.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App;
+
+use UIAwesome\Html\Helper\LineBreakNormalizer;
+
+echo LineBreakNormalizer::normalize("Hello\n\n\nWorld");
+// Hello\nWorld
+```
+
 #### Validation
 
 Enforces strict types and approved values for your HTML logic.
