@@ -1,5 +1,7 @@
 # ChangeLog
 
+## 0.6.9 Under development
+
 ## 0.6.8 February 11, 2026
 
 - Enh #45: Add helper `LineBreakNormalizer` class for normalizing line breaks in strings (@terabytesoftw)
