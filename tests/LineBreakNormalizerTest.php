@@ -26,22 +26,22 @@ use UIAwesome\Html\Helper\Tests\Support\Provider\LineBreakNormalizerProvider;
 final class LineBreakNormalizerTest extends TestCase
 {
     #[DataProviderExternal(LineBreakNormalizerProvider::class, 'normalize')]
-    public function testNormalizeReturnsExpectedOutput(string|null $content, string $expected): void
-    {
-        self::assertSame(
-            $expected,
-            LineBreakNormalizer::normalize($content),
-            'Should normalize line breaks according to the provided data set.',
-        );
-    }
-
-    #[DataProviderExternal(LineBreakNormalizerProvider::class, 'normalize')]
     public function testNormalizeIsIdempotentAfterNormalization(string|null $content, string $expected): void
     {
         self::assertSame(
             $expected,
             LineBreakNormalizer::normalize(LineBreakNormalizer::normalize($content)),
             'Should produce stable output when normalized more than once.',
+        );
+    }
+
+    #[DataProviderExternal(LineBreakNormalizerProvider::class, 'normalize')]
+    public function testNormalizeReturnsExpectedOutput(string|null $content, string $expected): void
+    {
+        self::assertSame(
+            $expected,
+            LineBreakNormalizer::normalize($content),
+            'Should normalize line breaks according to the provided data set.',
         );
     }
 }
