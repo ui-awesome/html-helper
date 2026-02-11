@@ -2,6 +2,8 @@
 
 ## 0.6.8 Under development
 
+- Enh #45: Add helper `LineBreakNormalizer` class for normalizing line breaks in strings (@terabytesoftw)
+
 ## 0.6.7 January 28, 2026
 
 - Bug #43: Update examples in `testing.md` for running Composer script with arguments and update `.styleci.yml` accordingly (@terabytesoftw)
