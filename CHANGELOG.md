@@ -2,6 +2,8 @@
 
 ## 0.6.9 Under development
 
+- Enh #46: Add helper `AttributeBag` class to centralize `add()`, `get()`, `merge()`, `remove()`, and `set()` operations with unit tests (@terabytesoftw)
+
 ## 0.6.8 February 11, 2026
 
 - Enh #45: Add helper `LineBreakNormalizer` class for normalizing line breaks in strings (@terabytesoftw)

@@ -137,6 +137,39 @@ use UIAwesome\Html\Helper\Attributes;
 // class="btn btn-primary" id="submit-btn" disabled data-id="42" data-options='{"modal":true}' style='color: #fff; margin-top: 10px;'
 ```
 
+#### Attribute bag operations
+
+Use `AttributeBag` to query and mutate an attribute array in-place, with key normalization and optional boolean string conversion.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App;
+
+use UIAwesome\Html\Helper\AttributeBag;
+
+$attributes = ['id' => 'submit'];
+
+// add or remove values
+AttributeBag::add($attributes, 'disabled', true);
+AttributeBag::add($attributes, 'id', null);
+
+// read with fallback default
+$type = AttributeBag::get($attributes, 'type', 'button');
+
+// merge arrays (later values override)
+AttributeBag::merge($attributes, ['class' => ['btn', 'btn-primary'], 'type' => 'submit']);
+
+// normalize keys, resolve closures, and optionally convert booleans to `'true'`/`'false'`
+AttributeBag::set($attributes, 'label', static fn(): string => 'Save', 'aria-');
+AttributeBag::set($attributes, 'hidden', false, 'aria-', true);
+
+// remove keys
+AttributeBag::remove($attributes, 'disabled');
+```
+
 #### Advanced: DOM & SVG Integration
 
 When working with `DOMDocument`, `SimpleXMLElement`, or other XML/SVG builders, you should not use pre-escaped strings to avoid "double escaping" (for example, `&amp;lt;`).
