@@ -25,6 +25,7 @@ use UnitEnum;
  * - Throws exceptions for invalid keys in `add()`.
  * - Throws exceptions for invalid keys in `get()`.
  * - Throws exceptions for invalid keys in `remove()`.
+ * - Throws exceptions for invalid keys in `set()`.
  * - Verifies `get()` returns existing values or fallback defaults.
  *
  * {@see AttributeBagProvider} for test case data providers.
@@ -52,17 +53,6 @@ final class AttributeBagTest extends TestCase
         );
     }
 
-    #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
-    public function testAddThrowsForInvalidKey(string|UnitEnum $key): void
-    {
-        $attributes = ['id' => 'submit'];
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage());
-
-        AttributeBag::add($attributes, $key, 'value');
-    }
-
     /**
      * @phpstan-param mixed[] $attributes
      * @phpstan-param string|UnitEnum $key
@@ -75,17 +65,6 @@ final class AttributeBagTest extends TestCase
             AttributeBag::get($attributes, $key, $default),
             'Should return existing value or fallback default.',
         );
-    }
-
-    #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
-    public function testGetThrowsForInvalidKey(string|UnitEnum $key): void
-    {
-        $attributes = ['id' => 'submit'];
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage());
-
-        AttributeBag::get($attributes, $key);
     }
 
     /**
@@ -122,17 +101,6 @@ final class AttributeBagTest extends TestCase
         );
     }
 
-    #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
-    public function testRemoveThrowsForInvalidKey(string|UnitEnum $key): void
-    {
-        $attributes = ['id' => 'submit'];
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage());
-
-        AttributeBag::remove($attributes, $key);
-    }
-
     /**
      * @phpstan-param mixed[] $attributes
      * @phpstan-param bool|float|int|string|Closure(): mixed|Stringable|UnitEnum|null $value
@@ -157,5 +125,49 @@ final class AttributeBagTest extends TestCase
             $attributes,
             'Should set values with normalized key and expected value transformation.',
         );
+    }
+
+    #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
+    public function testThrowInvalidArgumentExceptionWhenAdd(string|UnitEnum $key): void
+    {
+        $attributes = ['id' => 'submit'];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage());
+
+        AttributeBag::add($attributes, $key, 'value');
+    }
+
+    #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
+    public function testThrowInvalidArgumentExceptionWhenGet(string|UnitEnum $key): void
+    {
+        $attributes = ['id' => 'submit'];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage());
+
+        AttributeBag::get($attributes, $key);
+    }
+
+    #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
+    public function testThrowInvalidArgumentExceptionWhenRemove(string|UnitEnum $key): void
+    {
+        $attributes = ['id' => 'submit'];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage());
+
+        AttributeBag::remove($attributes, $key);
+    }
+
+    #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
+    public function testThrowInvalidArgumentExceptionWhenSet(string|UnitEnum $key): void
+    {
+        $attributes = ['id' => 'submit'];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage());
+
+        AttributeBag::set($attributes, $key, 'value');
     }
 }
