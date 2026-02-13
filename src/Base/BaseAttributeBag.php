@@ -141,7 +141,7 @@ abstract class BaseAttributeBag
      *
      * @param array $attributes Attribute bag to update in place.
      * @param mixed $key Attribute key to normalize.
-     * @param bool|float|int|string|Closure|Stringable|UnitEnum|null $value Attribute value.
+     * @param bool|Closure|float|int|string|Stringable|UnitEnum|null $value Attribute value.
      * @param string $prefix Prefix applied via {@see Attributes::normalizeKey()}.
      * @param bool $boolToString Whether boolean values should be cast to `'true'`/`'false'`.
      *
