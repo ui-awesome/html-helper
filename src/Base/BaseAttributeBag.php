@@ -11,6 +11,7 @@ use UIAwesome\Html\Helper\{Attributes, Enum};
 use UIAwesome\Html\Helper\Exception\Message;
 use UnitEnum;
 
+use function array_key_exists;
 use function is_bool;
 use function is_string;
 
@@ -77,7 +78,9 @@ abstract class BaseAttributeBag
     {
         $normalizedKey = self::normalizeKey($key);
 
-        return $attributes[$normalizedKey] ?? $default;
+        return array_key_exists($normalizedKey, $attributes)
+            ? $attributes[$normalizedKey]
+            : $default;
     }
 
     /**
@@ -92,6 +95,11 @@ abstract class BaseAttributeBag
      *     ['type' => 'submit', 'disabled' => true],
      * );
      * ```
+     *
+     * **Note:** This method does NOT:
+     * - Filter `null` values (`null` will remain in the bag).
+     * - Normalize keys (enum keys should be pre-normalized).
+     * - Resolve closures or apply prefixes.
      *
      * @param array $attributes Attribute bag to update in place.
      * @param array $values Values to merge into the bag.
@@ -140,7 +148,7 @@ abstract class BaseAttributeBag
      * ```
      *
      * @param array $attributes Attribute bag to update in place.
-     * @param mixed $key Attribute key to normalize.
+     * @param string|UnitEnum $key Attribute key to normalize.
      * @param bool|Closure|float|int|string|Stringable|UnitEnum|null $value Attribute value.
      * @param string $prefix Prefix applied via {@see Attributes::normalizeKey()}.
      * @param bool $boolToString Whether boolean values should be cast to `'true'`/`'false'`.
@@ -152,8 +160,8 @@ abstract class BaseAttributeBag
      */
     public static function set(
         array &$attributes,
-        mixed $key,
-        bool|float|int|string|Closure|Stringable|UnitEnum|null $value,
+        string|UnitEnum $key,
+        bool|Closure|float|int|string|Stringable|UnitEnum|null $value,
         string $prefix = '',
         bool $boolToString = false,
     ): void {

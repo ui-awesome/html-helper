@@ -22,6 +22,7 @@ use UnitEnum;
  * - Merges attribute arrays and overrides existing keys.
  * - Removes attributes for valid keys.
  * - Sets normalized keys, resolves closures, and applies `bool` to `true`, and `false` conversion.
+ * - Throws exceptions for invalid keys in `add()`.
  * - Throws exceptions for invalid keys in `get()`.
  * - Throws exceptions for invalid keys in `remove()`.
  * - Verifies `get()` returns existing values or fallback defaults.
@@ -47,8 +48,19 @@ final class AttributeBagTest extends TestCase
         self::assertSame(
             $expected,
             $attributes,
-            'Should add values and remove key when value is null.',
+            'Should add values and remove key when value is `null`.',
         );
+    }
+
+    #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
+    public function testAddThrowsForInvalidKey(string|UnitEnum $key): void
+    {
+        $attributes = ['id' => 'submit'];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage());
+
+        AttributeBag::add($attributes, $key, 'value');
     }
 
     /**
