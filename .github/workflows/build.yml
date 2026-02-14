@@ -18,5 +18,7 @@ permissions:
 jobs:
   phpunit:
     uses: yii2-framework/actions/.github/workflows/phpunit.yml@main
+    with:
+      coverage-driver: xdebug
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
