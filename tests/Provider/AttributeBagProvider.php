@@ -65,7 +65,6 @@ final class AttributeBagProvider
                 [1 => 'value'],
                 Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
             ],
-
         ];
     }
 

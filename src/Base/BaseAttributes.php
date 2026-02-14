@@ -20,7 +20,6 @@ use function json_encode;
 use function preg_match;
 use function rtrim;
 use function str_starts_with;
-use function strlen;
 use function uksort;
 
 /**
