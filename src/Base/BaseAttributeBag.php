@@ -221,5 +221,4 @@ abstract class BaseAttributeBag
             Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
         );
     }
-
 }
