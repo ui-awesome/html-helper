@@ -410,7 +410,7 @@ abstract class BaseAttributes
     /**
      * Sanitizes a value for safe JSON encoding or HTML output.
      *
-     * Recursively prepares values. If `$encode` is `true`, string values are HTML-encoded. If `$encode`` is `false`,
+     * Recursively prepares values. If `$encode` is `true`, `string` values are HTML-encoded. If `$encode` is `false`,
      * values are returned raw (useful for DOM manipulation where the engine handles escaping).
      *
      * @param mixed $value Value to sanitize.

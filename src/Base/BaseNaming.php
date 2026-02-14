@@ -202,13 +202,13 @@ abstract class BaseNaming
      * Extracts the short portion of a fully-qualified class name and optionally returns it as a class constant
      * reference (`ShortName::class`). Optionally lowercases the input before extraction.
      *
-     * @param string $class Fully-qualified class name.
      * Usage example:
      * ```php
      * \UIAwesome\Html\Helper\Naming::getShortNameClass('App\\Model\\User');
      * // 'User::class'
      * ```
      *
+     * @param string $class Fully-qualified class name.
      * @param bool $suffix Whether to append `::class` to the returned short name (default: `true`).
      * @param bool $lowercase Whether to lowercase the class name before extracting the short name.
      *

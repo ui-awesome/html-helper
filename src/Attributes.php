@@ -17,9 +17,8 @@ use UIAwesome\Html\Helper\Base\BaseAttributes;
  *     'id' => 'login',
  *     'required' => true,
  * ];
- * $normalized = \UIAwesome\Html\Helper\Attributes::normalizeAttributes($attributes);
- * $html = \UIAwesome\Html\Helper\Attributes::render($normalized);
- * // class="form-control is-valid" id="login" required data='{"role":"user","id":42}'
+ * $html = \UIAwesome\Html\Helper\Attributes::render($attributes);
+ * // class="form-control is-valid" id="login" required data-role="user" data-id="42"
  * ```
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
