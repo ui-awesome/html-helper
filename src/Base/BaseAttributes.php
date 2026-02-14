@@ -262,14 +262,16 @@ abstract class BaseAttributes
         $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
 
         foreach ($values as $n => $v) {
-            if ($v !== null && is_string($n) && $n !== '') {
+            if ($v !== null && is_string($n) && $n !== '' && self::isValidAttributeName($n)) {
                 $key = str_starts_with($n, 'on') ? $n : "on{$n}";
 
-                $result[$key] = match (gettype($v)) {
-                    'array' => json_encode($v, $flags),
-                    'double', 'integer', 'string' => (string) $v,
-                    default => '',
-                };
+                if (self::isValidAttributeName($key)) {
+                    $result[$key] = match (gettype($v)) {
+                        'array' => json_encode($v, $flags),
+                        'double', 'integer', 'string' => (string) $v,
+                        default => '',
+                    };
+                }
             }
         }
 

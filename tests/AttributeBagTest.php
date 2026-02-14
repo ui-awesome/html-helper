@@ -115,7 +115,7 @@ final class AttributeBagTest extends TestCase
         self::assertSame(
             $expected,
             $attributes,
-            'Should set many plain attributes and remove keys with `null` values.',
+            "Should set many plain attributes and remove keys with 'null' values.",
         );
     }
 
