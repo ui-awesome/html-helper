@@ -153,15 +153,18 @@ use UIAwesome\Html\Helper\AttributeBag;
 
 $attributes = ['id' => 'submit'];
 
+// merge arrays (later values override)
+AttributeBag::merge($attributes, ['class' => ['btn', 'btn-primary'], 'type' => 'submit']);
+
+// get with fallback default
+$type = AttributeBag::get($attributes, 'type', 'button');
+
+// remove keys
+AttributeBag::remove($attributes, 'disabled');
+
 // set or remove values
 AttributeBag::set($attributes, 'disabled', true);
 AttributeBag::set($attributes, 'id', null);
-
-// read with fallback default
-$type = AttributeBag::get($attributes, 'type', 'button');
-
-// merge arrays (later values override)
-AttributeBag::merge($attributes, ['class' => ['btn', 'btn-primary'], 'type' => 'submit']);
 
 // set one key (raw value)
 AttributeBag::set($attributes, 'aria-label', 'Save');
@@ -174,9 +177,6 @@ AttributeBag::setMany(
         'onclick' => 'handleClick()',
     ],
 );
-
-// remove keys
-AttributeBag::remove($attributes, 'disabled');
 ```
 
 #### Advanced: DOM & SVG Integration
