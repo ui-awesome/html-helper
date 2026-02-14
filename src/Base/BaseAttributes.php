@@ -208,62 +208,33 @@ abstract class BaseAttributes
     }
 
     /**
-     * Expands dashed namespace attributes (`aria-*`, `data-*`, etc.) into a flat associative array.
+     * Expands namespaced attributes into flat key-value pairs.
      *
-     * @param string $name Attribute prefix (for example, `data`, `aria`).
      * @param array $values Associative array of attribute names and values.
+     * @param string $prefix Attribute namespace prefix (for example, `data`, `aria`, `on`).
      * @param bool $encode Whether to HTML-encode string values.
+     * @param bool $dashedPrefix Whether to use dashed key format (`prefix-key`) or concatenated format
+     * (`prefixkey`).
      *
      * @return array Associative array of expanded attribute key-value pairs.
      *
      * @phpstan-param mixed[] $values
      * @phpstan-return array<string, string>
      */
-    private static function expandDashedAttributes(string $name, array $values, bool $encode): array
-    {
+    private static function expandPrefixedAttributes(
+        array $values,
+        string $prefix,
+        bool $encode,
+        bool $dashedPrefix = true,
+    ): array {
         $result = [];
         $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
 
         foreach ($values as $n => $v) {
-            if ($v === null) {
-                continue;
-            }
-
-            if (is_string($n) && self::isValidAttributeName($n)) {
-                $key = "{$name}-{$n}";
-
-                $result[$key] = match (gettype($v)) {
-                    'array' => json_encode($v, $flags),
-                    'double', 'integer', 'string' => (string) $v,
-                    default => '',
-                };
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Expands canonical event attributes into `on*` key-value pairs.
-     *
-     * Keys that already start with `on` are preserved. Other keys are prefixed with `on`.
-     *
-     * @param array $values Associative array of event names and values.
-     * @param bool $encode Whether to HTML-encode string values.
-     *
-     * @return array Associative array of expanded event attributes.
-     *
-     * @phpstan-param mixed[] $values
-     * @phpstan-return array<string, string>
-     */
-    private static function expandEventAttributes(array $values, bool $encode): array
-    {
-        $result = [];
-        $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
-
-        foreach ($values as $n => $v) {
-            if ($v !== null && is_string($n) && $n !== '' && self::isValidAttributeName($n)) {
-                $key = str_starts_with($n, 'on') ? $n : "on{$n}";
+            if ($v !== null && is_string($n) && self::isValidAttributeName($n)) {
+                $key = $dashedPrefix
+                    ? "{$prefix}-{$n}"
+                    : (str_starts_with($n, $prefix) ? $n : "{$prefix}{$n}");
 
                 if (self::isValidAttributeName($key)) {
                     $result[$key] = match (gettype($v)) {
@@ -331,8 +302,8 @@ abstract class BaseAttributes
         if (is_array($values)) {
             return match ($name) {
                 'class' => self::normalizeClassValue($values),
-                'aria', 'data', 'data-ng', 'ng' => self::expandDashedAttributes($name, $values, $encode),
-                'on' => self::expandEventAttributes($values, $encode),
+                'aria', 'data', 'data-ng', 'ng' => self::expandPrefixedAttributes($values, $name, $encode),
+                'on' => self::expandPrefixedAttributes($values, 'on', $encode, false),
                 'style' => self::normalizeStyleValue($values, $encode),
                 default => json_encode($values, $flags),
             };
