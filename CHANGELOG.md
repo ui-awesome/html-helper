@@ -2,6 +2,8 @@
 
 ## 0.6.10 Under development
 
+- Enh #49: Simplify `AttributeBag` to generic `set()` and `setMany()` operations while keeping `Attributes` responsible for `aria`, `data`, and `on` expansion during rendering (@terabytesoftw)
+
 ## 0.6.9 February 14, 2026
 
 - Enh #46: Add helper `AttributeBag` class to centralize `add()`, `get()`, `merge()`, `remove()`, and `set()` operations with unit tests (@terabytesoftw)

@@ -20,6 +20,7 @@ use function json_encode;
 use function preg_match;
 use function rtrim;
 use function str_starts_with;
+use function strlen;
 use function uksort;
 
 /**
@@ -83,8 +84,9 @@ abstract class BaseAttributes
         'data' => 31,
         'style' => 32,
         'aria' => 33,
-        'data-ng' => 34,
-        'ng' => 35,
+        'on' => 34,
+        'data-ng' => 35,
+        'ng' => 36,
     ];
 
     /**
@@ -260,6 +262,7 @@ abstract class BaseAttributes
             return match ($name) {
                 'class' => self::normalizeClassValue($values),
                 'aria', 'data', 'data-ng', 'ng' => self::normalizeDataValue($name, $values, $encode),
+                'on' => self::normalizeEventValue($values, $encode),
                 'style' => self::normalizeStyleValue($values, $encode),
                 default => json_encode($values, $flags),
             };
@@ -313,6 +316,47 @@ abstract class BaseAttributes
                     default => '',
                 };
             }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Normalizes canonical event attributes into `on*` key-value pairs.
+     *
+     * Keys that already start with `on` are preserved. Other keys are prefixed with `on`.
+     *
+     * @param array $values Associative array of event names and values.
+     * @param bool $encode Whether to HTML-encode string values.
+     *
+     * @return array Associative array of expanded event attributes.
+     *
+     * @phpstan-param mixed[] $values
+     * @phpstan-return array<string, string>
+     */
+    private static function normalizeEventValue(array $values, bool $encode): array
+    {
+        $result = [];
+        $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
+
+        foreach ($values as $n => $v) {
+            if ($v === null || is_string($n) === false || self::isValidAttributeName($n) === false) {
+                continue;
+            }
+
+            $key = str_starts_with($n, 'on') && strlen($n) > 2
+                ? $n
+                : "on{$n}";
+
+            if (self::isValidAttributeName($key) === false) {
+                continue;
+            }
+
+            $result[$key] = match (gettype($v)) {
+                'array' => json_encode($v, $flags),
+                'double', 'integer', 'string' => (string) $v,
+                default => '',
+            };
         }
 
         return $result;
