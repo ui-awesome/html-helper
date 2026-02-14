@@ -208,6 +208,75 @@ abstract class BaseAttributes
     }
 
     /**
+     * Expands dashed namespace attributes (`aria-*`, `data-*`, etc.) into a flat associative array.
+     *
+     * @param string $name Attribute prefix (for example, `data`, `aria`).
+     * @param array $values Associative array of attribute names and values.
+     * @param bool $encode Whether to HTML-encode string values.
+     *
+     * @return array Associative array of expanded attribute key-value pairs.
+     *
+     * @phpstan-param mixed[] $values
+     * @phpstan-return array<string, string>
+     */
+    private static function expandDashedAttributes(string $name, array $values, bool $encode): array
+    {
+        $result = [];
+        $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
+
+        foreach ($values as $n => $v) {
+            if ($v === null) {
+                continue;
+            }
+
+            if (is_string($n) && self::isValidAttributeName($n)) {
+                $key = "{$name}-{$n}";
+
+                $result[$key] = match (gettype($v)) {
+                    'array' => json_encode($v, $flags),
+                    'double', 'integer', 'string' => (string) $v,
+                    default => '',
+                };
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Expands canonical event attributes into `on*` key-value pairs.
+     *
+     * Keys that already start with `on` are preserved. Other keys are prefixed with `on`.
+     *
+     * @param array $values Associative array of event names and values.
+     * @param bool $encode Whether to HTML-encode string values.
+     *
+     * @return array Associative array of expanded event attributes.
+     *
+     * @phpstan-param mixed[] $values
+     * @phpstan-return array<string, string>
+     */
+    private static function expandEventAttributes(array $values, bool $encode): array
+    {
+        $result = [];
+        $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
+
+        foreach ($values as $n => $v) {
+            if ($v !== null && is_string($n) && $n !== '') {
+                $key = str_starts_with($n, 'on') ? $n : "on{$n}";
+
+                $result[$key] = match (gettype($v)) {
+                    'array' => json_encode($v, $flags),
+                    'double', 'integer', 'string' => (string) $v,
+                    default => '',
+                };
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Validates that an attribute name follows HTML naming rules.
      *
      * Ensures that the provided attribute name is non-empty and matches the allowed HTML attribute naming pattern.
@@ -282,75 +351,6 @@ abstract class BaseAttributes
     private static function normalizeClassValue(array $values): string
     {
         return $values === [] ? '' : implode(' ', $values);
-    }
-
-    /**
-     * Expands dashed namespace attributes (`aria-*`, `data-*`, etc.) into a flat associative array.
-     *
-     * @param string $name Attribute prefix (for example, `data`, `aria`).
-     * @param array $values Associative array of attribute names and values.
-     * @param bool $encode Whether to HTML-encode string values.
-     *
-     * @return array Associative array of expanded attribute key-value pairs.
-     *
-     * @phpstan-param mixed[] $values
-     * @phpstan-return array<string, string>
-     */
-    private static function expandDashedAttributes(string $name, array $values, bool $encode): array
-    {
-        $result = [];
-        $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
-
-        foreach ($values as $n => $v) {
-            if ($v === null) {
-                continue;
-            }
-
-            if (is_string($n) && self::isValidAttributeName($n)) {
-                $key = "{$name}-{$n}";
-
-                $result[$key] = match (gettype($v)) {
-                    'array' => json_encode($v, $flags),
-                    'double', 'integer', 'string' => (string) $v,
-                    default => '',
-                };
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Expands canonical event attributes into `on*` key-value pairs.
-     *
-     * Keys that already start with `on` are preserved. Other keys are prefixed with `on`.
-     *
-     * @param array $values Associative array of event names and values.
-     * @param bool $encode Whether to HTML-encode string values.
-     *
-     * @return array Associative array of expanded event attributes.
-     *
-     * @phpstan-param mixed[] $values
-     * @phpstan-return array<string, string>
-     */
-    private static function expandEventAttributes(array $values, bool $encode): array
-    {
-        $result = [];
-        $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
-
-        foreach ($values as $n => $v) {
-            if ($v !== null && is_string($n) && $n !== '') {
-                $key = str_starts_with($n, 'on') ? $n : "on{$n}";
-
-                $result[$key] = match (gettype($v)) {
-                    'array' => json_encode($v, $flags),
-                    'double', 'integer', 'string' => (string) $v,
-                    default => '',
-                };
-            }
-        }
-
-        return $result;
     }
 
     /**
