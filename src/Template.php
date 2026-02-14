@@ -18,7 +18,7 @@ use UIAwesome\Html\Helper\Base\BaseTemplate;
  *     '{label}' => \UIAwesome\Html\Helper\Encode::content('Email'),
  *     '{value}' => \UIAwesome\Html\Helper\Encode::value('user@example.com'),
  * ];
- * 
+ *
  * $html = \UIAwesome\Html\Helper\Template::render($template, $tokens);
  * ```
  *
