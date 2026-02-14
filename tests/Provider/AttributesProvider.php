@@ -368,9 +368,9 @@ final class AttributesProvider
                 ['onclick' => '{"payload":"\u0026lt;tag\u0026gt;"}'],
                 true,
             ],
-            'on expansion keeps exact key on as onon' => [
+            'on expansion keeps exact key on' => [
                 ['on' => ['on' => 'handleOn()']],
-                ['onon' => 'handleOn()'],
+                ['on' => 'handleOn()'],
             ],
             'on expansion preserves prefixed key' => [
                 ['on' => ['onclick' => 'handleClick()']],
@@ -383,6 +383,10 @@ final class AttributesProvider
             'on expansion supports integer value' => [
                 ['on' => ['keyup' => 13]],
                 ['onkeyup' => '13'],
+            ],
+            'on expansion defaults unsupported scalar to empty string' => [
+                ['on' => ['click' => true]],
+                ['onclick' => ''],
             ],
             'on expansion with short event key' => [
                 ['on' => ['click' => 'handleClick()']],

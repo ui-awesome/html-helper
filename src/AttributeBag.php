@@ -11,7 +11,7 @@ use UIAwesome\Html\Helper\Base\BaseAttributeBag;
  *
  * Usage example:
  * ```php
- * \UIAwesome\Html\Helper\AttributeBag::add($attributes, 'disabled', true);
+ * \UIAwesome\Html\Helper\AttributeBag::set($attributes, 'disabled', true);
  * \UIAwesome\Html\Helper\AttributeBag::get($attributes, 'id');
  * ```
  *

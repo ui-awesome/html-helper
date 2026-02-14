@@ -16,12 +16,10 @@ use UnitEnum;
  * Unit tests for the {@see AttributeBag} helper.
  *
  * Test coverage.
- * - Adds attributes and removes keys when values are `null`.
  * - Merges attribute arrays and overrides existing keys.
  * - Removes attributes for valid keys.
- * - Sets plain attributes with raw values.
  * - Sets multiple attributes through dedicated `*Many()` APIs.
- * - Throws exceptions for invalid keys in `add()`.
+ * - Sets plain attributes with raw values.
  * - Throws exceptions for invalid keys in `get()`.
  * - Throws exceptions for invalid keys in `remove()`.
  * - Throws exceptions for invalid keys in `set()` and `*Many()` APIs.
@@ -35,23 +33,6 @@ use UnitEnum;
 #[Group('helper')]
 final class AttributeBagTest extends TestCase
 {
-    /**
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param string|UnitEnum $key
-     * @phpstan-param mixed[] $expected
-     */
-    #[DataProviderExternal(AttributeBagProvider::class, 'add')]
-    public function testAdd(array $attributes, string|UnitEnum $key, mixed $value, array $expected): void
-    {
-        AttributeBag::add($attributes, $key, $value);
-
-        self::assertSame(
-            $expected,
-            $attributes,
-            'Should add values and remove key when value is `null`.',
-        );
-    }
-
     /**
      * @phpstan-param mixed[] $attributes
      * @phpstan-param string|UnitEnum $key
@@ -136,17 +117,6 @@ final class AttributeBagTest extends TestCase
             $attributes,
             'Should set many plain attributes and remove keys with `null` values.',
         );
-    }
-
-    #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
-    public function testThrowInvalidArgumentExceptionWhenAdd(string|UnitEnum $key): void
-    {
-        $attributes = ['id' => 'submit'];
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage());
-
-        AttributeBag::add($attributes, $key, 'value');
     }
 
     #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]

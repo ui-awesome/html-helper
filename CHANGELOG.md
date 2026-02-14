@@ -1,8 +1,8 @@
 # ChangeLog
 
-## 0.6.10 Under development
+## 0.7.0 Under development
 
-- Enh #49: Simplify `AttributeBag` to generic `set()` and `setMany()` operations while keeping `Attributes` responsible for `aria`, `data`, and `on` expansion during rendering (@terabytesoftw)
+- Enh #49: Simplify `AttributeBag` to generic `set()` and `setMany()` operations (removing `add()`), while keeping `Attributes` responsible for `aria`, `data`, and `on` expansion during rendering (@terabytesoftw)
 
 ## 0.6.9 February 14, 2026
 

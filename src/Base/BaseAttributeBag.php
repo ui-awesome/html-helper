@@ -21,38 +21,6 @@ use function is_string;
 abstract class BaseAttributeBag
 {
     /**
-     * Adds or removes an attribute in the given attribute bag.
-     *
-     * If the provided value is `null`, the normalized key is removed from the bag.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\AttributeBag::add($attributes, 'disabled', true);
-     * \UIAwesome\Html\Helper\AttributeBag::add($attributes, 'id', null);
-     * ```
-     *
-     * @param array $attributes Attribute bag to update in place.
-     * @param string|UnitEnum $key Attribute key.
-     * @param mixed $value Attribute value.
-     *
-     * @throws InvalidArgumentException if normalized key is not a non-empty `string`.
-     *
-     * @phpstan-param mixed[] $attributes
-     */
-    public static function add(array &$attributes, string|UnitEnum $key, mixed $value): void
-    {
-        $normalizedKey = self::normalizeKey($key);
-
-        if ($value === null) {
-            unset($attributes[$normalizedKey]);
-
-            return;
-        }
-
-        $attributes[$normalizedKey] = $value;
-    }
-
-    /**
      * Returns an attribute value by key.
      *
      * Usage example:
@@ -213,7 +181,7 @@ abstract class BaseAttributeBag
      */
     private static function prepareManyKey(mixed $key): string
     {
-        if (is_string($key)) {
+        if (is_string($key) && $key !== '') {
             return $key;
         }
 

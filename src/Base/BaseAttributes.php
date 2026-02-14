@@ -261,8 +261,8 @@ abstract class BaseAttributes
         if (is_array($values)) {
             return match ($name) {
                 'class' => self::normalizeClassValue($values),
-                'aria', 'data', 'data-ng', 'ng' => self::normalizeDataValue($name, $values, $encode),
-                'on' => self::normalizeEventValue($values, $encode),
+                'aria', 'data', 'data-ng', 'ng' => self::expandDashedAttributes($name, $values, $encode),
+                'on' => self::expandEventAttributes($values, $encode),
                 'style' => self::normalizeStyleValue($values, $encode),
                 default => json_encode($values, $flags),
             };
@@ -286,7 +286,7 @@ abstract class BaseAttributes
     }
 
     /**
-     * Normalizes `data-*`, `aria-*` and similar prefixed attributes into an expanded associative array.
+     * Expands dashed namespace attributes (`aria-*`, `data-*`, etc.) into a flat associative array.
      *
      * @param string $name Attribute prefix (for example, `data`, `aria`).
      * @param array $values Associative array of attribute names and values.
@@ -297,7 +297,7 @@ abstract class BaseAttributes
      * @phpstan-param mixed[] $values
      * @phpstan-return array<string, string>
      */
-    private static function normalizeDataValue(string $name, array $values, bool $encode): array
+    private static function expandDashedAttributes(string $name, array $values, bool $encode): array
     {
         $result = [];
         $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
@@ -322,7 +322,7 @@ abstract class BaseAttributes
     }
 
     /**
-     * Normalizes canonical event attributes into `on*` key-value pairs.
+     * Expands canonical event attributes into `on*` key-value pairs.
      *
      * Keys that already start with `on` are preserved. Other keys are prefixed with `on`.
      *
@@ -334,29 +334,21 @@ abstract class BaseAttributes
      * @phpstan-param mixed[] $values
      * @phpstan-return array<string, string>
      */
-    private static function normalizeEventValue(array $values, bool $encode): array
+    private static function expandEventAttributes(array $values, bool $encode): array
     {
         $result = [];
         $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
 
         foreach ($values as $n => $v) {
-            if ($v === null || is_string($n) === false || self::isValidAttributeName($n) === false) {
-                continue;
+            if ($v !== null && is_string($n) && $n !== '') {
+                $key = str_starts_with($n, 'on') ? $n : "on{$n}";
+
+                $result[$key] = match (gettype($v)) {
+                    'array' => json_encode($v, $flags),
+                    'double', 'integer', 'string' => (string) $v,
+                    default => '',
+                };
             }
-
-            $key = str_starts_with($n, 'on') && strlen($n) > 2
-                ? $n
-                : "on{$n}";
-
-            if (self::isValidAttributeName($key) === false) {
-                continue;
-            }
-
-            $result[$key] = match (gettype($v)) {
-                'array' => json_encode($v, $flags),
-                'double', 'integer', 'string' => (string) $v,
-                default => '',
-            };
         }
 
         return $result;

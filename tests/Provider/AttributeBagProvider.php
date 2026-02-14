@@ -20,33 +20,6 @@ use UnitEnum;
 final class AttributeBagProvider
 {
     /**
-     * @phpstan-return array<string, array{mixed[], string|UnitEnum, string|null, mixed[]}>
-     */
-    public static function add(): array
-    {
-        return [
-            'accepts UnitEnum key' => [
-                ['id' => 'btn-save'],
-                Key::ARIA_LABEL,
-                'Save button',
-                ['id' => 'btn-save', 'aria-label' => 'Save button'],
-            ],
-            'sets value by string key' => [
-                ['class' => 'btn'],
-                'role',
-                'button',
-                ['class' => 'btn', 'role' => 'button'],
-            ],
-            'unsets key on null value' => [
-                ['data-toggle' => 'modal', 'id' => 'dialog'],
-                'data-toggle',
-                null,
-                ['id' => 'dialog'],
-            ],
-        ];
-    }
-
-    /**
      * @phpstan-return array<string, array{mixed[], string, string|null, string}>
      */
     public static function get(): array
@@ -84,10 +57,15 @@ final class AttributeBagProvider
     public static function invalidManyKey(): array
     {
         return [
+            'empty string key in values array' => [
+                ['' => 'value'],
+                Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
+            ],
             'integer key in values array' => [
                 [1 => 'value'],
                 Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
             ],
+
         ];
     }
 
