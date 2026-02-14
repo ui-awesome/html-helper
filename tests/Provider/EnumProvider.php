@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Helper\Tests\Support\Provider;
+namespace UIAwesome\Html\Helper\Tests\Provider;
 
+use PHPForge\Support\Stub\{BackedString, Unit};
 use Stringable;
-use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Status, Theme};
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\EnumTest} test cases.
  *
- * Provides representative input/output pairs for enum normalization utility methods.
+ * Provides representative input/output pairs for enum normalization.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -25,35 +25,31 @@ final class EnumProvider
         return [
             'array of backed enums' => [
                 [
-                    Status::ACTIVE,
-                    Status::INACTIVE,
+                    BackedString::VALUE,
                 ],
                 [
-                    'active',
-                    'inactive',
+                    'value',
                 ],
                 'Should return an array of backed enum values.',
             ],
             'array of unit enums' => [
                 [
-                    Theme::DARK,
-                    Theme::LIGHT,
+                    Unit::value,
                 ],
                 [
-                    'DARK',
-                    'LIGHT',
+                    'value',
                 ],
                 'Should return an array of name values for unit enums.',
             ],
             'array with null values' => [
                 [
                     null,
-                    Status::ACTIVE,
+                    BackedString::VALUE,
                     null,
                 ],
                 [
                     null,
-                    'active',
+                    'value',
                     null,
                 ],
                 "Should pass through 'null' values unchanged.",
@@ -66,7 +62,7 @@ final class EnumProvider
             'mixed array with enums, scalars and Stringable' => [
                 [
                     'foo',
-                    Status::ACTIVE,
+                    BackedString::VALUE,
                     42,
                     new class implements Stringable {
                         public function __toString(): string
@@ -77,7 +73,7 @@ final class EnumProvider
                 ],
                 [
                     'foo',
-                    'active',
+                    'value',
                     42,
                     'stringable',
                 ],
@@ -92,14 +88,9 @@ final class EnumProvider
     public static function normalizeValue(): array
     {
         return [
-            'backed enum active' => [
-                Status::ACTIVE,
-                'active',
-                'Should return the backed enum value.',
-            ],
-            'backed enum inactive' => [
-                Status::INACTIVE,
-                'inactive',
+            'backed enum' => [
+                BackedString::VALUE,
+                'value',
                 'Should return the backed enum value.',
             ],
             'null' => [
@@ -132,14 +123,9 @@ final class EnumProvider
                 'stringable',
                 'Should return the string representation for Stringable objects.',
             ],
-            'unit enum dark' => [
-                Theme::DARK,
-                'DARK',
-                'Should return the name value for a unit enum.',
-            ],
-            'unit enum light' => [
-                Theme::LIGHT,
-                'LIGHT',
+            'unit enum' => [
+                Unit::value,
+                'value',
                 'Should return the name value for a unit enum.',
             ],
         ];

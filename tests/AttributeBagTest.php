@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Stringable;
 use UIAwesome\Html\Helper\AttributeBag;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Helper\Tests\Support\Provider\AttributeBagProvider;
+use UIAwesome\Html\Helper\Tests\Provider\AttributeBagProvider;
 use UnitEnum;
 
 /**

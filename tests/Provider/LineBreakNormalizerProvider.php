@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Helper\Tests\Support\Provider;
+namespace UIAwesome\Html\Helper\Tests\Provider;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\LineBreakNormalizerTest} test cases.
  *
- * Provides representative input/output pairs for the line break normalization helper.
+ * Provides representative input/output pairs for line break normalization.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

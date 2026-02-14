@@ -8,19 +8,15 @@ use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use Stringable;
 use UIAwesome\Html\Helper\Encode;
-use UIAwesome\Html\Helper\Tests\Support\Provider\EncodeProvider;
+use UIAwesome\Html\Helper\Tests\Provider\EncodeProvider;
 
 /**
- * Unit tests for {@see Encode} encoding behavior.
- *
- * Verifies observable behavior for {@see Encode} based on this test file only (test methods, providers, and
- * assertions). Statements must be grounded in datasets, assertions, and explicit exception expectations present here.
+ * Unit tests for the {@see Encode} helper.
  *
  * Test coverage.
- * - Content encoding with and without double-encoding.
- * - Value encoding for mixed scalar types, including `null`.
+ * - Encodes content with configurable double-encoding behavior.
+ * - Encodes mixed scalar and stringable values, including `null`.
  *
- * {@see Encode} for implementation details.
  * {@see EncodeProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.

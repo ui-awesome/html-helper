@@ -8,25 +8,19 @@ use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use Stringable;
-use UIAwesome\Html\Helper\Tests\Support\Provider\ValidatorProvider;
+use UIAwesome\Html\Helper\Tests\Provider\ValidatorProvider;
 use UIAwesome\Html\Helper\Validator;
 use UnitEnum;
 
 /**
- * Unit tests for {@see Validator} helper validation behavior.
- *
- * Verifies boolean validation results and exception messages for representative scalar, `Stringable`, and enum-backed
- * inputs across the {@see Validator} helper methods.
+ * Unit tests for the {@see Validator} helper.
  *
  * Test coverage.
- * - Accepts int-like values as `int`, numeric `string`, and `Stringable` with optional `min`/`max` constraints.
- * - Accepts positive-like values as `int`, `float`, numeric `string`, and `Stringable` with optional `min`/`max`
- *   constraints.
- * - Validates offset-like values for ratios and percentage strings within the expected bounds.
- * - Validates one-of allow-list membership for scalar and enum values, throwing {@see InvalidArgumentException} with
- *   the expected message when configured.
+ * - Validates `int`-like values with optional `min` and `max` bounds.
+ * - Validates offset-like values for ratios and percentage strings.
+ * - Validates one-of membership and throws exceptions for disallowed values when configured.
+ * - Validates positive-like values with optional `min` and `max` bounds.
  *
- * {@see Validator} for implementation details.
  * {@see ValidatorProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.

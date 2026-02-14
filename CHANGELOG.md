@@ -4,6 +4,7 @@
 
 - Enh #46: Add helper `AttributeBag` class to centralize `add()`, `get()`, `merge()`, `remove()`, and `set()` operations with unit tests (@terabytesoftw)
 - Bug #47: Standardize PHPDoc across `src` for consistent API documentation (@terabytesoftw)
+- Bug #48: Standardize PHPDoc across `tests` for consistent test documentation (@terabytesoftw)
 
 ## 0.6.8 February 11, 2026
 

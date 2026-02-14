@@ -44,11 +44,11 @@
             <div class="container">
                 <div class="alert-box">
                     <p class="alert-title"><strong>Attribute Bag</strong></p>
-                    <p class="alert-content">In-place <code>add(), get(), merge(), remove(), set()</code> operations for attribute arrays</p>
+                    <p class="alert-content">In-place <code>add()</code>, <code>get()</code>, <code>merge()</code>, <code>remove()</code>, <code>set()</code> operations for attribute arrays</p>
                 </div>
                 <div class="alert-box">
                     <p class="alert-title"><strong>Enum Integration</strong></p>
-                    <p class="alert-content">First-class support for PHP 8.1 Enums in attributes and validations</p>
+                    <p class="alert-content">First-class support for PHP 8.1 <code>Enums</code> in attributes and validations</p>
                 </div>
                 <div class="alert-box">
                     <p class="alert-title"><strong>Framework Agnostic</strong></p>
@@ -60,11 +60,11 @@
                 </div>
                 <div class="alert-box">
                     <p class="alert-title"><strong>Stringable Support</strong></p>
-                    <p class="alert-content">Seamlessly use PHP 8 Stringable objects in attributes, classes, and content</p>
+                    <p class="alert-content">Seamlessly use PHP 8 <code>Stringable</code> objects in attributes, classes, and content</p>
                 </div>
                 <div class="alert-box">
                     <p class="alert-title"><strong>Validation</strong></p>
-                    <p class="alert-content">Strict validations int-like, positive-like, offset-like and allowed-value checks with explicit errors</p>
+                    <p class="alert-content">Strict validations <code>int-like</code>, <code>positive-like</code>, <code>offset-like</code> and <code>allowed-value</code> checks with explicit errors</p>
                 </div>
             </div>
         </div>

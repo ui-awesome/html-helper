@@ -7,15 +7,14 @@ namespace UIAwesome\Html\Helper\Tests;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\LineBreakNormalizer;
-use UIAwesome\Html\Helper\Tests\Support\Provider\LineBreakNormalizerProvider;
+use UIAwesome\Html\Helper\Tests\Provider\LineBreakNormalizerProvider;
 
 /**
- * Unit tests for {@see LineBreakNormalizer} line break normalization behavior.
+ * Unit tests for the {@see LineBreakNormalizer} helper.
  *
  * Test coverage.
- * - Collapses consecutive line break sequences to a single `\n`.
- * - Preserves single line breaks and plain text content.
- * - Returns `''` for `null` and empty input.
+ * - Normalizes repeated line break sequences to single separators.
+ * - Preserves stable output across repeated normalization calls.
  *
  * {@see LineBreakNormalizerProvider} for test case data providers.
  *

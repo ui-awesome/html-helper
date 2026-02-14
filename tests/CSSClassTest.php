@@ -5,26 +5,23 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper\Tests;
 
 use InvalidArgumentException;
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\CSSClass;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Helper\Tests\Support\Provider\CSSClassProvider;
-use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\AlertType;
+use UIAwesome\Html\Helper\Tests\Provider\CSSClassProvider;
 use UnitEnum;
 
 /**
- * Unit tests for {@see CSSClass} CSS class rendering behavior.
- *
- * Verifies observable behavior for {@see CSSClass} based on this test file only (test methods, providers, and
- * assertions). Statements must be grounded in datasets, assertions, and explicit exception expectations present here.
+ * Unit tests for the {@see CSSClass} helper.
  *
  * Test coverage.
- * - Adding class values with optional override semantics.
- * - Exception handling for disallowed scalar and enum values.
- * - Rendering class values with base formatting and allow-lists.
+ * - Adds class values with deduplication and override handling.
+ * - Renders class values with allow-list validation.
+ * - Throws exceptions for class values not in the allow-list.
+ * - Throws exceptions for enum values not in the allow-list.
  *
- * {@see CSSClass} for implementation details.
  * {@see CSSClassProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
@@ -104,12 +101,12 @@ final class CSSClassTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
-                'info',
+                'value',
                 'class',
                 implode('\', \'', ['success', 'warning', 'error']),
             ),
         );
 
-        CSSClass::render(AlertType::INFO, 'alert alert-%s', ['success', 'warning', 'error']);
+        CSSClass::render(BackedString::VALUE, 'alert alert-%s', ['success', 'warning', 'error']);
     }
 }
