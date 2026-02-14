@@ -15,8 +15,6 @@ use UIAwesome\Html\Helper\Base\BaseLineBreakNormalizer;
  * // "Line 1\nLine 2"
  * ```
  *
- * {@see BaseLineBreakNormalizer} for the base implementation.
- *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */

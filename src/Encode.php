@@ -7,28 +7,15 @@ namespace UIAwesome\Html\Helper;
 use UIAwesome\Html\Helper\Base\BaseEncode;
 
 /**
- * HTML encoding helper for content and attribute output.
- *
- * Provides a stateless API for encoding HTML content and attribute values.
- *
- * The API is designed for integration in view renderers and HTML document workflows, supporting encoding of tag
- * contents, attribute values, and arbitrary strings with configurable charset handling.
- *
- * Key features.
- * - Encodes attribute values via {@see Base\BaseEncode::value()}.
- * - Encodes tag content via {@see Base\BaseEncode::content()}.
- * - Exposes charset and double-encoding control parameters.
+ * Provides the concrete entry point for HTML content and attribute encoding.
  *
  * Usage example:
  * ```php
- * $content = Encode::content('<b>Hello</b>');
+ * $content = \UIAwesome\Html\Helper\Encode::content('<b>Hello</b>');
  * // "&lt;b&gt;Hello&lt;/b&gt;"
- *
- * $value = Encode::value("O'Reilly & <tag>");
+ * $value = \UIAwesome\Html\Helper\Encode::value("O'Reilly & <tag>");
  * // "O&apos;Reilly &amp; &lt;tag&gt;"
  * ```
- *
- * {@see BaseEncode} for the base implementation.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

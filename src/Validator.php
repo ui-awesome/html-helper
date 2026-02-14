@@ -7,26 +7,15 @@ namespace UIAwesome\Html\Helper;
 use UIAwesome\Html\Helper\Base\BaseValidator;
 
 /**
- * Validation utility for common HTML helper values and configuration.
- *
- * Provides a concrete implementation that exposes validation helpers.
- *
- * Key features.
- * - Validates allow-list membership via {@see Base\BaseValidator::oneOf()}.
- * - Validates integer-like values via {@see Base\BaseValidator::intLike()}.
- * - Validates non-negative numeric values via {@see Base\BaseValidator::positiveLike()}.
- * - Validates offset values via {@see Base\BaseValidator::offsetLike()}.
+ * Provides the concrete entry point for validation helpers.
  *
  * Usage example:
  * ```php
- * if (Validator::intLike('42', 0, 100) === false) {
+ * if (\UIAwesome\Html\Helper\Validator::intLike('42', 0, 100) === false) {
  *     throw new InvalidArgumentException('Invalid page size.');
  * }
- *
- * Validator::oneOf('red', ['red', 'green', 'blue'], 'color');
+ * \UIAwesome\Html\Helper\Validator::oneOf('red', ['red', 'green', 'blue'], 'color');
  * ```
- *
- * {@see BaseValidator} for the base implementation.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
