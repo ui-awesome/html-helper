@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper\Tests\Provider;
 
 use PHPForge\Support\Stub\BackedInteger;
+use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Support\Key;
 use UnitEnum;
 
@@ -18,33 +19,6 @@ use UnitEnum;
  */
 final class AttributeBagProvider
 {
-    /**
-     * @phpstan-return array<string, array{mixed[], string|UnitEnum, string|null, mixed[]}>
-     */
-    public static function add(): array
-    {
-        return [
-            'accepts UnitEnum key' => [
-                ['id' => 'btn-save'],
-                Key::ARIA_LABEL,
-                'Save button',
-                ['id' => 'btn-save', 'aria-label' => 'Save button'],
-            ],
-            'sets value by string key' => [
-                ['class' => 'btn'],
-                'role',
-                'button',
-                ['class' => 'btn', 'role' => 'button'],
-            ],
-            'unsets key on null value' => [
-                ['data-toggle' => 'modal', 'id' => 'dialog'],
-                'data-toggle',
-                null,
-                ['id' => 'dialog'],
-            ],
-        ];
-    }
-
     /**
      * @phpstan-return array<string, array{mixed[], string, string|null, string}>
      */
@@ -74,6 +48,23 @@ final class AttributeBagProvider
         return [
             'empty string' => [''],
             'int backed enum' => [BackedInteger::VALUE],
+        ];
+    }
+
+    /**
+     * @phpstan-return array<string, array{mixed[], string}>
+     */
+    public static function invalidManyKey(): array
+    {
+        return [
+            'empty string key in values array' => [
+                ['' => 'value'],
+                Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
+            ],
+            'integer key in values array' => [
+                [1 => 'value'],
+                Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
+            ],
         ];
     }
 
@@ -108,74 +99,70 @@ final class AttributeBagProvider
     /**
      * @phpstan-return array<
      *   string,
-     *   array{
-     *     mixed[],
-     *     mixed,
-     *     bool|float|int|string|\Closure(): mixed|\Stringable|UnitEnum|null,
-     *     string,
-     *     bool,
-     *     mixed[],
-     *   },
+     *   array{mixed[], string|UnitEnum, bool|float|int|string|\Closure(): mixed|\Stringable|UnitEnum|null, mixed[]},
      * >
      */
     public static function set(): array
     {
+        $closure = static fn(): string => 'submit';
+
         return [
-            'boolean to string conversion disabled by default' => [
+            'keeps closure value as raw data' => [
                 [],
-                'disabled',
-                true,
-                '',
-                false,
-                ['disabled' => true],
+                'id',
+                $closure,
+                ['id' => $closure],
             ],
-            'boolean to string conversion enabled' => [
+            'keeps enum value as raw data' => [
                 [],
-                'hidden',
-                false,
-                'aria-',
-                true,
-                ['aria-hidden' => 'false'],
+                'type',
+                BackedInteger::VALUE,
+                ['type' => BackedInteger::VALUE],
             ],
-            'resolves closure value' => [
-                [],
-                'label',
-                static fn(): string => 'Dynamic label',
-                'aria-',
-                false,
-                ['aria-label' => 'Dynamic label'],
-            ],
-            'supports aria prefix with enum key' => [
-                [],
-                Key::ARIA_LABEL,
-                'Dialog title',
-                'aria-',
-                false,
-                ['aria-label' => 'Dialog title'],
-            ],
-            'supports data prefix with enum key' => [
-                [],
-                Key::DATA_TOGGLE,
-                'dropdown',
-                'data-',
-                false,
-                ['data-toggle' => 'dropdown'],
-            ],
-            'supports on prefix with enum key' => [
-                [],
-                Key::ON_CLICK,
-                'handleClick()',
-                'on',
-                false,
-                ['onclick' => 'handleClick()'],
-            ],
-            'removes key when resolved value is null' => [
+            'removes key when value is null' => [
                 ['data-toggle' => 'modal', 'id' => 'trigger'],
                 Key::DATA_TOGGLE,
-                static fn() => null,
-                'data-',
-                false,
+                null,
                 ['id' => 'trigger'],
+            ],
+            'sets plain attribute value' => [
+                [],
+                'role',
+                'button',
+                ['role' => 'button'],
+            ],
+        ];
+    }
+
+    /**
+     * @phpstan-return array<string, array{mixed[], mixed[], mixed[]}>
+     */
+    public static function setMany(): array
+    {
+        $closure = static fn(): string => 'submit';
+
+        return [
+            'sets many plain attributes and removes null values' => [
+                ['id' => 'button'],
+                [
+                    'id' => $closure,
+                    'title' => 'Send form',
+                    'disabled' => null,
+                ],
+                ['id' => $closure, 'title' => 'Send form'],
+            ],
+            'supports prefixed keys from traits' => [
+                [],
+                [
+                    'aria-label' => 'Close modal',
+                    'data-toggle' => 'dropdown',
+                    'onclick' => 'handleClick()',
+                ],
+                [
+                    'aria-label' => 'Close modal',
+                    'data-toggle' => 'dropdown',
+                    'onclick' => 'handleClick()',
+                ],
             ],
         ];
     }

@@ -83,8 +83,9 @@ abstract class BaseAttributes
         'data' => 31,
         'style' => 32,
         'aria' => 33,
-        'data-ng' => 34,
-        'ng' => 35,
+        'on' => 34,
+        'data-ng' => 35,
+        'ng' => 36,
     ];
 
     /**
@@ -207,6 +208,48 @@ abstract class BaseAttributes
     }
 
     /**
+     * Expands namespaced attributes into flat key-value pairs.
+     *
+     * @param array $values Associative array of attribute names and values.
+     * @param string $prefix Attribute namespace prefix (for example, `data`, `aria`, `on`).
+     * @param bool $encode Whether to HTML-encode string values.
+     * @param bool $dashedPrefix Whether to use dashed key format (`prefix-key`) or concatenated format
+     * (`prefixkey`).
+     *
+     * @return array Associative array of expanded attribute key-value pairs.
+     *
+     * @phpstan-param mixed[] $values
+     * @phpstan-return array<string, string>
+     */
+    private static function expandPrefixedAttributes(
+        array $values,
+        string $prefix,
+        bool $encode,
+        bool $dashedPrefix = true,
+    ): array {
+        $result = [];
+        $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
+
+        foreach ($values as $n => $v) {
+            if ($v !== null && is_string($n) && self::isValidAttributeName($n)) {
+                $key = $dashedPrefix
+                    ? "{$prefix}-{$n}"
+                    : (str_starts_with($n, $prefix) ? $n : "{$prefix}{$n}");
+
+                if (self::isValidAttributeName($key)) {
+                    $result[$key] = match (gettype($v)) {
+                        'array' => json_encode($v, $flags),
+                        'double', 'integer', 'string' => (string) $v,
+                        default => '',
+                    };
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Validates that an attribute name follows HTML naming rules.
      *
      * Ensures that the provided attribute name is non-empty and matches the allowed HTML attribute naming pattern.
@@ -259,7 +302,8 @@ abstract class BaseAttributes
         if (is_array($values)) {
             return match ($name) {
                 'class' => self::normalizeClassValue($values),
-                'aria', 'data', 'data-ng', 'ng' => self::normalizeDataValue($name, $values, $encode),
+                'aria', 'data', 'data-ng', 'ng' => self::expandPrefixedAttributes($values, $name, $encode),
+                'on' => self::expandPrefixedAttributes($values, 'on', $encode, false),
                 'style' => self::normalizeStyleValue($values, $encode),
                 default => json_encode($values, $flags),
             };
@@ -280,42 +324,6 @@ abstract class BaseAttributes
     private static function normalizeClassValue(array $values): string
     {
         return $values === [] ? '' : implode(' ', $values);
-    }
-
-    /**
-     * Normalizes `data-*`, `aria-*` and similar prefixed attributes into an expanded associative array.
-     *
-     * @param string $name Attribute prefix (for example, `data`, `aria`).
-     * @param array $values Associative array of attribute names and values.
-     * @param bool $encode Whether to HTML-encode string values.
-     *
-     * @return array Associative array of expanded attribute key-value pairs.
-     *
-     * @phpstan-param mixed[] $values
-     * @phpstan-return array<string, string>
-     */
-    private static function normalizeDataValue(string $name, array $values, bool $encode): array
-    {
-        $result = [];
-        $flags = $encode ? self::JSON_FLAGS : self::JSON_FLAGS_RAW;
-
-        foreach ($values as $n => $v) {
-            if ($v === null) {
-                continue;
-            }
-
-            if (is_string($n) && self::isValidAttributeName($n)) {
-                $key = "{$name}-{$n}";
-
-                $result[$key] = match (gettype($v)) {
-                    'array' => json_encode($v, $flags),
-                    'double', 'integer', 'string' => (string) $v,
-                    default => '',
-                };
-            }
-        }
-
-        return $result;
     }
 
     /**

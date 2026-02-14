@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests;
 
-use Closure;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
-use Stringable;
 use UIAwesome\Html\Helper\AttributeBag;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Provider\AttributeBagProvider;
@@ -18,14 +16,13 @@ use UnitEnum;
  * Unit tests for the {@see AttributeBag} helper.
  *
  * Test coverage.
- * - Adds attributes and removes keys when values are `null`.
  * - Merges attribute arrays and overrides existing keys.
  * - Removes attributes for valid keys.
- * - Sets normalized keys, resolves closures, and applies `bool` to `true`, and `false` conversion.
- * - Throws exceptions for invalid keys in `add()`.
+ * - Sets multiple attributes through dedicated `*Many()` APIs.
+ * - Sets plain attributes with raw values.
  * - Throws exceptions for invalid keys in `get()`.
  * - Throws exceptions for invalid keys in `remove()`.
- * - Throws exceptions for invalid keys in `set()`.
+ * - Throws exceptions for invalid keys in `set()` and `*Many()` APIs.
  * - Verifies `get()` returns existing values or fallback defaults.
  *
  * {@see AttributeBagProvider} for test case data providers.
@@ -36,23 +33,6 @@ use UnitEnum;
 #[Group('helper')]
 final class AttributeBagTest extends TestCase
 {
-    /**
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param string|UnitEnum $key
-     * @phpstan-param mixed[] $expected
-     */
-    #[DataProviderExternal(AttributeBagProvider::class, 'add')]
-    public function testAdd(array $attributes, string|UnitEnum $key, mixed $value, array $expected): void
-    {
-        AttributeBag::add($attributes, $key, $value);
-
-        self::assertSame(
-            $expected,
-            $attributes,
-            'Should add values and remove key when value is `null`.',
-        );
-    }
-
     /**
      * @phpstan-param mixed[] $attributes
      * @phpstan-param string|UnitEnum $key
@@ -103,39 +83,40 @@ final class AttributeBagTest extends TestCase
 
     /**
      * @phpstan-param mixed[] $attributes
-     * @phpstan-param bool|float|int|string|Closure(): mixed|Stringable|UnitEnum|null $value
+     * @phpstan-param string|UnitEnum $key
      * @phpstan-param mixed[] $expected
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'set')]
     public function testSet(
         array $attributes,
         string|UnitEnum $key,
-        bool|float|int|string|Closure|Stringable|UnitEnum|null $value,
-        string $prefix,
-        bool $boolToString,
+        mixed $value,
         array $expected,
     ): void {
-        match ($boolToString) {
-            true => AttributeBag::set($attributes, $key, $value, $prefix, true),
-            false => AttributeBag::set($attributes, $key, $value, $prefix),
-        };
+        AttributeBag::set($attributes, $key, $value);
 
         self::assertSame(
             $expected,
             $attributes,
-            'Should set values with normalized key and expected value transformation.',
+            'Should set plain raw values with key normalization.',
         );
     }
 
-    #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
-    public function testThrowInvalidArgumentExceptionWhenAdd(string|UnitEnum $key): void
+    /**
+     * @phpstan-param mixed[] $attributes
+     * @phpstan-param mixed[] $values
+     * @phpstan-param mixed[] $expected
+     */
+    #[DataProviderExternal(AttributeBagProvider::class, 'setMany')]
+    public function testSetMany(array $attributes, array $values, array $expected): void
     {
-        $attributes = ['id' => 'submit'];
+        AttributeBag::setMany($attributes, $values);
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage());
-
-        AttributeBag::add($attributes, $key, 'value');
+        self::assertSame(
+            $expected,
+            $attributes,
+            "Should set many plain attributes and remove keys with 'null' values.",
+        );
     }
 
     #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
@@ -169,5 +150,19 @@ final class AttributeBagTest extends TestCase
         $this->expectExceptionMessage(Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage());
 
         AttributeBag::set($attributes, $key, 'value');
+    }
+
+    /**
+     * @phpstan-param mixed[] $values
+     */
+    #[DataProviderExternal(AttributeBagProvider::class, 'invalidManyKey')]
+    public function testThrowInvalidArgumentExceptionWhenSetMany(array $values, string $message): void
+    {
+        $attributes = ['id' => 'submit'];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage($message);
+
+        AttributeBag::setMany($attributes, $values);
     }
 }

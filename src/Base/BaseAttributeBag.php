@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Base;
 
-use Closure;
 use InvalidArgumentException;
-use Stringable;
-use UIAwesome\Html\Helper\{Attributes, Enum};
+use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UnitEnum;
 
 use function array_key_exists;
-use function is_bool;
 use function is_string;
 
 /**
@@ -23,38 +20,6 @@ use function is_string;
  */
 abstract class BaseAttributeBag
 {
-    /**
-     * Adds or removes an attribute in the given attribute bag.
-     *
-     * If the provided value is `null`, the normalized key is removed from the bag.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\AttributeBag::add($attributes, 'disabled', true);
-     * \UIAwesome\Html\Helper\AttributeBag::add($attributes, 'id', null);
-     * ```
-     *
-     * @param array $attributes Attribute bag to update in place.
-     * @param string|UnitEnum $key Attribute key.
-     * @param mixed $value Attribute value.
-     *
-     * @throws InvalidArgumentException if normalized key is not a non-empty `string`.
-     *
-     * @phpstan-param mixed[] $attributes
-     */
-    public static function add(array &$attributes, string|UnitEnum $key, mixed $value): void
-    {
-        $normalizedKey = self::normalizeKey($key);
-
-        if ($value === null) {
-            unset($attributes[$normalizedKey]);
-
-            return;
-        }
-
-        $attributes[$normalizedKey] = $value;
-    }
-
     /**
      * Returns an attribute value by key.
      *
@@ -135,50 +100,52 @@ abstract class BaseAttributeBag
     }
 
     /**
-     * Normalizes and sets an attribute key/value pair.
-     *
-     * Resolves closure values, optionally converts boolean values to `'true'`/`'false'`, and removes the key when the
-     * resolved value is `null`.
+     * Sets a plain attribute key/value pair.
      *
      * Usage example:
      * ```php
      * $attributes = [];
-     * \UIAwesome\Html\Helper\AttributeBag::set($attributes, 'disabled', true, '', true);
+     * \UIAwesome\Html\Helper\AttributeBag::set($attributes, 'disabled', true);
      * \UIAwesome\Html\Helper\AttributeBag::set($attributes, 'id', static fn () => 'submit');
      * ```
      *
      * @param array $attributes Attribute bag to update in place.
      * @param string|UnitEnum $key Attribute key to normalize.
-     * @param bool|Closure|float|int|string|Stringable|UnitEnum|null $value Attribute value.
-     * @param string $prefix Prefix applied via {@see Attributes::normalizeKey()}.
-     * @param bool $boolToString Whether boolean values should be cast to `'true'`/`'false'`.
+     * @param mixed $value Attribute value.
      *
      * @throws InvalidArgumentException if key normalization fails.
      *
      * @phpstan-param mixed[] $attributes
-     * @phpstan-param scalar|Stringable|UnitEnum|Closure(): mixed $value
      */
-    public static function set(
-        array &$attributes,
-        string|UnitEnum $key,
-        bool|Closure|float|int|string|Stringable|UnitEnum|null $value,
-        string $prefix = '',
-        bool $boolToString = false,
-    ): void {
-        $normalizedKey = Attributes::normalizeKey($key, $prefix);
-        $resolvedValue = $value instanceof Closure ? $value() : $value;
+    public static function set(array &$attributes, string|UnitEnum $key, mixed $value): void
+    {
+        $normalizedKey = self::normalizeKey($key);
 
-        if ($boolToString && is_bool($resolvedValue)) {
-            $resolvedValue = $resolvedValue ? 'true' : 'false';
-        }
-
-        if ($resolvedValue === null) {
+        if ($value === null) {
             unset($attributes[$normalizedKey]);
 
             return;
         }
 
-        $attributes[$normalizedKey] = $resolvedValue;
+        $attributes[$normalizedKey] = $value;
+    }
+
+    /**
+     * Sets multiple plain attributes.
+     *
+     * @param array $attributes Attribute bag to update in place.
+     * @param array $values Values to set.
+     *
+     * @throws InvalidArgumentException if any key normalization fails.
+     *
+     * @phpstan-param mixed[] $attributes
+     * @phpstan-param mixed[] $values
+     */
+    public static function setMany(array &$attributes, array $values): void
+    {
+        foreach ($values as $key => $value) {
+            self::set($attributes, self::prepareManyKey($key), $value);
+        }
     }
 
     /**
@@ -201,5 +168,25 @@ abstract class BaseAttributeBag
         }
 
         return $normalizedKey;
+    }
+
+    /**
+     * Prepares an array key for `*Many()` methods.
+     *
+     * @param mixed $key Array key.
+     *
+     * @throws InvalidArgumentException when key is not a non-empty string.
+     *
+     * @return string Prepared key.
+     */
+    private static function prepareManyKey(mixed $key): string
+    {
+        if (is_string($key) && $key !== '') {
+            return $key;
+        }
+
+        throw new InvalidArgumentException(
+            Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
+        );
     }
 }

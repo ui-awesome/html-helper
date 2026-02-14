@@ -350,6 +350,48 @@ final class AttributesProvider
                 ['data-config' => '{"key":"<val>"}'],
                 false,
             ],
+            'on expansion array json encoding with encode false' => [
+                [
+                    'on' => [
+                        'click' => ['payload' => '<tag>'],
+                    ],
+                ],
+                ['onclick' => '{"payload":"<tag>"}'],
+                false,
+            ],
+            'on expansion array json encoding with encode true' => [
+                [
+                    'on' => [
+                        'click' => ['payload' => '<tag>'],
+                    ],
+                ],
+                ['onclick' => '{"payload":"\u0026lt;tag\u0026gt;"}'],
+                true,
+            ],
+            'on expansion keeps exact key on' => [
+                ['on' => ['on' => 'handleOn()']],
+                ['on' => 'handleOn()'],
+            ],
+            'on expansion preserves prefixed key' => [
+                ['on' => ['onclick' => 'handleClick()']],
+                ['onclick' => 'handleClick()'],
+            ],
+            'on expansion supports float value' => [
+                ['on' => ['wheel' => 3.14]],
+                ['onwheel' => '3.14'],
+            ],
+            'on expansion supports integer value' => [
+                ['on' => ['keyup' => 13]],
+                ['onkeyup' => '13'],
+            ],
+            'on expansion defaults unsupported scalar to empty string' => [
+                ['on' => ['click' => true]],
+                ['onclick' => ''],
+            ],
+            'on expansion with short event key' => [
+                ['on' => ['click' => 'handleClick()']],
+                ['onclick' => 'handleClick()'],
+            ],
             'simple string' => [
                 ['id' => 'my-id'],
                 ['id' => 'my-id'],
@@ -555,6 +597,16 @@ final class AttributesProvider
                     'ng' => [
                         'a' => 1,
                         'b' => 'c',
+                    ],
+                ],
+            ],
+            'src and on' => [
+                ' src="xyz" onclick="handleClick()" onsubmit="return false"',
+                [
+                    'src' => 'xyz',
+                    'on' => [
+                        'click' => 'handleClick()',
+                        'onsubmit' => 'return false',
                     ],
                 ],
             ],

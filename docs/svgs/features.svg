@@ -44,7 +44,7 @@
             <div class="container">
                 <div class="alert-box">
                     <p class="alert-title"><strong>Attribute Bag</strong></p>
-                    <p class="alert-content">In-place <code>add()</code>, <code>get()</code>, <code>merge()</code>, <code>remove()</code>, <code>set()</code> operations for attribute arrays</p>
+                    <p class="alert-content">In-place <code>get()</code>, <code>merge()</code>, <code>remove()</code>, <code>set()</code>, <code>setMany()</code> operations for attribute arrays</p>
                 </div>
                 <div class="alert-box">
                     <p class="alert-title"><strong>Enum Integration</strong></p>

@@ -139,7 +139,8 @@ use UIAwesome\Html\Helper\Attributes;
 
 #### Attribute bag operations
 
-Use `AttributeBag` to query and mutate an attribute array in-place, with key normalization and optional boolean string conversion.
+Use `AttributeBag` to query and mutate an attribute array in-place with a minimal API (`get()`, `merge()`,
+`remove()`, `set()`, `setMany()`).
 
 ```php
 <?php
@@ -152,22 +153,30 @@ use UIAwesome\Html\Helper\AttributeBag;
 
 $attributes = ['id' => 'submit'];
 
-// add or remove values
-AttributeBag::add($attributes, 'disabled', true);
-AttributeBag::add($attributes, 'id', null);
-
-// read with fallback default
-$type = AttributeBag::get($attributes, 'type', 'button');
-
 // merge arrays (later values override)
 AttributeBag::merge($attributes, ['class' => ['btn', 'btn-primary'], 'type' => 'submit']);
 
-// normalize keys, resolve closures, and optionally convert booleans to `'true'`/`'false'`
-AttributeBag::set($attributes, 'label', static fn(): string => 'Save', 'aria-');
-AttributeBag::set($attributes, 'hidden', false, 'aria-', true);
+// get with fallback default
+$type = AttributeBag::get($attributes, 'type', 'button');
 
 // remove keys
 AttributeBag::remove($attributes, 'disabled');
+
+// set or remove values
+AttributeBag::set($attributes, 'disabled', true);
+AttributeBag::set($attributes, 'id', null);
+
+// set one key (raw value)
+AttributeBag::set($attributes, 'aria-label', 'Save');
+
+// set many keys at once (useful for trait-driven prefixed attributes)
+AttributeBag::setMany(
+    $attributes,
+    [
+        'data-toggle' => 'modal',
+        'onclick' => 'handleClick()',
+    ],
+);
 ```
 
 #### Advanced: DOM & SVG Integration
