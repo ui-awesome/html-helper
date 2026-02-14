@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 0.6.9 Under development
+## 0.6.9 February 14, 2026
 
 - Enh #46: Add helper `AttributeBag` class to centralize `add()`, `get()`, `merge()`, `remove()`, and `set()` operations with unit tests (@terabytesoftw)
 - Bug #47: Standardize PHPDoc across `src` for consistent API documentation (@terabytesoftw)
