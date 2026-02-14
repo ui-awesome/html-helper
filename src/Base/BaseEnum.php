@@ -16,20 +16,7 @@ use function is_array;
 use function is_scalar;
 
 /**
- * Base class for advanced enum normalization and value extraction utilities.
- *
- * Provides a unified API for normalizing enum values and arrays, supporting both backed and pure enums.
- *
- * It supports normalization of single enum instances or arrays of enums, returning their scalar value
- * (for BackedEnum) or name (for pure enums), and passes through non-enum values unchanged.
- *
- * This is essential for consistent handling of enums in configuration, storage, and API layers.
- *
- * Key features.
- * - Batch normalization of arrays of enums or mixed values with support for `null` handling.
- * - Normalization of backed and pure enums to scalar values or names.
- * - Pass-through behavior for non-enum values to support mixed-type arrays.
- * - Utility methods for simplifying enum handling in data processing.
+ * Provides reusable normalization helpers for enum and scalar values.
  *
  * {@see BackedEnum} for enums with scalar values.
  * {@see UnitEnum} for all enum types.
@@ -42,14 +29,17 @@ abstract class BaseEnum
     /**
      * Normalizes an array of enum values or mixed values to their scalar values or names.
      *
-     * Applies {@see normalizeValue()} to each element of the array, returning an array of normalized values.
+     * Applies {@see normalizeValue()} to each element.
      *
-     * This method is essential for batch processing of enum arrays in serialization, configuration, or data
-     * transformation logic, supporting both enums and non-enum values in mixed arrays.
+     * Usage example:
+     * ```php
+     * \UIAwesome\Html\Helper\Enum::normalizeArray(['foo', Status::ACTIVE, 42]);
+     * // ['foo', 'active', 42]
+     * ```
      *
      * @param array $values Array of enum instances or mixed values to normalize.
      *
-     * @throws InvalidArgumentException if any value is not an enum, scalar, array, or `null`.
+     * @throws InvalidArgumentException if any value is not an enum, scalar, `array`, or `null`.
      *
      * @return array Array of normalized scalar values, names, or original values for non-enums.
      *
@@ -57,15 +47,6 @@ abstract class BaseEnum
      *
      * @phpstan-param mixed[] $values
      * @phpstan-return mixed[]
-     *
-     * Usage example:
-     * ```php
-     * Enum::normalizeArray([Status::ACTIVE, Status::INACTIVE]);
-     * // ['active', 'inactive']
-     *
-     * Enum::normalizeArray(['foo', Status::ACTIVE, 42]);
-     * // ['foo', 'active', 42]
-     * ```
      */
     public static function normalizeArray(array $values): array
     {
@@ -75,15 +56,17 @@ abstract class BaseEnum
     /**
      * Normalizes a single enum value to its scalar value or name.
      *
-     * If the value is a backed enum, returns its scalar value. If it is a pure enum, returns its name. For non-enum
-     * values, returns the value unchanged.
+     * Returns the original value unchanged for non-enum input.
      *
-     * This method is essential for extracting comparable or serializable values from enums in configuration, storage,
-     * or API output.
+     * Usage example:
+     * ```php
+     * \UIAwesome\Html\Helper\Enum::normalizeValue(Status::ACTIVE);
+     * // 'active'
+     * ```
      *
      * @param mixed $value Value to normalize.
      *
-     * @throws InvalidArgumentException if the value is not an enum, scalar, array, or `null`.
+     * @throws InvalidArgumentException if the value is not an enum, scalar, `array`, or `null`.
      *
      * @return array|bool|float|int|string|null Scalar value for BackedEnum, name for pure enums, or the original value
      * for non-enums.
@@ -91,15 +74,6 @@ abstract class BaseEnum
      * {@see normalizeArray()} for batch normalization.
      *
      * @phpstan-return ($value is UnitEnum ? int|string : ($value is string ? string : mixed[]|bool|float|int|null))
-     *
-     * Usage example:
-     * ```php
-     * Enum::normalizeValue(Status::ACTIVE);
-     * // 'active'
-     *
-     * Enum::normalizeValue('foo');
-     * // 'foo'
-     * ```
      */
     public static function normalizeValue(mixed $value): array|bool|float|int|string|null
     {
