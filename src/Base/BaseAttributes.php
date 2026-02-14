@@ -116,7 +116,7 @@ abstract class BaseAttributes
      *         'data' => ['id' => 42],
      *     ],
      * );
-     * // ['class' => 'form-control input-lg', 'required' => 'required', 'data-id' => '42']
+     * // ['class' => 'form-control input-lg', 'required' => true, 'data-id' => '42']
      * ```
      *
      * @param array $attributes Associative array of attribute names and values.
