@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Helper\Tests\Support\Provider;
+namespace UIAwesome\Html\Helper\Tests\Provider;
 
+use PHPForge\Support\Stub\{BackedInteger, BackedString, Unit};
 use Stringable;
-use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{AlertType, ButtonSize, Priority};
 use UnitEnum;
 
 use function array_map;
@@ -16,7 +16,7 @@ use function str_repeat;
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\CSSClassTest} test cases.
  *
- * Provides representative input/output pairs for CSS class helper methods that render the `class` attribute.
+ * Provides representative input/output pairs for rendering and composing the `class` attribute.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -30,17 +30,17 @@ final class CSSClassProvider
     {
         return [
             'single enum' => [
-                ButtonSize::LARGE,
+                BackedString::VALUE,
                 'btn-%s',
-                ['sm', 'lg'],
-                'btn-lg',
+                ['sm', 'value'],
+                'btn-value',
                 'Should match Enum value against string whitelist and render.',
             ],
             'valid enum' => [
-                AlertType::WARNING,
+                BackedString::VALUE,
                 'alert-%s',
-                [AlertType::INFO, AlertType::WARNING],
-                'alert-warning',
+                [BackedString::VALUE, BackedInteger::VALUE],
+                'alert-value',
                 'Should render formatted class string for valid Enum input.',
             ],
             'valid string' => [
@@ -117,7 +117,7 @@ final class CSSClassProvider
                             'p-4',
                             'mb-4',
                             'text-sm',
-                            AlertType::WARNING,
+                            BackedString::VALUE,
                             'rounded-lg',
                             'border',
                             'border-yellow-300',
@@ -131,7 +131,7 @@ final class CSSClassProvider
                 [
                     'id' => 'alert-box',
                     'role' => 'alert',
-                    'class' => 'p-4 mb-4 text-sm warning rounded-lg border border-yellow-300 bg-yellow-50 dark:bg-gray-800 dark:text-yellow-400 dark:border-yellow-800',
+                    'class' => 'p-4 mb-4 text-sm value rounded-lg border border-yellow-300 bg-yellow-50 dark:bg-gray-800 dark:text-yellow-400 dark:border-yellow-800',
                 ],
                 'Should handle complex real-world scenario with Tailwind style classes and enum.',
             ],
@@ -322,14 +322,14 @@ final class CSSClassProvider
             // enum values
             'enum that returns int should be filtered' => [
                 [],
-                [['classes' => Priority::HIGH]],
+                [['classes' => BackedInteger::VALUE]],
                 [],
                 'Should filter out enum with int value.',
             ],
             'enum with existing class' => [
                 ['class' => 'existing-class'],
-                [['classes' => AlertType::SUCCESS]],
-                ['class' => 'existing-class success'],
+                [['classes' => BackedString::VALUE]],
+                ['class' => 'existing-class value'],
                 'Should append enum value to existing classes.',
             ],
             'mixed strings and enums' => [
@@ -338,13 +338,13 @@ final class CSSClassProvider
                     [
                         'classes' => [
                             'class-one',
-                            AlertType::SUCCESS,
+                            BackedString::VALUE,
                             'class-two',
-                            AlertType::WARNING,
+                            Unit::value,
                         ],
                     ],
                 ],
-                ['class' => 'class-one success class-two warning'],
+                ['class' => 'class-one value class-two'],
                 'Should add classes from mixed string and enum array.',
             ],
             'multiple enums in array' => [
@@ -352,19 +352,18 @@ final class CSSClassProvider
                 [
                     [
                         'classes' => [
-                            AlertType::SUCCESS,
-                            AlertType::WARNING,
-                            AlertType::ERROR,
+                            BackedString::VALUE,
+                            Unit::value,
                         ],
                     ],
                 ],
-                ['class' => 'success warning error'],
+                ['class' => 'value'],
                 'Should add multiple classes from enum array.',
             ],
             'single enum' => [
                 [],
-                [['classes' => AlertType::SUCCESS]],
-                ['class' => 'success'],
+                [['classes' => BackedString::VALUE]],
+                ['class' => 'value'],
                 'Should add class from enum value.',
             ],
 
@@ -374,11 +373,11 @@ final class CSSClassProvider
                     'id' => 'button-id',
                     'type' => 'button',
                 ],
-                [['classes' => ButtonSize::LARGE]],
+                [['classes' => BackedString::VALUE]],
                 [
                     'id' => 'button-id',
                     'type' => 'button',
-                    'class' => 'lg',
+                    'class' => 'value',
                 ],
                 'Should preserve other attributes when adding enum class.',
             ],
@@ -473,11 +472,11 @@ final class CSSClassProvider
                 ['class' => 'existing-class'],
                 [
                     [
-                        'classes' => AlertType::SUCCESS,
+                        'classes' => BackedString::VALUE,
                         'override' => true,
                     ],
                 ],
-                ['class' => 'success'],
+                ['class' => 'value'],
                 'Should override existing classes with enum value.',
             ],
             'override with null' => [

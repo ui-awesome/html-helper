@@ -8,20 +8,18 @@ use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\Template;
-use UIAwesome\Html\Helper\Tests\Support\Provider\TemplateProvider;
+use UIAwesome\Html\Helper\Tests\Provider\TemplateProvider;
 
 /**
- * Unit tests for {@see Template} template rendering behavior.
- *
- * Verifies observable behavior for {@see Template} based on this test file only (test methods, providers, and
- * assertions). Statements must be grounded in datasets, assertions, and explicit exception expectations present here.
+ * Unit tests for the {@see Template} helper.
  *
  * Test coverage.
- * - Line ending normalization for CRLF, CR, and LF inputs.
- * - Rendering with actual newlines and token replacement.
- * - Rendering with empty or missing tokens.
+ * - Normalizes line endings during template rendering.
+ * - Removes stray carriage return characters from rendered output.
+ * - Renders templates with actual newline characters.
+ * - Renders templates with empty or missing tokens.
+ * - Renders templates with full token replacement.
  *
- * {@see Template} for implementation details.
  * {@see TemplateProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.

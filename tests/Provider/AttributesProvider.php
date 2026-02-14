@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Helper\Tests\Support\Provider;
+namespace UIAwesome\Html\Helper\Tests\Provider;
 
+use PHPForge\Support\Stub\{BackedInteger, BackedString};
 use Stringable;
-use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{ButtonSize, Columns, Key, Priority, Theme};
+use UIAwesome\Html\Helper\Tests\Support\Key;
 use UnitEnum;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\AttributesTest} test cases.
  *
- * Provides representative input/output pairs for attribute rendering helper methods that build HTML attribute strings.
+ * Provides representative input/output pairs for rendering and normalizing HTML attributes.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -76,43 +77,43 @@ final class AttributesProvider
     {
         return [
             'enum in class array' => [
-                ' class="btn md"',
+                ' class="btn value"',
                 [
                     'class' => [
                         'btn',
-                        ButtonSize::MEDIUM,
+                        BackedString::VALUE,
                     ],
                 ],
             ],
             'enum in data attribute' => [
-                ' data-theme="DARK"',
+                ' data-theme="value"',
                 [
-                    'data' => ['theme' => Theme::DARK],
+                    'data' => ['theme' => BackedString::VALUE],
                 ],
             ],
             'enum in style' => [
-                ' style=\'width: lg;\'',
+                ' style=\'width: value;\'',
                 [
-                    'style' => ['width' => ButtonSize::LARGE],
+                    'style' => ['width' => BackedString::VALUE],
                 ],
             ],
             'mixed values' => [
-                ' class="sm primary" data-theme="LIGHT"',
+                ' class="value primary" data-theme="value"',
                 [
                     'class' => [
-                        ButtonSize::SMALL,
+                        BackedString::VALUE,
                         'primary',
                     ],
-                    'data' => ['theme' => Theme::LIGHT],
+                    'data' => ['theme' => BackedString::VALUE],
                 ],
             ],
             'numeric enum' => [
-                ' cols="2"',
-                ['cols' => Columns::TWO],
+                ' cols="1"',
+                ['cols' => BackedInteger::VALUE],
             ],
             'single enum' => [
-                ' type="sm"',
-                ['type' => ButtonSize::SMALL],
+                ' type="value"',
+                ['type' => BackedString::VALUE],
             ],
         ];
     }
@@ -128,7 +129,7 @@ final class AttributesProvider
                 'aria-',
             ],
             'enum' => [
-                Priority::HIGH,
+                BackedInteger::VALUE,
                 'data-',
             ],
         ];
@@ -307,21 +308,21 @@ final class AttributesProvider
                 true,
             ],
             'enum' => [
-                ['value' => ButtonSize::LARGE],
-                ['value' => 'lg'],
+                ['value' => BackedString::VALUE],
+                ['value' => 'value'],
             ],
             'enum inside class array' => [
                 [
                     'class' => [
                         'btn',
-                        ButtonSize::LARGE,
+                        BackedString::VALUE,
                     ],
                 ],
-                ['class' => 'btn lg'],
+                ['class' => 'btn value'],
             ],
             'enum inside data array' => [
-                ['data' => ['size' => ButtonSize::LARGE]],
-                ['data-size' => 'lg'],
+                ['data' => ['size' => BackedString::VALUE]],
+                ['data-size' => 'value'],
             ],
             'generic array attribute with encode false' => [
                 ['my-attr' => ['<tag>']],
@@ -433,9 +434,9 @@ final class AttributesProvider
                 ],
             ],
             'closure with enum' => [
-                ' type="sm"',
+                ' type="value"',
                 [
-                    'type' => static fn(): ButtonSize => ButtonSize::SMALL,
+                    'type' => static fn(): BackedString => BackedString::VALUE,
                 ],
             ],
             'closure with float' => [

@@ -9,21 +9,21 @@ use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\Attributes;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Helper\Tests\Support\Provider\AttributesProvider;
+use UIAwesome\Html\Helper\Tests\Provider\AttributesProvider;
 
 /**
- * Unit tests for {@see Attributes} attribute rendering behavior.
- *
- * Verifies observable behavior for {@see Attributes} based on this test file only (test methods, providers, and
- * assertions). Statements must be grounded in datasets, assertions, and explicit exception expectations present here.
+ * Unit tests for the {@see Attributes} helper.
  *
  * Test coverage.
- * - Attribute key normalization and validation.
- * - Attribute rendering order and deterministic output.
- * - Attribute rendering with enums and `null`.
- * - Sanitization of malicious attribute values.
+ * - Normalizes attribute arrays with configurable encoding behavior.
+ * - Normalizes attribute keys with prefix handling.
+ * - Renders attributes in deterministic order.
+ * - Renders attributes with enum and `null` values.
+ * - Renders malicious inputs with safe output encoding.
+ * - Renders style attributes from scalar, `array`, and stringable values.
+ * - Renders tag attributes across `bool`, closure, and nested structures.
+ * - Throws exceptions for invalid attribute keys.
  *
- * {@see Attributes} for implementation details.
  * {@see AttributesProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.

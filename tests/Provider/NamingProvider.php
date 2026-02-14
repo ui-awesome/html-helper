@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Helper\Tests\Support\Provider;
+namespace UIAwesome\Html\Helper\Tests\Provider;
 
 use UIAwesome\Html\Helper\Exception\Message;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\NamingTest} test cases.
  *
- * Provides representative input/output pairs for name generation and regular expression helper methods.
+ * Provides representative input/output pairs for input name and pattern generation.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

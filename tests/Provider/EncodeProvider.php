@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Helper\Tests\Support\Provider;
+namespace UIAwesome\Html\Helper\Tests\Provider;
 
 use Stringable;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\EncodeTest} test cases.
  *
- * Provides representative input/output pairs for encoding utility methods in content and attribute/value contexts.
+ * Provides representative input/output pairs for encoding content and attribute values.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

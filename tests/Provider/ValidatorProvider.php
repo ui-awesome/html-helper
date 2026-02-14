@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Helper\Tests\Support\Provider;
+namespace UIAwesome\Html\Helper\Tests\Provider;
 
+use PHPForge\Support\Stub\{BackedInteger, BackedString, Unit};
 use Stringable;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Priority, Status, Theme};
 use UnitEnum;
 
 /**
@@ -325,27 +325,27 @@ final class ValidatorProvider
     {
         return [
             'backed enum argument name' => [
-                Status::ACTIVE,
-                Status::INACTIVE,
-                Status::cases(),
+                BackedString::VALUE,
+                BackedString::VALUE,
+                BackedString::cases(),
                 false,
                 '',
             ],
             'backed enum argument name not in list' => [
-                Status::ACTIVE,
+                BackedString::VALUE,
                 'invalid_value',
-                Status::cases(),
+                BackedString::cases(),
                 true,
                 Message::VALUE_NOT_IN_LIST->getMessage(
                     'invalid_value',
-                    Status::ACTIVE->value,
-                    implode('\', \'', Enum::normalizeArray(Status::cases())),
+                    BackedString::VALUE->value,
+                    implode('\', \'', Enum::normalizeArray(BackedString::cases())),
                 ),
             ],
             'backed enum value in list' => [
                 'attribute',
-                Status::ACTIVE,
-                Status::cases(),
+                BackedString::VALUE,
+                BackedString::cases(),
                 false,
                 '',
             ],
@@ -373,33 +373,31 @@ final class ValidatorProvider
             ],
             'invalid enum comparison' => [
                 'attribute',
-                Status::ACTIVE,
-                Theme::cases(),
+                BackedString::VALUE,
+                BackedInteger::cases(),
                 true,
                 Message::VALUE_NOT_IN_LIST->getMessage(
-                    Status::ACTIVE->value,
+                    BackedString::VALUE->value,
                     'attribute',
-                    implode('\', \'', Enum::normalizeArray(Theme::cases())),
+                    implode('\', \'', Enum::normalizeArray(BackedInteger::cases())),
                 ),
             ],
             'mixed enum types backed enum value found' => [
                 'attribute',
-                'DARK',
+                'value',
                 [
-                    Status::ACTIVE,
-                    Theme::DARK,
-                    Priority::LOW,
+                    BackedString::VALUE,
+                    BackedInteger::VALUE,
                 ],
                 false,
                 '',
             ],
             'mixed enum types enum instance found' => [
                 'attribute',
-                Status::ACTIVE,
+                BackedString::VALUE,
                 [
-                    Status::ACTIVE,
-                    Theme::DARK,
-                    Priority::LOW,
+                    BackedString::VALUE,
+                    BackedInteger::VALUE,
                 ],
                 false,
                 '',
@@ -408,9 +406,8 @@ final class ValidatorProvider
                 'attribute',
                 1,
                 [
-                    Status::ACTIVE,
-                    Theme::DARK,
-                    Priority::LOW,
+                    BackedString::VALUE,
+                    BackedInteger::VALUE,
                 ],
                 false,
                 '',
@@ -419,15 +416,14 @@ final class ValidatorProvider
                 'attribute',
                 '1',
                 [
-                    Status::ACTIVE,
-                    Theme::DARK,
-                    Priority::LOW,
+                    BackedString::VALUE,
+                    BackedInteger::VALUE,
                 ],
                 true,
                 Message::VALUE_NOT_IN_LIST->getMessage(
                     '1',
                     'attribute',
-                    implode('\', \'', Enum::normalizeArray([Status::ACTIVE, Theme::DARK, Priority::LOW])),
+                    implode('\', \'', Enum::normalizeArray([BackedString::VALUE, BackedInteger::VALUE])),
                 ),
             ],
             'null value' => [
@@ -443,16 +439,15 @@ final class ValidatorProvider
             ],
             'string case sensitive enum value' => [
                 'attribute',
-                'ACTIVE',
+                'VALUE',
                 [
-                    Status::ACTIVE,
-                    Status::INACTIVE,
+                    BackedString::VALUE,
                 ],
                 true,
                 Message::VALUE_NOT_IN_LIST->getMessage(
-                    'ACTIVE',
+                    'VALUE',
                     'attribute',
-                    implode('\', \'', Enum::normalizeArray([Status::ACTIVE, Status::INACTIVE])),
+                    implode('\', \'', Enum::normalizeArray([BackedString::VALUE])),
                 ),
             ],
             'string value in list' => [
@@ -499,8 +494,8 @@ final class ValidatorProvider
             ],
             'unit enum value in list' => [
                 'attribute',
-                Theme::DARK,
-                Theme::cases(),
+                Unit::value,
+                Unit::cases(),
                 false,
                 '',
             ],

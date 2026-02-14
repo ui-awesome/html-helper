@@ -10,20 +10,16 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Helper\Tests\Support\Provider\EnumProvider;
+use UIAwesome\Html\Helper\Tests\Provider\EnumProvider;
 
 /**
- * Unit tests for {@see Enum} enum normalization behavior.
- *
- * Verifies observable behavior for {@see Enum} based on this test file only (test methods, providers, and
- * assertions). Statements must be grounded in datasets, assertions, and explicit exception expectations present here.
+ * Unit tests for the {@see Enum} helper.
  *
  * Test coverage.
- * - Exception behavior for unsupported value types.
- * - Normalization of arrays containing enums and mixed values.
- * - Normalization of single values, including enums and `null`.
+ * - Normalizes arrays containing enums, scalars, and `null`.
+ * - Normalizes single values from enums, scalars, and stringable inputs.
+ * - Throws exceptions for unsupported value types.
  *
- * {@see Enum} for implementation details.
  * {@see EnumProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.

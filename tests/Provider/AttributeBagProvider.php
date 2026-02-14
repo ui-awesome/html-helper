@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Helper\Tests\Support\Provider;
+namespace UIAwesome\Html\Helper\Tests\Provider;
 
-use Closure;
-use UIAwesome\Html\Helper\Tests\Support\Stub\Enum\{Key, Priority};
+use PHPForge\Support\Stub\BackedInteger;
+use UIAwesome\Html\Helper\Tests\Support\Key;
 use UnitEnum;
 
 /**
@@ -73,7 +73,7 @@ final class AttributeBagProvider
     {
         return [
             'empty string' => [''],
-            'int backed enum' => [Priority::HIGH],
+            'int backed enum' => [BackedInteger::VALUE],
         ];
     }
 
@@ -111,7 +111,7 @@ final class AttributeBagProvider
      *   array{
      *     mixed[],
      *     mixed,
-     *     bool|float|int|string|Closure(): mixed|\Stringable|UnitEnum|null,
+     *     bool|float|int|string|\Closure(): mixed|\Stringable|UnitEnum|null,
      *     string,
      *     bool,
      *     mixed[],

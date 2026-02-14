@@ -9,26 +9,24 @@ use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Naming;
-use UIAwesome\Html\Helper\Tests\Support\Provider\NamingProvider;
+use UIAwesome\Html\Helper\Tests\Provider\NamingProvider;
 
 use function ini_get;
 use function ini_set;
 use function str_repeat;
 
 /**
- * Unit tests for {@see Naming} naming helper behavior.
- *
- * Verifies observable behavior for {@see Naming} based on this test file only (test methods, providers, and
- * assertions). Statements must be grounded in datasets, assertions, and explicit exception expectations present here.
+ * Unit tests for the {@see Naming} helper.
  *
  * Test coverage.
- * - Conversion of regular expressions to patterns, including invalid inputs.
- * - Generation of arrayable input names.
- * - Generation of element IDs and input IDs, including prefixes and multibyte characters.
- * - Short class name extraction with optional suffix removal.
- * - Validation errors for invalid form/model names and properties.
+ * - Converts regular expressions to PCRE patterns with optional delimiters.
+ * - Generates arrayable attribute names.
+ * - Generates form input names and throws exceptions for invalid form or attribute values.
+ * - Generates IDs with optional prefixes and expected hex format.
+ * - Generates input IDs, including multibyte normalization.
+ * - Returns short class names with optional suffix removal and lowercase formatting.
+ * - Throws exceptions for invalid regular expressions, including backtrack-limit failures.
  *
- * {@see Naming} for implementation details.
  * {@see NamingProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2025 Terabytesoftw.
