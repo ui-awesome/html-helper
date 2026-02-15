@@ -82,6 +82,13 @@ final class AttributeBagProvider
                 'fallback',
                 'handleClick()',
             ],
+            'enum key with prefix' => [
+                ['aria-label' => 'Close'],
+                Key::ARIA_LABEL,
+                'aria-',
+                'fallback',
+                'Close',
+            ],
             'ng value by unprefixed key' => [
                 ['ng-if' => 'isVisible'],
                 'if',
@@ -311,6 +318,12 @@ final class AttributeBagProvider
                 ['id' => 'submit', 'onclick' => 'handleClick()'],
                 'click',
                 'on',
+                ' id="submit"',
+            ],
+            'enum key with prefix' => [
+                ['id' => 'submit', 'data-toggle' => 'dropdown'],
+                Key::DATA_TOGGLE,
+                'data-',
                 ' id="submit"',
             ],
             'ng key with prefix' => [
@@ -599,6 +612,13 @@ final class AttributeBagProvider
                 'on',
                 ' onchange="handleChange()"',
             ],
+            'enum key with prefix' => [
+                [],
+                Key::ON_CLICK,
+                'handleClick()',
+                'on',
+                ' onclick="handleClick()"',
+            ],
             'ng boolean false when key is unprefixed' => [
                 [],
                 'if',
@@ -612,6 +632,13 @@ final class AttributeBagProvider
                 1,
                 'ng-',
                 ' ng-bind="1"',
+            ],
+            'removes prefixed key when value is null' => [
+                ['aria-label' => 'Close'],
+                'label',
+                null,
+                'aria-',
+                '',
             ],
         ];
     }
