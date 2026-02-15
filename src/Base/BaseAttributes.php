@@ -239,8 +239,10 @@ abstract class BaseAttributes
                 if (self::isValidAttributeName($key)) {
                     $result[$key] = match (gettype($v)) {
                         'array' => json_encode($v, $flags),
-                        'double', 'integer', 'string' => (string) $v,
-                        default => '',
+                        'boolean' => $v ? 'true' : 'false',
+                        default => is_string($v) || is_numeric($v)
+                            ? (string) $v
+                            : json_encode($v, $flags),
                     };
                 }
             }
