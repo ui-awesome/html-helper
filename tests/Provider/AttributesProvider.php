@@ -274,14 +274,25 @@ final class AttributesProvider
                 ],
                 ['class' => 'btn btn-primary'],
             ],
-            'data attribute with unsupported types (boolean)' => [
+            'data attribute with boolean true' => [
                 [
                     'data' => [
                         'active' => true,
                     ],
                 ],
                 [
-                    'data-active' => '',
+                    'data-active' => 'true',
+                ],
+                true,
+            ],
+            'data attribute with boolean false' => [
+                [
+                    'data' => [
+                        'active' => false,
+                    ],
+                ],
+                [
+                    'data-active' => 'false',
                 ],
                 true,
             ],
@@ -376,6 +387,10 @@ final class AttributesProvider
                 ['on' => ['onclick' => 'handleClick()']],
                 ['onclick' => 'handleClick()'],
             ],
+            'on expansion supports boolean true value' => [
+                ['on' => ['change' => true]],
+                ['onchange' => 'true'],
+            ],
             'on expansion supports float value' => [
                 ['on' => ['wheel' => 3.14]],
                 ['onwheel' => '3.14'],
@@ -383,10 +398,6 @@ final class AttributesProvider
             'on expansion supports integer value' => [
                 ['on' => ['keyup' => 13]],
                 ['onkeyup' => '13'],
-            ],
-            'on expansion defaults unsupported scalar to empty string' => [
-                ['on' => ['click' => true]],
-                ['onclick' => ''],
             ],
             'on expansion with short event key' => [
                 ['on' => ['click' => 'handleClick()']],

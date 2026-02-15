@@ -69,7 +69,7 @@ final class AttributeBagProvider
     }
 
     /**
-     * @phpstan-return array<string, array{mixed[], mixed[], mixed[]}>
+     * @phpstan-return array<string, array{mixed[], mixed[], string}>
      */
     public static function merge(): array
     {
@@ -77,13 +77,13 @@ final class AttributeBagProvider
             'merges and overrides existing keys' => [
                 ['class' => 'btn', 'id' => 'submit'],
                 ['class' => 'btn btn-primary', 'title' => 'Submit'],
-                ['class' => 'btn btn-primary', 'id' => 'submit', 'title' => 'Submit'],
+                ' class="btn btn-primary" id="submit" title="Submit"',
             ],
         ];
     }
 
     /**
-     * @phpstan-return array<string, array{mixed[], string|UnitEnum, mixed[]}>
+     * @phpstan-return array<string, array{mixed[], string|UnitEnum, string}>
      */
     public static function remove(): array
     {
@@ -91,7 +91,7 @@ final class AttributeBagProvider
             'removes existing key' => [
                 ['id' => 'submit', 'role' => 'button'],
                 'role',
-                ['id' => 'submit'],
+                ' id="submit"',
             ],
         ];
     }
@@ -99,7 +99,7 @@ final class AttributeBagProvider
     /**
      * @phpstan-return array<
      *   string,
-     *   array{mixed[], string|UnitEnum, bool|float|int|string|\Closure(): mixed|\Stringable|UnitEnum|null, mixed[]},
+     *   array{mixed[], string|UnitEnum, bool|float|int|string|\Closure(): mixed|\Stringable|UnitEnum|null, string},
      * >
      */
     public static function set(): array
@@ -111,31 +111,43 @@ final class AttributeBagProvider
                 [],
                 'id',
                 $closure,
-                ['id' => $closure],
+                ' id="submit"',
             ],
             'keeps enum value as raw data' => [
                 [],
                 'type',
                 BackedInteger::VALUE,
-                ['type' => BackedInteger::VALUE],
+                ' type="1"',
             ],
             'removes key when value is null' => [
                 ['data-toggle' => 'modal', 'id' => 'trigger'],
                 Key::DATA_TOGGLE,
                 null,
-                ['id' => 'trigger'],
+                ' id="trigger"',
+            ],
+            'sets aria attribute with boolean true value' => [
+                [],
+                'aria-pressed',
+                true,
+                ' aria-pressed="true"',
+            ],
+            'sets aria attribute with boolean false value' => [
+                [],
+                'aria-expanded',
+                false,
+                ' aria-expanded="false"',
             ],
             'sets plain attribute value' => [
                 [],
                 'role',
                 'button',
-                ['role' => 'button'],
+                ' role="button"',
             ],
         ];
     }
 
     /**
-     * @phpstan-return array<string, array{mixed[], mixed[], mixed[]}>
+     * @phpstan-return array<string, array{mixed[], mixed[], string}>
      */
     public static function setMany(): array
     {
@@ -149,7 +161,7 @@ final class AttributeBagProvider
                     'title' => 'Send form',
                     'disabled' => null,
                 ],
-                ['id' => $closure, 'title' => 'Send form'],
+                ' id="submit" title="Send form"',
             ],
             'supports prefixed keys from traits' => [
                 [],
@@ -158,11 +170,7 @@ final class AttributeBagProvider
                     'data-toggle' => 'dropdown',
                     'onclick' => 'handleClick()',
                 ],
-                [
-                    'aria-label' => 'Close modal',
-                    'data-toggle' => 'dropdown',
-                    'onclick' => 'handleClick()',
-                ],
+                ' aria-label="Close modal" data-toggle="dropdown" onclick="handleClick()"',
             ],
         ];
     }

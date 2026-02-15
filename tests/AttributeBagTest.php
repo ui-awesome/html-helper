@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Helper\AttributeBag;
+use UIAwesome\Html\Helper\Attributes;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Provider\AttributeBagProvider;
 use UnitEnum;
@@ -50,54 +51,51 @@ final class AttributeBagTest extends TestCase
     /**
      * @phpstan-param mixed[] $attributes
      * @phpstan-param mixed[] $values
-     * @phpstan-param mixed[] $expected
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'merge')]
-    public function testMerge(array $attributes, array $values, array $expected): void
+    public function testMerge(array $attributes, array $values, string $expected): void
     {
         AttributeBag::merge($attributes, $values);
 
         self::assertSame(
             $expected,
-            $attributes,
-            'Should merge values and override duplicated keys.',
+            Attributes::render($attributes),
+            'Should merge values and override duplicated keys in rendered output.',
         );
     }
 
     /**
      * @phpstan-param mixed[] $attributes
      * @phpstan-param string|UnitEnum $key
-     * @phpstan-param mixed[] $expected
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'remove')]
-    public function testRemove(array $attributes, string|UnitEnum $key, array $expected): void
+    public function testRemove(array $attributes, string|UnitEnum $key, string $expected): void
     {
         AttributeBag::remove($attributes, $key);
 
         self::assertSame(
             $expected,
-            $attributes,
-            'Should remove the specified key from attributes.',
+            Attributes::render($attributes),
+            'Should remove the specified key in rendered output.',
         );
     }
 
     /**
      * @phpstan-param mixed[] $attributes
      * @phpstan-param string|UnitEnum $key
-     * @phpstan-param mixed[] $expected
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'set')]
     public function testSet(
         array $attributes,
         string|UnitEnum $key,
         mixed $value,
-        array $expected,
+        string $expected,
     ): void {
         AttributeBag::set($attributes, $key, $value);
 
         self::assertSame(
             $expected,
-            $attributes,
+            Attributes::render($attributes),
             'Should set plain raw values with key normalization.',
         );
     }
@@ -105,17 +103,16 @@ final class AttributeBagTest extends TestCase
     /**
      * @phpstan-param mixed[] $attributes
      * @phpstan-param mixed[] $values
-     * @phpstan-param mixed[] $expected
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'setMany')]
-    public function testSetMany(array $attributes, array $values, array $expected): void
+    public function testSetMany(array $attributes, array $values, string $expected): void
     {
         AttributeBag::setMany($attributes, $values);
 
         self::assertSame(
             $expected,
-            $attributes,
-            "Should set many plain attributes and remove keys with 'null' values.",
+            Attributes::render($attributes),
+            "Should set many plain attributes and remove keys with 'null' values in rendered output.",
         );
     }
 
