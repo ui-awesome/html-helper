@@ -100,8 +100,8 @@ $type = AttributeBag::get($attributes, 'type', 'button');
 // get with prefix normalization
 $label = AttributeBag::get($attributes, 'label', null, 'aria-');
 
-// remove keys
-AttributeBag::remove($attributes, 'disabled');
+// remove unwanted keys
+AttributeBag::remove($attributes, 'readonly');
 
 // set values (closures are resolved)
 AttributeBag::set($attributes, 'disabled', true);
