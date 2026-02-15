@@ -14,6 +14,7 @@ use function array_key_exists;
 use function is_bool;
 use function is_string;
 use function preg_match;
+use function str_starts_with;
 
 /**
  * Provides reusable operations for associative HTML attribute bags.
@@ -30,11 +31,13 @@ abstract class BaseAttributeBag
      * ```php
      * \UIAwesome\Html\Helper\AttributeBag::get($attributes, 'id');
      * \UIAwesome\Html\Helper\AttributeBag::get($attributes, 'type', 'button');
+     * \UIAwesome\Html\Helper\AttributeBag::get($attributes, 'label', null, 'aria-');
      * ```
      *
      * @param array $attributes Attribute bag.
      * @param string|UnitEnum $key Attribute key.
      * @param mixed $default Default value when key is not present.
+     * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
      *
      * @throws InvalidArgumentException if normalized key is not a non-empty `string`.
      *
@@ -42,9 +45,13 @@ abstract class BaseAttributeBag
      *
      * @phpstan-param mixed[] $attributes
      */
-    public static function get(array $attributes, string|UnitEnum $key, mixed $default = null): mixed
-    {
-        $normalizedKey = self::normalizeKey($key);
+    public static function get(
+        array $attributes,
+        string|UnitEnum $key,
+        mixed $default = null,
+        string $prefix = '',
+    ): mixed {
+        $normalizedKey = self::normalizeKey($key, $prefix);
 
         return array_key_exists($normalizedKey, $attributes)
             ? $attributes[$normalizedKey]
@@ -81,23 +88,60 @@ abstract class BaseAttributeBag
     }
 
     /**
+     * Normalizes an attribute key ensuring it has a specific prefix.
+     *
+     * Returns the key unchanged when it already has the prefix.
+     *
+     * Usage example:
+     * ```php
+     * \UIAwesome\Html\Helper\AttributeBag::normalizeKey('label', 'aria-');
+     * // 'aria-label'
+     * ```
+     *
+     * @param mixed $key Key to normalize. Accepts strings, Stringable objects, or UnitEnum cases.
+     * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
+     *
+     * @throws InvalidArgumentException if the key is empty, not a `string`, or cannot be normalized to a `string`.
+     *
+     * @return string Normalized key with the prefix ensured.
+     */
+    public static function normalizeKey(mixed $key, string $prefix): string
+    {
+        $normalizedKey = Enum::normalizeValue($key);
+
+        if ($normalizedKey === '' || is_string($normalizedKey) === false) {
+            throw new InvalidArgumentException(
+                Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
+            );
+        }
+
+        if (str_starts_with($normalizedKey, $prefix) === false) {
+            return "{$prefix}{$normalizedKey}";
+        }
+
+        return $normalizedKey;
+    }
+
+    /**
      * Removes an attribute from the bag.
      *
      * Usage example:
      * ```php
      * \UIAwesome\Html\Helper\AttributeBag::remove($attributes, 'disabled');
+     * \UIAwesome\Html\Helper\AttributeBag::remove($attributes, 'label', 'aria-');
      * ```
      *
      * @param array $attributes Attribute bag to update in place.
      * @param string|UnitEnum $key Attribute key.
+     * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
      *
      * @throws InvalidArgumentException if normalized key is not a non-empty `string`.
      *
      * @phpstan-param mixed[] $attributes
      */
-    public static function remove(array &$attributes, string|UnitEnum $key): void
+    public static function remove(array &$attributes, string|UnitEnum $key, string $prefix = ''): void
     {
-        $normalizedKey = self::normalizeKey($key);
+        $normalizedKey = self::normalizeKey($key, $prefix);
 
         unset($attributes[$normalizedKey]);
     }
@@ -110,19 +154,21 @@ abstract class BaseAttributeBag
      * $attributes = [];
      * \UIAwesome\Html\Helper\AttributeBag::set($attributes, 'disabled', true);
      * \UIAwesome\Html\Helper\AttributeBag::set($attributes, 'id', static fn () => 'submit');
+     * \UIAwesome\Html\Helper\AttributeBag::set($attributes, 'label', 'Submit', 'aria-');
      * ```
      *
      * @param array $attributes Attribute bag to update in place.
      * @param string|UnitEnum $key Attribute key to normalize.
      * @param mixed $value Attribute value.
+     * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
      *
      * @throws InvalidArgumentException if key normalization fails.
      *
      * @phpstan-param mixed[] $attributes
      */
-    public static function set(array &$attributes, string|UnitEnum $key, mixed $value): void
+    public static function set(array &$attributes, string|UnitEnum $key, mixed $value, string $prefix = ''): void
     {
-        $normalizedKey = self::normalizeKey($key);
+        $normalizedKey = self::normalizeKey($key, $prefix);
 
         if ($value instanceof Closure) {
             $value = $value();
@@ -138,41 +184,37 @@ abstract class BaseAttributeBag
     /**
      * Sets multiple plain attributes.
      *
+     * Usage example:
+     * ```php
+     * $attributes = [];
+     * \UIAwesome\Html\Helper\AttributeBag::setMany(
+     *     $attributes,
+     *     [
+     *         'disabled' => true,
+     *         'id' => static fn () => 'submit',
+     *     ],
+     * );
+     * \UIAwesome\Html\Helper\AttributeBag::setMany(
+     *     $attributes,
+     *     ['label' => 'Submit'],
+     *     'aria-',
+     * );
+     * ```
+     *
      * @param array $attributes Attribute bag to update in place.
      * @param array $values Values to set.
+     * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
      *
      * @throws InvalidArgumentException if any key normalization fails.
      *
      * @phpstan-param mixed[] $attributes
      * @phpstan-param mixed[] $values
      */
-    public static function setMany(array &$attributes, array $values): void
+    public static function setMany(array &$attributes, array $values, string $prefix = ''): void
     {
         foreach ($values as $key => $value) {
-            self::set($attributes, self::prepareManyKey($key), $value);
+            self::set($attributes, self::prepareManyKey($key), $value, $prefix);
         }
-    }
-
-    /**
-     * Normalizes an attribute bag key using enum-aware normalization.
-     *
-     * @param string|UnitEnum $key Attribute key.
-     *
-     * @throws InvalidArgumentException if normalized key is not a non-empty `string`.
-     *
-     * @return string Normalized key.
-     */
-    private static function normalizeKey(string|UnitEnum $key): string
-    {
-        $normalizedKey = Enum::normalizeValue($key);
-
-        if ($normalizedKey === '' || is_string($normalizedKey) === false) {
-            throw new InvalidArgumentException(
-                Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
-            );
-        }
-
-        return $normalizedKey;
     }
 
     /**

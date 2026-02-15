@@ -6,8 +6,6 @@ namespace UIAwesome\Html\Helper\Tests\Provider;
 
 use PHPForge\Support\Stub\{BackedInteger, BackedString};
 use Stringable;
-use UIAwesome\Html\Helper\Tests\Support\Key;
-use UnitEnum;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\AttributesTest} test cases.
@@ -114,107 +112,6 @@ final class AttributesProvider
             'single enum' => [
                 ' type="value"',
                 ['type' => BackedString::VALUE],
-            ],
-        ];
-    }
-
-    /**
-     * @phpstan-return array<string, array{string|UnitEnum, string}>
-     */
-    public static function invalidKey(): array
-    {
-        return [
-            'empty string' => [
-                '',
-                'aria-',
-            ],
-            'enum' => [
-                BackedInteger::VALUE,
-                'data-',
-            ],
-        ];
-    }
-
-    /**
-     * @phpstan-return array<string, array{string|Stringable|UnitEnum, string, string}>
-     */
-    public static function key(): array
-    {
-        return [
-            'enum with prefix aria' => [
-                Key::ARIA_LABEL,
-                'aria-',
-                'aria-label',
-            ],
-            'enum with prefix data' => [
-                Key::DATA_TOGGLE,
-                'data-',
-                'data-toggle',
-            ],
-            'enum with prefix event' => [
-                Key::ON_CLICK,
-                'on',
-                'onclick',
-            ],
-            'string key with prefix aria' => [
-                'aria-label',
-                'aria-',
-                'aria-label',
-            ],
-            'string key with prefix data' => [
-                'data-toggle',
-                'data-',
-                'data-toggle',
-            ],
-            'string key with prefix event' => [
-                'onclick',
-                'on',
-                'onclick',
-            ],
-            'stringable with prefix aria' => [
-                new class {
-                    public function __toString(): string
-                    {
-                        return 'aria-label';
-                    }
-                },
-                'aria-',
-                'aria-label',
-            ],
-            'stringable with prefix data' => [
-                new class {
-                    public function __toString(): string
-                    {
-                        return 'data-toggle';
-                    }
-                },
-                'data-',
-                'data-toggle',
-            ],
-            'stringable with prefix event' => [
-                new class {
-                    public function __toString(): string
-                    {
-                        return 'onclick';
-                    }
-                },
-                'on',
-                'onclick',
-            ],
-            'without prefix aria' => [
-                'label',
-                'aria-',
-                'aria-label',
-            ],
-            'without prefix data' => [
-                'toggle',
-                'data-',
-                'data-toggle',
-            ],
-            'without prefix event' => [
-                'click',
-                'on',
-                'onclick',
             ],
         ];
     }

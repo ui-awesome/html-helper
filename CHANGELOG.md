@@ -2,6 +2,8 @@
 
 ## 0.7.2 Under development
 
+- Enh #52: Move `normalizeKey()` to `AttributeBag` and add optional `$prefix` support to `get()`, `remove()`, `set()`, and `setMany()` (@terabytesoftw)
+
 ## 0.7.1 February 15, 2026
 
 - Bug #50: Serialize boolean values in `aria-*`, `data-*`, `data-ng`, `ng-*`, and `on*` attributes as explicit strings (@terabytesoftw)

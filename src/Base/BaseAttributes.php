@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper\Base;
 
 use Closure;
-use InvalidArgumentException;
 use UIAwesome\Html\Helper\{Encode, Enum};
-use UIAwesome\Html\Helper\Exception\Message;
 
 use function array_map;
 use function implode;
@@ -147,41 +145,6 @@ abstract class BaseAttributes
         }
 
         return $normalized;
-    }
-
-    /**
-     * Normalizes an attribute key ensuring it has a specific prefix.
-     *
-     * Returns the key unchanged when it already has the prefix.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Attributes::normalizeKey('label', 'aria-');
-     * // 'aria-label'
-     * ```
-     *
-     * @param mixed $key Key to normalize. Accepts strings, Stringable objects, or UnitEnum cases.
-     * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
-     *
-     * @throws InvalidArgumentException if the key is empty, not a `string`, or cannot be normalized to a `string`.
-     *
-     * @return string Normalized key with the prefix ensured.
-     */
-    public static function normalizeKey(mixed $key, string $prefix): string
-    {
-        $normalizedKey = Enum::normalizeValue($key);
-
-        if ($normalizedKey === '' || is_string($normalizedKey) === false) {
-            throw new InvalidArgumentException(
-                Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
-            );
-        }
-
-        if (str_starts_with($normalizedKey, $prefix) === false) {
-            return "{$prefix}{$normalizedKey}";
-        }
-
-        return $normalizedKey;
     }
 
     /**
