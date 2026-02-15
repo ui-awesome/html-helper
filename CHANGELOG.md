@@ -1,6 +1,6 @@
 # ChangeLog
 
-## 0.7.2 Under development
+## 0.7.2 February 15, 2026
 
 - Enh #52: Move `normalizeKey()` to `AttributeBag` and add optional `$prefix` support to `get()`, `remove()`, `set()`, and `setMany()` (@terabytesoftw)
 - Bug #53: Update `README.md` to reflect changes in `AttributeBag` helper usage and examples (@terabytesoftw)
