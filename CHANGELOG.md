@@ -3,6 +3,7 @@
 ## 0.7.1 Under development
 
 - Bug #50: Serialize boolean values in `aria-*`, `data-*`, `data-ng`, `ng-*`, and `on*` attributes as explicit strings (@terabytesoftw)
+- Bug #51: Support closure values in attribute handling and add test case for boolean closure values (@terabytesoftw)
 
 ## 0.7.0 February 14, 2026
 

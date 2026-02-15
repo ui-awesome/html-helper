@@ -10,7 +10,6 @@ use UIAwesome\Html\Helper\{Encode, Enum};
 use UIAwesome\Html\Helper\Exception\Message;
 
 use function array_map;
-use function gettype;
 use function implode;
 use function is_array;
 use function is_bool;
@@ -237,13 +236,7 @@ abstract class BaseAttributes
                     : (str_starts_with($n, $prefix) ? $n : "{$prefix}{$n}");
 
                 if (self::isValidAttributeName($key)) {
-                    $result[$key] = match (gettype($v)) {
-                        'array' => json_encode($v, $flags),
-                        'boolean' => $v ? 'true' : 'false',
-                        default => is_string($v) || is_numeric($v)
-                            ? (string) $v
-                            : json_encode($v, $flags),
-                    };
+                    $result[$key] = (is_string($v) || is_numeric($v) ? (string) $v : json_encode($v, $flags));
                 }
             }
         }

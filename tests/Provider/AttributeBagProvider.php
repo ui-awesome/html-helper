@@ -113,6 +113,18 @@ final class AttributeBagProvider
                 true,
                 ' foo-aria-pressed',
             ],
+            'closure with boolean false' => [
+                [],
+                'aria-expanded',
+                static fn(): bool => false,
+                ' aria-expanded="false"',
+            ],
+            'closure with boolean true' => [
+                [],
+                'aria-pressed',
+                static fn(): bool => true,
+                ' aria-pressed="true"',
+            ],
             'keeps closure value as raw data' => [
                 [],
                 'id',

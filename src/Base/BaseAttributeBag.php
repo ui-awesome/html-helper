@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Base;
 
+use Closure;
 use InvalidArgumentException;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
@@ -122,6 +123,10 @@ abstract class BaseAttributeBag
     public static function set(array &$attributes, string|UnitEnum $key, mixed $value): void
     {
         $normalizedKey = self::normalizeKey($key);
+
+        if ($value instanceof Closure) {
+            $value = $value();
+        }
 
         if (is_bool($value) && self::shouldStoreBooleanAsString($normalizedKey)) {
             $value = $value ? 'true' : 'false';
