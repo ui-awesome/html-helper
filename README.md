@@ -87,7 +87,7 @@ $attributes = ['id' => 'submit'];
 
 // merge arrays (later values override; merge is raw — no key normalization or `null` filtering)
 AttributeBag::merge(
-    $attributes, 
+    $attributes,
     [
         'class' => ['btn', 'btn-primary'],
         'type' => 'submit',
