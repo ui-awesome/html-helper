@@ -1,5 +1,7 @@
 # ChangeLog
 
+## 0.7.2 Under development
+
 ## 0.7.1 February 15, 2026
 
 - Bug #50: Serialize boolean values in `aria-*`, `data-*`, `data-ng`, `ng-*`, and `on*` attributes as explicit strings (@terabytesoftw)
