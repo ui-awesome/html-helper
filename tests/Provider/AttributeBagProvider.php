@@ -93,19 +93,13 @@ final class AttributeBagProvider
     }
 
     /**
-     * @phpstan-return array<string, array{mixed, string}>
+     * @phpstan-return array<string, array<string|UnitEnum>>
      */
     public static function invalidKey(): array
     {
         return [
-            'empty string' => [
-                '',
-                '',
-            ],
-            'int backed enum' => [
-                BackedInteger::VALUE,
-                '',
-            ],
+            'empty string' => [''],
+            'int backed enum' => [BackedInteger::VALUE],
         ];
     }
 
@@ -256,6 +250,23 @@ final class AttributeBagProvider
     }
 
     /**
+     * @phpstan-return array<string, array{string|UnitEnum, string}>
+     */
+    public static function normalizeInvalidKey(): array
+    {
+        return [
+            'empty string' => [
+                '',
+                '',
+            ],
+            'int backed enum' => [
+                BackedInteger::VALUE,
+                '',
+            ],
+        ];
+    }
+
+    /**
      * @phpstan-return array<string, array{mixed[], string|UnitEnum, string}>
      */
     public static function remove(): array
@@ -294,6 +305,12 @@ final class AttributeBagProvider
                 ['id' => 'submit', 'data-ng-model' => 'email'],
                 'model',
                 'data-ng-',
+                ' id="submit"',
+            ],
+            'event key with prefix' => [
+                ['id' => 'submit', 'onclick' => 'handleClick()'],
+                'click',
+                'on',
                 ' id="submit"',
             ],
             'ng key with prefix' => [

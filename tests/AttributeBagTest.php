@@ -198,7 +198,7 @@ final class AttributeBagTest extends TestCase
         );
     }
 
-    #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
+    #[DataProviderExternal(AttributeBagProvider::class, 'normalizeInvalidKey')]
     public function testThrowInvalidArgumentExceptionForAttributeKeyIsInvalid(mixed $key, string $prefix): void
     {
         $this->expectException(InvalidArgumentException::class);
