@@ -446,7 +446,7 @@ final class AttributeBagProvider
         $closure = static fn(): string => 'submit';
 
         return [
-            'many plain attributes and removes null values' => [
+            'plain attributes and removes null values' => [
                 ['id' => 'button'],
                 [
                     'id' => $closure,
@@ -508,6 +508,17 @@ final class AttributeBagProvider
                 ],
                 'data-ng-',
                 ' data-ng-model="profile.email" data-ng-required="true" data-ng-order="1"',
+            ],
+            'event values with bool stringification and null removal' => [
+                ['onclick' => 'old()'],
+                [
+                    'change' => 'handleChange()',
+                    'submit' => true,
+                    'click' => null,
+                    'focus' => static fn(): string => 'handleFocus()',
+                ],
+                'on',
+                ' onchange="handleChange()" onsubmit="true" onfocus="handleFocus()"',
             ],
             'ng values with bool stringification and null removal' => [
                 ['ng-hide' => '1'],
