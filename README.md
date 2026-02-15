@@ -85,8 +85,14 @@ use UIAwesome\Html\Helper\AttributeBag;
 
 $attributes = ['id' => 'submit'];
 
-// merge arrays (later values override)
-AttributeBag::merge($attributes, ['class' => ['btn', 'btn-primary'], 'type' => 'submit']);
+// merge arrays (later values override; merge is raw — no key normalization or `null` filtering)
+AttributeBag::merge(
+    $attributes, 
+    [
+        'class' => ['btn', 'btn-primary'],
+        'type' => 'submit',
+    ],
+);
 
 // get with fallback default
 $type = AttributeBag::get($attributes, 'type', 'button');
@@ -104,7 +110,7 @@ AttributeBag::set($attributes, 'id', static fn () => 'submit');
 // set one key (raw value)
 AttributeBag::set($attributes, 'aria-label', 'Save');
 
-// booleans for aria/data/on* are stored as literal strings
+// booleans for `aria`, `data`, and `on*` attributes are stored as literal strings
 AttributeBag::set($attributes, 'expanded', true, 'aria-');
 // $attributes['aria-expanded'] === 'true'
 
@@ -204,7 +210,7 @@ $attributes = [
     'title' => '<Safe Title>',
 ];
 
-// Get raw values (encode: false)
+// Get raw values (encode: `false`)
 $rawAttributes = Attributes::normalizeAttributes($attributes, encode: false);
 // [
 //    'class' => 'icon btn-primary',
