@@ -308,6 +308,29 @@ final class AttributesProvider
                     'data-user' => 'admin',
                 ],
             ],
+            'data expansion with stringable value' => [
+                [
+                    'data' => [
+                        'user' => new class {
+                            public function __toString(): string
+                            {
+                                return 'admin';
+                            }
+                        },
+                    ],
+                ],
+                [
+                    'data-user' => 'admin',
+                ],
+            ],
+            'data expansion with null value' => [
+                [
+                    'data' => [
+                        'user' => null,
+                    ],
+                ],
+                [],
+            ],
             'encode false (Raw for SVG/DOM)' => [
                 ['title' => '<script>'],
                 ['title' => '<script>'],

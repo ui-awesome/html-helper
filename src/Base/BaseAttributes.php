@@ -240,7 +240,9 @@ abstract class BaseAttributes
                     $result[$key] = match (gettype($v)) {
                         'array' => json_encode($v, $flags),
                         'boolean' => $v ? 'true' : 'false',
-                        default => (string) $v,
+                        default => is_string($v) || is_numeric($v)
+                            ? (string) $v
+                            : json_encode($v, $flags),
                     };
                 }
             }
