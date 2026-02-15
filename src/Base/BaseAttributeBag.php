@@ -10,7 +10,9 @@ use UIAwesome\Html\Helper\Exception\Message;
 use UnitEnum;
 
 use function array_key_exists;
+use function is_bool;
 use function is_string;
+use function preg_match;
 
 /**
  * Provides reusable operations for associative HTML attribute bags.
@@ -121,10 +123,8 @@ abstract class BaseAttributeBag
     {
         $normalizedKey = self::normalizeKey($key);
 
-        if ($value === null) {
-            unset($attributes[$normalizedKey]);
-
-            return;
+        if (is_bool($value) && self::shouldStoreBooleanAsString($normalizedKey)) {
+            $value = $value ? 'true' : 'false';
         }
 
         $attributes[$normalizedKey] = $value;
@@ -188,5 +188,13 @@ abstract class BaseAttributeBag
         throw new InvalidArgumentException(
             Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
         );
+    }
+
+    /**
+     * Determines whether boolean values must be kept as literal strings.
+     */
+    private static function shouldStoreBooleanAsString(string $key): bool
+    {
+        return preg_match('/^(aria-|data-|data-ng-|ng-|on)/', $key) === 1;
     }
 }

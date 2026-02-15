@@ -295,10 +295,6 @@ abstract class BaseAttributes
         }
 
         if (is_bool($values)) {
-            if (self::shouldRenderBooleanAsString($name)) {
-                return $values ? 'true' : 'false';
-            }
-
             return $values ? true : '';
         }
 
@@ -448,17 +444,6 @@ abstract class BaseAttributes
         }
 
         return $normalized;
-    }
-
-    /**
-     * Determines whether a boolean value must be rendered as a string literal.
-     *
-     * ARIA and data-like attributes are not HTML boolean attributes and must keep explicit values
-     * (`"true"` / `"false"`) in the serialized output.
-     */
-    private static function shouldRenderBooleanAsString(string $name): bool
-    {
-        return preg_match('/^(aria-|data-|data-ng-|ng-|on)/', $name) === 1;
     }
 
     /**

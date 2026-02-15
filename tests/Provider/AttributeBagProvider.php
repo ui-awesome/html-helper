@@ -107,6 +107,12 @@ final class AttributeBagProvider
         $closure = static fn(): string => 'submit';
 
         return [
+            'does not stringify boolean for non-prefixed key containing aria substring' => [
+                [],
+                'foo-aria-pressed',
+                true,
+                ' foo-aria-pressed',
+            ],
             'keeps closure value as raw data' => [
                 [],
                 'id',
