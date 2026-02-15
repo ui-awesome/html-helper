@@ -54,19 +54,71 @@ declare(strict_types=1);
 
 namespace App;
 
-use UIAwesome\Html\Helper\Attributes;
+use UIAwesome\Html\Helper\AttributeBag;
 
 // normalize string key (adds prefix if missing)
-echo Attributes::normalizeKey('label', 'aria-');
+echo AttributeBag::normalizeKey('label', 'aria-');
 // aria-label
 
 // normalize Enum key
-echo Attributes::normalizeKey(Data::ACTION, 'data-');
+echo AttributeBag::normalizeKey(Data::ACTION, 'data-');
 // data-action
 
 // normalize event (flexible prefixing)
-echo Attributes::normalizeKey('click', 'on');
+echo AttributeBag::normalizeKey('click', 'on');
 // onclick
+```
+
+#### Attribute bag operations
+
+Use `AttributeBag` to query and mutate an attribute array in-place with a minimal API (`get()`, `merge()`,
+`remove()`, `set()`, `setMany()`).
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App;
+
+use UIAwesome\Html\Helper\AttributeBag;
+
+$attributes = ['id' => 'submit'];
+
+// merge arrays (later values override)
+AttributeBag::merge($attributes, ['class' => ['btn', 'btn-primary'], 'type' => 'submit']);
+
+// get with fallback default
+$type = AttributeBag::get($attributes, 'type', 'button');
+
+// get with prefix normalization
+$label = AttributeBag::get($attributes, 'label', null, 'aria-');
+
+// remove keys
+AttributeBag::remove($attributes, 'disabled');
+
+// set values (closures are resolved)
+AttributeBag::set($attributes, 'disabled', true);
+AttributeBag::set($attributes, 'id', static fn () => 'submit');
+
+// set one key (raw value)
+AttributeBag::set($attributes, 'aria-label', 'Save');
+
+// booleans for aria/data/on* are stored as literal strings
+AttributeBag::set($attributes, 'expanded', true, 'aria-');
+// $attributes['aria-expanded'] === 'true'
+
+// set many keys at once (useful for trait-driven prefixed attributes)
+AttributeBag::setMany(
+    $attributes,
+    [
+        'data-toggle' => 'modal',
+        'onclick' => 'handleClick()',
+    ],
+);
+
+// remove a key explicitly
+AttributeBag::remove($attributes, 'id');
 ```
 
 #### Universal Stringable support
@@ -135,48 +187,6 @@ use UIAwesome\Html\Helper\Attributes;
     ]
 ) ?>
 // class="btn btn-primary" id="submit-btn" disabled data-id="42" data-options='{"modal":true}' style='color: #fff; margin-top: 10px;'
-```
-
-#### Attribute bag operations
-
-Use `AttributeBag` to query and mutate an attribute array in-place with a minimal API (`get()`, `merge()`,
-`remove()`, `set()`, `setMany()`).
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App;
-
-use UIAwesome\Html\Helper\AttributeBag;
-
-$attributes = ['id' => 'submit'];
-
-// merge arrays (later values override)
-AttributeBag::merge($attributes, ['class' => ['btn', 'btn-primary'], 'type' => 'submit']);
-
-// get with fallback default
-$type = AttributeBag::get($attributes, 'type', 'button');
-
-// remove keys
-AttributeBag::remove($attributes, 'disabled');
-
-// set or remove values
-AttributeBag::set($attributes, 'disabled', true);
-AttributeBag::set($attributes, 'id', null);
-
-// set one key (raw value)
-AttributeBag::set($attributes, 'aria-label', 'Save');
-
-// set many keys at once (useful for trait-driven prefixed attributes)
-AttributeBag::setMany(
-    $attributes,
-    [
-        'data-toggle' => 'modal',
-        'onclick' => 'handleClick()',
-    ],
-);
 ```
 
 #### Advanced: DOM & SVG Integration
