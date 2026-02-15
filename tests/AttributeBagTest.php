@@ -50,6 +50,25 @@ final class AttributeBagTest extends TestCase
 
     /**
      * @phpstan-param mixed[] $attributes
+     * @phpstan-param string|UnitEnum $key
+     */
+    #[DataProviderExternal(AttributeBagProvider::class, 'getWithPrefix')]
+    public function testGetWithPrefix(
+        array $attributes,
+        string|UnitEnum $key,
+        string $prefix,
+        mixed $default,
+        mixed $expected,
+    ): void {
+        self::assertSame(
+            $expected,
+            AttributeBag::get($attributes, $key, $default, $prefix),
+            'Should return existing prefixed value or fallback default.',
+        );
+    }
+
+    /**
+     * @phpstan-param mixed[] $attributes
      * @phpstan-param mixed[] $values
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'merge')]
@@ -61,6 +80,16 @@ final class AttributeBagTest extends TestCase
             $expected,
             Attributes::render($attributes),
             'Should merge values and override duplicated keys in rendered output.',
+        );
+    }
+
+    #[DataProviderExternal(AttributeBagProvider::class, 'key')]
+    public function testNormalizeKeyAttribute(mixed $key, string $prefix, string $expected): void
+    {
+        self::assertSame(
+            $expected,
+            AttributeBag::normalizeKey($key, $prefix),
+            'Should normalize key attribute correctly.',
         );
     }
 
@@ -77,6 +106,22 @@ final class AttributeBagTest extends TestCase
             $expected,
             Attributes::render($attributes),
             'Should remove the specified key in rendered output.',
+        );
+    }
+
+    /**
+     * @phpstan-param mixed[] $attributes
+     * @phpstan-param string|UnitEnum $key
+     */
+    #[DataProviderExternal(AttributeBagProvider::class, 'removeWithPrefix')]
+    public function testRemoveWithPrefix(array $attributes, string|UnitEnum $key, string $prefix, string $expected): void
+    {
+        AttributeBag::remove($attributes, $key, $prefix);
+
+        self::assertSame(
+            $expected,
+            Attributes::render($attributes),
+            'Should remove the specified prefixed key in rendered output.',
         );
     }
 
@@ -114,6 +159,54 @@ final class AttributeBagTest extends TestCase
             Attributes::render($attributes),
             "Should set many plain attributes and remove keys with 'null' values in rendered output.",
         );
+    }
+
+    /**
+     * @phpstan-param mixed[] $attributes
+     * @phpstan-param mixed[] $values
+     */
+    #[DataProviderExternal(AttributeBagProvider::class, 'setManyWithPrefix')]
+    public function testSetManyWithPrefix(array $attributes, array $values, string $prefix, string $expected): void
+    {
+        AttributeBag::setMany($attributes, $values, $prefix);
+
+        self::assertSame(
+            $expected,
+            Attributes::render($attributes),
+            "Should set many prefixed attributes and remove normalized keys with 'null' values.",
+        );
+    }
+
+    /**
+     * @phpstan-param mixed[] $attributes
+     * @phpstan-param string|UnitEnum $key
+     */
+    #[DataProviderExternal(AttributeBagProvider::class, 'setWithPrefix')]
+    public function testSetWithPrefix(
+        array $attributes,
+        string|UnitEnum $key,
+        mixed $value,
+        string $prefix,
+        string $expected,
+    ): void {
+        AttributeBag::set($attributes, $key, $value, $prefix);
+
+        self::assertSame(
+            $expected,
+            Attributes::render($attributes),
+            'Should set prefixed attributes with normalized keys and serialized booleans.',
+        );
+    }
+
+    #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
+    public function testThrowInvalidArgumentExceptionForAttributeKeyIsInvalid(mixed $key, string $prefix): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
+        );
+
+        AttributeBag::normalizeKey($key, $prefix);
     }
 
     #[DataProviderExternal(AttributeBagProvider::class, 'invalidKey')]
