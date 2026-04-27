@@ -152,7 +152,7 @@ abstract class BaseAttributeBag
      *
      * @param mixed[] $attributes Attribute bag to update in place.
      * @param string|UnitEnum $key Attribute key to normalize.
-     * @param mixed $value Attribute value.
+     * @param mixed $value Attribute value. Use `null` to remove the attribute.
      * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
      *
      * @throws InvalidArgumentException if key normalization fails.
@@ -163,6 +163,12 @@ abstract class BaseAttributeBag
 
         if ($value instanceof Closure) {
             $value = $value();
+        }
+
+        if ($value === null) {
+            unset($attributes[$normalizedKey]);
+
+            return;
         }
 
         if (is_bool($value) && self::shouldStoreBooleanAsString($normalizedKey)) {
