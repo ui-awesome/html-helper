@@ -171,6 +171,14 @@ final class AttributesProvider
                 ],
                 ['class' => 'btn btn-primary'],
             ],
+            'class array item serialized' => [
+                [
+                    'class' => [
+                        ['state' => 'active'],
+                    ],
+                ],
+                ['class' => '{"state":"active"}'],
+            ],
             'data attribute with boolean true' => [
                 [
                     'data' => [
