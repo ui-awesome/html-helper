@@ -56,7 +56,6 @@ abstract class BaseAttributeBag
             : $default;
     }
 
-
     /**
      * Normalizes an attribute key ensuring it has a specific prefix.
      *

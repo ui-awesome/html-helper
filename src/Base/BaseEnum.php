@@ -65,7 +65,7 @@ abstract class BaseEnum
      *
      * @throws InvalidArgumentException if the value is not an enum, scalar, `array`, or `null`.
      *
-     * @return ($value is UnitEnum ? int|string : ($value is string ? string : mixed[]|bool|float|int|null)) Scalar
+     * @return ($value is UnitEnum ? int|string : ($value is string ? string : bool|float|int|mixed[]|null)) Scalar
      * value for BackedEnum, name for pure enums, or the original value for non-enums.
      *
      * {@see normalizeArray()} for batch normalization.

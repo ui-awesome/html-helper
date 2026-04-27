@@ -236,7 +236,6 @@ final class AttributeBagProvider
         ];
     }
 
-
     /**
      * @return array<string, array{string|UnitEnum, string}>
      */

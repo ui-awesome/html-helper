@@ -248,7 +248,7 @@ final class ValidatorProvider
     }
 
     /**
-     * @return array<string, array{int|float|string|Stringable, bool, string}>
+     * @return array<string, array{float|int|string|Stringable, bool, string}>
      */
     public static function offsetLike(): array
     {
@@ -506,7 +506,7 @@ final class ValidatorProvider
     }
 
     /**
-     * @return array<string, array{int|float|string|Stringable, float|null, float|null, bool, string}>
+     * @return array<string, array{float|int|string|Stringable, float|null, float|null, bool, string}>
      */
     public static function positiveLike(): array
     {

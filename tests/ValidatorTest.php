@@ -58,9 +58,8 @@ final class ValidatorTest extends TestCase
     }
 
     /**
+     * @param list<scalar|UnitEnum|null> $allowed
      * @throws InvalidArgumentException if one or more arguments are invalid, of incorrect type or format.
-     *
-     * @param list<UnitEnum|scalar|null> $allowed
      */
     #[DataProviderExternal(ValidatorProvider::class, 'oneOf')]
     public function testOneOfWithValidValues(

@@ -31,11 +31,10 @@ use UnitEnum;
 final class CSSClassTest extends TestCase
 {
     /**
-     * @throws InvalidArgumentException for invalid value errors.
-     *
      * @param mixed[] $attributes
      * @param list<array{classes: mixed[]|string|UnitEnum|null, override?: bool}> $operations
      * @param mixed[] $expected
+     * @throws InvalidArgumentException for invalid value errors.
      */
     #[DataProviderExternal(CSSClassProvider::class, 'values')]
     public function testAddClassAttributeValue(
