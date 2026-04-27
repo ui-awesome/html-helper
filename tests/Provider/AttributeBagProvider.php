@@ -254,6 +254,17 @@ final class AttributeBagProvider
     }
 
     /**
+     * @return array<string, array{mixed}>
+     */
+    public static function nullValue(): array
+    {
+        return [
+            'direct null value' => [null],
+            'closure resolving to null' => [static fn(): null => null],
+        ];
+    }
+
+    /**
      * @return array<string, array{mixed[], string|UnitEnum, string}>
      */
     public static function remove(): array

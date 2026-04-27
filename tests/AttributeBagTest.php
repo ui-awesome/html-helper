@@ -199,6 +199,23 @@ final class AttributeBagTest extends TestCase
     }
 
     /**
+     * @param mixed $value Attribute value that resolves to `null`.
+     */
+    #[DataProviderExternal(AttributeBagProvider::class, 'nullValue')]
+    public function testSetWithNullValueRemovesAttributeFromBag(mixed $value): void
+    {
+        $attributes = ['id' => 'submit'];
+
+        AttributeBag::set($attributes, 'id', $value);
+
+        self::assertSame(
+            [],
+            $attributes,
+            'Should remove the attribute from the raw bag when the value resolves to `null`.',
+        );
+    }
+
+    /**
      * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'setWithPrefix')]
