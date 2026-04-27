@@ -60,7 +60,7 @@ final class ValidatorTest extends TestCase
     /**
      * @throws InvalidArgumentException if one or more arguments are invalid, of incorrect type or format.
      *
-     * @phpstan-param list<UnitEnum|scalar|null> $allowed
+     * @param list<UnitEnum|scalar|null> $allowed
      */
     #[DataProviderExternal(ValidatorProvider::class, 'oneOf')]
     public function testOneOfWithValidValues(

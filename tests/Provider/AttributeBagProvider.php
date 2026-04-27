@@ -21,7 +21,7 @@ use UnitEnum;
 final class AttributeBagProvider
 {
     /**
-     * @phpstan-return array<string, array{mixed[], string, string|null, string}>
+     * @return array<string, array{mixed[], string, string|null, string}>
      */
     public static function get(): array
     {
@@ -42,7 +42,7 @@ final class AttributeBagProvider
     }
 
     /**
-     * @phpstan-return array<string, array{mixed[], string|UnitEnum, string, mixed, mixed}>
+     * @return array<string, array{mixed[], string|UnitEnum, string, mixed, mixed}>
      */
     public static function getWithPrefix(): array
     {
@@ -100,7 +100,7 @@ final class AttributeBagProvider
     }
 
     /**
-     * @phpstan-return array<string, array<string|UnitEnum>>
+     * @return array<string, array<string|UnitEnum>>
      */
     public static function invalidKey(): array
     {
@@ -111,7 +111,7 @@ final class AttributeBagProvider
     }
 
     /**
-     * @phpstan-return array<string, array{mixed[], string}>
+     * @return array<string, array{mixed[], string}>
      */
     public static function invalidManyKey(): array
     {
@@ -128,7 +128,7 @@ final class AttributeBagProvider
     }
 
     /**
-     * @phpstan-return array<string, array{string|Stringable|UnitEnum, string, string}>
+     * @return array<string, array{string|Stringable|UnitEnum, string, string}>
      */
     public static function key(): array
     {
@@ -236,28 +236,9 @@ final class AttributeBagProvider
         ];
     }
 
-    /**
-     * @phpstan-return array<string, array{mixed[], mixed[], string}>
-     */
-    public static function merge(): array
-    {
-        return [
-            'merges and overrides existing keys' => [
-                [
-                    'class' => 'btn',
-                    'id' => 'submit',
-                ],
-                [
-                    'class' => 'btn btn-primary',
-                    'title' => 'Submit',
-                ],
-                ' class="btn btn-primary" id="submit" title="Submit"',
-            ],
-        ];
-    }
 
     /**
-     * @phpstan-return array<string, array{string|UnitEnum, string}>
+     * @return array<string, array{string|UnitEnum, string}>
      */
     public static function normalizeInvalidKey(): array
     {
@@ -274,7 +255,7 @@ final class AttributeBagProvider
     }
 
     /**
-     * @phpstan-return array<string, array{mixed[], string|UnitEnum, string}>
+     * @return array<string, array{mixed[], string|UnitEnum, string}>
      */
     public static function remove(): array
     {
@@ -291,7 +272,7 @@ final class AttributeBagProvider
     }
 
     /**
-     * @phpstan-return array<string, array{mixed[], string|UnitEnum, string, string}>
+     * @return array<string, array{mixed[], string|UnitEnum, string, string}>
      */
     public static function removeWithPrefix(): array
     {
@@ -336,7 +317,39 @@ final class AttributeBagProvider
     }
 
     /**
-     * @phpstan-return array<
+     * @return array<string, array{mixed[], mixed[], string, string}>
+     */
+    public static function replace(): array
+    {
+        return [
+            'replaces existing attributes' => [
+                [
+                    'class' => 'btn',
+                    'id' => 'submit',
+                ],
+                [
+                    'title' => 'Submit',
+                ],
+                '',
+                ' title="Submit"',
+            ],
+            'replaces with prefixed attributes' => [
+                [
+                    'aria-hidden' => 'true',
+                    'id' => 'dialog',
+                ],
+                [
+                    'label' => 'Dialog',
+                    'hidden' => null,
+                ],
+                'aria-',
+                ' aria-label="Dialog"',
+            ],
+        ];
+    }
+
+    /**
+     * @return array<
      *   string,
      *   array{mixed[], string|UnitEnum, bool|float|int|string|\Closure(): mixed|\Stringable|UnitEnum|null, string},
      * >
@@ -452,7 +465,7 @@ final class AttributeBagProvider
     }
 
     /**
-     * @phpstan-return array<string, array{mixed[], mixed[], string}>
+     * @return array<string, array{mixed[], mixed[], string}>
      */
     public static function setMany(): array
     {
@@ -481,10 +494,7 @@ final class AttributeBagProvider
     }
 
     /**
-     * @phpstan-return array<
-     *   string,
-     *   array{mixed[], mixed[], string, string},
-     * >
+     * @return array<string, array{mixed[], mixed[], string, string}>
      */
     public static function setManyWithPrefix(): array
     {
@@ -548,7 +558,7 @@ final class AttributeBagProvider
     }
 
     /**
-     * @phpstan-return array<
+     * @return array<
      *   string,
      *   array{mixed[], string|UnitEnum, bool|float|int|string|\Closure(): mixed|\Stringable|UnitEnum|null, string, string},
      * >

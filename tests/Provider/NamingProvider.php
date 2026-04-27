@@ -17,7 +17,7 @@ use UIAwesome\Html\Helper\Exception\Message;
 final class NamingProvider
 {
     /**
-     * @phpstan-return array<array{string, string}>
+     * @return array<array{string, string}>
      */
     public static function arrayableName(): array
     {
@@ -42,7 +42,7 @@ final class NamingProvider
     }
 
     /**
-     * @phpstan-return array<string, array{string, string, bool, string}>
+     * @return array<string, array{string, string, bool, string}>
      */
     public static function inputName(): array
     {
@@ -135,7 +135,7 @@ final class NamingProvider
     }
 
     /**
-     * @phpstan-return array<string, array{string, string|null, string|null}>
+     * @return array<string, array{string, string|null, string|null}>
      */
     public static function regularExpressionPattern(): array
     {
@@ -174,7 +174,7 @@ final class NamingProvider
     }
 
     /**
-     * @phpstan-return array<string, array{string, string|null, string}>
+     * @return array<string, array{string, string|null, string}>
      */
     public static function regularExpressionPatternInvalid(): array
     {

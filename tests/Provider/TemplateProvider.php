@@ -15,7 +15,7 @@ namespace UIAwesome\Html\Helper\Tests\Provider;
 final class TemplateProvider
 {
     /**
-     * @phpstan-return array<
+     * @return array<
      *   string,
      *   array{template: string, tokens: array<string, string>, expected: string, message: string},
      * >

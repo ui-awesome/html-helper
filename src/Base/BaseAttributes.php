@@ -30,22 +30,20 @@ abstract class BaseAttributes
     /**
      * JSON flags for encoded attribute values.
      */
-    private const JSON_FLAGS = JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS
+    private const int JSON_FLAGS = JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS
         | JSON_THROW_ON_ERROR;
 
     /**
      * JSON flags for raw attribute values.
      */
-    private const JSON_FLAGS_RAW = JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR;
+    private const int JSON_FLAGS_RAW = JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR;
 
     /**
-     * Maps HTML attributes to their rendering order priority.
+     * @var array<string, int> Maps HTML attributes to their rendering order priority.
      *
      * Lower numbers indicate higher priority in the rendered output.
-     *
-     * @phpstan-var array<string, int>
      */
-    private const ORDER_MAP = [
+    private const array ORDER_MAP = [
         'class' => 0,
         'id' => 1,
         'name' => 2,
@@ -88,17 +86,17 @@ abstract class BaseAttributes
     /**
      * Double quote character for attribute rendering.
      */
-    private const QUOTE_DOUBLE = '"';
+    private const string QUOTE_DOUBLE = '"';
 
     /**
      * Single quote character for attribute rendering.
      */
-    private const QUOTE_SINGLE = '\'';
+    private const string QUOTE_SINGLE = '\'';
 
     /**
      * Regular expression for valid attribute names.
      */
-    private const VALID_ATTRIBUTE_NAME_PATTERN = '/^[a-zA-Z_][a-zA-Z0-9_-]*$/';
+    private const string VALID_ATTRIBUTE_NAME_PATTERN = '/^[a-zA-Z_][a-zA-Z0-9_-]*$/';
 
     /**
      * Normalizes an array of HTML attributes into a flat associative array with processed values.
@@ -117,13 +115,11 @@ abstract class BaseAttributes
      * // ['class' => 'form-control input-lg', 'data-id' => '42', 'required' => true]
      * ```
      *
-     * @param array $attributes Associative array of attribute names and values.
+     * @param mixed[] $attributes Associative array of attribute names and values.
      * @param bool $encode Whether to HTML-encode `string` values.
      *
-     * @return array Flat associative array with normalized values. Boolean attributes may return `true`.
-     *
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-return array<string, string|bool>
+     * @return array<string, string|bool> Flat associative array with normalized values. Boolean attributes may return
+     * `true`.
      */
     public static function normalizeAttributes(array $attributes, bool $encode = true): array
     {
@@ -158,11 +154,9 @@ abstract class BaseAttributes
      * // name="username" required
      * ```
      *
-     * @param array $attributes Associative array of attribute names and values.
+     * @param mixed[] $attributes Associative array of attribute names and values.
      *
      * @return string Rendered HTML attributes string.
-     *
-     * @phpstan-param mixed[] $attributes
      */
     public static function render(array $attributes): string
     {
@@ -172,16 +166,13 @@ abstract class BaseAttributes
     /**
      * Expands namespaced attributes into flat key-value pairs.
      *
-     * @param array $values Associative array of attribute names and values.
+     * @param mixed[] $values Associative array of attribute names and values.
      * @param string $prefix Attribute namespace prefix (for example, `data`, `aria`, `on`).
      * @param bool $encode Whether to HTML-encode string values.
      * @param bool $dashedPrefix Whether to use dashed key format (`prefix-key`) or concatenated format
      * (`prefixkey`).
      *
-     * @return array Associative array of expanded attribute key-value pairs.
-     *
-     * @phpstan-param mixed[] $values
-     * @phpstan-return array<string, string>
+     * @return array<string, string> Associative array of expanded attribute key-value pairs.
      */
     private static function expandPrefixedAttributes(
         array $values,
@@ -239,9 +230,7 @@ abstract class BaseAttributes
      * @param mixed $values Attribute value to normalize.
      * @param bool $encode Whether to HTML-encode string values.
      *
-     * @return array|bool|string Normalized attribute value(s).
-     *
-     * @phpstan-return array<string, string>|bool|string
+     * @return array<string, string>|bool|string Normalized attribute value(s).
      */
     private static function normalizeAttributeValue(string $name, mixed $values, bool $encode): array|string|bool
     {
@@ -271,28 +260,42 @@ abstract class BaseAttributes
     }
 
     /**
+     * Normalizes a class list item to its renderable string representation.
+     *
+     * @param mixed $value Class list item.
+     *
+     * @return string Renderable class list item.
+     */
+    private static function normalizeClassItem(mixed $value): string
+    {
+        $normalized = Enum::normalizeValue($value);
+
+        if (is_array($normalized)) {
+            return json_encode($normalized, self::JSON_FLAGS);
+        }
+
+        return (string) $normalized;
+    }
+
+    /**
      * Normalizes class attribute values into a space-separated string.
      *
-     * @param array $values Array of class names.
+     * @param mixed[] $values Array of class names.
      *
      * @return string Space-separated class names, or empty string if no classes.
-     *
-     * @phpstan-param mixed[] $values
      */
     private static function normalizeClassValue(array $values): string
     {
-        return $values === [] ? '' : implode(' ', $values);
+        return $values === [] ? '' : implode(' ', array_map(self::normalizeClassItem(...), $values));
     }
 
     /**
      * Normalizes style attribute values into a CSS declaration string.
      *
-     * @param array $values Associative array of CSS property-value pairs.
+     * @param mixed[] $values Associative array of CSS property-value pairs.
      * @param bool $encode Whether to HTML-encode string values.
      *
      * @return string CSS declaration string, or empty string if no styles.
-     *
-     * @phpstan-param mixed[] $values
      */
     private static function normalizeStyleValue(array $values, bool $encode): string
     {
@@ -355,11 +358,9 @@ abstract class BaseAttributes
      * Uses {@see normalizeAttributes()} internally to process values ensuring consistency between HTML string rendering
      * and DOM manipulation.
      *
-     * @param array $attributes Associative array of attribute names and values.
+     * @param mixed[] $attributes Associative array of attribute names and values.
      *
      * @return string Complete HTML attributes `string`, ready for tag output.
-     *
-     * @phpstan-param mixed[] $attributes
      */
     private static function renderInternal(array $attributes): string
     {
@@ -415,12 +416,9 @@ abstract class BaseAttributes
      * Attributes not present in the priority map are ordered after the prioritized attributes, preserving their
      * original order among themselves.
      *
-     * @param array $attributes Associative array of attribute names and values to sort.
+     * @param mixed[] $attributes Associative array of attribute names and values to sort.
      *
-     * @return array Sorted an associative array of attributes, ready for rendering.
-     *
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-return mixed[]
+     * @return mixed[] Sorted an associative array of attributes, ready for rendering.
      */
     private static function sortAttributes(array $attributes): array
     {

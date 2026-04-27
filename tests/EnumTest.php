@@ -29,8 +29,8 @@ use UIAwesome\Html\Helper\Tests\Provider\EnumProvider;
 final class EnumTest extends TestCase
 {
     /**
-     * @phpstan-param mixed[] $input
-     * @phpstan-param mixed[] $expected
+     * @param mixed[] $input
+     * @param mixed[] $expected
      */
     #[DataProviderExternal(EnumProvider::class, 'normalizeArray')]
     public function testNormalizeArrayWithEnums(array $input, array $expected, string $message): void

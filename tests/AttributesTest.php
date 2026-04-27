@@ -31,8 +31,8 @@ use UIAwesome\Html\Helper\Tests\Provider\AttributesProvider;
 final class AttributesTest extends TestCase
 {
     /**
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param mixed[] $expected
+     * @param mixed[] $attributes
+     * @param mixed[] $expected
      */
     #[DataProviderExternal(AttributesProvider::class, 'normalizeAttributes')]
     public function testNormalizeAttributes(array $attributes, array $expected, bool $encode = true): void
@@ -50,7 +50,7 @@ final class AttributesTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
+     * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributesProvider::class, 'attributeOrdering')]
     public function testRenderAttributeOrdering(string $expected, array $attributes): void
@@ -63,7 +63,7 @@ final class AttributesTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
+     * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributesProvider::class, 'emptyAndNullValues')]
     public function testRenderEmptyAndNullValues(string $expected, array $attributes): void
@@ -76,7 +76,7 @@ final class AttributesTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
+     * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributesProvider::class, 'enumAttribute')]
     public function testRenderEnumAttributes(string $expected, array $attributes): void
@@ -89,7 +89,7 @@ final class AttributesTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
+     * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributesProvider::class, 'maliciousValues')]
     public function testRenderMaliciousValues(string $expected, array $attributes): void
@@ -102,7 +102,7 @@ final class AttributesTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
+     * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributesProvider::class, 'styleAttributes')]
     public function testRenderStyleAttributes(string $expected, array $attributes): void
@@ -115,7 +115,7 @@ final class AttributesTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
+     * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributesProvider::class, 'renderTagAttributes')]
     public function testRenderTagAttributes(string $expected, array $attributes): void

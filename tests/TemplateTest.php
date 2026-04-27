@@ -29,7 +29,7 @@ use UIAwesome\Html\Helper\Tests\Provider\TemplateProvider;
 final class TemplateTest extends TestCase
 {
     /**
-     * @phpstan-param array<string, string> $tokens
+     * @param array<string, string> $tokens
      */
     #[DataProviderExternal(TemplateProvider::class, 'lineEndingNormalizationCases')]
     public function testRenderNormalizesAllLineEndingFormats(

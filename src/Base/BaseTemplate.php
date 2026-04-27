@@ -31,11 +31,9 @@ abstract class BaseTemplate
      * ```
      *
      * @param string $template Template string containing tokens to be replaced.
-     * @param array $tokenValues Associative array of token replacements.
+     * @param mixed[] $tokenValues Associative array of token replacements.
      *
      * @return string Rendered template string with substituted values.
-     *
-     * @phpstan-param mixed[] $tokenValues
      */
     public static function render(string $template, array $tokenValues): string
     {

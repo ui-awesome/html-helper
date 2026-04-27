@@ -239,7 +239,7 @@ abstract class BaseNaming
      *
      * @throws InvalidArgumentException if the property cannot be matched to the expected token pattern.
      *
-     * @phpstan-return array{name: string, prefix: string, suffix: string} Parsed property components.
+     * @return array{name: string, prefix: string, suffix: string} Parsed property components.
      */
     private static function parseProperty(string $property): array
     {

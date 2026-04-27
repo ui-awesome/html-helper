@@ -10,6 +10,9 @@ use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UnitEnum;
 
+use function array_map;
+use function is_array;
+
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\ValidatorTest} test cases.
  *
@@ -21,7 +24,7 @@ use UnitEnum;
 final class ValidatorProvider
 {
     /**
-     * @phpstan-return array<string, array{int|string|Stringable, int|null, int|null, bool, string}>
+     * @return array<string, array{int|string|Stringable, int|null, int|null, bool, string}>
      */
     public static function intLike(): array
     {
@@ -245,7 +248,7 @@ final class ValidatorProvider
     }
 
     /**
-     * @phpstan-return array<string, array{int|float|string|Stringable, bool, string}>
+     * @return array<string, array{int|float|string|Stringable, bool, string}>
      */
     public static function offsetLike(): array
     {
@@ -319,7 +322,7 @@ final class ValidatorProvider
     }
 
     /**
-     * @phpstan-return array<string, array{string|UnitEnum, mixed, list<mixed>, bool, string}>
+     * @return array<string, array{string|UnitEnum, mixed, list<mixed>, bool, string}>
      */
     public static function oneOf(): array
     {
@@ -339,7 +342,7 @@ final class ValidatorProvider
                 Message::VALUE_NOT_IN_LIST->getMessage(
                     'invalid_value',
                     BackedString::VALUE->value,
-                    implode('\', \'', Enum::normalizeArray(BackedString::cases())),
+                    implode('\', \'', self::normalizeAllowedValues(BackedString::cases())),
                 ),
             ],
             'backed enum value in list' => [
@@ -379,7 +382,7 @@ final class ValidatorProvider
                 Message::VALUE_NOT_IN_LIST->getMessage(
                     BackedString::VALUE->value,
                     'attribute',
-                    implode('\', \'', Enum::normalizeArray(BackedInteger::cases())),
+                    implode('\', \'', self::normalizeAllowedValues(BackedInteger::cases())),
                 ),
             ],
             'mixed enum types backed enum value found' => [
@@ -423,7 +426,7 @@ final class ValidatorProvider
                 Message::VALUE_NOT_IN_LIST->getMessage(
                     '1',
                     'attribute',
-                    implode('\', \'', Enum::normalizeArray([BackedString::VALUE, BackedInteger::VALUE])),
+                    implode('\', \'', self::normalizeAllowedValues([BackedString::VALUE, BackedInteger::VALUE])),
                 ),
             ],
             'null value' => [
@@ -447,7 +450,7 @@ final class ValidatorProvider
                 Message::VALUE_NOT_IN_LIST->getMessage(
                     'VALUE',
                     'attribute',
-                    implode('\', \'', Enum::normalizeArray([BackedString::VALUE])),
+                    implode('\', \'', self::normalizeAllowedValues([BackedString::VALUE])),
                 ),
             ],
             'string value in list' => [
@@ -473,7 +476,7 @@ final class ValidatorProvider
                 Message::VALUE_NOT_IN_LIST->getMessage(
                     '1',
                     'attribute',
-                    implode('\', \'', Enum::normalizeArray(['a', 'b', 'c'])),
+                    implode('\', \'', self::normalizeAllowedValues(['a', 'b', 'c'])),
                 ),
             ],
             'stringable' => [
@@ -503,7 +506,7 @@ final class ValidatorProvider
     }
 
     /**
-     * @phpstan-return array<string, array{int|float|string|Stringable, float|null, float|null, bool, string}>
+     * @return array<string, array{int|float|string|Stringable, float|null, float|null, bool, string}>
      */
     public static function positiveLike(): array
     {
@@ -931,5 +934,35 @@ final class ValidatorProvider
                 'Should be valid value (stroke-miterlimit).',
             ],
         ];
+    }
+
+    /**
+     * Normalizes an allowed value to its exception message representation.
+     *
+     * @param mixed $value Allowed value.
+     *
+     * @return string Message value.
+     */
+    private static function normalizeAllowedValue(mixed $value): string
+    {
+        $normalized = Enum::normalizeValue($value);
+
+        if (is_array($normalized)) {
+            return 'Array';
+        }
+
+        return (string) $normalized;
+    }
+
+    /**
+     * Normalizes allowed values for deterministic exception messages.
+     *
+     * @param mixed[] $values Values accepted by {@see Enum::normalizeArray()}.
+     *
+     * @return string[] Values converted to their message representation.
+     */
+    private static function normalizeAllowedValues(array $values): array
+    {
+        return array_map(self::normalizeAllowedValue(...), Enum::normalizeArray($values));
     }
 }
