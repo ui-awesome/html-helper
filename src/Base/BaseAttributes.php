@@ -118,7 +118,7 @@ abstract class BaseAttributes
      * @param mixed[] $attributes Associative array of attribute names and values.
      * @param bool $encode Whether to HTML-encode `string` values.
      *
-     * @return array<string, string|bool> Flat associative array with normalized values. Boolean attributes may return
+     * @return array<string, bool|string> Flat associative array with normalized values. Boolean attributes may return
      * `true`.
      */
     public static function normalizeAttributes(array $attributes, bool $encode = true): array
