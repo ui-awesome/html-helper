@@ -316,12 +316,12 @@ final class AttributeBagProvider
     }
 
     /**
-     * @return array<string, array{mixed[], mixed[], string, string}>
+     * @return array<string, array{0: mixed[], 1: mixed[], 2: string, 3?: string}>
      */
     public static function replace(): array
     {
         return [
-            'replaces existing attributes' => [
+            'replaces existing attributes without prefix' => [
                 [
                     'class' => 'btn',
                     'id' => 'submit',
@@ -329,8 +329,18 @@ final class AttributeBagProvider
                 [
                     'title' => 'Submit',
                 ],
-                '',
                 ' title="Submit"',
+            ],
+            'replaces existing attributes with explicit empty prefix' => [
+                [
+                    'class' => 'btn',
+                    'id' => 'submit',
+                ],
+                [
+                    'title' => 'Submit',
+                ],
+                ' title="Submit"',
+                '',
             ],
             'replaces with prefixed attributes' => [
                 [
@@ -341,8 +351,8 @@ final class AttributeBagProvider
                     'label' => 'Dialog',
                     'hidden' => null,
                 ],
-                'aria-',
                 ' aria-label="Dialog"',
+                'aria-',
             ],
         ];
     }

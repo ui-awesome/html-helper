@@ -374,5 +374,5 @@ if (Validator::positiveLike($opacity, 0.0, 1.0) === false) {
 
 ## Next steps
 
-- 📖 [README](../README.md)
+- 📖 [Readme](../README.md)
 - 🧪 [Testing Guide](testing.md)

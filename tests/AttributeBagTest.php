@@ -110,14 +110,40 @@ final class AttributeBagTest extends TestCase
      * @param mixed[] $values
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'replace')]
-    public function testReplace(array $attributes, array $values, string $prefix, string $expected): void
+    public function testReplace(array $attributes, array $values, string $expected, string|null $prefix = null): void
     {
-        AttributeBag::replace($attributes, $values, $prefix);
+        if ($prefix === null) {
+            AttributeBag::replace($attributes, $values);
+        } else {
+            AttributeBag::replace($attributes, $values, $prefix);
+        }
 
         self::assertSame(
             $expected,
             Attributes::render($attributes),
             'Should replace values and render the normalized output.',
+        );
+    }
+
+    public function testReplacePreservesOriginalAttributesWhenReplacementFails(): void
+    {
+        $attributes = ['id' => 'submit'];
+
+        try {
+            AttributeBag::replace($attributes, ['title' => 'Submit', '' => 'invalid']);
+            self::fail('Should throw an exception for an invalid replacement key.');
+        } catch (InvalidArgumentException $exception) {
+            self::assertSame(
+                Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
+                $exception->getMessage(),
+                'Should throw the expected invalid key message.',
+            );
+        }
+
+        self::assertSame(
+            ' id="submit"',
+            Attributes::render($attributes),
+            'Should keep the original attributes when replacement validation fails.',
         );
     }
 

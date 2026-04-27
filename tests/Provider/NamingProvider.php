@@ -17,7 +17,7 @@ use UIAwesome\Html\Helper\Exception\Message;
 final class NamingProvider
 {
     /**
-     * @return array<array{string, string}>
+     * @return array<string, array{string, string}>
      */
     public static function arrayableName(): array
     {

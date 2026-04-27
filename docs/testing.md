@@ -83,5 +83,5 @@ composer static -- --memory-limit=512M
 
 ## Next steps
 
-- 📖 [README](../README.md)
+- 📖 [Readme](../README.md)
 - 💡 [Usage Examples](examples.md)

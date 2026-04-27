@@ -15,6 +15,7 @@ use function ctype_digit;
 use function implode;
 use function in_array;
 use function is_array;
+use function is_bool;
 use function is_float;
 use function is_int;
 use function is_numeric;
@@ -207,6 +208,14 @@ abstract class BaseValidator
     private static function normalizeAllowedValue(mixed $value): string
     {
         $normalized = Enum::normalizeValue($value);
+
+        if ($normalized === null) {
+            return 'null';
+        }
+
+        if (is_bool($normalized)) {
+            return $normalized ? 'true' : 'false';
+        }
 
         if (is_array($normalized)) {
             return 'Array';

@@ -132,9 +132,11 @@ abstract class BaseAttributeBag
      */
     public static function replace(array &$attributes, array $values, string $prefix = ''): void
     {
-        $attributes = [];
+        $replacement = [];
 
-        self::setMany($attributes, $values, $prefix);
+        self::setMany($replacement, $values, $prefix);
+
+        $attributes = $replacement;
     }
 
     /**
@@ -161,12 +163,6 @@ abstract class BaseAttributeBag
 
         if ($value instanceof Closure) {
             $value = $value();
-        }
-
-        if ($value === null) {
-            unset($attributes[$normalizedKey]);
-
-            return;
         }
 
         if (is_bool($value) && self::shouldStoreBooleanAsString($normalizedKey)) {
