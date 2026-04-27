@@ -17,7 +17,7 @@ use UnitEnum;
  * Unit tests for the {@see AttributeBag} helper.
  *
  * Test coverage.
- * - Merges attribute arrays and overrides existing keys.
+ * - Replaces attribute arrays with normalized values.
  * - Removes attributes for valid keys.
  * - Sets multiple attributes through dedicated `*Many()` APIs.
  * - Sets plain attributes with raw values.
@@ -35,8 +35,7 @@ use UnitEnum;
 final class AttributeBagTest extends TestCase
 {
     /**
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param string|UnitEnum $key
+     * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'get')]
     public function testGet(array $attributes, string|UnitEnum $key, mixed $default, mixed $expected): void
@@ -49,8 +48,7 @@ final class AttributeBagTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param string|UnitEnum $key
+     * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'getWithPrefix')]
     public function testGetWithPrefix(
@@ -67,22 +65,6 @@ final class AttributeBagTest extends TestCase
         );
     }
 
-    /**
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param mixed[] $values
-     */
-    #[DataProviderExternal(AttributeBagProvider::class, 'merge')]
-    public function testMerge(array $attributes, array $values, string $expected): void
-    {
-        AttributeBag::merge($attributes, $values);
-
-        self::assertSame(
-            $expected,
-            Attributes::render($attributes),
-            'Should merge values and override duplicated keys in rendered output.',
-        );
-    }
-
     #[DataProviderExternal(AttributeBagProvider::class, 'key')]
     public function testNormalizeKeyAttribute(mixed $key, string $prefix, string $expected): void
     {
@@ -94,8 +76,7 @@ final class AttributeBagTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param string|UnitEnum $key
+     * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'remove')]
     public function testRemove(array $attributes, string|UnitEnum $key, string $expected): void
@@ -110,8 +91,7 @@ final class AttributeBagTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param string|UnitEnum $key
+     * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'removeWithPrefix')]
     public function testRemoveWithPrefix(array $attributes, string|UnitEnum $key, string $prefix, string $expected): void
@@ -126,8 +106,49 @@ final class AttributeBagTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param string|UnitEnum $key
+     * @param mixed[] $attributes
+     * @param mixed[] $values
+     */
+    #[DataProviderExternal(AttributeBagProvider::class, 'replace')]
+    public function testReplace(array $attributes, array $values, string $expected, string|null $prefix = null): void
+    {
+        if ($prefix === null) {
+            AttributeBag::replace($attributes, $values);
+        } else {
+            AttributeBag::replace($attributes, $values, $prefix);
+        }
+
+        self::assertSame(
+            $expected,
+            Attributes::render($attributes),
+            'Should replace values and render the normalized output.',
+        );
+    }
+
+    public function testReplacePreservesOriginalAttributesWhenReplacementFails(): void
+    {
+        $attributes = ['id' => 'submit'];
+
+        try {
+            AttributeBag::replace($attributes, ['title' => 'Submit', '' => 'invalid']);
+            self::fail('Should throw an exception for an invalid replacement key.');
+        } catch (InvalidArgumentException $exception) {
+            self::assertSame(
+                Message::KEY_MUST_BE_NON_EMPTY_STRING->getMessage(),
+                $exception->getMessage(),
+                'Should throw the expected invalid key message.',
+            );
+        }
+
+        self::assertSame(
+            ' id="submit"',
+            Attributes::render($attributes),
+            'Should keep the original attributes when replacement validation fails.',
+        );
+    }
+
+    /**
+     * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'set')]
     public function testSet(
@@ -146,8 +167,8 @@ final class AttributeBagTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param mixed[] $values
+     * @param mixed[] $attributes
+     * @param mixed[] $values
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'setMany')]
     public function testSetMany(array $attributes, array $values, string $expected): void
@@ -162,8 +183,8 @@ final class AttributeBagTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param mixed[] $values
+     * @param mixed[] $attributes
+     * @param mixed[] $values
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'setManyWithPrefix')]
     public function testSetManyWithPrefix(array $attributes, array $values, string $prefix, string $expected): void
@@ -178,8 +199,7 @@ final class AttributeBagTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param string|UnitEnum $key
+     * @param mixed[] $attributes
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'setWithPrefix')]
     public function testSetWithPrefix(
@@ -243,7 +263,7 @@ final class AttributeBagTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[] $values
+     * @param mixed[] $values
      */
     #[DataProviderExternal(AttributeBagProvider::class, 'invalidManyKey')]
     public function testThrowInvalidArgumentExceptionWhenSetMany(array $values, string $message): void

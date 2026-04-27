@@ -37,16 +37,13 @@ abstract class BaseEnum
      * // ['foo', 'active', 42]
      * ```
      *
-     * @param array $values Array of enum instances or mixed values to normalize.
+     * @param mixed[] $values Array of enum instances or mixed values to normalize.
      *
      * @throws InvalidArgumentException if any value is not an enum, scalar, `array`, or `null`.
      *
-     * @return array Array of normalized scalar values, names, or original values for non-enums.
+     * @return mixed[] Array of normalized scalar values, names, or original values for non-enums.
      *
      * {@see normalizeValue()} for single value normalization.
-     *
-     * @phpstan-param mixed[] $values
-     * @phpstan-return mixed[]
      */
     public static function normalizeArray(array $values): array
     {
@@ -68,12 +65,10 @@ abstract class BaseEnum
      *
      * @throws InvalidArgumentException if the value is not an enum, scalar, `array`, or `null`.
      *
-     * @return array|bool|float|int|string|null Scalar value for BackedEnum, name for pure enums, or the original value
-     * for non-enums.
+     * @return ($value is UnitEnum ? int|string : ($value is string ? string : bool|float|int|mixed[]|null)) Scalar
+     * value for BackedEnum, name for pure enums, or the original value for non-enums.
      *
      * {@see normalizeArray()} for batch normalization.
-     *
-     * @phpstan-return ($value is UnitEnum ? int|string : ($value is string ? string : mixed[]|bool|float|int|null))
      */
     public static function normalizeValue(mixed $value): array|bool|float|int|string|null
     {

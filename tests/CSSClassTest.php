@@ -31,11 +31,10 @@ use UnitEnum;
 final class CSSClassTest extends TestCase
 {
     /**
+     * @param mixed[] $attributes
+     * @param list<array{classes: mixed[]|string|UnitEnum|null, override?: bool}> $operations
+     * @param mixed[] $expected
      * @throws InvalidArgumentException for invalid value errors.
-     *
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param list<array{classes: mixed[]|string|UnitEnum|null, override?: bool}> $operations
-     * @phpstan-param mixed[] $expected
      */
     #[DataProviderExternal(CSSClassProvider::class, 'values')]
     public function testAddClassAttributeValue(
@@ -61,7 +60,7 @@ final class CSSClassTest extends TestCase
     }
 
     /**
-     * @phpstan-param list<string|UnitEnum> $allowed
+     * @param list<string|UnitEnum> $allowed
      */
     #[DataProviderExternal(CSSClassProvider::class, 'renderValues')]
     public function testRenderClassValue(

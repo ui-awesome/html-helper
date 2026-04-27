@@ -17,7 +17,7 @@ use Stringable;
 final class EncodeProvider
 {
     /**
-     * @phpstan-return array<string, array{string|Stringable, string, bool}>
+     * @return array<string, array{string|Stringable, string, bool}>
      */
     public static function content(): array
     {
@@ -71,7 +71,7 @@ final class EncodeProvider
     }
 
     /**
-     * @phpstan-return array<string, array{mixed, string, bool}>
+     * @return array<string, array{mixed, string, bool}>
      */
     public static function value(): array
     {

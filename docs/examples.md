@@ -371,3 +371,8 @@ if (Validator::positiveLike($opacity, 0.0, 1.0) === false) {
     throw new InvalidArgumentException('Invalid opacity.');
 }
 ```
+
+## Next steps
+
+- 📖 [Readme](../README.md)
+- 🧪 [Testing Guide](testing.md)

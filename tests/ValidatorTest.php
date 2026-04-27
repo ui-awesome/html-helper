@@ -7,7 +7,10 @@ namespace UIAwesome\Html\Helper\Tests;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 use Stringable;
+use UIAwesome\Html\Helper\Base\BaseValidator;
+use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Provider\ValidatorProvider;
 use UIAwesome\Html\Helper\Validator;
 use UnitEnum;
@@ -57,10 +60,30 @@ final class ValidatorTest extends TestCase
         );
     }
 
+    public function testOneOfFormatsArrayAllowedValueForExceptionMessage(): void
+    {
+        $method = new ReflectionMethod(BaseValidator::class, 'normalizeAllowedValue');
+
+        self::assertSame(
+            'Array',
+            $method->invoke(null, ['state' => 'active']),
+            'Should format array allowed values for exception messages.',
+        );
+    }
+
+    public function testOneOfFormatsNullAndBooleanAllowedValuesInExceptionMessage(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage('missing', 'attribute', "null', 'true', 'false"),
+        );
+
+        Validator::oneOf('missing', [null, true, false], 'attribute');
+    }
+
     /**
+     * @param list<scalar|UnitEnum|null> $allowed
      * @throws InvalidArgumentException if one or more arguments are invalid, of incorrect type or format.
-     *
-     * @phpstan-param list<UnitEnum|scalar|null> $allowed
      */
     #[DataProviderExternal(ValidatorProvider::class, 'oneOf')]
     public function testOneOfWithValidValues(

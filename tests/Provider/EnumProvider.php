@@ -18,7 +18,7 @@ use Stringable;
 final class EnumProvider
 {
     /**
-     * @phpstan-return array<string, array{mixed[], mixed[], string}>
+     * @return array<string, array{mixed[], mixed[], string}>
      */
     public static function normalizeArray(): array
     {
@@ -83,7 +83,7 @@ final class EnumProvider
     }
 
     /**
-     * @phpstan-return array<string, array{mixed, mixed, string}>
+     * @return array<string, array{mixed, mixed, string}>
      */
     public static function normalizeValue(): array
     {

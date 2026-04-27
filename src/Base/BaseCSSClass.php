@@ -30,7 +30,7 @@ abstract class BaseCSSClass
      *
      * @see https://www.w3.org/TR/CSS21/syndata.html#characters CSS 2.1 Characters and case specification.
      */
-    private const VALID_CSS_CLASS_PATTERN = '/^[^\s@!;<>"{}|^&*`\\\\$]+$/u';
+    private const string VALID_CSS_CLASS_PATTERN = '/^[^\s@!;<>"{}|^&*`\\\\$]+$/u';
 
     /**
      * Adds one or more CSS classes to an attribute array with validation and merging logic.
@@ -44,12 +44,9 @@ abstract class BaseCSSClass
      * // ['id' => 'main', 'class' => 'btn btn-primary']
      * ```
      *
-     * @param array $attributes Attribute array to modify. Passed by reference and updated in place.
-     * @param array|string|Stringable|UnitEnum|null $classes Classes to add.
+     * @param mixed[] $attributes Attribute array to modify. Passed by reference and updated in place.
+     * @param mixed[]|string|Stringable|UnitEnum|null $classes Classes to add.
      * @param bool $override Whether to override (`true`) or merge (`false`, default) with existing classes.
-     *
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param mixed[]|string|Stringable|UnitEnum|null $classes
      */
     public static function add(
         array &$attributes,
@@ -95,15 +92,13 @@ abstract class BaseCSSClass
      *
      * @param string|UnitEnum $class Class value to validate and render.
      * @param string $baseClass Base class format string (for example, `btn-%s`).
-     * @param array $allowed List of allowed class values for validation.
+     * @param list<scalar|UnitEnum|null> $allowed List of allowed class values for validation.
      *
      * @throws InvalidArgumentException if the class value is not in the allowed list.
      *
      * @return string Formatted and validated CSS class name.
      *
      * {@see Enum::normalizeValue()} for enum normalization logic.
-     *
-     * @phpstan-param list<scalar|UnitEnum|null> $allowed
      */
     public static function render(string|UnitEnum $class, string $baseClass, array $allowed): string
     {
@@ -151,12 +146,9 @@ abstract class BaseCSSClass
     /**
      * Normalizes an array of CSS class items into a flat array of validated string class names.
      *
-     * @param array $classes Array of CSS class items (strings, enums, or mixed).
+     * @param mixed[] $classes Array of CSS class items (strings, enums, or mixed).
      *
-     * @return array Flat array of validated CSS class name strings.
-     *
-     * @phpstan-param mixed[] $classes
-     * @phpstan-return list<string>
+     * @return list<string> Flat array of validated CSS class name strings.
      */
     private static function normalizeArrayClasses(array $classes): array
     {
@@ -176,12 +168,9 @@ abstract class BaseCSSClass
     /**
      * Normalizes a single or multiple CSS class input into a consistent validated array format.
      *
-     * @param array|string|Stringable|UnitEnum|null $classes Single or multiple CSS classes to normalize and validate.
+     * @param mixed[]|string|Stringable|UnitEnum|null $classes Single or multiple CSS classes to normalize and validate.
      *
-     * @return array Normalized and validated array of CSS class names, ready for use in HTML attributes.
-     *
-     * @phpstan-param mixed[]|string|Stringable|UnitEnum|null $classes
-     * @phpstan-return list<string>
+     * @return list<string> Normalized and validated array of CSS class names, ready for use in HTML attributes.
      */
     private static function normalizeClasses(array|string|Stringable|UnitEnum|null $classes): array
     {
@@ -205,10 +194,8 @@ abstract class BaseCSSClass
      *
      * @param UnitEnum $enum Enum instance to normalize and validate.
      *
-     * @return array Array containing the enum's validated `string` value, or empty `array` if the value is `int` or
-     * invalid.
-     *
-     * @phpstan-return list<string>
+     * @return list<string> Array containing the enum's validated `string` value, or empty `array` if the value is `int`
+     * or invalid.
      */
     private static function normalizeEnumToArray(UnitEnum $enum): array
     {
@@ -226,9 +213,7 @@ abstract class BaseCSSClass
      *
      * @param string|Stringable $classes Space-separated CSS class string.
      *
-     * @return array Array of validated CSS class names.
-     *
-     * @phpstan-return list<string>
+     * @return list<string> Array of validated CSS class names.
      */
     private static function splitStringClasses(string|Stringable $classes): array
     {

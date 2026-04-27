@@ -24,7 +24,7 @@ use function str_repeat;
 final class CSSClassProvider
 {
     /**
-     * @phpstan-return array<string, array{string|UnitEnum, string, list<string|UnitEnum>, string, string}>
+     * @return array<string, array{string|UnitEnum, string, list<string|UnitEnum>, string, string}>
      */
     public static function renderValues(): array
     {
@@ -54,7 +54,7 @@ final class CSSClassProvider
     }
 
     /**
-     * @phpstan-return array<
+     * @return array<
      *   string,
      *   array{
      *     mixed[],

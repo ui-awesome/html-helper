@@ -3,7 +3,7 @@
     <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ui-awesome/.github/refs/heads/main/logo/ui_awesome_dark.png">
         <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ui-awesome/.github/refs/heads/main/logo/ui_awesome_light.png">
-        <img src="https://raw.githubusercontent.com/ui-awesome/.github/refs/heads/main/logo/ui_awesome_dark.png" alt="UI Awesome" width="150px">
+        <img src="https://raw.githubusercontent.com/ui-awesome/.github/refs/heads/main/logo/ui_awesome_light.png" alt="UI Awesome" width="150px">
     </picture>
     <h1 align="center">Html helper</h1>
     <br>
@@ -27,20 +27,20 @@
     <em>Generate attributes, encode content, sanitize HTML, and manage CSS classes with ease.</em>
 </p>
 
-## Features
+## ✨ Features
 
 <picture>
     <source media="(min-width: 768px)" srcset="./docs/svgs/features.svg">
     <img src="./docs/svgs/features-mobile.svg" alt="Feature Overview" style="width: 100%;">
 </picture>
 
-### Installation
+### 📦 Installation
 
 ```bash
 composer require ui-awesome/html-helper:^0.5
 ```
 
-### Quick start
+### ⚡ Quick start
 
 #### Attribute key normalization
 
@@ -392,31 +392,30 @@ $isOffsetValid = Validator::offsetLike('50%');
 // true
 ```
 
-## Documentation
+## 📖 Documentation
 
 For detailed configuration options and advanced usage.
 
 - 💡 [Usage Examples](docs/examples.md)
 - 🧪 [Testing Guide](docs/testing.md)
-- 🛠️ [Development Guide](docs/development.md)
 
-## Package information
+## 📋 Package information
 
-[![PHP](https://img.shields.io/badge/%3E%3D8.1-777BB4.svg?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/releases/8.1/en.php)
+[![PHP](https://img.shields.io/badge/%3E%3D8.3-777BB4.svg?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/releases/8.3/en.php)
 [![Latest Stable Version](https://img.shields.io/packagist/v/ui-awesome/html-helper.svg?style=for-the-badge&logo=packagist&logoColor=white&label=Stable)](https://packagist.org/packages/ui-awesome/html-helper)
 [![Total Downloads](https://img.shields.io/packagist/dt/ui-awesome/html-helper.svg?style=for-the-badge&logo=composer&logoColor=white&label=Downloads)](https://packagist.org/packages/ui-awesome/html-helper)
 
-## Quality code
+## 🏆 Quality code
 
 [![Codecov](https://img.shields.io/codecov/c/github/ui-awesome/html-helper.svg?style=for-the-badge&logo=codecov&logoColor=white&label=Coverage)](https://codecov.io/github/ui-awesome/html-helper)
 [![PHPStan Level Max](https://img.shields.io/badge/PHPStan-Level%20Max-4F5D95.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ui-awesome/html-helper/actions/workflows/static.yml)
 [![Super-Linter](https://img.shields.io/github/actions/workflow/status/ui-awesome/html-helper/linter.yml?style=for-the-badge&label=Super-Linter&logo=github)](https://github.com/ui-awesome/html-helper/actions/workflows/linter.yml)
 [![StyleCI](https://img.shields.io/badge/StyleCI-Passed-44CC11.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.styleci.io/repos/767410135?branch=main)
 
-## Our social networks
+## 🌐 Our social networks
 
 [![Follow on X](https://img.shields.io/badge/-Follow%20on%20X-1DA1F2.svg?style=for-the-badge&logo=x&logoColor=white&labelColor=000000)](https://x.com/Terabytesoftw)
 
-## License
+## 📄 License
 
 [![License](https://img.shields.io/badge/License-BSD--3--Clause-brightgreen.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white&labelColor=555555)](LICENSE)

@@ -15,7 +15,7 @@ namespace UIAwesome\Html\Helper\Tests\Provider;
 final class LineBreakNormalizerProvider
 {
     /**
-     * @phpstan-return array<string, array{string|null, string}>
+     * @return array<string, array{string|null, string}>
      */
     public static function normalize(): array
     {

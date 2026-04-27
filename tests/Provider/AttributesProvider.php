@@ -18,7 +18,7 @@ use Stringable;
 final class AttributesProvider
 {
     /**
-     * @phpstan-return array<string, array{string, mixed[]}>
+     * @return array<string, array{string, mixed[]}>
      */
     public static function attributeOrdering(): array
     {
@@ -37,7 +37,7 @@ final class AttributesProvider
     }
 
     /**
-     * @phpstan-return array<string, array{string, mixed[]}>
+     * @return array<string, array{string, mixed[]}>
      */
     public static function emptyAndNullValues(): array
     {
@@ -69,7 +69,7 @@ final class AttributesProvider
     }
 
     /**
-     * @phpstan-return array<string, array{string, mixed[]}>
+     * @return array<string, array{string, mixed[]}>
      */
     public static function enumAttribute(): array
     {
@@ -117,7 +117,7 @@ final class AttributesProvider
     }
 
     /**
-     * @phpstan-return array<string, array{string, mixed[]}>
+     * @return array<string, array{string, mixed[]}>
      */
     public static function maliciousValues(): array
     {
@@ -149,7 +149,7 @@ final class AttributesProvider
     }
 
     /**
-     * @phpstan-return array<string, array{mixed[], mixed[], 2?: bool}>
+     * @return array<string, array{mixed[], mixed[], 2?: bool}>
      */
     public static function normalizeAttributes(): array
     {
@@ -170,6 +170,14 @@ final class AttributesProvider
                     ],
                 ],
                 ['class' => 'btn btn-primary'],
+            ],
+            'class array item serialized' => [
+                [
+                    'class' => [
+                        ['state' => 'active'],
+                    ],
+                ],
+                ['class' => '{"state":"active"}'],
             ],
             'data attribute with boolean true' => [
                 [
@@ -359,7 +367,7 @@ final class AttributesProvider
     }
 
     /**
-     * @phpstan-return array<string, array{string, mixed[]}>
+     * @return array<string, array{string, mixed[]}>
      */
     public static function renderTagAttributes(): array
     {
@@ -555,7 +563,7 @@ final class AttributesProvider
     }
 
     /**
-     * @phpstan-return array<string, array{string, mixed[]}>
+     * @return array<string, array{string, mixed[]}>
      */
     public static function styleAttributes(): array
     {

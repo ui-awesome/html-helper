@@ -2,6 +2,8 @@
 
 ## 0.7.3 Under development
 
+- Enh #54: Add `AttributeBag::replace()` and remove unsafe attribute merge behavior while normalizing `null` as removal (@terabytesoftw)
+
 ## 0.7.2 February 15, 2026
 
 - Enh #52: Move `normalizeKey()` to `AttributeBag` and add optional `$prefix` support to `get()`, `remove()`, `set()`, and `setMany()` (@terabytesoftw)

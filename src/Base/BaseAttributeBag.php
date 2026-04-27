@@ -34,7 +34,7 @@ abstract class BaseAttributeBag
      * \UIAwesome\Html\Helper\AttributeBag::get($attributes, 'label', null, 'aria-');
      * ```
      *
-     * @param array $attributes Attribute bag.
+     * @param mixed[] $attributes Attribute bag.
      * @param string|UnitEnum $key Attribute key.
      * @param mixed $default Default value when key is not present.
      * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
@@ -42,8 +42,6 @@ abstract class BaseAttributeBag
      * @throws InvalidArgumentException if normalized key is not a non-empty `string`.
      *
      * @return mixed Attribute value or default.
-     *
-     * @phpstan-param mixed[] $attributes
      */
     public static function get(
         array $attributes,
@@ -56,35 +54,6 @@ abstract class BaseAttributeBag
         return array_key_exists($normalizedKey, $attributes)
             ? $attributes[$normalizedKey]
             : $default;
-    }
-
-    /**
-     * Merges values into the attribute bag.
-     *
-     * Existing keys are overridden by values from `$values`.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\AttributeBag::merge(
-     *     $attributes,
-     *     ['type' => 'submit', 'disabled' => true],
-     * );
-     * ```
-     *
-     * **Note:** This method does NOT:
-     * - Filter `null` values (`null` will remain in the bag).
-     * - Normalize keys (enum keys should be pre-normalized).
-     * - Resolve closures or apply prefixes.
-     *
-     * @param array $attributes Attribute bag to update in place.
-     * @param array $values Values to merge into the bag.
-     *
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param mixed[] $values
-     */
-    public static function merge(array &$attributes, array $values): void
-    {
-        $attributes = [...$attributes, ...$values];
     }
 
     /**
@@ -131,19 +100,43 @@ abstract class BaseAttributeBag
      * \UIAwesome\Html\Helper\AttributeBag::remove($attributes, 'label', 'aria-');
      * ```
      *
-     * @param array $attributes Attribute bag to update in place.
+     * @param mixed[] $attributes Attribute bag to update in place.
      * @param string|UnitEnum $key Attribute key.
      * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
      *
      * @throws InvalidArgumentException if normalized key is not a non-empty `string`.
-     *
-     * @phpstan-param mixed[] $attributes
      */
     public static function remove(array &$attributes, string|UnitEnum $key, string $prefix = ''): void
     {
         $normalizedKey = self::normalizeKey($key, $prefix);
 
         unset($attributes[$normalizedKey]);
+    }
+
+    /**
+     * Replaces all attributes in the bag.
+     *
+     * Usage example:
+     * ```php
+     * \UIAwesome\Html\Helper\AttributeBag::replace(
+     *     $attributes,
+     *     ['id' => 'submit', 'disabled' => true],
+     * );
+     * ```
+     *
+     * @param mixed[] $attributes Attribute bag to replace in place.
+     * @param mixed[] $values Values to set after clearing the bag.
+     * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
+     *
+     * @throws InvalidArgumentException if any key normalization fails.
+     */
+    public static function replace(array &$attributes, array $values, string $prefix = ''): void
+    {
+        $replacement = [];
+
+        self::setMany($replacement, $values, $prefix);
+
+        $attributes = $replacement;
     }
 
     /**
@@ -157,14 +150,12 @@ abstract class BaseAttributeBag
      * \UIAwesome\Html\Helper\AttributeBag::set($attributes, 'label', 'Submit', 'aria-');
      * ```
      *
-     * @param array $attributes Attribute bag to update in place.
+     * @param mixed[] $attributes Attribute bag to update in place.
      * @param string|UnitEnum $key Attribute key to normalize.
      * @param mixed $value Attribute value.
      * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
      *
      * @throws InvalidArgumentException if key normalization fails.
-     *
-     * @phpstan-param mixed[] $attributes
      */
     public static function set(array &$attributes, string|UnitEnum $key, mixed $value, string $prefix = ''): void
     {
@@ -201,14 +192,11 @@ abstract class BaseAttributeBag
      * );
      * ```
      *
-     * @param array $attributes Attribute bag to update in place.
-     * @param array $values Values to set.
+     * @param mixed[] $attributes Attribute bag to update in place.
+     * @param mixed[] $values Values to set.
      * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
      *
      * @throws InvalidArgumentException if any key normalization fails.
-     *
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-param mixed[] $values
      */
     public static function setMany(array &$attributes, array $values, string $prefix = ''): void
     {
@@ -239,6 +227,11 @@ abstract class BaseAttributeBag
 
     /**
      * Determines whether boolean values must be kept as literal strings.
+     *
+     * @param string $key Normalized attribute key.
+     *
+     * @return bool `true` if the key indicates a boolean attribute that should be stored as a string, `false`
+     * otherwise.
      */
     private static function shouldStoreBooleanAsString(string $key): bool
     {
