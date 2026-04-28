@@ -6,6 +6,8 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ## 0.7.4 Under development
 
+- docs:  update `README.md` to reflect the lastet version of the package.
+
 ## 0.7.3 April 28, 2026
 
 - feat: add `AttributeBag::replace()` and remove unsafe attribute merge behavior while normalizing `null` as removal.
