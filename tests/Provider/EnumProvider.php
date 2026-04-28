@@ -83,6 +83,68 @@ final class EnumProvider
     }
 
     /**
+     * @return array<string, array{mixed[], string[], string}>
+     */
+    public static function normalizeStringArray(): array
+    {
+        return [
+            'array of backed enums' => [
+                [
+                    BackedString::VALUE,
+                ],
+                [
+                    'value',
+                ],
+                'Should return an array of backed enum values as strings.',
+            ],
+            'array of unit enums' => [
+                [
+                    Unit::value,
+                ],
+                [
+                    'value',
+                ],
+                'Should return an array of name values for unit enums as strings.',
+            ],
+            'empty array' => [
+                [],
+                [],
+                'Should return an empty array for empty input.',
+            ],
+            'mixed array with textual representations' => [
+                [
+                    null,
+                    true,
+                    false,
+                    ['nested' => 'value'],
+                    'foo',
+                    42,
+                    3.14,
+                    BackedString::VALUE,
+                    new class implements Stringable {
+                        public function __toString(): string
+                        {
+                            return 'stringable';
+                        }
+                    },
+                ],
+                [
+                    'null',
+                    'true',
+                    'false',
+                    'Array',
+                    'foo',
+                    '42',
+                    '3.14',
+                    'value',
+                    'stringable',
+                ],
+                'Should normalize all accepted values to deterministic strings.',
+            ],
+        ];
+    }
+
+    /**
      * @return array<string, array{mixed, mixed, string}>
      */
     public static function normalizeValue(): array
@@ -112,6 +174,70 @@ final class EnumProvider
                 'foo',
                 'foo',
                 'Should return the original scalar value if not an enum.',
+            ],
+            'stringable' => [
+                new class implements Stringable {
+                    public function __toString(): string
+                    {
+                        return 'stringable';
+                    }
+                },
+                'stringable',
+                'Should return the string representation for Stringable objects.',
+            ],
+            'unit enum' => [
+                Unit::value,
+                'value',
+                'Should return the name value for a unit enum.',
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array{mixed, string, string}>
+     */
+    public static function normalizeStringValue(): array
+    {
+        return [
+            'array' => [
+                ['nested' => 'value'],
+                'Array',
+                'Should return a deterministic string representation for arrays.',
+            ],
+            'backed enum' => [
+                BackedString::VALUE,
+                'value',
+                'Should return the backed enum value as a string.',
+            ],
+            'boolean false' => [
+                false,
+                'false',
+                "Should return 'false' for false values.",
+            ],
+            'boolean true' => [
+                true,
+                'true',
+                "Should return 'true' for true values.",
+            ],
+            'null' => [
+                null,
+                'null',
+                "Should return 'null' as a string.",
+            ],
+            'scalar float' => [
+                3.14,
+                '3.14',
+                'Should return the original scalar float as a string.',
+            ],
+            'scalar integer' => [
+                42,
+                '42',
+                'Should return the original scalar integer as a string.',
+            ],
+            'scalar string' => [
+                'foo',
+                'foo',
+                'Should return the original scalar string.',
             ],
             'stringable' => [
                 new class implements Stringable {

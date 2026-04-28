@@ -17,6 +17,7 @@ use UIAwesome\Html\Helper\Tests\Provider\EnumProvider;
  *
  * Test coverage.
  * - Normalizes arrays containing enums, scalars, and `null`.
+ * - Normalizes arrays and single values to string representations.
  * - Normalizes single values from enums, scalars, and stringable inputs.
  * - Throws exceptions for unsupported value types.
  *
@@ -42,6 +43,20 @@ final class EnumTest extends TestCase
         );
     }
 
+    /**
+     * @param mixed[] $input
+     * @param string[] $expected
+     */
+    #[DataProviderExternal(EnumProvider::class, 'normalizeStringArray')]
+    public function testNormalizeStringArrayWithEnums(array $input, array $expected, string $message): void
+    {
+        self::assertSame(
+            $expected,
+            Enum::normalizeStringArray($input),
+            $message,
+        );
+    }
+
     #[DataProviderExternal(EnumProvider::class, 'normalizeValue')]
     public function testNormalizeValueWithEnums(mixed $input, mixed $expected, string $message): void
     {
@@ -50,6 +65,30 @@ final class EnumTest extends TestCase
             Enum::normalizeValue($input),
             $message,
         );
+    }
+
+    #[DataProviderExternal(EnumProvider::class, 'normalizeStringValue')]
+    public function testNormalizeStringValueWithEnums(mixed $input, string $expected, string $message): void
+    {
+        self::assertSame(
+            $expected,
+            Enum::normalizeStringValue($input),
+            $message,
+        );
+    }
+
+    public function testThrowInvalidArgumentExceptionForInvalidStringValueType(): void
+    {
+        $value = new stdClass();
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_SHOULD_BE_ARRAY_SCALAR_NULL_ENUM->getMessage(
+                gettype($value),
+            ),
+        );
+
+        Enum::normalizeStringValue($value);
     }
 
     public function testThrowInvalidArgumentExceptionForInvalidValueType(): void
