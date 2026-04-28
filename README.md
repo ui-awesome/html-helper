@@ -1,9 +1,7 @@
 <!-- markdownlint-disable MD041 -->
 <p align="center">
     <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ui-awesome/.github/refs/heads/main/logo/ui_awesome_dark.png">
-        <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ui-awesome/.github/refs/heads/main/logo/ui_awesome_light.png">
-        <img src="https://raw.githubusercontent.com/ui-awesome/.github/refs/heads/main/logo/ui_awesome_light.png" alt="UI Awesome" width="150px">
+        <img src="https://raw.githubusercontent.com/ui-awesome/.github/refs/heads/main/logo/ui_awesome.png" alt="UI Awesome" width="25%">
     </picture>
     <h1 align="center">Html helper</h1>
     <br>
@@ -30,8 +28,8 @@
 ## ✨ Features
 
 <picture>
-    <source media="(min-width: 768px)" srcset="./docs/svgs/features.svg">
-    <img src="./docs/svgs/features-mobile.svg" alt="Feature Overview" style="width: 100%;">
+    <source media="(max-width: 767px)" srcset="./docs/svgs/features-mobile.svg">
+    <img src="./docs/svgs/features.svg" alt="Feature Overview" style="width: 100%;">
 </picture>
 
 ### 📦 Installation
