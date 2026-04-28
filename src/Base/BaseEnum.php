@@ -13,6 +13,7 @@ use UnitEnum;
 use function array_map;
 use function gettype;
 use function is_array;
+use function is_bool;
 use function is_scalar;
 
 /**
@@ -39,7 +40,7 @@ abstract class BaseEnum
      *
      * @param mixed[] $values Array of enum instances or mixed values to normalize.
      *
-     * @throws InvalidArgumentException if any value is not an enum, scalar, `array`, or `null`.
+     * @throws InvalidArgumentException if any value is not an enum, scalar, array, or `null`.
      *
      * @return mixed[] Array of normalized scalar values, names, or original values for non-enums.
      *
@@ -48,6 +49,69 @@ abstract class BaseEnum
     public static function normalizeArray(array $values): array
     {
         return array_map(self::normalizeValue(...), $values);
+    }
+
+    /**
+     * Normalizes an array of enum values or mixed values to string representations.
+     *
+     * Applies {@see normalizeStringValue()} to each element.
+     *
+     * Usage example:
+     * ```php
+     * \UIAwesome\Html\Helper\Enum::normalizeStringArray(['foo', Status::ACTIVE, 42]);
+     * // ['foo', 'active', '42']
+     * ```
+     *
+     * @param mixed[] $values Array of enum instances or mixed values to normalize.
+     *
+     * @throws InvalidArgumentException if any value is not an enum, scalar, array, or `null`.
+     *
+     * @return string[] Array of normalized string representations.
+     *
+     * {@see normalizeStringValue()} for single value string normalization.
+     */
+    public static function normalizeStringArray(array $values): array
+    {
+        return array_map(self::normalizeStringValue(...), $values);
+    }
+
+    /**
+     * Normalizes a single enum value or mixed value to a string representation.
+     *
+     * Converts `null` to `null`, booleans to `true` or `false`, and arrays to `Array` for deterministic textual
+     * output.
+     *
+     * Usage example:
+     * ```php
+     * \UIAwesome\Html\Helper\Enum::normalizeStringValue(Status::ACTIVE);
+     * // 'active'
+     * ```
+     *
+     * @param mixed $value Value to normalize.
+     *
+     * @throws InvalidArgumentException if the value is not an enum, scalar, array, or `null`.
+     *
+     * @return string Normalized string representation.
+     *
+     * {@see normalizeStringArray()} for batch string normalization.
+     */
+    public static function normalizeStringValue(mixed $value): string
+    {
+        $normalized = self::normalizeValue($value);
+
+        if ($normalized === null) {
+            return 'null';
+        }
+
+        if (is_bool($normalized)) {
+            return $normalized ? 'true' : 'false';
+        }
+
+        if (is_array($normalized)) {
+            return 'Array';
+        }
+
+        return (string) $normalized;
     }
 
     /**
@@ -63,7 +127,7 @@ abstract class BaseEnum
      *
      * @param mixed $value Value to normalize.
      *
-     * @throws InvalidArgumentException if the value is not an enum, scalar, `array`, or `null`.
+     * @throws InvalidArgumentException if the value is not an enum, scalar, array, or `null`.
      *
      * @return ($value is UnitEnum ? int|string : ($value is string ? string : bool|float|int|mixed[]|null)) Scalar
      * value for BackedEnum, name for pure enums, or the original value for non-enums.

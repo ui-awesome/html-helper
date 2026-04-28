@@ -10,12 +10,9 @@ use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UnitEnum;
 
-use function array_map;
 use function ctype_digit;
 use function implode;
 use function in_array;
-use function is_array;
-use function is_bool;
 use function is_float;
 use function is_int;
 use function is_numeric;
@@ -82,8 +79,8 @@ abstract class BaseValidator
     /**
      * Validates whether a value represents an offset value.
      *
-     * If the value is a string that ends with `%`, the numeric part is validated as a non-negative number not greater
-     * than `100`. Otherwise, the value is validated as a non-negative number not greater than `1`.
+     * If the value is a string that ends with '%', the numeric part is validated as a non-negative number not greater
+     * than '100'. Otherwise, the value is validated as a non-negative number not greater than '1'.
      *
      * Usage example:
      * ```php
@@ -145,7 +142,7 @@ abstract class BaseValidator
             Message::VALUE_NOT_IN_LIST->getMessage(
                 $normalizedValue,
                 $normalizedArgumentName,
-                implode("', '", self::normalizeAllowedValues($normalizedAllowedValues)),
+                implode("', '", Enum::normalizeStringArray($normalizedAllowedValues)),
             ),
         );
     }
@@ -162,8 +159,8 @@ abstract class BaseValidator
      * ```
      *
      * @param float|int|string|Stringable $value Value to validate as positive numeric.
-     * @param float|null $min Minimum allowed value (inclusive). Defaults to `0.0`. If provided and less than `0.0`, it
-     * is forced to `0.0`. The value must be greater than or equal to this bound.
+     * @param float|null $min Minimum allowed value (inclusive). Defaults to '0.0'. If provided and less than '0.0', it
+     * is forced to '0.0'. The value must be greater than or equal to this bound.
      * @param float|null $max Optional maximum allowed value (inclusive). If `null`, no upper bound is enforced.
      *
      * @return bool `true` if the value is non-negative numeric and within bounds, `false` otherwise.
@@ -196,43 +193,5 @@ abstract class BaseValidator
         }
 
         return $value >= $min && ($max === null || $value <= $max);
-    }
-
-    /**
-     * Normalizes an allowed value to its exception message representation.
-     *
-     * @param mixed $value Allowed value.
-     *
-     * @return string Message value.
-     */
-    private static function normalizeAllowedValue(mixed $value): string
-    {
-        $normalized = Enum::normalizeValue($value);
-
-        if ($normalized === null) {
-            return 'null';
-        }
-
-        if (is_bool($normalized)) {
-            return $normalized ? 'true' : 'false';
-        }
-
-        if (is_array($normalized)) {
-            return 'Array';
-        }
-
-        return (string) $normalized;
-    }
-
-    /**
-     * Normalizes allowed values for deterministic exception messages.
-     *
-     * @param mixed[] $values Allowed values normalized by {@see Enum::normalizeArray()}.
-     *
-     * @return string[] Values converted to their message representation.
-     */
-    private static function normalizeAllowedValues(array $values): array
-    {
-        return array_map(self::normalizeAllowedValue(...), $values);
     }
 }

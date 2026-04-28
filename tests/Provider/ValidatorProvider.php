@@ -10,9 +10,6 @@ use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UnitEnum;
 
-use function array_map;
-use function is_array;
-
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\ValidatorTest} test cases.
  *
@@ -937,32 +934,14 @@ final class ValidatorProvider
     }
 
     /**
-     * Normalizes an allowed value to its exception message representation.
-     *
-     * @param mixed $value Allowed value.
-     *
-     * @return string Message value.
-     */
-    private static function normalizeAllowedValue(mixed $value): string
-    {
-        $normalized = Enum::normalizeValue($value);
-
-        if (is_array($normalized)) {
-            return 'Array';
-        }
-
-        return (string) $normalized;
-    }
-
-    /**
      * Normalizes allowed values for deterministic exception messages.
      *
-     * @param mixed[] $values Values accepted by {@see Enum::normalizeArray()}.
+     * @param mixed[] $values Values accepted by {@see Enum::normalizeStringArray()}.
      *
      * @return string[] Values converted to their message representation.
      */
     private static function normalizeAllowedValues(array $values): array
     {
-        return array_map(self::normalizeAllowedValue(...), Enum::normalizeArray($values));
+        return Enum::normalizeStringArray($values);
     }
 }

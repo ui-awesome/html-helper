@@ -7,9 +7,7 @@ namespace UIAwesome\Html\Helper\Tests;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
-use ReflectionMethod;
 use Stringable;
-use UIAwesome\Html\Helper\Base\BaseValidator;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Provider\ValidatorProvider;
 use UIAwesome\Html\Helper\Validator;
@@ -57,17 +55,6 @@ final class ValidatorTest extends TestCase
             $expected,
             Validator::offsetLike($value),
             $message,
-        );
-    }
-
-    public function testOneOfFormatsArrayAllowedValueForExceptionMessage(): void
-    {
-        $method = new ReflectionMethod(BaseValidator::class, 'normalizeAllowedValue');
-
-        self::assertSame(
-            'Array',
-            $method->invoke(null, ['state' => 'active']),
-            'Should format array allowed values for exception messages.',
         );
     }
 

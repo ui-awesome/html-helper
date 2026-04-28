@@ -4,6 +4,7 @@
 
 - Enh #54: Add `AttributeBag::replace()` and remove unsafe attribute merge behavior while normalizing `null` as removal (@terabytesoftw)
 - Bug #55: Remove attributes from `AttributeBag` when `set()` receives `null` or a closure resolving to `null` (@terabytesoftw)
+- Enh #56: Add `Enum::normalizeStringValue()` and `Enum::normalizeStringArray()` for deterministic string representations (@terabytesoftw)
 
 ## 0.7.2 February 15, 2026
 
