@@ -57,22 +57,22 @@ final class EnumTest extends TestCase
         );
     }
 
-    #[DataProviderExternal(EnumProvider::class, 'normalizeValue')]
-    public function testNormalizeValueWithEnums(mixed $input, mixed $expected, string $message): void
-    {
-        self::assertSame(
-            $expected,
-            Enum::normalizeValue($input),
-            $message,
-        );
-    }
-
     #[DataProviderExternal(EnumProvider::class, 'normalizeStringValue')]
     public function testNormalizeStringValueWithEnums(mixed $input, string $expected, string $message): void
     {
         self::assertSame(
             $expected,
             Enum::normalizeStringValue($input),
+            $message,
+        );
+    }
+
+    #[DataProviderExternal(EnumProvider::class, 'normalizeValue')]
+    public function testNormalizeValueWithEnums(mixed $input, mixed $expected, string $message): void
+    {
+        self::assertSame(
+            $expected,
+            Enum::normalizeValue($input),
             $message,
         );
     }
