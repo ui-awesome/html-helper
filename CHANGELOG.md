@@ -7,6 +7,7 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ## 0.7.4 Under development
 
 - docs: update `README.md` to reflect the latest version of the package.
+- chore: refine `composer.json` description and keywords to reflect the actual helper surface (attributes, CSS class, encoding, sanitization, template normalization).
 
 ## 0.7.3 April 28, 2026
 

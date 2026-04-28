@@ -1,12 +1,17 @@
 {
     "name": "ui-awesome/html-helper",
     "type": "library",
-    "description": "UI Awesome HTML Helpers Library for PHP.",
+    "description": "HTML helpers for PHP: attribute rendering, CSS class management, content encoding, sanitization, and template normalization.",
     "keywords": [
         "ui-awesome",
         "html",
-        "helper",
-        "library",
+        "html-helpers",
+        "attributes",
+        "css-class",
+        "encode",
+        "sanitize",
+        "template",
+        "normalizer",
         "php"
     ],
     "license": "BSD-3-Clause",
@@ -21,7 +26,7 @@
         "php-forge/support": "^0.3",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
-        "phpstan/phpstan-strict-rules": "^2.0.3",
+        "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^12.5"
     },
     "autoload": {
