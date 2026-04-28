@@ -24,9 +24,7 @@ $attributes = [
         'action' => 'save',
         'payload' => ['draft' => true, 'source' => 'toolbar'],
     ],
-    'aria' => [
-        'label' => 'Save changes',
-    ],
+    'aria' => ['label' => 'Save changes'],
 ];
 
 echo '<button' . Attributes::render($attributes) . '>Save</button>';
@@ -349,10 +347,12 @@ if (Validator::offsetLike($offset) === false) {
     throw new InvalidArgumentException('Invalid gradient offset.');
 }
 
-echo '<stop' . Attributes::render([
-    'offset' => (string) $offset,
-    'stop-color' => '#ff6600',
-]) . ' />';
+echo '<stop' . Attributes::render(
+    [
+        'offset' => (string) $offset,
+        'stop-color' => '#ff6600',
+    ],
+) . ' />';
 // <stop offset="50%" stop-color="#ff6600" />
 ```
 

@@ -1,130 +1,134 @@
-# ChangeLog
+# Changelog
 
-## 0.7.3 Under development
+All notable changes to this project will be documented in this file.
 
-- Enh #54: Add `AttributeBag::replace()` and remove unsafe attribute merge behavior while normalizing `null` as removal (@terabytesoftw)
-- Bug #55: Remove attributes from `AttributeBag` when `set()` receives `null` or a closure resolving to `null` (@terabytesoftw)
-- Enh #56: Add `Enum::normalizeStringValue()` and `Enum::normalizeStringArray()` for deterministic string representations (@terabytesoftw)
-- Enh #57: Refresh feature overview SVGs with the current helper capabilities (@terabytesoftw)
+The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
+
+## 0.7.3 April 28, 2026
+
+- feat: add `AttributeBag::replace()` and remove unsafe attribute merge behavior while normalizing `null` as removal.
+- fix: remove attributes from `AttributeBag` when `set()` receives `null` or a closure resolving to `null`.
+- feat: add `Enum::normalizeStringValue()` and `Enum::normalizeStringArray()` for deterministic string representations.
+- docs: refresh feature overview SVGs with the current helper capabilities.
 
 ## 0.7.2 February 15, 2026
 
-- Enh #52: Move `normalizeKey()` to `AttributeBag` and add optional `$prefix` support to `get()`, `remove()`, `set()`, and `setMany()` (@terabytesoftw)
-- Bug #53: Update `README.md` to reflect changes in `AttributeBag` helper usage and examples (@terabytesoftw)
+- feat: move `normalizeKey()` to `AttributeBag` and add optional `$prefix` support to `get()`, `remove()`, `set()`, and `setMany()`.
+- docs: update `README.md` to reflect `AttributeBag` helper usage and examples.
 
 ## 0.7.1 February 15, 2026
 
-- Bug #50: Serialize boolean values in `aria-*`, `data-*`, `data-ng`, `ng-*`, and `on*` attributes as explicit strings (@terabytesoftw)
-- Bug #51: Support closure values in attribute handling and add test case for boolean closure values (@terabytesoftw)
+- fix: serialize boolean values in `aria-*`, `data-*`, `data-ng`, `ng-*`, and `on*` attributes as explicit strings.
+- fix: support closure values in attribute handling and add a test case for boolean closure values.
 
 ## 0.7.0 February 14, 2026
 
-- Enh #49: Simplify `AttributeBag` to generic `set()` and `setMany()` operations (removing `add()`), while keeping `Attributes` responsible for `aria`, `data`, and `on` expansion during rendering (@terabytesoftw)
+- feat: simplify `AttributeBag` to generic `set()` and `setMany()` operations, remove `add()`, and keep `Attributes` responsible for `aria`, `data`, and `on` expansion during rendering.
 
 ## 0.6.9 February 14, 2026
 
-- Enh #46: Add helper `AttributeBag` class to centralize `add()`, `get()`, `merge()`, `remove()`, and `set()` operations with unit tests (@terabytesoftw)
-- Bug #47: Standardize PHPDoc across `src` for consistent API documentation (@terabytesoftw)
-- Bug #48: Standardize PHPDoc across `tests` for consistent test documentation (@terabytesoftw)
+- feat: add helper `AttributeBag` class to centralize `add()`, `get()`, `merge()`, `remove()`, and `set()` operations with unit tests.
+- docs: standardize PHPDoc across `src` for consistent API documentation.
+- docs: standardize PHPDoc across `tests` for consistent test documentation.
 
 ## 0.6.8 February 11, 2026
 
-- Enh #45: Add helper `LineBreakNormalizer` class for normalizing line breaks in strings (@terabytesoftw)
+- feat: add helper `LineBreakNormalizer` class for normalizing line breaks in strings.
 
 ## 0.6.7 January 28, 2026
 
-- Bug #43: Update examples in `testing.md` for running Composer script with arguments and update `.styleci.yml` accordingly (@terabytesoftw)
-- Bug #44: Remove redundant ignore rule in `actionlint.yml` configuration and update Rector command in `composer.json` to remove unnecessary 'src' argument (@terabytesoftw)
+- docs: update `testing.md` examples for running Composer scripts with arguments and align `.styleci.yml` accordingly.
+- chore: remove the redundant ignore rule in `actionlint.yml` and update the Rector command in `composer.json` to remove the unnecessary `src` argument.
 
 ## 0.6.6 January 24, 2026
 
-- Enh #42: Add `php-forge/coding-standard` to development dependencies for code quality checks (@terabytesoftw)
+- chore: add `php-forge/coding-standard` to development dependencies for code quality checks.
 
 ## 0.6.5 January 20, 2026
 
-- Bug #36: Move directory `tests\Providers` to `tests\Support\Provider` for better organization (@terabytesoftw)
-- Enh #37: Add usage examples for HTML helper methods, including attribute normalization and SVG offset validation (@terabytesoftw)
-- Bug #38: Update testing documentation for clarity and organization (@terabytesoftw)
-- Enh #39: Add development guide for workflows and maintenance tasks (@terabytesoftw)
-- Enh #40: Add `php-forge/support` as a development dependency and update related test classes (@terabytesoftw)
-- Bug #41: Enhance documentation for `Message` enum to clarify error message templates and formatting usage (@terabytesoftw)
+- test: move `tests/Providers` to `tests/Support/Provider` for better organization.
+- docs: add usage examples for HTML helper methods, including attribute normalization and SVG offset validation.
+- docs: update testing documentation for clarity and organization.
+- docs: add development guide for workflows and maintenance tasks.
+- chore: add `php-forge/support` as a development dependency and update related test classes.
+- docs: clarify `Message` enum error message templates and formatting usage.
 
 ## 0.6.4 January 18, 2026
 
-- Bug #31: Update configuration files and improve code structure for better maintainability and update related classes (@terabytesoftw)
-- Bug #32: Enhance documentation and improve clarity across multiple classes and methods (@terabytesoftw)
-- Bug #33: Enhance documentation tests and improve clarity across multiple test files (@terabytesoftw)
-- Enh #34: Add `offsetLike()` method in `BaseValidator` class for validating offset-like numbers with optional minimum and maximum constraints, along with related tests (@terabytesoftw)
-- Bug #35: Update documentation in test files and providers for clarity and consistency (@terabytesoftw)
+- refactor: update configuration and related classes to improve maintainability.
+- docs: enhance documentation across multiple classes and methods.
+- docs: enhance documentation tests across multiple test files.
+- feat: add `BaseValidator::offsetLike()` for validating offset-like numbers with optional minimum and maximum constraints.
+- docs: update documentation in test files and providers for clarity and consistency.
 
 ## 0.6.3 January 3, 2026
 
-- Bug #30: Remove unnecessary `strtolower()` usage and update test cases for consistent casing (@terabytesoftw)
+- fix: remove unnecessary `strtolower()` usage and update test cases for consistent casing.
 
 ## 0.6.2 January 1, 2026
 
-- Enh #29: Update `positiveLike()` method to validate within a specified range and adjust related tests (@terabytesoftw)
+- feat: update `BaseValidator::positiveLike()` to validate values within a specified range and adjust related tests.
 
 ## 0.6.1 December 31, 2025
 
-- Enh #27: Add `positiveLike()` method in `BaseValidator` for validating positive-like numbers with optional maximum constraint, along with related tests (@terabytesoftw)
-- Enh #28: Enhance `positiveLike()` method to include minimum value validation and update related tests (@terabytesoftw)
+- feat: add `BaseValidator::positiveLike()` for validating positive-like numbers with an optional maximum constraint.
+- feat: add minimum value validation to `BaseValidator::positiveLike()` and update related tests.
 
 ## 0.6.0 December 27, 2025
 
-- Enh #25: Add `normalizeAttributes()` method in `BaseAttributes` helper for normalization of attribute keys and values with support for encoding and JSON serialization, along with comprehensive tests (@terabytesoftw)
-- Bug #26: Rename exception test methods to clarify expected exceptions (@terabytesoftw)
+- feat: add `BaseAttributes::normalizeAttributes()` for normalizing attribute keys and values with encoding and JSON serialization support.
+- test: rename exception test methods to clarify expected exceptions.
 
 ## 0.5.3 December 26, 2025
 
-- Bug #24: Update argument types in `oneOf` method and related tests to support `UnitEnum` in `argumentName` parameter (@terabytesoftw)
+- fix: allow `UnitEnum` in the `oneOf()` `$argumentName` parameter and update related tests.
 
 ## 0.5.2 December 26, 2025
 
-- Enh #21: Update group annotation from 'helpers' to 'helper' across multiple test files (@terabytesoftw)
-- Dep #22: Update `infection/infection` version constraint to `^0.32` in `composer.json` (@terabytesoftw)
-- Bug #23: Allow `null` values in `oneOf` method and update related tests (@terabytesoftw)
+- test: update group annotation from `helpers` to `helper` across multiple test files.
+- chore: update `infection/infection` version constraint to `^0.32` in `composer.json`.
+- fix: allow `null` values in `oneOf()` and update related tests.
 
 ## 0.5.1 December 23, 2025
 
-- Enh #20: Add `normalizeKey()` method in `BaseAttributes` helper for normalization attribute keys with prefixes, enhance error handling and add related tests (@terabytesoftw)
+- feat: add `BaseAttributes::normalizeKey()` for normalizing attribute keys with prefixes, enhance error handling, and add related tests.
 
 ## 0.5.0 December 19, 2025
 
-- Bug #15: Update copyright year to `2024` in `LICENSE` file (@terabytesoftw)
-- Bug #16: Update image alt text from `Yii Framework` to `UI Awesome` (@terabytesoftw)
-- Bug #17: Enhance support for `Stringable` interface types across `BaseCssClass`, `BaseEncode`, `BaseEnum`, `BaseValidator` classes and update related tests (@terabytesoftw)
-- Bug #18: Update feature descriptions in SVG files to reflect new capabilities including `Stringable` support and performance optimizations (@terabytesoftw)
-- Bug #19: Remove trailing periods from alert content in SVG feature descriptions (@terabytesoftw)
+- fix: update the copyright year to `2024` in `LICENSE`.
+- docs: update image alt text from `Yii Framework` to `UI Awesome`.
+- feat: enhance `Stringable` support across `BaseCssClass`, `BaseEncode`, `BaseEnum`, and `BaseValidator`.
+- docs: update feature descriptions in SVG files to reflect `Stringable` support and performance optimizations.
+- docs: remove trailing periods from alert content in SVG feature descriptions.
 
 ## 0.4.0 December 17, 2025
 
-- Dep #13: Update `CHANGELOG.md` for version `0.4.0` and remove `ui-awesome/html-interop` dependencies in `composer.json` (@terabytesoftw)
-- Dep #14: Add missing `phpstan/phpstan` dependency in `composer.json` (@terabytesoftw)
+- chore: update `CHANGELOG.md` for version `0.4.0` and remove `ui-awesome/html-interop` dependencies from `composer.json`.
+- chore: add missing `phpstan/phpstan` dependency to `composer.json`.
 
 ## 0.3.0 December 16, 2025
 
-- Enh #8: Refactor codebase to improve performance (@terabytesoftw)
-- Bug #9: Enhance documentation and improve clarity across HTML helper classes (@terabytesoftw)
-- Bug #10: Improve pattern handling and enhance test coverage for `Naming` class (@terabytesoftw)
-- Enh #11: Add `Enum` helper for value normalization and support for arrays and `UnitEnum` instance (@terabytesoftw)
-- Enh #12: Simplify descriptions for HTML helper features in `README.md` (@terabytesoftw)
+- refactor: improve codebase performance.
+- docs: enhance documentation across HTML helper classes.
+- fix: improve pattern handling and enhance test coverage for `Naming`.
+- feat: add `Enum` helper for value normalization with array and `UnitEnum` support.
+- docs: simplify HTML helper feature descriptions in `README.md`.
 
 ## 0.2.0 March 30, 2024
 
-- Enh #7: Move `HTMLBuilder::class` to `ui-awesome/html-core` package (@terabytesoftw)
+- feat: move `HTMLBuilder` to the `ui-awesome/html-core` package.
 
 ## 0.1.2 March 25, 2024
 
-- Enh #6: Add method `render()` in `CssClass::class` (@terabytesoftw)
+- feat: add `CssClass::render()`.
 
 ## 0.1.1 March 9, 2024
 
-- Bug #5: Change branch alias to `1.0-dev` in `composer.json` (@terabytesoftw)
+- fix: change the branch alias to `1.0-dev` in `composer.json`.
 
 ## 0.1.0 March 6, 2024
 
-- Enh #1: Initial commit (@terabytesoftw)
-- Enh #2: Add helper `Template::class` (@terabytesoftw)
-- Bug #3: Fix `README.md` (@terabytesoftw)
-- Enh #4: Add helper `HTMLBuilder::class` (@terabytesoftw)
+- feat: initial `ui-awesome/html-helper` package structure.
+- feat: add helper `Template`.
+- fix: correct `README.md`.
+- feat: add helper `HTMLBuilder`.
