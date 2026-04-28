@@ -1,72 +1,56 @@
-<svg fill="none" viewBox="0 0 1200 380" width="100%" height="340" xmlns="http://www.w3.org/2000/svg">
-    <foreignObject width="100%" height="100%">
-        <div xmlns="http://www.w3.org/1999/xhtml">
-            <style>
-                .container {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 20px;
-                    padding: 20px;
-                }
-                .alert-box {
-                    border-left: 4px solid #1f883d;
-                    padding: 12px;
-                    margin-bottom: 16px;
-                    border-radius: 6px;
-                    background: rgba(31, 136, 61, 0.1);
-                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-                    width: 100%;
-                    box-sizing: border-box;
-                }
-                .alert-title {
-                    margin: 0 0 8px 0;
-                    font-weight: 600;
-                }
-                .alert-content {
-                    margin: 0;
-                    line-height: 1.5;
-                }
+<svg viewBox="0 0 1200 380" width="100%" height="340" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        .box-bg { fill: #e6f4ea; stroke: #a7cdb3; stroke-width: 1; }
+        .title { font-weight: 700; font-size: 16px; fill: #1a202c; }
+        .content { font-size: 13px; fill: #4a5568; }
+    </style>
 
-                /* Light mode */
-                    @media (prefers-color-scheme: light) {
-                    .alert-title { color: #000000; }
-                    .alert-content { color: #333333; }
-                    .alert-box { background: rgba(31, 136, 61, 0.1); }
-                }
+    <g>
+        <rect class="box-bg" x="20" y="20" width="570" height="100" rx="6"/>
+        <rect x="20" y="20" width="4" height="100" fill="#1f883d"/>
+        <text class="title" x="40" y="50">Attribute Bag</text>
+        <text class="content" x="40" y="78">Prefix-aware get(), remove(), replace(), set() and setMany()</text>
+        <text class="content" x="40" y="98">Closure resolution &#8226; null values remove attributes safely</text>
+    </g>
 
-                /* Dark mode */
-                @media (prefers-color-scheme: dark) {
-                    .alert-title { color: #ffffff; }
-                    .alert-content { color: #ffffff; }
-                    .alert-box { background: rgba(31, 136, 61, 0.2); }
-                }
-            </style>
-            <div class="container">
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Attribute Bag</strong></p>
-                    <p class="alert-content">In-place <code>get()</code>, <code>merge()</code>, <code>remove()</code>, <code>set()</code>, <code>setMany()</code> operations for attribute arrays</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Enum Integration</strong></p>
-                    <p class="alert-content">First-class support for PHP 8.1 <code>Enums</code> in attributes and validations</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Framework Agnostic</strong></p>
-                    <p class="alert-content">Zero dependencies on specific frameworks</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Secure by Design</strong></p>
-                    <p class="alert-content">Automatic XSS protection via context-aware encoding</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Stringable Support</strong></p>
-                    <p class="alert-content">Seamlessly use PHP 8 <code>Stringable</code> objects in attributes, classes, and content</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Validation</strong></p>
-                    <p class="alert-content">Strict validations <code>int-like</code>, <code>positive-like</code>, <code>offset-like</code> and <code>allowed-value</code> checks with explicit errors</p>
-                </div>
-            </div>
-        </div>
-    </foreignObject>
+    <g>
+        <rect class="box-bg" x="610" y="20" width="570" height="100" rx="6"/>
+        <rect x="610" y="20" width="4" height="100" fill="#1f883d"/>
+        <text class="title" x="630" y="50">Attribute Rendering</text>
+        <text class="content" x="630" y="78">Safe render() output &#8226; class, style, data and ARIA expansion</text>
+        <text class="content" x="630" y="98">Raw normalizeAttributes() mode for DOM and SVG builders</text>
+    </g>
+
+    <g>
+        <rect class="box-bg" x="20" y="140" width="570" height="100" rx="6"/>
+        <rect x="20" y="140" width="4" height="100" fill="#1f883d"/>
+        <text class="title" x="40" y="170">Encoding &amp; CSS Classes</text>
+        <text class="content" x="40" y="198">Context-aware content and attribute escaping &#8226; smart class merging</text>
+        <text class="content" x="40" y="218">Safe helper primitives for reusable UI components</text>
+    </g>
+
+    <g>
+        <rect class="box-bg" x="610" y="140" width="570" height="100" rx="6"/>
+        <rect x="610" y="140" width="4" height="100" fill="#1f883d"/>
+        <text class="title" x="630" y="170">Enum Normalization</text>
+        <text class="content" x="630" y="198">Enum, scalar, array and Stringable normalization for helpers</text>
+        <text class="content" x="630" y="218">String representations for messages, logs and implode()</text>
+    </g>
+
+    <g>
+        <rect class="box-bg" x="20" y="260" width="570" height="100" rx="6"/>
+        <rect x="20" y="260" width="4" height="100" fill="#1f883d"/>
+        <text class="title" x="40" y="290">Naming &amp; Templates</text>
+        <text class="content" x="40" y="318">Form input names, HTML IDs, regex pattern conversion and token rendering</text>
+        <text class="content" x="40" y="338">Line break cleanup with zero framework coupling</text>
+    </g>
+
+    <g>
+        <rect class="box-bg" x="610" y="260" width="570" height="100" rx="6"/>
+        <rect x="610" y="260" width="4" height="100" fill="#1f883d"/>
+        <text class="title" x="630" y="290">Validation</text>
+        <text class="content" x="630" y="318">int-like, positive-like, offset-like and oneOf() checks</text>
+        <text class="content" x="630" y="338">Strict comparisons with deterministic exception messages</text>
+    </g>
 </svg>
