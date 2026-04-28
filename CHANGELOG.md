@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 
+## 0.7.4 Under development
+
 ## 0.7.3 April 28, 2026
 
 - feat: add `AttributeBag::replace()` and remove unsafe attribute merge behavior while normalizing `null` as removal.
