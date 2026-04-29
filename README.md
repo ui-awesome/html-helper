@@ -3,7 +3,7 @@
     <picture>
         <img src="https://raw.githubusercontent.com/ui-awesome/.github/refs/heads/main/logo/ui_awesome.png" alt="UI Awesome" width="25%">
     </picture>
-    <h1 align="center">Html helper</h1>
+    <h1 align="center">Html Helper</h1>
     <br>
 </p>
 <!-- markdownlint-enable MD041 -->
