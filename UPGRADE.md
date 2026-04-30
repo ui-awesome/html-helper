@@ -58,6 +58,10 @@ AttributeBag::replace(
 Use `setMany()` to update existing attributes and apply key normalization, closure resolution, boolean normalization, and
 `null` removal. Use `replace()` when the previous bag must be discarded before applying new values.
 
+Note: `AttributeBag::merge()` was a raw bulk operation. It did not normalize keys and did not treat `null` values as
+removals. If you depended on raw/null-preserving behavior, keep that logic explicit instead of switching directly to
+`setMany()`.
+
 ## 0.7.2
 
 - `BaseAttributes::normalizeKey()` / `Attributes::normalizeKey()` was moved to `AttributeBag::normalizeKey()`.
@@ -88,7 +92,7 @@ The `get()`, `remove()`, `set()`, and `setMany()` methods also accept an optiona
 
 - Boolean values in `aria-*`, `data-*`, `data-ng-*`, `ng-*`, and `on*` attributes are serialized as explicit strings.
 
-Before, boolean prefixed values could render as boolean attributes or empty strings depending on the path used.
+Before, boolean-prefixed values could render as boolean attributes or empty strings depending on the path used.
 After this change, `true` renders as `"true"` and `false` renders as `"false"` for prefixed attributes.
 
 Example:
@@ -107,7 +111,7 @@ echo Attributes::render(
 Output:
 
 ```html
-data-active="true" aria-expanded="false"
+ data-active="true" aria-expanded="false"
 ```
 
 ## 0.7.0
