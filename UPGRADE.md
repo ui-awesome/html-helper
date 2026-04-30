@@ -111,7 +111,7 @@ echo Attributes::render(
 Output:
 
 ```html
-aria-expanded="false" data-active="true"
+data-active="true" aria-expanded="false"
 ```
 
 ## 0.7.0
@@ -120,8 +120,7 @@ aria-expanded="false" data-active="true"
 
 - `AttributeBag::add()` was removed.
 - `AttributeBag::set()` no longer accepts the `$boolToString` argument.
-- Prefix expansion for `aria`, `data`, `data-ng`, `ng`, and `on` is handled by `Attributes::render()` and
-  `Attributes::normalizeAttributes()`.
+- Prefix expansion for `aria`, `data`, `data-ng`, `ng`, and `on` is handled by `Attributes::render()` and `Attributes::normalizeAttributes()`.
 
 ### Attribute bag setter migration
 
