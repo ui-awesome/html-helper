@@ -111,7 +111,7 @@ echo Attributes::render(
 Output:
 
 ```html
- data-active="true" aria-expanded="false"
+data-active="true" aria-expanded="false"
 ```
 
 ## 0.7.0
