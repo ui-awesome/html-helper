@@ -2,8 +2,6 @@
 
 ## 0.7.3
 
-### Breaking changes
-
 - `AttributeBag::merge()` was removed.
 - `AttributeBag::set()` and `AttributeBag::setMany()` remove an attribute when the resolved value is `null`.
 - `AttributeBag::replace()` should be used when replacing the entire attribute bag.
@@ -61,8 +59,6 @@ Use `setMany()` to update existing attributes and apply key normalization, closu
 `null` removal. Use `replace()` when the previous bag must be discarded before applying new values.
 
 ## 0.7.2
-
-### Breaking changes
 
 - `BaseAttributes::normalizeKey()` / `Attributes::normalizeKey()` was moved to `AttributeBag::normalizeKey()`.
 
@@ -174,8 +170,6 @@ composer require ui-awesome/html-interop
 ```
 
 ## 0.2.0
-
-### Breaking changes
 
 - `HTMLBuilder` and `Base\AbstractHTMLBuilder` were moved out of `ui-awesome/html-helper`.
 
