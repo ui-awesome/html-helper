@@ -10,6 +10,7 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - chore: refine `composer.json` description and keywords to reflect the actual helper surface (attributes, CSS class, encoding, sanitization, template normalization).
 - docs: correct capitalization in the main heading of `README.md`.
 - chore: update workflow actions to use version `v1` instead of main.
+- docs: add `UPGRADE.md` notes for backward compatibility changes.
 
 ## 0.7.3 April 28, 2026
 
