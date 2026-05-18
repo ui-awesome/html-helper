@@ -20,7 +20,7 @@
         "ext-mbstring": "*"
     },
     "require-dev": {
-        "infection/infection": "^0.32",
+        "infection/infection": "^0.33",
         "maglnet/composer-require-checker": "^4.1",
         "php-forge/coding-standard": "^0.1",
         "php-forge/support": "^0.3",
