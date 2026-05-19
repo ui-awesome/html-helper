@@ -55,7 +55,7 @@ enum Message: string
      * Indicates that a value type is unsupported.
      */
     case VALUE_SHOULD_BE_ARRAY_SCALAR_NULL_ENUM = "Value should be of type 'array', 'scalar', 'null', or 'enum'; "
-    . "'%s' given.";
+        . "'%s' given.";
 
     /**
      * Returns the formatted message string for the error case.

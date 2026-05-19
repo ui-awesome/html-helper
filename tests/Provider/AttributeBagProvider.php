@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Helper\Tests\Provider;
 
+use Closure;
 use PHPForge\Support\Stub\BackedInteger;
 use Stringable;
 use UIAwesome\Html\Helper\Exception\Message;
@@ -371,7 +372,7 @@ final class AttributeBagProvider
     /**
      * @return array<
      *   string,
-     *   array{mixed[], string|UnitEnum, bool|float|int|string|\Closure(): mixed|\Stringable|UnitEnum|null, string},
+     *   array{mixed[], string|UnitEnum, bool|float|int|string|Closure(): mixed|Stringable|UnitEnum|null, string}
      * >
      */
     public static function set(): array
@@ -580,7 +581,12 @@ final class AttributeBagProvider
     /**
      * @return array<
      *   string,
-     *   array{mixed[], string|UnitEnum, bool|float|int|string|\Closure(): mixed|\Stringable|UnitEnum|null, string, string},
+     *   array{
+     *     mixed[],
+     *     string|UnitEnum, bool|float|int|string|Closure(): mixed|Stringable|UnitEnum|null,
+     *     string,
+     *     string,
+     *   }
      * >
      */
     public static function setWithPrefix(): array
