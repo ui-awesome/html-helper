@@ -1,3 +1,17 @@
 {
-    "symbol-whitelist": ["ctype_digit"]
+    "symbol-whitelist": [],
+    "php-core-extensions": [
+        "Core",
+        "ctype",
+        "date",
+        "json",
+        "hash",
+        "pcre",
+        "Phar",
+        "Reflection",
+        "SPL",
+        "random",
+        "standard"
+    ],
+    "scan-files": []
 }
