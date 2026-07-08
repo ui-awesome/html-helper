@@ -18,9 +18,6 @@ use function str_starts_with;
 
 /**
  * Provides reusable operations for associative HTML attribute bags.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 abstract class BaseAttributeBag
 {

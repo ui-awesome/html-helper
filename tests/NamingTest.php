@@ -18,19 +18,7 @@ use function str_repeat;
 /**
  * Unit tests for the {@see Naming} helper.
  *
- * Test coverage.
- * - Converts regular expressions to PCRE patterns with optional delimiters.
- * - Generates arrayable attribute names.
- * - Generates form input names and throws exceptions for invalid form or attribute values.
- * - Generates IDs with optional prefixes and expected hex format.
- * - Generates input IDs, including multibyte normalization.
- * - Returns short class names with optional suffix removal and lowercase formatting.
- * - Throws exceptions for invalid regular expressions, including backtrack-limit failures.
- *
  * {@see NamingProvider} for test case data providers.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('helper')]
 final class NamingTest extends TestCase

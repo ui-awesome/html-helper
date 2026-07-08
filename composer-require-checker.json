@@ -4,13 +4,13 @@
         "Core",
         "ctype",
         "date",
-        "json",
         "hash",
+        "json",
         "pcre",
         "Phar",
+        "random",
         "Reflection",
         "SPL",
-        "random",
         "standard"
     ],
     "scan-files": []

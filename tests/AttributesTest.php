@@ -12,20 +12,7 @@ use UIAwesome\Html\Helper\Tests\Provider\AttributesProvider;
 /**
  * Unit tests for the {@see Attributes} helper.
  *
- * Test coverage.
- * - Normalizes attribute arrays with configurable encoding behavior.
- * - Normalizes attribute keys with prefix handling.
- * - Renders attributes in deterministic order.
- * - Renders attributes with enum and `null` values.
- * - Renders malicious inputs with safe output encoding.
- * - Renders style attributes from scalar, `array`, and stringable values.
- * - Renders tag attributes across `bool`, closure, and nested structures.
- * - Throws exceptions for invalid attribute keys.
- *
  * {@see AttributesProvider} for test case data providers.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('helper')]
 final class AttributesTest extends TestCase

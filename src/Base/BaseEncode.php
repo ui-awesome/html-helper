@@ -13,10 +13,7 @@ use function htmlspecialchars;
  *
  * {@see htmlspecialchars()} for encoding implementation details.
  *
- * @link https://www.php.net/manual/en/function.htmlspecialchars.php
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
+ * @see https://www.php.net/manual/en/function.htmlspecialchars.php
  */
 abstract class BaseEncode
 {
@@ -37,8 +34,8 @@ abstract class BaseEncode
      *
      * @return string Encoded HTML content safe for tag placement.
      *
-     * @link https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
-     * @link https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
+     * @see https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
+     * @see https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
      */
     public static function content(string|Stringable $content, bool $doubleEncode = true, string $charset = 'UTF-8'): string
     {
@@ -62,8 +59,8 @@ abstract class BaseEncode
      *
      * @return string Encoded HTML attribute value safe for quoted placement.
      *
-     * @link https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
-     * @link https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
+     * @see https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
+     * @see https://html.spec.whatwg.org/#attribute-value-(double-quoted)-state
      */
     public static function value(
         float|int|string|Stringable|null $value,

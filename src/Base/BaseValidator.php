@@ -26,9 +26,6 @@ use function substr;
  * Provides reusable validation helpers for numeric and allow-list checks.
  *
  * {@see Enum} for enum normalization during allow-list validation.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 abstract class BaseValidator
 {

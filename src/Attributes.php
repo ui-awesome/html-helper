@@ -20,8 +20,5 @@ use UIAwesome\Html\Helper\Base\BaseAttributes;
  * $html = \UIAwesome\Html\Helper\Attributes::render($attributes);
  * // class="form-control is-valid" id="login" data-role="user" data-id="42" required
  * ```
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class Attributes extends BaseAttributes {}

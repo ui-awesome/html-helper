@@ -13,14 +13,7 @@ use UIAwesome\Html\Helper\Tests\Provider\EncodeProvider;
 /**
  * Unit tests for the {@see Encode} helper.
  *
- * Test coverage.
- * - Encodes content with configurable double-encoding behavior.
- * - Encodes mixed scalar and stringable values, including `null`.
- *
  * {@see EncodeProvider} for test case data providers.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('helper')]
 final class EncodeTest extends TestCase

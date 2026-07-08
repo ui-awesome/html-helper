@@ -6,11 +6,6 @@ namespace UIAwesome\Html\Helper\Tests\Provider;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\TemplateTest} test cases.
- *
- * Provides representative input/output pairs for template rendering and line ending normalization.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class TemplateProvider
 {

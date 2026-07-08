@@ -21,9 +21,6 @@ use function is_scalar;
  *
  * {@see BackedEnum} for enums with scalar values.
  * {@see UnitEnum} for all enum types.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 abstract class BaseEnum
 {

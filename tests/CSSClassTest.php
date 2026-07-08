@@ -16,16 +16,7 @@ use UnitEnum;
 /**
  * Unit tests for the {@see CSSClass} helper.
  *
- * Test coverage.
- * - Adds class values with deduplication and override handling.
- * - Renders class values with allow-list validation.
- * - Throws exceptions for class values not in the allow-list.
- * - Throws exceptions for enum values not in the allow-list.
- *
  * {@see CSSClassProvider} for test case data providers.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('helper')]
 final class CSSClassTest extends TestCase

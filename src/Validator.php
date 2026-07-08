@@ -16,8 +16,5 @@ use UIAwesome\Html\Helper\Base\BaseValidator;
  * }
  * \UIAwesome\Html\Helper\Validator::oneOf('red', ['red', 'green', 'blue'], 'color');
  * ```
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class Validator extends BaseValidator {}

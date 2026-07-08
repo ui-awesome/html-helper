@@ -9,11 +9,6 @@ use Stringable;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\AttributesTest} test cases.
- *
- * Provides representative input/output pairs for rendering and normalizing HTML attributes.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class AttributesProvider
 {

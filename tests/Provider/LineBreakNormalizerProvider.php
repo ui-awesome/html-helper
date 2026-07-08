@@ -6,11 +6,6 @@ namespace UIAwesome\Html\Helper\Tests\Provider;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\LineBreakNormalizerTest} test cases.
- *
- * Provides representative input/output pairs for line break normalization.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class LineBreakNormalizerProvider
 {
