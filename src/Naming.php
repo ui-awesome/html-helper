@@ -16,8 +16,5 @@ use UIAwesome\Html\Helper\Base\BaseNaming;
  * $id = \UIAwesome\Html\Helper\Naming::generateInputId('User', 'email');
  * // "user-email"
  * ```
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class Naming extends BaseNaming {}

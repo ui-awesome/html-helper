@@ -13,17 +13,7 @@ use UIAwesome\Html\Helper\Tests\Provider\TemplateProvider;
 /**
  * Unit tests for the {@see Template} helper.
  *
- * Test coverage.
- * - Normalizes line endings during template rendering.
- * - Removes stray carriage return characters from rendered output.
- * - Renders templates with actual newline characters.
- * - Renders templates with empty or missing tokens.
- * - Renders templates with full token replacement.
- *
  * {@see TemplateProvider} for test case data providers.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('helper')]
 final class TemplateTest extends TestCase

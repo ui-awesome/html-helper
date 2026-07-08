@@ -15,8 +15,5 @@ use UIAwesome\Html\Helper\Base\BaseCSSClass;
  * \UIAwesome\Html\Helper\CSSClass::add($attributes, ['btn', 'btn-primary']);
  * // $attributes['class'] is now "btn btn-primary"
  * ```
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class CSSClass extends BaseCSSClass {}

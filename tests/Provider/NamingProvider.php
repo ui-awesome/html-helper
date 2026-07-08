@@ -8,11 +8,6 @@ use UIAwesome\Html\Helper\Exception\Message;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Helper\Tests\NamingTest} test cases.
- *
- * Provides representative input/output pairs for input name and pattern generation.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class NamingProvider
 {

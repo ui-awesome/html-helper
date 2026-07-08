@@ -15,16 +15,7 @@ use UIAwesome\Html\Helper\Tests\Provider\EnumProvider;
 /**
  * Unit tests for the {@see Enum} helper.
  *
- * Test coverage.
- * - Normalizes arrays containing enums, scalars, and `null`.
- * - Normalizes arrays and single values to string representations.
- * - Normalizes single values from enums, scalars, and stringable inputs.
- * - Throws exceptions for unsupported value types.
- *
  * {@see EnumProvider} for test case data providers.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('helper')]
 final class EnumTest extends TestCase

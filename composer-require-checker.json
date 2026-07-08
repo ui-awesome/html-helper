@@ -2,7 +2,6 @@
     "symbol-whitelist": [],
     "php-core-extensions": [
         "Core",
-        "ctype",
         "date",
         "json",
         "hash",

@@ -16,16 +16,7 @@ use UnitEnum;
 /**
  * Unit tests for the {@see Validator} helper.
  *
- * Test coverage.
- * - Validates `int`-like values with optional `min` and `max` bounds.
- * - Validates offset-like values for ratios and percentage strings.
- * - Validates one-of membership and throws exceptions for disallowed values when configured.
- * - Validates positive-like values with optional `min` and `max` bounds.
- *
  * {@see ValidatorProvider} for test case data providers.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('helper')]
 final class ValidatorTest extends TestCase

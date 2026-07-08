@@ -19,9 +19,6 @@ use function sprintf;
 
 /**
  * Provides reusable normalization and validation for HTML `class` attributes.
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 abstract class BaseCSSClass
 {

@@ -21,8 +21,5 @@ use UIAwesome\Html\Helper\Base\BaseTemplate;
  *
  * $html = \UIAwesome\Html\Helper\Template::render($template, $tokens);
  * ```
- *
- * @copyright Copyright (C) 2025 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class Template extends BaseTemplate {}

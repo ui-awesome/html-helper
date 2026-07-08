@@ -16,20 +16,7 @@ use UnitEnum;
 /**
  * Unit tests for the {@see AttributeBag} helper.
  *
- * Test coverage.
- * - Replaces attribute arrays with normalized values.
- * - Removes attributes for valid keys.
- * - Sets multiple attributes through dedicated `*Many()` APIs.
- * - Sets plain attributes with raw values.
- * - Throws exceptions for invalid keys in `get()`.
- * - Throws exceptions for invalid keys in `remove()`.
- * - Throws exceptions for invalid keys in `set()` and `*Many()` APIs.
- * - Verifies `get()` returns existing values or fallback defaults.
- *
  * {@see AttributeBagProvider} for test case data providers.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('helper')]
 final class AttributeBagTest extends TestCase

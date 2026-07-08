@@ -9,11 +9,8 @@ namespace UIAwesome\Html\Helper\Base;
  *
  * Collapses repeated line break sequences to a single `\n` while preserving single line breaks.
  *
- * @link https://www.php.net/manual/en/function.preg-replace.php
- * @link https://www.pcre.org/current/doc/html/pcre2pattern.html#SEC6
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
+ * @see https://www.php.net/manual/en/function.preg-replace.php
+ * @see https://www.pcre.org/current/doc/html/pcre2pattern.html#SEC6
  */
 abstract class BaseLineBreakNormalizer
 {
