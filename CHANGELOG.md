@@ -13,6 +13,7 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 - docs: add `UPGRADE.md` notes for backward compatibility changes.
 - chore: migrate to `yii2-extensions/scaffold` consumer model with `php-forge/baseline` and `php-forge/coding-standard ^0.3@dev`.
 - chore: update dependencies and configuration files and remove copyright and license comments from files.
+- ci: replace Super-Linter with reusable quality and security workflows, pin reusable workflow references, group Dependabot updates, and refresh project status badges.
 
 ## 0.7.3 April 28, 2026
 
