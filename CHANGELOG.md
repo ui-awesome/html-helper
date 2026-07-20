@@ -2,9 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
+The format is based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 0.7.4 Under development
+## 0.7.4 July 20, 2026
 
 - docs: update `README.md` to reflect the latest version of the package.
 - chore: refine `composer.json` description and keywords to reflect the actual helper surface (attributes, CSS class, encoding, sanitization, template normalization).
