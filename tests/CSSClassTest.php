@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
+use Stringable;
 use UIAwesome\Html\Helper\CSSClass;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Helper\Tests\Provider\CSSClassProvider;
@@ -23,7 +24,7 @@ final class CSSClassTest extends TestCase
 {
     /**
      * @param mixed[] $attributes
-     * @param list<array{classes: mixed[]|string|UnitEnum|null, override?: bool}> $operations
+     * @param list<array{classes: mixed[]|string|Stringable|UnitEnum|null, override?: bool}> $operations
      * @param mixed[] $expected
      * @throws InvalidArgumentException for invalid value errors.
      */

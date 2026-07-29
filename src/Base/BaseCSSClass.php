@@ -66,6 +66,7 @@ abstract class BaseCSSClass
                 && (
                     is_array($attributes['class'])
                     || is_string($attributes['class'])
+                    || $attributes['class'] instanceof Stringable
                     || $attributes['class'] instanceof UnitEnum
                 )
             ) {
