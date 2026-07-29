@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.7.5 Under development
 
+- fix: preserve existing `Stringable` CSS class values when merging additional classes.
+
 ## 0.7.4 July 20, 2026
 
 - docs: update `README.md` to reflect the latest version of the package.

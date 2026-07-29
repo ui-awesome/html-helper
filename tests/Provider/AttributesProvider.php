@@ -284,6 +284,13 @@ final class AttributesProvider
                 ['data-config' => '{"key":"<val>"}'],
                 false,
             ],
+            'numeric attribute name' => [
+                [
+                    0 => 'value',
+                    'class' => 'btn',
+                ],
+                ['class' => 'btn'],
+            ],
             'on expansion array json encoding with encode false' => [
                 [
                     'on' => [

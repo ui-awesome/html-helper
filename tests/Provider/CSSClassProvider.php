@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Helper\Tests\Provider;
 
 use PHPForge\Support\Stub\{BackedInteger, BackedString, Unit};
+use stdClass;
 use Stringable;
 use UnitEnum;
 
@@ -375,6 +376,37 @@ final class CSSClassProvider
                     'class' => 'value',
                 ],
                 'Should preserve other attributes when adding enum class.',
+            ],
+            'existing class as array' => [
+                ['class' => ['class-one']],
+                [['classes' => 'class-two']],
+                ['class' => 'class-one class-two'],
+                'Should merge new classes into an existing array class value.',
+            ],
+            'existing class as enum' => [
+                ['class' => BackedString::VALUE],
+                [['classes' => 'class-two']],
+                ['class' => 'value class-two'],
+                'Should merge new classes into an existing enum class value.',
+            ],
+            'existing class as stringable' => [
+                [
+                    'class' => new class implements Stringable {
+                        public function __toString(): string
+                        {
+                            return 'class-one';
+                        }
+                    },
+                ],
+                [['classes' => 'class-two']],
+                ['class' => 'class-one class-two'],
+                'Should merge new classes into an existing Stringable class value.',
+            ],
+            'existing class as unsupported object' => [
+                ['class' => new stdClass()],
+                [['classes' => 'class-two']],
+                ['class' => 'class-two'],
+                'Should discard an existing class value with an unsupported type.',
             ],
             'preserve other attributes when adding class' => [
                 [
