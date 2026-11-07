@@ -302,7 +302,6 @@ abstract class BaseAttributes
         foreach ($values as $n => $v) {
             if ($v !== null) {
                 $prop = $encode ? Encode::value($n) : $n;
-                $val = '';
 
                 if (is_string($v) || is_numeric($v)) {
                     $val = $v;
