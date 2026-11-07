@@ -72,8 +72,8 @@ echo AttributeBag::normalizeKey('click', 'on');
 
 #### Attribute bag operations
 
-Use `AttributeBag` to query and mutate an attribute array in-place with a minimal API (`get()`, `merge()`,
-`remove()`, `set()`, `setMany()`).
+Use `AttributeBag` to query and mutate an attribute array in-place with a minimal API (`get()`, `remove()`, `replace()`,
+`set()`, `setMany()`).
 
 ```php
 <?php
@@ -86,14 +86,17 @@ use UIAwesome\Html\Helper\AttributeBag;
 
 $attributes = ['id' => 'submit'];
 
-// merge arrays (later values override; merge is raw — no key normalization or `null` filtering)
-AttributeBag::merge(
+// update several values with key normalization and `null` removal
+AttributeBag::setMany(
     $attributes,
     [
         'class' => ['btn', 'btn-primary'],
         'type' => 'submit',
     ],
 );
+
+// replace the complete bag
+AttributeBag::replace($attributes, ['id' => 'replacement']);
 
 // get with fallback default
 $type = AttributeBag::get($attributes, 'type', 'button');
@@ -115,7 +118,7 @@ AttributeBag::set($attributes, 'aria-label', 'Save');
 AttributeBag::set($attributes, 'expanded', true, 'aria-');
 // $attributes['aria-expanded'] === 'true'
 
-// set many keys at once (useful for trait-driven prefixed attributes)
+// set many keys at once
 AttributeBag::setMany(
     $attributes,
     [

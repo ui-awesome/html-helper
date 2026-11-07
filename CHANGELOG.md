@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.7.6 Under development
 
+- chore: remove obsolete scaffold tooling and align package maintenance checks with PHP Forge conventions.
+
 ## 0.7.5 July 29, 2026
 
 - fix: preserve existing `Stringable` CSS class values when merging additional classes.
