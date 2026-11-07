@@ -19,9 +19,25 @@ final class LineBreakNormalizerProvider
                 '',
                 '',
             ],
-            'invalid UTF-8 remains unchanged' => [
+            'invalid UTF-8 normalizes repeated LF' => [
                 "A\xFF\n\nB",
-                "A\xFF\n\nB",
+                "A\xFF\nB",
+            ],
+            'Latin-1 byte with repeated LF' => [
+                "Caf\xE9\n\nEnd",
+                "Caf\xE9\nEnd",
+            ],
+            'invalid UTF-8 preserves single CRLF' => [
+                "A\xFF\r\nB",
+                "A\xFF\r\nB",
+            ],
+            'invalid UTF-8 normalizes repeated CRLF' => [
+                "A\xFF\r\n\r\nB",
+                "A\xFF\nB",
+            ],
+            'invalid UTF-8 preserves high byte before LF' => [
+                "A\xFF\x85\nB",
+                "A\xFF\x85\nB",
             ],
             'leading double LF collapsed' => [
                 "\n\nHello",

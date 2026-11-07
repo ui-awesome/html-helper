@@ -18,7 +18,7 @@ abstract class BaseLineBreakNormalizer
      * Collapses two or more consecutive line breaks into a single `\n`.
      *
      * Returns `''` when `$content` is `null` or `''`. Preserves single line breaks, including `\n` and `\r\n`.
-     * Returns invalid UTF-8 input unchanged rather than discarding its content.
+     * For invalid UTF-8, collapses repeated ASCII line breaks and preserves other bytes.
      *
      * Usage example:
      * ```php
@@ -36,6 +36,12 @@ abstract class BaseLineBreakNormalizer
             return '';
         }
 
-        return preg_replace('/\R{2,}/u', "\n", $content) ?? $content;
+        $normalized = preg_replace('/\R{2,}/u', "\n", $content);
+
+        if ($normalized !== null) {
+            return $normalized;
+        }
+
+        return preg_replace('/(?:\r\n|[\n\x0B\x0C]|\r(?!\n)){2,}/', "\n", $content) ?? $content;
     }
 }
