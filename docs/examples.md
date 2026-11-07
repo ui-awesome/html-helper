@@ -71,15 +71,15 @@ foreach ($raw as $name => $value) {
 
 declare(strict_types=1);
 
-use UIAwesome\Html\Helper\Attributes;
+use UIAwesome\Html\Helper\AttributeBag;
 
-$ariaLabel = Attributes::normalizeKey('label', 'aria-');
+$ariaLabel = AttributeBag::normalizeKey('label', 'aria-');
 // aria-label
 
-$dataId = Attributes::normalizeKey('id', 'data-');
+$dataId = AttributeBag::normalizeKey('id', 'data-');
 // data-id
 
-$onClick = Attributes::normalizeKey('click', 'on');
+$onClick = AttributeBag::normalizeKey('click', 'on');
 // onclick
 ```
 
