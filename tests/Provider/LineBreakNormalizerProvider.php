@@ -19,6 +19,26 @@ final class LineBreakNormalizerProvider
                 '',
                 '',
             ],
+            'invalid UTF-8 normalizes repeated LF' => [
+                "A\xFF\n\nB",
+                "A\xFF\nB",
+            ],
+            'Latin-1 byte with repeated LF' => [
+                "Caf\xE9\n\nEnd",
+                "Caf\xE9\nEnd",
+            ],
+            'invalid UTF-8 preserves single CRLF' => [
+                "A\xFF\r\nB",
+                "A\xFF\r\nB",
+            ],
+            'invalid UTF-8 normalizes repeated CRLF' => [
+                "A\xFF\r\n\r\nB",
+                "A\xFF\nB",
+            ],
+            'invalid UTF-8 preserves high byte before LF' => [
+                "A\xFF\x85\nB",
+                "A\xFF\x85\nB",
+            ],
             'leading double LF collapsed' => [
                 "\n\nHello",
                 "\nHello",
@@ -30,6 +50,18 @@ final class LineBreakNormalizerProvider
             'mixed repeated LF blocks' => [
                 "A\n\nB\n\nC",
                 "A\nB\nC",
+            ],
+            'multibyte text before single LF' => [
+                "Å\nX",
+                "Å\nX",
+            ],
+            'multibyte text before repeated LF' => [
+                "Å\n\nX",
+                "Å\nX",
+            ],
+            'multibyte text before generated closing newline' => [
+                "<div>\nÅ\n</div>",
+                "<div>\nÅ\n</div>",
             ],
             'null content' => [
                 null,
@@ -66,6 +98,14 @@ final class LineBreakNormalizerProvider
             'triple LF becomes single LF' => [
                 "Hello\n\n\nWorld",
                 "Hello\nWorld",
+            ],
+            'Unicode line separators collapse' => [
+                "A\u{2028}\u{2029}B",
+                "A\nB",
+            ],
+            'Unicode next line and LF collapse' => [
+                "A\u{0085}\nB",
+                "A\nB",
             ],
         ];
     }
