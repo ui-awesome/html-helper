@@ -19,14 +19,6 @@ abstract class BaseTemplate
      *
      * Converts literal `\n` sequences to line breaks and removes empty lines after substitution.
      *
-     * Usage example:
-     * ```php
-     * $template = "Hello, {name}!\nWelcome to {site}.";
-     * $tokens = ['{name}' => 'Alice', '{site}' => 'Example.com'];
-     * \UIAwesome\Html\Helper\Template::render($template, $tokens);
-     * // "Hello, Alice!\nWelcome to Example.com."
-     * ```
-     *
      * @param string $template Template string containing tokens to be replaced.
      * @param mixed[] $tokenValues Associative array of token replacements.
      *

@@ -34,13 +34,6 @@ abstract class BaseCSSClass
      *
      * Replaces the existing `class` attribute when `$override` is `true`; otherwise merges unique class names.
      *
-     * Usage example:
-     * ```php
-     * $attributes = ['id' => 'main'];
-     * \UIAwesome\Html\Helper\CSSClass::add($attributes, ['btn', 'btn-primary']);
-     * // ['id' => 'main', 'class' => 'btn btn-primary']
-     * ```
-     *
      * @param mixed[] $attributes Attribute array to modify. Passed by reference and updated in place.
      * @param mixed[]|string|Stringable|UnitEnum|null $classes Classes to add.
      * @param bool $override Whether to override (`true`) or merge (`false`, default) with existing classes.
@@ -81,12 +74,6 @@ abstract class BaseCSSClass
      * Renders a validated CSS class name using a base format and an allowed value list.
      *
      * Validates the value against `$allowed` and renders it with `sprintf()`.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\CSSClass::render('secondary', 'btn-%s', ['primary', 'secondary']);
-     * // 'btn-secondary'
-     * ```
      *
      * @param string|UnitEnum $class Class value to validate and render.
      * @param string $baseClass Base class format string (for example, `btn-%s`).

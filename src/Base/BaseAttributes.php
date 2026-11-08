@@ -100,18 +100,6 @@ abstract class BaseAttributes
      *
      * Returns a normalized array instead of an HTML string.
      *
-     * Usage example:
-     * ```php
-     * $normalized = \UIAwesome\Html\Helper\Attributes::normalizeAttributes(
-     *     [
-     *         'required' => true,
-     *         'class' => ['form-control', 'input-lg'],
-     *         'data' => ['id' => 42],
-     *     ],
-     * );
-     * // ['class' => 'form-control input-lg', 'data-id' => '42', 'required' => true]
-     * ```
-     *
      * @param mixed[] $attributes Associative array of attribute names and values.
      * @param bool $encode Whether to HTML-encode `string` values.
      *
@@ -144,12 +132,6 @@ abstract class BaseAttributes
      * Renders an array of HTML attributes into a string.
      *
      * Validates names, normalizes values, and returns attributes in a stable order.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Attributes::render(['name' => 'username', 'required' => true]);
-     * // name="username" required
-     * ```
      *
      * @param mixed[] $attributes Associative array of attribute names and values.
      *

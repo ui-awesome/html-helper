@@ -24,13 +24,6 @@ abstract class BaseAttributeBag
     /**
      * Returns an attribute value by key.
      *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\AttributeBag::get($attributes, 'id');
-     * \UIAwesome\Html\Helper\AttributeBag::get($attributes, 'type', 'button');
-     * \UIAwesome\Html\Helper\AttributeBag::get($attributes, 'label', null, 'aria-');
-     * ```
-     *
      * @param mixed[] $attributes Attribute bag.
      * @param string|UnitEnum $key Attribute key.
      * @param mixed $default Default value when key is not present.
@@ -57,12 +50,6 @@ abstract class BaseAttributeBag
      * Normalizes an attribute key ensuring it has a specific prefix.
      *
      * Returns the key unchanged when it already has the prefix.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\AttributeBag::normalizeKey('label', 'aria-');
-     * // 'aria-label'
-     * ```
      *
      * @param mixed $key Key to normalize. Accepts strings, Stringable objects, or UnitEnum cases.
      * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
@@ -91,12 +78,6 @@ abstract class BaseAttributeBag
     /**
      * Removes an attribute from the bag.
      *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\AttributeBag::remove($attributes, 'disabled');
-     * \UIAwesome\Html\Helper\AttributeBag::remove($attributes, 'label', 'aria-');
-     * ```
-     *
      * @param mixed[] $attributes Attribute bag to update in place.
      * @param string|UnitEnum $key Attribute key.
      * @param string $prefix Prefix to ensure (for example, `aria-`, `data-`, `on`).
@@ -112,14 +93,6 @@ abstract class BaseAttributeBag
 
     /**
      * Replaces all attributes in the bag.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\AttributeBag::replace(
-     *     $attributes,
-     *     ['id' => 'submit', 'disabled' => true],
-     * );
-     * ```
      *
      * @param mixed[] $attributes Attribute bag to replace in place.
      * @param mixed[] $values Values to set after clearing the bag.
@@ -138,14 +111,6 @@ abstract class BaseAttributeBag
 
     /**
      * Sets a plain attribute key/value pair.
-     *
-     * Usage example:
-     * ```php
-     * $attributes = [];
-     * \UIAwesome\Html\Helper\AttributeBag::set($attributes, 'disabled', true);
-     * \UIAwesome\Html\Helper\AttributeBag::set($attributes, 'id', static fn () => 'submit');
-     * \UIAwesome\Html\Helper\AttributeBag::set($attributes, 'label', 'Submit', 'aria-');
-     * ```
      *
      * @param mixed[] $attributes Attribute bag to update in place.
      * @param string|UnitEnum $key Attribute key to normalize.
@@ -177,23 +142,6 @@ abstract class BaseAttributeBag
 
     /**
      * Sets multiple plain attributes.
-     *
-     * Usage example:
-     * ```php
-     * $attributes = [];
-     * \UIAwesome\Html\Helper\AttributeBag::setMany(
-     *     $attributes,
-     *     [
-     *         'disabled' => true,
-     *         'id' => static fn () => 'submit',
-     *     ],
-     * );
-     * \UIAwesome\Html\Helper\AttributeBag::setMany(
-     *     $attributes,
-     *     ['label' => 'Submit'],
-     *     'aria-',
-     * );
-     * ```
      *
      * @param mixed[] $attributes Attribute bag to update in place.
      * @param mixed[] $values Values to set.
