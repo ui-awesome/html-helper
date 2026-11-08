@@ -16,6 +16,105 @@ use UnitEnum;
 final class ValidatorProvider
 {
     /**
+     * @return array<string, array{string, int|null, int|null, bool}>
+     */
+    public static function integerText(): array
+    {
+        return [
+            'above maximum' => [
+                '6',
+                null,
+                5,
+                false,
+            ],
+            'below minimum' => [
+                '4',
+                5,
+                null,
+                false,
+            ],
+            'decimal text' => [
+                '1.0',
+                null,
+                null,
+                false,
+            ],
+            'empty text' => [
+                '',
+                null,
+                null,
+                false,
+            ],
+            'inclusive bounds' => [
+                '5',
+                5,
+                5,
+                true,
+            ],
+            'integer with default bounds' => [
+                '42',
+                null,
+                null,
+                true,
+            ],
+            'leading space' => [
+                ' 1',
+                null,
+                null,
+                false,
+            ],
+            'negative text with negative minimum' => [
+                '-1',
+                -2,
+                2,
+                false,
+            ],
+            'negative zero' => [
+                '-0',
+                null,
+                null,
+                false,
+            ],
+            'non-numeric text' => [
+                'abc',
+                null,
+                null,
+                false,
+            ],
+            'plus sign only' => [
+                '+',
+                null,
+                null,
+                false,
+            ],
+            'plus-prefixed integer' => [
+                '+1',
+                null,
+                null,
+                true,
+            ],
+            'scientific notation' => [
+                '1e2',
+                null,
+                null,
+                false,
+            ],
+            'trailing space' => [
+                '1 ',
+                null,
+                null,
+                false,
+            ],
+            'zero with default bounds' => [
+                '0',
+                null,
+                null,
+                true,
+            ],
+        ];
+    }
+
+    /**
      * @return array<string, array{int|string|Stringable, int|null, int|null, bool, string}>
      */
     public static function intLike(): array
@@ -76,6 +175,13 @@ final class ValidatorProvider
                 10,
                 true,
                 'Should be valid value.',
+            ],
+            'negative integer with negative minimum' => [
+                -1,
+                -2,
+                2,
+                true,
+                'Negative integers remain valid within explicit negative bounds.',
             ],
             'string above max' => [
                 '11',
@@ -309,6 +415,95 @@ final class ValidatorProvider
                 '5%',
                 true,
                 'Should be valid offset value.',
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array{string, bool}>
+     */
+    public static function offsetText(): array
+    {
+        return [
+            'above maximum percent' => [
+                '100.01%',
+                false,
+            ],
+            'above maximum proportion' => [
+                '1.01',
+                false,
+            ],
+            'decimal percent' => [
+                '12.5%',
+                true,
+            ],
+            'empty text' => [
+                '',
+                false,
+            ],
+            'leading space percent' => [
+                ' 50%',
+                false,
+            ],
+            'maximum percent' => [
+                '100%',
+                true,
+            ],
+            'maximum proportion' => [
+                '1',
+                true,
+            ],
+            'middle percent' => [
+                '50%',
+                true,
+            ],
+            'middle proportion' => [
+                '0.5',
+                true,
+            ],
+            'missing percent number' => [
+                '%',
+                false,
+            ],
+            'negative percent' => [
+                '-1%',
+                false,
+            ],
+            'negative zero percent' => [
+                '-0%',
+                false,
+            ],
+            'non-numeric percent' => [
+                'abc%',
+                false,
+            ],
+            'plus-prefixed percent' => [
+                '+50%',
+                true,
+            ],
+            'repeated percent sign' => [
+                '50%%',
+                false,
+            ],
+            'scientific percent' => [
+                '1e1%',
+                false,
+            ],
+            'space after percent' => [
+                '50% ',
+                false,
+            ],
+            'space before percent' => [
+                '50 %',
+                false,
+            ],
+            'zero percent' => [
+                '0%',
+                true,
+            ],
+            'zero proportion' => [
+                '0',
+                true,
             ],
         ];
     }
@@ -924,6 +1119,117 @@ final class ValidatorProvider
                 1.0,
                 true,
                 'Should be valid value (stroke-miterlimit).',
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array{string, float|null, float|null, bool}>
+     */
+    public static function positiveText(): array
+    {
+        return [
+            'above maximum' => [
+                '0.6',
+                null,
+                0.5,
+                false,
+            ],
+            'below minimum' => [
+                '0.4',
+                0.5,
+                null,
+                false,
+            ],
+            'decimal with default bounds' => [
+                '3.5',
+                null,
+                null,
+                true,
+            ],
+            'empty text' => [
+                '',
+                null,
+                null,
+                false,
+            ],
+            'inclusive bounds' => [
+                '0.5',
+                0.5,
+                0.5,
+                true,
+            ],
+            'leading space' => [
+                ' 1',
+                null,
+                null,
+                false,
+            ],
+            'negative decimal' => [
+                '-1.5',
+                null,
+                null,
+                false,
+            ],
+            'negative minimum clamped to zero' => [
+                '0',
+                -1.0,
+                null,
+                true,
+            ],
+            'negative zero' => [
+                '-0',
+                null,
+                null,
+                false,
+            ],
+            'non-numeric text' => [
+                'abc',
+                null,
+                null,
+                false,
+            ],
+            'percentage text' => [
+                '50%',
+                null,
+                null,
+                false,
+            ],
+            'plus-prefixed decimal' => [
+                '+1.5',
+                null,
+                null,
+                true,
+            ],
+            'scientific notation lowercase' => [
+                '1e1',
+                null,
+                null,
+                false,
+            ],
+            'scientific notation uppercase' => [
+                '1E1',
+                null,
+                null,
+                false,
+            ],
+            'surrounding tabs retain current policy' => [
+                "\t1\t",
+                null,
+                null,
+                true,
+            ],
+            'trailing space' => [
+                '1 ',
+                null,
+                null,
+                false,
+            ],
+            'zero with default bounds' => [
+                '0',
+                null,
+                null,
+                true,
             ],
         ];
     }

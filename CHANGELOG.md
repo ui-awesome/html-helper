@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - chore: remove obsolete scaffold tooling and align package maintenance checks with PHP Forge conventions.
 - fix: preserve multibyte text when normalizing repeated line breaks.
+- fix: normalize `Stringable` values before integer and offset validation.
 
 ## 0.7.5 July 29, 2026
 

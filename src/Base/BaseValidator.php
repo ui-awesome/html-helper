@@ -50,16 +50,16 @@ abstract class BaseValidator
     {
         $min ??= 0;
 
+        if ($value instanceof Stringable) {
+            $value = (string) $value;
+        }
+
         if ($value === '') {
             return false;
         }
 
         if (is_int($value)) {
             return $value >= $min && ($max === null || $value <= $max);
-        }
-
-        if ($value instanceof Stringable) {
-            $value = (string) $value;
         }
 
         if ($value[0] === '+') {
@@ -91,6 +91,10 @@ abstract class BaseValidator
      */
     public static function offsetLike(float|int|string|Stringable $value): bool
     {
+        if ($value instanceof Stringable) {
+            $value = (string) $value;
+        }
+
         if (is_string($value) && str_ends_with($value, '%')) {
             $percentValue = substr($value, 0, -1);
 
