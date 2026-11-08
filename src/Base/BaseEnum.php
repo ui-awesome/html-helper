@@ -29,12 +29,6 @@ abstract class BaseEnum
      *
      * Applies {@see normalizeValue()} to each element.
      *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Enum::normalizeArray(['foo', Status::ACTIVE, 42]);
-     * // ['foo', 'active', 42]
-     * ```
-     *
      * @param mixed[] $values Array of enum instances or mixed values to normalize.
      *
      * @throws InvalidArgumentException if any value is not an enum, scalar, array, or `null`.
@@ -52,12 +46,6 @@ abstract class BaseEnum
      * Normalizes an array of enum values or mixed values to string representations.
      *
      * Applies {@see normalizeStringValue()} to each element.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Enum::normalizeStringArray(['foo', Status::ACTIVE, 42]);
-     * // ['foo', 'active', '42']
-     * ```
      *
      * @param mixed[] $values Array of enum instances or mixed values to normalize.
      *
@@ -77,12 +65,6 @@ abstract class BaseEnum
      *
      * Converts `null` to `null`, booleans to `true` or `false`, and arrays to `Array` for deterministic textual
      * output.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Enum::normalizeStringValue(Status::ACTIVE);
-     * // 'active'
-     * ```
      *
      * @param mixed $value Value to normalize.
      *
@@ -115,12 +97,6 @@ abstract class BaseEnum
      * Normalizes a single enum value to its scalar value or name.
      *
      * Returns the original value unchanged for non-enum input.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Enum::normalizeValue(Status::ACTIVE);
-     * // 'active'
-     * ```
      *
      * @param mixed $value Value to normalize.
      *

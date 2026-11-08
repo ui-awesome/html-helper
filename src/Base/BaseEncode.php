@@ -22,12 +22,6 @@ abstract class BaseEncode
      *
      * Encodes `&`, `<`, and `>` using `ENT_HTML5 | ENT_SUBSTITUTE`.
      *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Encode::content('<script>alert("XSS")</script>');
-     * // &lt;script&gt;alert("XSS")&lt;/script&gt;
-     * ```
-     *
      * @param string|Stringable $content Content to be encoded for safe HTML output.
      * @param bool $doubleEncode Whether to encode existing entities (default: `true`).
      * @param string $charset Character encoding to use (default: `UTF-8`).
@@ -46,12 +40,6 @@ abstract class BaseEncode
      * Encodes special characters into HTML entities for use as HTML tag quoted attribute values.
      *
      * Encodes `&`, `<`, `>`, `"`, and `'` using `ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES`.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Encode::value('O\'Reilly & <script>');
-     * // O&apos;Reilly &amp; &lt;script&gt;
-     * ```
      *
      * @param float|int|string|Stringable|null $value Attribute value to be encoded for safe HTML output.
      * @param bool $doubleEncode Whether to encode existing entities (default: `true`).

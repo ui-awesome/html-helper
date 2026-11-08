@@ -30,12 +30,6 @@ abstract class BaseNaming
      * Extracts the pattern portion from a regular expression literal, converting `\\x{...}` hex escapes to `\u`
      * notation. The optional delimiter may be inferred from the literal when not provided.
      *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Naming::convertToPattern('/^[a-z]+$/i');
-     * // '^[a-z]+$'
-     * ```
-     *
      * @param string $regexp Regular expression literal to convert (including delimiters and flags).
      * @param string|null $delimiter Optional delimiter character. If `null`, the delimiter is inferred from the
      * provided literal when possible.
@@ -88,12 +82,6 @@ abstract class BaseNaming
      * Returns the original name if it already ends with `[]`, otherwise appends `[]` to make it arrayable for tabular
      * or multiple-value inputs.
      *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Naming::generateArrayableName('tags');
-     * // 'tags[]'
-     * ```
-     *
      * @param string $name Base property name.
      *
      * @return string Arrayable property name.
@@ -107,12 +95,6 @@ abstract class BaseNaming
      * Generate a unique identifier suitable for use as an HTML `id` attribute.
      *
      * Uses a lightweight unique prefixing strategy appropriate for template generation and helper utilities.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Naming::generateId('field-');
-     * // 'field-...'
-     * ```
      *
      * @param string $prefix Prefix to prepend to the generated identifier.
      *
@@ -128,12 +110,6 @@ abstract class BaseNaming
      *
      * Produces a deterministic id by lowercasing the generated input name and replacing array and bracket characters
      * with hyphens, ensuring the result is suitable for use as an HTML `id` attribute.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Naming::generateInputId('User', 'email');
-     * // 'user-email'
-     * ```
      *
      * @param string $formModel Form model name (may be empty for non-tabular inputs).
      * @param string $property Property name or complex property notation (for example `items[0][name]`).
@@ -156,12 +132,6 @@ abstract class BaseNaming
      *
      * Builds a form input `name` value from a form model and a property. Supports arrayable properties and tabular
      * inputs by parsing property prefixes and suffixes.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Naming::generateInputName('User', 'email');
-     * // 'User[email]'
-     * ```
      *
      * @param string $formModel Name of the form model (may be empty for simple inputs).
      * @param string $property Property name or complex property notation.
@@ -197,12 +167,6 @@ abstract class BaseNaming
      *
      * Extracts the short portion of a fully-qualified class name and optionally returns it as a class constant
      * reference (`ShortName::class`). Optionally lowercases the input before extraction.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Naming::getShortNameClass('App\\Model\\User');
-     * // 'User::class'
-     * ```
      *
      * @param string $class Fully-qualified class name.
      * @param bool $suffix Whether to append `::class` to the returned short name (default: `true`).

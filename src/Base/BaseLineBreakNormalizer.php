@@ -20,12 +20,6 @@ abstract class BaseLineBreakNormalizer
      * Returns `''` when `$content` is `null` or `''`. Preserves single line breaks, including `\n` and `\r\n`.
      * For invalid UTF-8, collapses repeated ASCII line breaks and preserves other bytes.
      *
-     * Usage example:
-     * ```php
-     * $normalized = \UIAwesome\Html\Helper\LineBreakNormalizer::normalize("Hello\r\n\r\nWorld");
-     * // "Hello\nWorld"
-     * ```
-     *
      * @param string|null $content Text to normalize. Pass `null` or `''` to return `''`.
      *
      * @return string Normalized text with repeated line break groups collapsed.

@@ -34,12 +34,6 @@ abstract class BaseValidator
      *
      * Returns `true` only for non-empty integer input within bounds.
      *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Validator::intLike('42', 0, 100);
-     * // `true`
-     * ```
-     *
      * @param int|string|Stringable $value Value to validate as integer-like.
      * @param int|null $min Minimum allowed value (inclusive). If `null`, minimum is zero.
      * @param int|null $max Optional maximum allowed value (inclusive). If `null`, no upper bound is enforced.
@@ -79,12 +73,6 @@ abstract class BaseValidator
      * If the value is a string that ends with '%', the numeric part is validated as a non-negative number not greater
      * than '100'. Otherwise, the value is validated as a non-negative number not greater than '1'.
      *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Validator::offsetLike('50%');
-     * // `true`
-     * ```
-     *
      * @param float|int|string|Stringable $value Value to validate.
      *
      * @return bool `true` if the value matches the accepted format and bounds, `false` otherwise.
@@ -109,11 +97,6 @@ abstract class BaseValidator
      *
      * Normalizes the provided value and allowed list, and checks strict membership. If the value is empty or `null`,
      * validation passes.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Validator::oneOf('admin', ['admin', 'editor', 'viewer'], 'role');
-     * ```
      *
      * @param int|string|Stringable|UnitEnum|null $value Value to validate.
      * @param list<scalar|UnitEnum|null> $allowed List of allowed values for validation.
@@ -152,12 +135,6 @@ abstract class BaseValidator
      * Validates whether a value is a positive numeric value within a specified range.
      *
      * Returns `true` only for non-negative numeric input within bounds.
-     *
-     * Usage example:
-     * ```php
-     * \UIAwesome\Html\Helper\Validator::positiveLike('1.0', 0.0, 1.0);
-     * // `true`
-     * ```
      *
      * @param float|int|string|Stringable $value Value to validate as positive numeric.
      * @param float|null $min Minimum allowed value (inclusive). Defaults to '0.0'. If provided and less than '0.0', it
