@@ -3,7 +3,7 @@
     <picture>
         <img src="https://raw.githubusercontent.com/ui-awesome/.github/refs/heads/main/logo/ui_awesome.png" alt="UI Awesome" width="25%">
     </picture>
-    <h1 align="center">Html Helper</h1>
+    <h1 align="center">HTML Helper</h1>
     <br>
 </p>
 <!-- markdownlint-enable MD041 -->
@@ -24,24 +24,26 @@
 </p>
 
 <p align="center">
-    <strong>A powerful PHP library to simplify HTML element creation</strong><br>
-    <em>Generate attributes, encode content, sanitize HTML, and manage CSS classes with ease.</em>
+    <strong>Framework-independent helpers for HTML output in PHP</strong><br>
+    <em>Render attributes, encode content, manage CSS classes, and normalize form names and templates.</em>
 </p>
 
-## ✨ Features
+## Features
 
 <picture>
-    <source media="(max-width: 767px)" srcset="./docs/svgs/features-mobile.svg">
-    <img src="./docs/svgs/features.svg" alt="Feature Overview" style="width: 100%;">
+    <source media="(min-width: 768px)" srcset="./docs/svgs/features.svg">
+    <img src="./docs/svgs/features-mobile.svg" alt="Feature Overview" style="width: 100%;">
 </picture>
 
-### 📦 Installation
+## Quick start
+
+### Installation
 
 ```bash
 composer require ui-awesome/html-helper:^0.7
 ```
 
-### ⚡ Quick start
+### Basic usage
 
 #### Attribute key normalization
 
@@ -164,7 +166,7 @@ echo Encode::content($user);
 
 #### Rendering HTML attributes
 
-Use `Attributes::render()` to generate a safe, escaped HTML attribute string from an array. It automatically handles `class` arrays, `style` arrays, and `data-*` expansions.
+Use `Attributes::render()` to generate an escaped HTML attribute string from an array. It automatically handles `class` arrays, `style` arrays, and `data-*` expansions.
 
 ```php
 <?php
@@ -216,15 +218,17 @@ $attributes = [
 
 // Get raw values (encode: `false`)
 $rawAttributes = Attributes::normalizeAttributes($attributes, encode: false);
-// [
-//    'class' => 'icon btn-primary',
-//    'data-config' => '{"key":"<val>"}'
-//    'title' => '<Safe Title>',
-// ]
+// ['class' => 'icon btn-primary', 'data-config' => '{"key":"<val>"}', 'title' => '<Safe Title>']
 
 // Perfect for DOMDocument
 foreach ($rawAttributes as $name => $value) {
-    // DOMDocument handles the escaping automatically here
+    // Boolean attributes are represented by their presence.
+    if ($value === true) {
+        $domElement->setAttribute($name, $name);
+        continue;
+    }
+
+    // DOMDocument handles the escaping automatically here.
     $domElement->setAttribute($name, $value);
 }
 ```
@@ -256,7 +260,7 @@ echo $attributes['class'];
 
 #### Encoding
 
-Ensures your content and attribute values are safe from XSS.
+Encodes HTML text and quoted attribute values. Encoding does not validate URL schemes or sanitize JavaScript or CSS.
 
 ```php
 <?php
@@ -278,7 +282,7 @@ echo Encode::value('Name "Quote"');
 
 #### Enum normalization
 
-Normalizes values against a predefined set, supporting both arrays and Enums.
+Normalizes enum values and arrays without validating them against an allowed set. Use `Validator::oneOf()` for allowed-value validation.
 
 ```php
 <?php
@@ -396,14 +400,33 @@ $isOffsetValid = Validator::offsetLike('50%');
 // true
 ```
 
-## 📖 Documentation
+## Documentation
 
-For detailed configuration options and advanced usage.
+Practical guides for framework-independent HTML helpers and their development checks.
 
-- 💡 [Usage Examples](docs/examples.md)
-- 🧪 [Testing Guide](docs/testing.md)
+- 📚 [Installation guide](docs/installation.md)
+- 💡 [Usage examples](docs/examples.md)
+- 🧪 [Testing guide](docs/testing.md)
+- 🔄 [Upgrade guide](UPGRADE.md)
 
-## 📋 Package information
+The documentation site imports the [guides](https://yii2-framework.github.io/docs/extensions/html-helper/) and generates
+an [API reference](https://yii2-framework.github.io/docs/extensions/html-helper/reference/) from the PHPDoc in `src/`.
+
+## AI assistance
+
+AI agents: read the [documentation index](https://yii2-framework.github.io/docs/llms.txt) and fetch the Markdown version
+of a page by appending `index.md` to its URL. The
+[AI agents guide](https://yii2-framework.github.io/docs/project/ai-agents/) covers skill installation, client setup and
+verification.
+
+- 🤖 [`ui-awesome-html-helper` skill](docs/agents.md): attribute rendering, context-aware encoding, CSS classes,
+  form naming and template composition.
+
+Match the installed package revision. If hosted documentation does not match or is unavailable, use the
+[repository guides](#documentation), the [skill source](skills/ui-awesome-html-helper/SKILL.md), the source PHPDoc and
+the [changelog](CHANGELOG.md). This package is framework-independent; no Yii application skill is required.
+
+## Package information
 
 [![PHP](https://img.shields.io/badge/%3E%3D8.3-777BB4.svg?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/releases/8.3/en.php)
 [![Latest Stable Version](https://img.shields.io/packagist/v/ui-awesome/html-helper.svg?style=for-the-badge&logo=packagist&logoColor=white&label=Stable)](https://packagist.org/packages/ui-awesome/html-helper)
@@ -416,10 +439,16 @@ For detailed configuration options and advanced usage.
 [![Quality](https://img.shields.io/github/actions/workflow/status/ui-awesome/html-helper/quality.yml?style=for-the-badge&label=Quality&logo=github)](https://github.com/ui-awesome/html-helper/actions/workflows/quality.yml)
 [![StyleCI](https://img.shields.io/badge/StyleCI-Passed-44CC11.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.styleci.io/repos/767410135?branch=main)
 
-## 🌐 Our social networks
+## Our social networks
 
 [![Follow on X](https://img.shields.io/badge/-Follow%20on%20X-1DA1F2.svg?style=for-the-badge&logo=x&logoColor=white&labelColor=000000)](https://x.com/Terabytesoftw)
 
-## 📄 License
+## Built with AI
+
+[![Built with Claude Code](https://img.shields.io/badge/Built%20with-Claude%20Code-D97757.svg?style=for-the-badge&logo=claude&logoColor=white)](https://claude.com/claude-code)
+[![Built with Codex](https://img.shields.io/badge/Built%20with-Codex-10A37F.svg?style=for-the-badge&logo=openaigym&logoColor=white)](https://openai.com/codex)
+[![Reviewed by CodeRabbit](https://img.shields.io/badge/Reviewed%20by-CodeRabbit-FF570A.svg?style=for-the-badge&logo=coderabbit&logoColor=white)](https://www.coderabbit.ai)
+
+## License
 
 [![License](https://img.shields.io/badge/License-BSD--3--Clause-brightgreen.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white&labelColor=555555)](LICENSE)

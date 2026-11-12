@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: preserve multibyte text when normalizing repeated line breaks.
 - fix: normalize `Stringable` values before integer and offset validation.
 - docs: remove usage examples from docblocks across multiple files.
+- docs: standardize the `README.md` and add a portable HTML Helper skill with installation guidance.
 
 ## 0.7.5 July 29, 2026
 

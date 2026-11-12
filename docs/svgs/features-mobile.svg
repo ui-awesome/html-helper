@@ -18,7 +18,7 @@
         <rect class="box-bg" x="16" y="116" width="588" height="84" rx="6"/>
         <rect x="16" y="116" width="4" height="84" fill="#1f883d"/>
         <text class="title" x="32" y="142">Attribute Rendering</text>
-        <text class="content" x="32" y="166">Safe render() output &#8226; class, style, data and ARIA expansion</text>
+        <text class="content" x="32" y="166">Escaped render() output &#8226; class, style, data and ARIA expansion</text>
         <text class="content" x="32" y="184">Raw normalizeAttributes() mode for DOM and SVG builders</text>
     </g>
     <g>

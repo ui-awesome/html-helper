@@ -135,7 +135,7 @@ use UIAwesome\Html\Helper\Encode;
 $userInput = '<script>alert("xss")</script>';
 
 echo '<p>' . Encode::content($userInput) . '</p>';
-// <p>&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;</p>
+// <p>&lt;script&gt;alert("xss")&lt;/script&gt;</p>
 ```
 
 ### Encode a value for a quoted HTML attribute

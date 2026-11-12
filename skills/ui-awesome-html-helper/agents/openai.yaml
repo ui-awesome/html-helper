@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Awesome HTML Helper"
+  short_description: "Render attributes and encode HTML by context"
+  default_prompt: "Use $ui-awesome-html-helper to render attributes and encode content for the correct HTML context."
