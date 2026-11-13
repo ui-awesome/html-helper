@@ -436,7 +436,7 @@ the [changelog](CHANGELOG.md). This package is framework-independent; no Yii app
 
 [![PHPStan Level Max](https://img.shields.io/badge/PHPStan-Level%20Max-4F5D95.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ui-awesome/html-helper/actions/workflows/static.yml)
 [![Quality](https://img.shields.io/github/actions/workflow/status/ui-awesome/html-helper/quality.yml?style=for-the-badge&label=Quality&logo=github)](https://github.com/ui-awesome/html-helper/actions/workflows/quality.yml)
-[![StyleCI](https://img.shields.io/badge/StyleCI-Passed-44CC11.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.styleci.io/repos/767410135?branch=main)
+[![StyleCI](https://img.shields.io/badge/StyleCI-Passing-44CC11.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.styleci.io/repos/767410135?branch=main)
 
 ## Security
 
