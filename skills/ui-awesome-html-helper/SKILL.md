@@ -1,6 +1,6 @@
 ---
 name: ui-awesome-html-helper
-description: Use when rendering HTML attributes, encoding content, managing CSS classes, or composing form names and templates with ui-awesome/html-helper in PHP applications.
+description: Use when rendering HTML attributes, encoding content, managing CSS classes, or composing form names and templates with ui-awesome/html-helper in PHP applications. Not for sanitizing untrusted HTML, validating URLs or scripts, or building tags and framework widgets.
 license: BSD-3-Clause
 metadata:
   guide: https://yii2-framework.github.io/docs/extensions/html-helper/
@@ -47,6 +47,10 @@ index only when the required page is unknown; do not load a complete API catalog
 
 ## Preserve helper contracts
 
+- `Attributes::render()` emits attributes in the package's priority order (`class`, `id`, `name`, `type`, ...), not
+  in insertion order. Assert against that order instead of reordering the input or the expected output.
+- Both `Encode` methods re-encode existing entities by default (`$doubleEncode = true`), so `&amp;` becomes
+  `&amp;amp;`. Pass `false` only for content that is already encoded on purpose.
 - `AttributeBag` modifies an array by reference. `set()` resolves a closure; `null`, including a closure returning
   `null`, removes the normalized key. `replace()` replaces the complete bag rather than merging it.
 - Prefixed boolean values such as `aria-expanded` are literal strings, not the same contract as HTML boolean attributes.
@@ -56,7 +60,8 @@ index only when the required page is unknown; do not load a complete API catalog
   its allowed values. Do not confuse class construction with arbitrary HTML rendering.
 - `Naming` supplies nested input names and IDs without requiring a Yii model. `convertToPattern()` strips regex
   delimiters/modifiers; verify browser pattern semantics rather than claiming PHP and HTML regexes are equivalent.
-- `Validator` methods differ: predicate methods return booleans, while allowed-value validation may throw. Verify the
+- `Validator` methods differ: predicate methods return booleans, while allowed-value validation may throw.
+  `Validator::oneOf()` accepts `null` and an empty string without checking the list; that is not a bug. Verify the
   installed signature, enum/Stringable normalization, bounds, and invalid-input behavior for the selected method.
 
 ## Verify the integration
