@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: normalize `Stringable` values before integer and offset validation.
 - docs: remove usage examples from docblocks across multiple files.
 - docs: standardize the `README.md` and add a portable HTML Helper skill with installation guidance.
+- docs: add a `Security` section with OpenSSF Scorecard and Zizmor badges and refine the HTML Helper skill scope.
 
 ## 0.7.5 July 29, 2026
 

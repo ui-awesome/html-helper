@@ -12,14 +12,14 @@
     <a href="https://github.com/ui-awesome/html-helper/actions/workflows/build.yml" target="_blank">
         <img src="https://img.shields.io/github/actions/workflow/status/ui-awesome/html-helper/build.yml?style=for-the-badge&label=PHPUnit&logo=github" alt="PHPUnit">
     </a>
+    <a href="https://codecov.io/github/ui-awesome/html-helper" target="_blank">
+        <img src="https://img.shields.io/codecov/c/github/ui-awesome/html-helper.svg?style=for-the-badge&logo=codecov&logoColor=white&label=Coverage" alt="Coverage">
+    </a>
     <a href="https://dashboard.stryker-mutator.io/reports/github.com/ui-awesome/html-helper/main" target="_blank">
         <img src="https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fui-awesome%2Fhtml-helper%2Fmain" alt="Mutation Testing">
     </a>
     <a href="https://github.com/ui-awesome/html-helper/actions/workflows/static.yml" target="_blank">
         <img src="https://img.shields.io/github/actions/workflow/status/ui-awesome/html-helper/static.yml?style=for-the-badge&label=PHPStan&logo=github" alt="PHPStan">
-    </a>
-    <a href="https://github.com/ui-awesome/html-helper/actions/workflows/security.yml" target="_blank">
-        <img src="https://img.shields.io/github/actions/workflow/status/ui-awesome/html-helper/security.yml?style=for-the-badge&label=Security&logo=github" alt="Security">
     </a>
 </p>
 
@@ -434,10 +434,14 @@ the [changelog](CHANGELOG.md). This package is framework-independent; no Yii app
 
 ## Project status
 
-[![Codecov](https://img.shields.io/codecov/c/github/ui-awesome/html-helper.svg?style=for-the-badge&logo=codecov&logoColor=white&label=Coverage)](https://codecov.io/github/ui-awesome/html-helper)
 [![PHPStan Level Max](https://img.shields.io/badge/PHPStan-Level%20Max-4F5D95.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ui-awesome/html-helper/actions/workflows/static.yml)
 [![Quality](https://img.shields.io/github/actions/workflow/status/ui-awesome/html-helper/quality.yml?style=for-the-badge&label=Quality&logo=github)](https://github.com/ui-awesome/html-helper/actions/workflows/quality.yml)
 [![StyleCI](https://img.shields.io/badge/StyleCI-Passed-44CC11.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.styleci.io/repos/767410135?branch=main)
+
+## Security
+
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/ui-awesome/html-helper/badge?style=for-the-badge)](https://scorecard.dev/viewer/?uri=github.com/ui-awesome/html-helper)
+[![Zizmor](https://img.shields.io/github/actions/workflow/status/ui-awesome/html-helper/security.yml?style=for-the-badge&label=Zizmor&logo=github)](https://github.com/ui-awesome/html-helper/actions/workflows/security.yml)
 
 ## Our social networks
 
