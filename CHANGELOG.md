@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - docs: update StyleCI badge in `README.md`.
 - docs: update StyleCI badge in `README.md` to use dynamic XML for real-time status.
+- docs: link README guides and feature images to their online sources.
 
 ## 0.7.6 November 13, 2026
 
