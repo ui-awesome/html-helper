@@ -31,8 +31,8 @@
 ## Features
 
 <picture>
-    <source media="(min-width: 768px)" srcset="./docs/svgs/features.svg">
-    <img src="./docs/svgs/features-mobile.svg" alt="Feature Overview" style="width: 100%;">
+    <source media="(min-width: 768px)" srcset="https://raw.githubusercontent.com/ui-awesome/html-helper/main/docs/svgs/features.svg">
+    <img src="https://raw.githubusercontent.com/ui-awesome/html-helper/main/docs/svgs/features-mobile.svg" alt="Feature Overview" style="width: 100%;">
 </picture>
 
 ## Quick start
@@ -404,26 +404,23 @@ $isOffsetValid = Validator::offsetLike('50%');
 
 Practical guides for framework-independent HTML helpers and their development checks.
 
-- 📚 [Installation guide](docs/installation.md)
-- 💡 [Usage examples](docs/examples.md)
-- 🧪 [Testing guide](docs/testing.md)
+- 📚 [Installation guide](https://github.com/ui-awesome/html-helper/blob/main/docs/installation.md)
+- 💡 [Usage examples](https://github.com/ui-awesome/html-helper/blob/main/docs/examples.md)
+- 🧪 [Testing guide](https://github.com/ui-awesome/html-helper/blob/main/docs/testing.md)
 - 🔄 [Upgrade guide](UPGRADE.md)
-
-The documentation site imports the [guides](https://yii2-framework.github.io/docs/extensions/html-helper/) and generates
-an [API reference](https://yii2-framework.github.io/docs/extensions/html-helper/reference/) from the PHPDoc in `src/`.
 
 ## AI assistance
 
 AI agents: read the [documentation index](https://yii2-framework.github.io/docs/llms.txt) and fetch the Markdown version
 of a page by appending `index.md` to its URL. The
-[AI agents guide](https://yii2-framework.github.io/docs/project/ai-agents/) covers skill installation, client setup and
-verification.
+[AI agents guide](https://github.com/yii2-framework/docs/blob/main/src/content/docs/project/ai-agents.md) covers skill
+installation, client setup and verification.
 
-- 🤖 [`ui-awesome-html-helper` skill](docs/agents.md): attribute rendering, context-aware encoding, CSS classes,
+- 🤖 [`ui-awesome-html-helper` skill](https://github.com/ui-awesome/html-helper/blob/main/docs/agents.md):
+  attribute rendering, context-aware encoding, CSS classes,
   form naming and template composition.
 
-Match the installed package revision. If hosted documentation does not match or is unavailable, use the
-[repository guides](#documentation), the [skill source](skills/ui-awesome-html-helper/SKILL.md), the source PHPDoc and
+See the [repository guides](#documentation), the [skill source](skills/ui-awesome-html-helper/SKILL.md), the source PHPDoc and
 the [changelog](CHANGELOG.md). This package is framework-independent; no Yii application skill is required.
 
 ## Package information
